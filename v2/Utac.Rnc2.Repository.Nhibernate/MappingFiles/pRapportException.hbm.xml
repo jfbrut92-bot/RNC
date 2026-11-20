@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<hibernate-mapping xmlns="urn:nhibernate-mapping-2.2" namespace="Utac.Rnc2.BusinessObjects" assembly="Utac.Rnc2.BusinessObjects">
+	<class name="Utac.Rnc2.BusinessObjects.pRapportException, Utac.Rnc2.BusinessObjects" table="p_rapport_exception" lazy="true">
+		<id name="Id" column="id_rapport_exception">
+		 	<generator class="native" />
+		</id>
+		<property name="CodAgremPl" column="cod_agrem_ind" />
+		<property name="CodReseau" column="cod_reseau" />
+		<property name="NomRapport" column="nom_rapport" />
+		<property name="DateDebutTransmissionPv" column="date_debut_transmission_pv" />
+		<property name="DateFinTransmissionPv" column="date_fin_transmission_pv" />
+		<property name="DateGenerationRapport" column="date_generation_rapport" />
+    <!-- eddy pour data > 32K -->
+    <!-- <property name="ImgFichier" column="img_fichier" type="Utac.Rnc2.Repository.Nhibernate.types.ImageWrapper, Utac.Rnc2.Repository.Nhibernate" /> -->
+    <property name="ImgFichier" column="img_fichier" lazy="true" update="false" type="BinaryBlob"/>
+    <!-- eddy à la main -->
+    <many-to-one name="RReseau" column="cod_reseau" class="rReseau" update="false" insert="false" />
+    <many-to-one name="PCentreEncour" column="id_centre_encours" class="pCentreEncour" />
+    <!--EG le 27/02/2012 -->
+    <property name="CodUtilisateurTelechargement" column="cod_utilisateur_telechargement" />
+    <property name="DateTelechargementRapport" column="date_telechargement_rapport" />
+	</class>
+</hibernate-mapping>
+

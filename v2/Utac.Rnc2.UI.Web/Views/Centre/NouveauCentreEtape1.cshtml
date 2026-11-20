@@ -1,0 +1,48 @@
+﻿@model Utac.Rnc2.UI.Web.Models.NouveauCentreModel
+
+@section TitleContent {
+    Création d'un nouveau centre
+}
+@section SousTitrePage {
+    Création d'un nouveau Centre Spécialisé ou d'une Installation Auxiliaire
+}
+<form method="post" action="@Url.Action( "NouveauCentreEtape0","Centre", new {centreAdministration = Model.EstCentreAdministration})">
+    @Html.HiddenFor(m => m.EstCentreAdministration)
+    @Html.HiddenFor(m => m.TypeCentre)
+    <input type="submit" value="<   Précédent" class="btn success" />
+</form>
+<h2>Etape 1 : Sélectionnez le type d'installation ?</h2>
+@using (Html.BeginForm("NouveauCentreEtape2", "Centre"))
+{
+    @:Centre Spécialisé :
+    if (Model.TypeCentre == "S" || Model.TypeCentre == null)
+    {
+        @Html.RadioButtonFor(m => m.TypeCentre, "S", new { @checked = "checked" })
+    }
+    else
+    {
+        @Html.RadioButtonFor(m => m.TypeCentre, "S")
+    }
+    if (!Model.EstCentreAdministration)
+    {
+        <br />
+        <br />
+        @:Installation Auxiliaire :
+        if (Model.TypeCentre == "A")
+        {
+            @Html.RadioButtonFor(m => m.TypeCentre, "A", new { @checked = "checked", @disabled = "disabled" })
+        }
+        else
+        {
+            @Html.RadioButtonFor(m => m.TypeCentre, "A", new { @disabled = "disabled" })
+        }
+    }
+    @Html.HiddenFor(m => m.EstCentreAdministration)
+    <br />
+    <br />
+    <button type="submit" value="Suivant" class="btn success">Suivant&nbsp;&nbsp;&nbsp;&gt;</button>
+    <div class="avertissement">
+        Plus aucun agrément d’installation auxiliaire n’est délivré en application des dispositions du code de la route.<br />
+        Les agréments des installations auxiliaires sont tous annulés suite à leur cessation d’activité ou en application du Décret n° 2012-1145 du 10 octobre 2012.
+    </div>
+}

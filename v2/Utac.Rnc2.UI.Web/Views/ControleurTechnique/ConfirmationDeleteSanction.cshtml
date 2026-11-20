@@ -1,0 +1,22 @@
+﻿@model Utac.Rnc2.BusinessObjects.pSanctionControleur
+
+@section TitleContent {
+    ConfirmationDeleteSanction
+}
+@section SousTitrePage {
+    Confirmation de suppression d'une sanction
+}
+<h3>Centre: @Model.PContoleurEncour.Nom - @Model.PContoleurEncour.CodAgremVl @Model.PContoleurEncour.CodAgremPl @Model.PContoleurEncour.CodAgremCl</h3>
+<br />
+Attention veuillez confirmer la suppression de la sanction
+@Model.RTypeSanctionControleur.Libelle du : @String.Format("{0:d}", Model.DateDebut) en cliquant sur le lien ci-dessous. Pour revenir à la liste des sanctions cliquez
+@Html.ActionLink("ici", "ListeSanctions", new { id = Model.PContoleurEncour.Id })
+<form method="post" action="@Url.Action("DeleteSanction")">
+    <input type="hidden" name="id" value="@Model.Id" />
+    <br />
+    <div class="row">
+        <input type="submit" value="Confirmer" class="btn primary" />
+        <a class="btn success" href="@Url.Action("ListeSanctions","ControleurTechnique", new { id = Model.PContoleurEncour.Id})">Retour à la liste des sanctions</a>
+        <a class="btn cancel" href="@Url.Action("Fiche","ControleurTechnique", new { id = Model.PContoleurEncour.Id})">Retour à la fiche</a>
+    </div>
+</form>

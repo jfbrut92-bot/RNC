@@ -1,0 +1,221 @@
+﻿@model Utac.Rnc2.UI.Web.Models.UtilisateurListeModel
+@using Utac.Rnc2.BusinessObjects
+
+@section TitleContent {
+    Utilisateurs
+}
+@section SousTitrePage {
+    Gestion des Utilisateurs
+}
+<div id="filtre">
+    @using (Html.BeginForm("AppliquerFiltre", "Utilisateurs", FormMethod.Post))
+    {
+        @Html.ValidationSummary(true)
+        <fieldset>
+            <legend>Sélectionner le profil de l'utilisateur et saisisser un critère de filtre.</legend>
+            <div class="row">
+                <div class="floatLeft first">
+                    @Html.Label("Profil")
+                    <div class="input">
+                        @Html.DropDownListFor(model => model.filtre.ProfilId, new SelectList(Model.listeProfil, "Id", "LibelleProfil", Model.filtre != null ? Model.filtre.ProfilId : 0))
+                        @Html.ValidationMessageFor(model => model.filtre.ProfilId)
+                    </div>
+                </div>
+                <div id="idDivDepartement" class="floatLeft">
+                    @Html.Label("Département")
+                    <div class="input">
+                        @Html.TextBoxFor(model => model.filtre.CodeDepartement, new { Size = 3, Maxlength = 3 })
+                        @Html.ValidationMessageFor(model => model.filtre.CodeDepartement)
+                    </div>
+                </div>
+                <div id="idDivRegion" class="floatLeft">
+                    @Html.Label("Région")
+                    <div class="input">
+                        @Html.DropDownListFor(model => model.filtre.RegionId, new SelectList(Model.listeRegion, "Id", "LibelleRegion", Convert.ToString(Model.filtre != null ? Model.filtre.RegionId : 0)))
+                        @Html.ValidationMessageFor(model => model.filtre.RegionId)
+                    </div>
+                </div>
+                <div id="idDivReseau" class="floatLeft">
+                    @Html.Label("Réseau")
+                    <div class="input">
+                        <!--@Html.DropDownListFor(model => model.filtre.CodeReseau, new SelectList(Model.listeReseau, "Id", "ReseauAvecLettreEtCategorie", Model.filtre != null ? Model.filtre.CodeReseau : "0"))-->
+                        @Html.DropDownListFor(model => model.filtre.CodeReseau, new SelectList(Model.listeReseau, "Id", "ReseauAvecLettreEtCategorie", "0"))
+                        @Html.ValidationMessageFor(model => model.filtre.CodeReseau)
+                    </div>
+                </div>
+                <div id="idDivCatVeh"  class="floatLeft">
+                    @Html.Label("Cat.Véhicule")
+                    <div class="input">
+                        @Html.DropDownListFor(model => model.filtre.CategorieVehicule, new SelectList(Model.listeCategorieVehicule, Model.filtre != null ? Model.filtre.CategorieVehicule : ""))
+                        @Html.ValidationMessageFor(model => model.filtre.CategorieVehicule)
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="floatLeft first">
+                    @Html.Label("Nom de l'utilisateur")
+                    <div class="input">
+                        @Html.TextBoxFor(model => model.filtre.Nom, new { Maxlength = 20 })
+                        @Html.ValidationMessageFor(model => model.filtre.Nom)
+                    </div>
+                </div>
+                <div class="floatLeft">
+                    @Html.Label("Identifiant")
+                    <div class="input">
+                        @Html.TextBoxFor(model => model.filtre.Identifiant, new { Maxlength = 20 })
+                        @Html.ValidationMessageFor(model => model.filtre.Identifiant)
+                    </div>
+                </div>
+                <div class="floatLeft">
+                    @Html.Label("Identifiant provisoire")
+                    <div class="input">
+                        @Html.CheckBoxFor(model => model.filtre.LoginProvisoire)
+                        @Html.ValidationMessageFor(model => model.filtre.LoginProvisoire)
+                    </div>
+                </div>
+                <div class="floatLeft" style="margin-top:10px">
+                    <input type="submit" value="Appliquer" class="btn primary" />
+                    @Html.ActionLink("Effacer le filtre", "DeleteFilter", null, null, new { @class = "btn success" })
+                </div>
+            </div>
+        </fieldset>
+    }
+</div>
+<div id="liste_utilisateur">
+    @if (Model != null && Model.filtre != null)
+    {
+        if (Model.filtre.ProfilId != 4)
+        {
+            @Html.ActionLink("+ Ajouter un utilisateur de profil " + Model.profilFiltre.LibelleProfil, "Ajouter",
+                new { profilId = Model.profilFiltre.Id, codeDepartement = Model.filtre.CodeDepartement, idRegion = Model.filtre.RegionId })
+
+            if (User.IsInRole(rUtilisateur.Profil.OTC_Administration.ToString()) && (Model.filtre.ProfilId.Equals(rProfil.CodeProfil.PIV.GetHashCode()) || Model.filtre.ProfilId.Equals(rProfil.CodeProfil.OTC.GetHashCode())))
+            {
+                @:|
+                @Html.ActionLink("Synchroniser les utilisateurs de profil " + Model.profilFiltre.LibelleProfil + " avec le site réquisition online ...", "SynchroniseAllUsersWithDatabaseRequisition",
+                    new { profilId = Model.profilFiltre.Id })
+            }
+        }
+        else
+        {
+            <span>+Ajouter un utilisateur de profil :</span>
+            @(Html.ActionLink(Model.profilFiltre.LibelleProfil + " VL",
+                     "Ajouter",
+                     new { profilId = Model.profilFiltre.Id, typeCentre = "VL" }))
+            @:|
+            @(Html.ActionLink(Model.profilFiltre.LibelleProfil + " PL",
+                    "Ajouter",
+                    new { profilId = Model.profilFiltre.Id, typeCentre = "PL" }))
+            @:|
+            @(Html.ActionLink(Model.profilFiltre.LibelleProfil + " CL", "Ajouter", new { profilId = Model.profilFiltre.Id, typeCentre = "CL" }))
+        }
+        <table>
+            <tr>
+                <th>
+                    Nom / prénom
+                </th>
+                @if (Model.filtre.ProfilId == 1 || Model.filtre.ProfilId == 5)
+                {
+                    <th>Sous profil</th>
+                }
+                @if (Model.filtre.ProfilId == 5)
+                {
+                    <th>Réseau(x)</th>
+                }
+                @if (Model.filtre.ProfilId == 4)
+                {
+                    <th>Agrem.</th>
+                }
+                @if (Model.filtre.ProfilId == 2)
+                {
+                    <th>Dept.</th>
+                }
+                @if (Model.filtre.ProfilId == 3)
+                {
+                    <th>Reg.</th>
+                }
+                <th>Tel.</th>
+                <th>Email</th>
+                <th>Identifiant</th>
+                <th>Actif</th>
+                <th>Bloqué</th>
+                @if (Model.filtre.ProfilId == 4)
+                {
+                    <th>Prov.</th>
+                    <th>Date création<br />compte</th>
+                }
+                <th>Date/heure dernier<br />accès</th>
+            </tr>
+            @{ int rowNum = 0; }
+            @foreach (var item in Model.liste)
+            {
+                rowNum++;
+                <tr class="@(rowNum%2 != 1 ?" row1":"row2")">
+                    <td style="white-space: nowrap;">
+                        @if (item.Nom == null)
+                        {
+                            @Html.ActionLink("Détail", "Edit", new { id = item.Id })
+                        }
+                        else
+                        {
+                            @Html.ActionLink(item.Nom + " " + item.Prenom, "Edit", new { id = item.Id })
+                        }
+                    </td>
+                    @if (Model.filtre.ProfilId == 1 || Model.filtre.ProfilId == 5)
+                    {
+                        <td>@item.RProfil2.LibelleProfil</td>
+                    }
+                    @if (Model.filtre.ProfilId == 5)
+                    {
+                        <td>
+                            @if (item.RReseaux != null)
+                            {
+                                foreach (rReseau r in item.RReseaux)
+                                {
+                                    <span>@r.ReseauAvecLettreEtCategorieSeuls |</span>
+                                }
+                            }
+                        </td>
+                    }
+                    @if (Model.filtre.ProfilId == 4)
+                    {
+                        <td style="white-space:nowrap">
+                            @(item.PCentreEncourVL != null ? item.PCentreEncourVL.CodAgremVl + "(VL)" : "")
+                            @(item.PCentreEncourPL != null ? item.PCentreEncourPL.CodAgremPl + "(PL)" : "")
+                            @(item.PCentreEncourCL != null ? item.PCentreEncourCL.CodAgremCl + "(CL)" : "")
+                        </td>
+                    }
+                    @if (Model.filtre.ProfilId == 2)
+                    {
+                        <td>@(item.RPrefecture != null ? item.RPrefecture.CodDepartement : "Erreur")</td>
+                    }
+                    @if (Model.filtre.ProfilId == 3)
+                    {
+                        <td>@item.RRegion.LibelleRegion</td>
+                    }
+                    <td>@item.NumTel</td>
+                    <td>@item.Email</td>
+                    <td>@item.Id</td>
+                    <td>@item.ActifAsString</td>
+                    <td>@item.BloqueAsString</td>
+                    @if (Model.filtre.ProfilId == 4)
+                    {
+                        <td>@(item.MotDePasseTemporaire == null ? "non" : "oui")</td>
+                        <td>@String.Format("{0:d}", item.DateCrea)</td>
+                    }
+                    <td>@String.Format("{0:g}", item.DateDerniereConnection)</td>
+                </tr>
+            }
+        </table>
+    }
+</div>
+
+@if (Model != null && Model.filtre != null)
+{
+<script type="text/javascript">
+        document.getElementById("filtre_CodeReseau").value=@Html.Raw('"' + Model.filtre.CodeReseau + '"');
+</script>
+}
+@section JavaScriptContent {
+    @Scripts.Render("~/scripts/utilisateurs")
+}

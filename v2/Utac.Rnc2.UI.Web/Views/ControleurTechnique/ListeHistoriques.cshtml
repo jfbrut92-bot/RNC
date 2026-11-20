@@ -1,0 +1,37 @@
+﻿@model Utac.Rnc2.BusinessObjects.pContoleurEncour
+
+@section TitleContent {
+    Historique de la fiche du  @Model.Titre @Model.Nom @Model.Prenom
+}
+@section SousTitrePage {
+    Historique de la fiche du  @Model.Titre @Model.Nom @Model.Prenom
+}
+<table>
+    <tr>
+        <th>Date</th>
+        <th>Motif</th>
+        <th>Centre VL</th>
+        <th>Agrément VL</th>
+        <th>Centre CL</th>
+        <th>Agrément CL</th>
+        <th>Centre PL</th>
+        <th>Agrément PL</th>
+    </tr>
+    @{ var i = 0; }
+    @foreach (var item in Model.PControleurHistoriques.OrderByDescending(h => h.DateHisto))
+    {
+<tr class="@(i % 2 == 0 ? " row1" : "row2")">
+    <td>@Html.ActionLink(string.Format("{0:g}", item.DateHisto), "FicheHisto", new { id = Model.Id, dateHisto = item.DateHisto }) </td>
+    <td>@item.RTypeDemandeControleur.Libelle</td>
+    <td>@item.CodAgremRattachementVl</td>
+    <td>@item.CodAgremVl</td>
+    <td>@item.CodAgremRattachementCl</td>
+    <td>@item.CodAgremCl</td>
+    <td>@item.CodAgremRattachementPl</td>
+    <td>@item.CodAgremPl</td>
+</tr>
+        i++;
+    }
+</table>
+<br />
+@Html.ActionLink("Retour à la fiche", "Fiche", new { id = Model.Id })

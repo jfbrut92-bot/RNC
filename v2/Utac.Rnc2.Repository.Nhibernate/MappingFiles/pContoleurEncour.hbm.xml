@@ -1,0 +1,132 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<hibernate-mapping xmlns="urn:nhibernate-mapping-2.2" namespace="Utac.Rnc2.BusinessObjects" assembly="Utac.Rnc2.BusinessObjects">
+	<class name="Utac.Rnc2.BusinessObjects.pContoleurEncour, Utac.Rnc2.BusinessObjects" table="p_contoleur_encours" lazy="true">
+		
+    <id name="Id" column="id_controleur_encours" unsaved-value="0">
+      <generator class="identity">
+        
+      </generator>
+		</id>
+
+		<property name="Nom" column="nom"  />
+		<property name="Prenom" column="prenom" />
+		<property name="DateNaissance" column="date_naissance" />
+		<property name="CodAgremRattachementVl" column="cod_agrem_rattachement_vl" />
+		<property name="CodAgremRattachementPl" column="cod_agrem_rattachement_pl" />
+		<property name="DateDebutRattachementVl" column="date_debut_rattachement_vl" />
+		<property name="DateDebutRattachementPl" column="date_debut_rattachement_pl" />
+		<property name="DateFinRattachementVl" column="date_fin_rattachement_vl" />
+		<property name="DateFinRattachementPl" column="date_fin_rattachement_pl" />
+		<property name="DateEffetNotificationVl" column="date_effet_notification_vl" />
+		<property name="DateEffetNotificationPl" column="date_effet_notification_pl" />
+		<property name="CodAgremVl" column="cod_agrem_vl" />
+		<property name="CodAgremPl" column="cod_agrem_pl" />
+		<property name="DateFinAgrementVl" column="date_fin_agrement_vl" />
+		<property name="DateFinAgrementPl" column="date_fin_agrement_pl" />
+		<property name="MotifFinAgrementVl" column="motif_fin_agrement_vl" />
+		<property name="MotifFinAgrementPl" column="motif_fin_agrement_pl" />
+		<property name="EtatAgrementVl" column="etat_agrement_vl" />
+		<property name="EtatAgrementPl" column="etat_agrement_pl" />
+		<property name="AvisOtcVl" column="avis_otc_vl" />
+		<property name="AvisOtcPl" column="avis_otc_pl" />
+		<property name="ReferenceAvisOtcVl" column="reference_avis_otc_vl" />
+		<property name="ReferenceAvisOtcPl" column="reference_avis_otc_pl" />
+		<property name="DateAvisOtcVl" column="date_avis_otc_vl" />
+		<property name="DateAvisOtcPl" column="date_avis_otc_pl" />
+		<property name="CommentaireAvisOtcVl" column="commentaire_avis_otc_vl" />
+		<property name="CommentaireAvisOtcPl" column="commentaire_avis_otc_pl" />
+		<property name="DateDebutHabilitationPl" column="date_debut_habilitation_pl" />
+		<property name="CodDepartement" column="cod_departement" />
+		<property name="NumOrdrePl" column="num_ordre_pl" />
+		<property name="NumOrdreVl" column="num_ordre_vl" />
+		<property name="DateMiseaJour" column="date_mise_a_jour" />
+    <!-- EG le 17/10/2011 -->
+    <property name="EstPrestataire" column="est_prestataire" />
+		<many-to-one name="RHabilitation" column="cod_habilitation" class="rHabilitation" />
+		<many-to-one name="RPrefecture" column="id_prefecture" class="rPrefecture" />
+		<many-to-one name="RTypeDemandeControleur" column="cod_type_demande_cntlr" class="rTypeDemandeControleur" />
+		<many-to-one name="RUtilisateur" column="cod_utilisateur" class="rUtilisateur" />
+		<many-to-one name="PCentreEncourPL" column="id_centre_pl" class="pCentreEncour" not-null="false"/>
+		<many-to-one name="PCentreEncourVL" column="id_centre_vl" class="pCentreEncour" not-null="false" />
+		<bag name="PAmendeControleurs" lazy="true" cascade="all-delete-orphan" inverse="true" >
+			<key column="id_controleur_encours"></key>
+			<one-to-many class="pAmendeControleur"></one-to-many>
+		</bag>
+		<bag name="PCumulActivitePlControleurs" lazy="true" cascade="all" inverse="true" >
+			<key column="id_controleur_encours"></key>
+			<one-to-many class="pCumulActivitePlControleur"></one-to-many>
+		</bag>
+		<bag name="PSanctionControleurs" lazy="true" cascade="all-delete-orphan" inverse="true" >
+			<key column="id_controleur_encours"></key>
+			<one-to-many class="pSanctionControleur"></one-to-many>
+		</bag>
+    <!-- EG le 13/07/2011 pour la prise en compte du CL -->
+    <many-to-one name="PCentreEncourCL" column="id_centre_cl" class="pCentreEncour" not-null="false" />
+    <property name="CodAgremRattachementCl" column="cod_agrem_rattachement_cl" />
+    <property name="DateDebutRattachementCl" column="date_debut_rattachement_cl" />
+    <property name="DateFinRattachementCl" column="date_fin_rattachement_cl" />
+    <property name="DateEffetNotificationCl" column="date_effet_notification_cl" />
+    <property name="CodAgremCl" column="cod_agrem_cl" />
+    <property name="DateFinAgrementCl" column="date_fin_agrement_cl" />
+    <property name="MotifFinAgrementCl" column="motif_fin_agrement_cl" />
+    <property name="EtatAgrementCl" column="etat_agrement_cl" />
+    <property name="CommentaireAvisOtcCl" column="commentaire_avis_otc_cl" />
+    <property name="NumOrdreCl" column="num_ordre_cl" />
+    <!-- EG le 16/09/2011 -->
+    <property name="HabilitationGazVL" column="habilitation_gaz_vl" />
+    <property name="DateDebutFinHabilitationGazVL" column="date_debut_habilitation_gaz_vl" />
+    <!-- EG le 29/09/2011 -->
+    <bag name="PAuditControleurs" lazy="true" cascade="all-delete-orphan" inverse="true" >
+      <key column="id_controleur_encours"></key>
+      <one-to-many class="pAuditControleur"></one-to-many>
+    </bag>
+
+    <!-- EG le 03/10/2011 -->
+    <bag name="PAuditControleurCLs" lazy="true" cascade="all-delete-orphan" inverse="true" >
+      <key column="id_controleur_encours"></key>
+      <one-to-many class="pAuditControleurCL"></one-to-many>
+    </bag>
+    <!-- EG le 03/10/2011 -->
+    <bag name="PAuditControleurVLs" lazy="true" cascade="all-delete-orphan" inverse="true" >
+      <key column="id_controleur_encours"></key>
+      <one-to-many class="pAuditControleurVL"></one-to-many>
+    </bag>
+    <bag name="PFormationControleurPLs" lazy="true" cascade="all-delete-orphan" inverse="true" >
+      <key column="id_controleur_encours"></key>
+      <one-to-many class="pFormationControleurPL"></one-to-many>
+    </bag>
+    <bag name="PFormationControleurVLs" lazy="true" cascade="all-delete-orphan" inverse="true" >
+      <key column="id_controleur_encours"></key>
+      <one-to-many class="pFormationControleurVL"></one-to-many>
+    </bag>
+    <bag name="PFormationControleurCLs" lazy="true" cascade="all-delete-orphan" inverse="true" >
+      <key column="id_controleur_encours"></key>
+      <one-to-many class="pFormationControleurCL"></one-to-many>
+    </bag>
+    <!-- EG le 05/10/2011 -->
+    <!-- EG le 23/02/2012 car le delete est géré par programme à cause du date_histo datetime et problème millisecondes -->
+    <bag name="PControleurHistoriques" lazy="true"  cascade="none" inverse="true" >
+      <key column="id_controleur_histo"></key>
+      <one-to-many class="pControleurHisto"></one-to-many>
+    </bag>
+
+    <!-- EG le 19/12/2011 -->
+    <bag name="Journaux" cascade="all-delete-orphan" inverse="true">
+      <key>
+        <column name="id_centre_encours" />
+      </key>
+      <one-to-many class="pJournalActivite" />
+    </bag>
+    <!--PLE le 19/01/2024-->
+    <property name="ExtAgremClStatut" column="ext_agrem_cl_statut" />
+    <property name="ExtAgremClDateValid" column="ext_agrem_cl_date_valid" />
+    <property name="ExtAgremClDateDecla" column="ext_agrem_cl_date_decla" />
+    <property name="ExtAgremClCatVeh" column="ext_agrem_cl_cat_veh" />
+
+    <!-- PLE le 08/04/2025 -->
+    <property name="SvaVL" column="sva_vl" />
+    <property name="SvaPL" column="sva_pl" />
+    <property name="SvaCL" column="sva_cl" />
+  </class>
+</hibernate-mapping>
+

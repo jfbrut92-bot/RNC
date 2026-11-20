@@ -1,0 +1,39 @@
+﻿@model Utac.Rnc2.UI.Web.Models.LogOnModel
+
+@section TitleContent {
+    Inscription
+}
+@section SousTitrePage {
+    Inscription d'un Centre Non rattaché - Identification
+}
+<p>Entrez l'identifiant et le mot de passe provisoire d'accès à RNC2 pour commencer l'inscription.</p>
+@using (Html.BeginForm())
+{
+    @Html.ValidationSummary(true, "Échec de la connexion. Corrigez les erreurs et réessayez.")
+    <div>
+        <fieldset>
+            <legend></legend>
+            <div class="editor-label">@Html.Label("Identifiant utilisateur")</div>
+            <div class="editor-field">
+                @Html.TextBoxFor(m => m.UserName, new { Size = 20, Maxlength = 20 })
+                @Html.ValidationMessageFor(m => m.UserName)
+            </div>
+            <div class="editor-label">@Html.Label("Mot de passe provisoire")</div>
+            <div class="editor-field">
+                @Html.PasswordFor(m => m.Password, new { Size = 20, Maxlength = 20 })
+                @Html.ValidationMessageFor(m => m.Password)
+            </div>
+            <p class="rnc2-form">
+                <button type="submit" value="Connexion" class="button">Connexion</button>
+            </p>
+        </fieldset>
+    </div>
+    <div class="static-msg">
+        <p>Inscription dans RNC2</p>
+        <ul>
+            <li>L'inscription dans RNC2 concerne les représentants légaux des Centres Non Rattachés qui ont reçu la décision de notification d'agrément de la Préfecture.</li>
+            <li>Une annexe à la notification contient un identifiant et un mot de passe provisoire d'accès à RNC2 qui doit être utilisé ici.</li>
+            <li>A l'issue de l'inscription, un mot de passe définitif est envoyé dans votre boîte de courrier électronique.</li>
+        </ul>
+    </div>
+}

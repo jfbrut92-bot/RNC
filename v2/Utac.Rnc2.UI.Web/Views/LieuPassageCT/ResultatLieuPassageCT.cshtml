@@ -1,0 +1,249 @@
+﻿@model Utac.Rnc2.UI.Web.Models.LieuPassageCTModel
+
+@{ Layout = "~/Views/Shared/_SiteExterneLayout.cshtml"; }
+@section TitleContent {
+    ResultatLieuPassageCT
+}
+<fieldset style="margin: 0px; padding: 10px">
+    @Html.Label("N° de la demande : ")@DateTime.Now.Year.ToString()/@Model.NumChrono
+    &nbsp;&nbsp;
+    <span style="white-space:nowrap">@Html.Label("Date de la demande : ")</span>
+    <span style="white-space:nowrap">@String.Format("{0:dd/MM/yyyy HH:mm}", Model.DateRecherche)</span>
+    <br />
+    <br />
+    <div>
+        @Html.Label("Immatriculation : ")
+        <span style="white-space:nowrap">@Model.NumImmat</span>&nbsp;&nbsp;
+        <span style="white-space:nowrap">@Html.Label("N° de série : ")</span>
+        <span style="white-space:nowrap">@Model.NumSerie</span>
+    </div>
+    <div>
+        @Html.Label("Date de première immatriculation : ")
+        @String.Format("{0:d}", Model.DatePremImmat)
+    </div>
+</fieldset>
+<h2>Coordonnées de l'installation de dernier passage du véhicule</h2>
+<div class="row">
+    <div class="floatLeft first">
+        <div class="floatLeft">
+            <table>
+                <tr>
+                    <th>Agrément</th>
+                </tr>
+                <tr>
+                    <td>
+                        @Model.Centre.CodAgremVl
+                        <br />
+                        @if (Model.Centre.EtatAgrementVl == "1" || Model.Centre.EtatAgrementVl == "2")
+                        {
+                            @:(centre ouvert)
+                        }
+                        else
+                        {
+                            @:(centre fermé)
+                        }
+                    </td>
+                </tr>
+            </table>
+        </div>
+        <div class="floatLeft">
+            <table>
+                <tr>
+                    <th>Raison sociale</th>
+                </tr>
+                <tr>
+                    <td>
+                        <div style="width:200px">@Model.Centre.RaisonSociale</div>
+                    </td>
+                </tr>
+            </table>
+        </div>
+        <div class="floatLeft">
+            <table>
+                <tr>
+                    <th>Adresse</th>
+                </tr>
+                <tr>
+                    <td>
+                        <div style="width:200px">
+                            <div>@Model.Centre.L1Adresse</div>
+                            <div>@Model.Centre.L2Adresse</div>
+                            <span>@Model.Centre.CpCentre</span>
+                            <span>@Model.Centre.Ville</span>
+                        </div>
+                    </td>
+                </tr>
+            </table>
+        </div>
+        <div class="floatLeft">
+            <table>
+                <tr>
+                    <th>N° téléphone</th>
+                </tr>
+                <tr>
+                    <td>@Model.Centre.NumTel</td>
+                </tr>
+            </table>
+        </div>
+        <div class="floatLeft">
+            <table>
+                <tr>
+                    <th colspan="3">Réseau de contrôle de rattachement</th>
+                </tr>
+                @switch (Model.Centre.ReseauRattachementVL.Id)
+                {
+                    case "C":
+                        <tr>
+                            <td valign="center" align="center">
+                                <table width="133" border="0" cellspacing="0" cellpadding="0">
+                                    <tr bgcolor="#DFEBF0">
+                                        <td>
+                                            <img src="http://www.utac-otc.com/PublishingImages/logo_reseau_vl/autosecurite.png" width="113" height="113" vspace="10" hspace="10">
+                                        </td>
+                                    </tr>
+                                </table>
+                            </td>
+                            <td width="10">&nbsp;</td>
+                            <td valign="top" class="txtblack" align="left" width="200">
+                                <span class="txtbleucielbold">
+                                    <b>AUTO SECURITE FRANCE</b>
+                                </span>
+                                <br />
+                                1 Place du Gué de Maulny
+                                <br />
+                                72019 LE MANS CEDEX 2
+                                <br />
+                                T&eacute;l. : 02 43 41 41 41
+                                <br />
+                                Fax : 02 43 16 33 43<br />
+                                <a href="http://www.autosecurite.com" target="_blank" class="lien1">http://www.autosecurite.com</a>
+                            </td>
+                        </tr>
+                        break;
+                    case "S":
+                        <tr>
+                            <td valign="center" align="center">
+                                <table width="133" border="0" cellspacing="0" cellpadding="0">
+                                    <tr bgcolor="#DFEBF0">
+                                        <td>
+                                            <img src="http://www.utac-otc.com/PublishingImages/logo_reseau_vl/autosur.png" width="113" height="113" vspace="10" hspace="10">
+                                        </td>
+                                    </tr>
+                                </table>
+                            </td>
+                            <td width="10">&nbsp;</td>
+                            <td valign="top" class="txtblack" align="left">
+                                <span class="txtbleucielbold">
+                                    <b>SECTA / AUTOSUR</b>
+                                </span>
+                                <br />
+                                3, Rue Sainte Marie
+                                <br />
+                                92415 COURBEVOIE Cedex
+                                <br />
+                                T&eacute;l. : 01 49 04 15 00
+                                <br />
+                                Fax : 01 49 04 15 01
+                                <br />
+                                <a href="http://www.autosur.com" target="_blank" class="lien1">http://www.autosur.com</a><br />
+                            </td>
+                        </tr>
+                        break;
+                    case "F":
+                        <tr>
+                            <td valign="center" align="center">
+                                <table width="133" border="0" cellspacing="0" cellpadding="0">
+                                    <tr bgcolor="#DFEBF0">
+                                        <td>
+                                            <img src="http://www.utac-otc.com/PublishingImages/logo_reseau_vl/autovision.png" width="113" height="113" vspace="10" hspace="10">
+                                        </td>
+                                    </tr>
+                                </table>
+                            </td>
+                            <td width="10">&nbsp;</td>
+                            <td valign="top" class="txtblack" align="left">
+                                <span class="txtbleucielbold">
+                                    <b>VIVAUTO / AUTOVISION</b>
+                                </span>
+                                <br />
+                                102 rue Etienne Marcel
+                                <br />
+                                93100 MONTREUIL
+                                <br />
+                                T&eacute;l. : 01 55 86 17 17
+                                <br />
+                                Fax : 01 55 86 17 22
+                                <br />
+                                <a href="http://www.autovision.fr" target="_blank" class="lien1">http://www.autovision.fr</a><br />
+                            </td>
+                        </tr>
+                        break;
+                    case "D":
+                        <tr>
+                            <td valign="center" align="center">
+                                <table width="133" border="0" cellspacing="0" cellpadding="0">
+                                    <tr bgcolor="#DFEBF0">
+                                        <td>
+                                            <img src="http://www.utac-otc.com/PublishingImages/logo_reseau_vl/dekra.png" width="113" height="113" vspace="10" hspace="10">
+                                        </td>
+                                    </tr>
+                                </table>
+                            </td>
+                            <td width="10">&nbsp;</td>
+                            <td valign="top" class="txtblack" align="left">
+                                <span class="txtbleucielbold">
+                                    <b>DEKRA AUTOMOTIVE SA</b>
+                                </span>
+                                <br />
+                                11-13, Avenue Georges Politzer - B. P. : 152
+                                <br />
+                                78196 TRAPPES CEDEX
+                                <br />
+                                T&eacute;l. : 01 30 69 52 00
+                                <br />
+                                Fax : 01 30 69 52 01
+                                <br />
+                                <a href="http://www.dekra-norisko.fr" target="_blank" class="lien1">http://www.dekra-norisko.fr</a><br />
+                            </td>
+                        </tr>
+                        break;
+                    case "T":
+                        <tr>
+                            <td valign="top" align="center">
+                                <table width="133" border="0" cellspacing="0" cellpadding="0">
+                                    <tr bgcolor="#DFEBF0">
+                                        <td>
+                                            <img src="http://www.utac-otc.com/PublishingImages/logo_reseau_vl/securitest.png" width="113" height="113" vspace="10" hspace="10">
+                                        </td>
+                                    </tr>
+                                </table>
+                            </td>
+                            <td width="10">&nbsp;</td>
+                            <td valign="top" class="txtblack" align="left">
+                                <span class="txtbleucielbold">
+                                    <b>SECURITEST SA</b>
+                                </span>
+                                <br />
+                                1 Place du Gu&eacute; de Maulny
+                                <br />
+                                72019 LE MANS CEDEX 2
+                                <br />
+                                T&eacute;l. : 02 43 41 41 41
+                                <br />
+                                Fax : 02 43 16 33 43
+                                <br />
+                                <a href="http://www.securitest.fr" target="_blank" class="lien1">http://www.securitest.fr</a>
+                            </td>
+                        </tr>
+                        break;
+                    case "Z":
+                        <tr>
+                            <td colspan="3">Cette installation n'est pas rattachée à un réseau de contrôle.</td>
+                        </tr>
+                        break;
+                }
+            </table>
+        </div>
+    </div>
+</div>
+@Html.ActionLink("<< Retour", "Rechercher", null, new { @class = "btn cancel" })

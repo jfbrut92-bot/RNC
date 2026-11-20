@@ -1,0 +1,91 @@
+﻿@model Utac.Rnc2.UI.Web.Models.HomeModel
+
+<fieldset>
+    <h4>Liste des contrôleurs rattachés</h4>
+    <table>
+        <tr>
+            <th>Nom</th>
+            <th>
+                @if (Model.utilisateur.MonCentreEstVL)
+                {
+                    @:Code agrément VL
+                }
+                @if (Model.utilisateur.MonCentreEstPL)
+                {
+                    @:Code agrément PL
+                }
+                @if (Model.utilisateur.MonCentreEstCL)
+                {
+                    @:Code agrément CL
+                }
+            </th>
+            <th></th>
+        </tr>
+        @foreach (var item in Model.controleur)
+        {
+            <tr>
+                <td>
+                    <span>@Html.ActionLink(item.Nom + " " + item.Prenom, "Fiche", "ControleurTechnique", new { id = item.Id }, null)</span>
+                </td>
+                <td>
+                    @if (Model.utilisateur.MonCentreEstVL)
+                    {
+                        @item.CodAgremVl
+                        if (item.DateFinAgrementVl != null)
+                        {
+                            @:fin d'agrément depuis le @String.Format("{0:d}", item.DateFinAgrementVl)
+                        }
+                    }
+                    @if (Model.utilisateur.MonCentreEstPL)
+                    {
+                        @item.CodAgremPl
+                        if (item.DateFinAgrementPl != null)
+                        {
+                            @:fin d'agrément depuis le @String.Format("{0:d}", item.DateFinAgrementPl)
+                        }
+                    }
+                    @if (Model.utilisateur.MonCentreEstCL)
+                    {
+                        @item.CodAgremCl
+                        if (item.DateFinAgrementCl != null)
+                        {
+                            @:fin d'agrément depuis le @String.Format("{0:d}", item.DateFinAgrementCl)
+                        }
+                    }
+                </td>
+                <td>
+                    @if (Model.utilisateur.MonCentreEstVL)
+                    {
+                        switch (item.HabilitationGazVL)
+                        {
+                            case 1:
+                                @:habilité gaz depuis le @String.Format("{0:d}", item.DateDebutFinHabilitationGazVL)
+                                break;
+                            case 0:
+                                @:perte de l'habilitation gaz le @String.Format("{0:d}", item.DateDebutFinHabilitationGazVL)
+                                break;
+                            default:
+                                break;
+                        }
+                    }
+                    @if (Model.utilisateur.MonCentreEstPL)
+                    {
+                        @:habilitation PL: @(item.RHabilitation != null ? item.RHabilitation.LibelleAvecCode : "?")
+                    }
+                </td>
+            </tr>
+        }
+    </table>
+</fieldset>
+<div class="">
+    <br />
+    Ouvir la fiche du contrôleur pour :
+    <br/>
+    &nbsp;&nbsp;-&nbsp;pour ajouter sa <strong>formation initiale CL</strong>,
+    <br />
+    &nbsp;&nbsp;-&nbsp;pour déclarer/retirer son extension d'agrément à la <strong>catégorie L</strong>,
+    <br />
+    &nbsp;&nbsp;-&nbsp;pour déclarer/retirer l'habilitation GAZ,
+    <br />
+    &nbsp;&nbsp;-&nbsp;ou consulter les autres informations sur le(s) contrôleur(s)
+</div>

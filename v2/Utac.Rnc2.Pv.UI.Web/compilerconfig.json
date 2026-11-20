@@ -1,0 +1,10 @@
+﻿[
+  {
+    "outputFile": "Content/style-app-mobile.css",
+    "inputFile": "Content/style-app-mobile.scss"
+  },
+  {
+    "outputFile": "Content/style-app-desktop.css",
+    "inputFile": "Content/style-app-desktop.scss"
+  }
+]

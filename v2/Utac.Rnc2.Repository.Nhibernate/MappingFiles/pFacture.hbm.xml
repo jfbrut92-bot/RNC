@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<hibernate-mapping xmlns="urn:nhibernate-mapping-2.2" namespace="Utac.Rnc2.BusinessObjects" assembly="Utac.Rnc2.BusinessObjects">
+	<class name="Utac.Rnc2.BusinessObjects.pFacture, Utac.Rnc2.BusinessObjects" table="p_facture" lazy="true">
+		<id name="Id" column="id_facture">
+		 	<generator class="native" />
+		</id>
+		<property name="CodAgremInd" column="cod_agrem_ind" />
+    <property name="CodCategorieVeh" column="cod_categorie_veh" />
+    <property name="CodReseau" column="cod_reseau" />
+		<property name="NomFichier" column="nom_fichier" />
+		<property name="NumFacture" column="num_facture" />
+		<property name="DateFacture" column="date_facture" />
+    <property name="DateGenerationFacture" column="date_generation_facture" />
+    <property name="ImgFichier" column="img_fichier" lazy="true" update="false" type="BinaryBlob"/>
+    <property name="DateTelechargementFacture" column="date_telechargement_facture" />
+		<property name="CodUtilisateurTelechargement" column="cod_utilisateur_telechargement" />
+    <many-to-one name="RReseau" column="cod_reseau" class="rReseau" update="false" insert="false" />
+    <many-to-one name="PCentreEncour" column="id_centre_encours" class="pCentreEncour" />
+	</class>
+</hibernate-mapping>

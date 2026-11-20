@@ -1,0 +1,95 @@
+﻿@model Utac.Rnc2.UI.Web.Models.RechercheControleurModel
+@using Utac.Rnc2.BusinessObjects
+@using Utac.Rnc2.UI.Web.Helpers
+@using Utac.Rnc2.UI.Web.Utils
+
+@{ var otcIsMobileDevice = DeviceHelper.IsMobileDevice(Request.UserAgent); }
+
+@if (Model.Resultat != null)
+{
+    <p class="col-12 d-none d-md-block row no-gutters">
+        @Model.Resultat.Count<pContoleurEncour>
+    controleur(s) trouvé(s)
+    @if (GestionDroitsExecution.isRightActionForControleur(User, null, GestionDroitsExecution.ActionsFicheControleur.CRECOVL))
+    {
+        @Html.ActionLink("Nouveau contrôleur/prestataire VL", "ConfirmerCreation", new { categorie = "VL" }, new { @class = "btn success  col-md-3" })
+    }
+    @if (GestionDroitsExecution.isRightActionForControleur(User, null, GestionDroitsExecution.ActionsFicheControleur.CRECOCL))
+    {
+        @Html.ActionLink("Nouveau contrôleur/prestataire CL", "ConfirmerCreation", new { categorie = "CL" }, new { @class = "btn success ml-2 col-md-3" })
+    }
+    @if (GestionDroitsExecution.isRightActionForControleur(User, null, GestionDroitsExecution.ActionsFicheControleur.CRECOPL))
+    {
+        @Html.ActionLink("Nouveau contrôleur/prestataire PL", "ConfirmerCreation", new { categorie = "PL" }, new { @class = "btn success ml-2 col-md-3" })
+    }
+</p>
+    if ((!Model.Resultat.Count.Equals(0)))
+    {
+        <div class="col-12 table-responsive">
+            <table class="p-0 m-0 table @(otcIsMobileDevice ? "table-bordered table-striped text-dark table-active table-hover" : "table-sm")">
+                <thead>
+                    <tr>
+                        <th colspan="6" scope="col">Informations contrôleurs</th>
+                        <th colspan="3" scope="col" class="d-none d-md-table-cell">Centre(s) de rattachement</th>
+                    </tr>
+                </thead>
+                <thead>
+                    <tr>
+                        <th scope="col">Nom</th>
+                        <th scope="col">Prénom</th>
+                        <th scope="col">Né(e) le</th>
+                        <th scope="col">Agrément VL</th>
+                        <th scope="col">Agrément CL</th>
+                        <th scope="col">Agrément PL</th>
+                        <th scope="col" class="d-none d-md-table-cell">VL</th>
+                        <th scope="col" class="d-none d-md-table-cell">CL</th>
+                        <th scope="col" class="d-none d-md-table-cell">PL</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @{ var i = 0; }
+                    @foreach (var item in Model.Resultat)
+                    {
+                    <tr class="@(i % 2 == 0 && !otcIsMobileDevice ? "row1" : "row2")">
+                        <td>@Html.ActionLink(item.Nom, "Fiche", new { id = item.Id }, new { @class = otcIsMobileDevice ? "border-0" : "" })</td>
+                        <td>@item.Prenom</td>
+                        <td>@String.Format("{0:d}", item.DateNaissance)</td>
+                        <td>
+                            @(new HtmlString(item.EtatAgrementVlAsLibellePourListe))
+                            @if (!"".Equals(item.ExtAgremClStatutVLAsString))
+                            {
+                                <br /> @("Ext.agrément CL:")@item.ExtAgremClStatutVLAsString
+                            }
+                        </td>
+                        <td>
+                            @(new HtmlString(item.EtatAgrementClAsLibellePourListe))
+                        </td>
+                        <td>
+                            @(new HtmlString(item.EtatAgrementPlAsLibellePourListe))
+                            @if (!"".Equals(item.ExtAgremClStatutPLAsString))
+                            {
+                                <br /> @("Ext.agrément CL:")@item.ExtAgremClStatutPLAsString
+                            }
+                        </td>
+                        <td class="d-none d-md-table-cell">
+                            <!-- 20/08/2021 PLE optimisation -->
+                            @(((User.IsInRole(rUtilisateur.Profil.CENTRE_INDEPENDANT.ToString()) || User.IsInRole(rUtilisateur.Profil.RESEAU.ToString())) && item.PCentreEncourVL != null && !item.PCentreEncourVL.AccesPublicVl && item.PCentreEncourVL.EstAgrementValideVL)
+                                ? "En attente accusé" : item.CodAgremRattachementVl)
+                        </td>
+                        <td class="d-none d-md-table-cell">
+                            <!-- 20/08/2021 PLE optimisation -->
+                            @(((User.IsInRole(rUtilisateur.Profil.CENTRE_INDEPENDANT.ToString()) || User.IsInRole(rUtilisateur.Profil.RESEAU.ToString())) && item.PCentreEncourCL != null && !item.PCentreEncourCL.AccesPublicCl && item.PCentreEncourCL.EstAgrementValideCL)
+                                ? "En attente accusé" : item.CodAgremRattachementCl)
+                        </td>
+                        <td class="d-none d-md-table-cell">
+                            <!-- 20/08/2021 PLE optimisation -->
+                            @(((User.IsInRole(rUtilisateur.Profil.CENTRE_INDEPENDANT.ToString()) || User.IsInRole(rUtilisateur.Profil.RESEAU.ToString())) && item.PCentreEncourPL != null && !item.PCentreEncourPL.AccesPublicPl && item.PCentreEncourPL.EstAgrementValidePL)
+                                ? "En attente accusé" : item.CodAgremRattachementPl)
+                        </td>
+                    </tr>
+                        i++;
+                    }
+            </table>
+        </div>
+    }
+}

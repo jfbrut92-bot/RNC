@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<hibernate-mapping xmlns="urn:nhibernate-mapping-2.2" namespace="Utac.Rnc2.BusinessObjects" assembly="Utac.Rnc2.BusinessObjects">
+  <class name="Utac.Rnc2.BusinessObjects.CommuneInsee, Utac.Rnc2.BusinessObjects" table="communes_insee" lazy="true">
+    <id name="Id" type="int">
+      <column name="numero_insee" />
+      <generator class="assigned" />
+    </id>
+    <property name="NomCommune" type="string">
+      <column name="nom_commune" length="200" />
+    </property>
+    <property name="CodePostal" type="string">
+      <column name="code_postal" length="5" />
+    </property>
+    <property name="Departement" type="string">
+      <column name="departement" length="200" />
+    </property>
+  </class>
+</hibernate-mapping>
+

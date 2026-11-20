@@ -1,0 +1,183 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="15.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{822E4BB5-6D5E-461E-AD2E-822A08C6B142}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>Utac.Rnc2.Contrats</RootNamespace>
+    <AssemblyName>Utac.Rnc2.Contrats</AssemblyName>
+    <TargetFrameworkVersion>v4.8</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <Deterministic>true</Deterministic>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="System" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Web.ApplicationServices" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Net.Http" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Repositories\ICommuneInseeRepository.cs" />
+    <Compile Include="Repositories\IpActiviteControleurCLRepository.cs" />
+    <Compile Include="Repositories\IpActiviteControleurVLRepository.cs" />
+    <Compile Include="Repositories\IpAmendeCentreRepository.cs" />
+    <Compile Include="Repositories\IpAmendeControleurRepository.cs" />
+    <Compile Include="Repositories\IParametreRepository.cs" />
+    <Compile Include="Repositories\IpAuditControleurCLRepository.cs" />
+    <Compile Include="Repositories\IpAuditControleurRepository.cs" />
+    <Compile Include="Repositories\IpAuditControleurVLRepository.cs" />
+    <Compile Include="Repositories\IpCentreEncourRepository.cs" />
+    <Compile Include="Repositories\IpCentreHistoRepository.cs" />
+    <Compile Include="Repositories\IpCertificatRepository.cs" />
+    <Compile Include="Repositories\IpControleurEnCoursRepository.cs" />
+    <Compile Include="Repositories\IpControleurHistoRepository.cs" />
+    <Compile Include="Repositories\IpCourrierEnvoyeRepository.cs" />
+    <Compile Include="Repositories\IpCumulActivitePlJrnTrtRepository.cs" />
+    <Compile Include="Repositories\IpDerogationCentreRepository.cs" />
+    <Compile Include="Repositories\IpEquipementCentreCLRepository.cs" />
+    <Compile Include="Repositories\IpEquipementCentrePLRepository.cs" />
+    <Compile Include="Repositories\IpEquipementCentreVLRepository.cs" />
+    <Compile Include="Repositories\IpFactureRepository.cs" />
+    <Compile Include="Repositories\IpFormationControleurCLRepository.cs" />
+    <Compile Include="Repositories\IpFormationControleurPLRepository.cs" />
+    <Compile Include="Repositories\IpFormationControleurVLRepository.cs" />
+    <Compile Include="Repositories\IpGestionCertificatRepository.cs" />
+    <Compile Include="Repositories\IpHoraireOuvertureRepository.cs" />
+    <Compile Include="Repositories\IpInfoRdvRepository.cs" />
+    <Compile Include="Repositories\IpJournalActiviteRepository.cs" />
+    <Compile Include="Repositories\IpRapportExceptionCLRepository.cs" />
+    <Compile Include="Repositories\IpRapportExceptionRepository.cs" />
+    <Compile Include="Repositories\IpRapportExceptionVLRepository.cs" />
+    <Compile Include="Repositories\IpSanctionCentreRepository.cs" />
+    <Compile Include="Repositories\IpSanctionControleurRepository.cs" />
+    <Compile Include="Repositories\IpTraceRechLieuVlRepository.cs" />
+    <Compile Include="Repositories\IpTraceRechPvVlRepository.cs" />
+    <Compile Include="Repositories\IrActionCertificatRepository.cs" />
+    <Compile Include="Repositories\IrCategorieVehiculeRepository.cs" />
+    <Compile Include="Repositories\IrEditionRepository.cs" />
+    <Compile Include="Repositories\IrHabilitationRepository.cs" />
+    <Compile Include="Repositories\IrLoginTempCnrRepository.cs" />
+    <Compile Include="Repositories\IrMessageUtilisateurRepository.cs" />
+    <Compile Include="Repositories\IrMotifModificationRepository.cs" />
+    <Compile Include="Repositories\IrNumordreAgrementRepository.cs" />
+    <Compile Include="Repositories\IrPrefectureRepository.cs" />
+    <Compile Include="Repositories\IrProfil2Repository.cs" />
+    <Compile Include="Repositories\IrProfilRepository.cs" />
+    <Compile Include="Repositories\IrRegionRepository.cs" />
+    <Compile Include="Repositories\IrReseauAppartenanceRepository.cs" />
+    <Compile Include="Repositories\IrReseauRepository.cs" />
+    <Compile Include="Repositories\IrStatutJuridiqueRepository.cs" />
+    <Compile Include="Repositories\IrTemplateMailRepository.cs" />
+    <Compile Include="Repositories\IrTypeDemandeControleurRepository.cs" />
+    <Compile Include="Repositories\IrTypeFormationRepository.cs" />
+    <Compile Include="Repositories\IrTypeOrganismeDemandeurRepository.cs" />
+    <Compile Include="Repositories\IrTypeSanctionCentreRepository.cs" />
+    <Compile Include="Repositories\IrTypeSanctionControleurRepository.cs" />
+    <Compile Include="Repositories\IrUtilisateurRepository.cs" />
+    <Compile Include="Repositories\IUtilisateurWebServiceCLRepository.cs" />
+    <Compile Include="Repositories\IUtilisateurWebServicePLRepository.cs" />
+    <Compile Include="Repositories\IUtilisateurWebServiceVLRepository.cs" />
+    <Compile Include="Repositories\statistiques\IStatistiquesCentreRepository.cs" />
+    <Compile Include="Repositories\statistiques\IStatistiquesControleurRepository.cs" />
+    <Compile Include="Services\ICommuneInseeService.cs" />
+    <Compile Include="Services\IpActiviteControleurCLService.cs" />
+    <Compile Include="Services\IpActiviteControleurVLService.cs" />
+    <Compile Include="Services\IpAmendeCentreService.cs" />
+    <Compile Include="Services\IpAmendeControleurService.cs" />
+    <Compile Include="Services\IParametreService.cs" />
+    <Compile Include="Services\IpAuditControleurCLService.cs" />
+    <Compile Include="Services\IpAuditControleurService.cs" />
+    <Compile Include="Services\IpAuditControleurVLService.cs" />
+    <Compile Include="Services\IpCentreEnCourService.cs" />
+    <Compile Include="Services\IpCentreEnCourService.eddy.cs" />
+    <Compile Include="Services\IpCentreHistoService.cs" />
+    <Compile Include="Services\IpCertificatService.cs" />
+    <Compile Include="Services\IpControleurEnCourService.cs" />
+    <Compile Include="Services\IpControleurHistoService.cs" />
+    <Compile Include="Services\IpCourrierEnvoyeService.cs" />
+    <Compile Include="Services\IpCumulActivitePlJrnTrtService.cs" />
+    <Compile Include="Services\IpDerogationCentreService.cs" />
+    <Compile Include="Services\IpEquipementCentreCLService.cs" />
+    <Compile Include="Services\IpEquipementCentrePLService.cs" />
+    <Compile Include="Services\IpEquipementCentreVLService.cs" />
+    <Compile Include="Services\IpFactureService.cs" />
+    <Compile Include="Services\IpFormationControleurCLService.cs" />
+    <Compile Include="Services\IpFormationControleurPLService.cs" />
+    <Compile Include="Services\IpFormationControleurVLService.cs" />
+    <Compile Include="Services\IpGestionCertificat.cs" />
+    <Compile Include="Services\IpHoraireOuvertureService.cs" />
+    <Compile Include="Services\IpInfoRdvService.cs" />
+    <Compile Include="Services\IpJournalActiviteService.cs" />
+    <Compile Include="Services\IpRapportExceptionCLService.cs" />
+    <Compile Include="Services\IpRapportExceptionService.cs" />
+    <Compile Include="Services\IpRapportExceptionVLService.cs" />
+    <Compile Include="Services\IpSanctionCentreService.cs" />
+    <Compile Include="Services\IpSanctionControleurService.cs" />
+    <Compile Include="Services\IpTraceRechLieuVlService.cs" />
+    <Compile Include="Services\IpTraceRechPvVlService.cs" />
+    <Compile Include="Services\IrActionCertificatService.cs" />
+    <Compile Include="Services\IrCategorieVehiculeService.cs" />
+    <Compile Include="Services\IrEditionService.cs" />
+    <Compile Include="Services\IrHabilitationService.cs" />
+    <Compile Include="Services\IrLoginTempCnrService.cs" />
+    <Compile Include="Services\IrMessageUtilisateurService.cs" />
+    <Compile Include="Services\IrMotifModificationService.cs" />
+    <Compile Include="Services\IrNumordreAgrementService.cs" />
+    <Compile Include="Services\IrPrefectureService.cs" />
+    <Compile Include="Services\IrProfil2Service.cs" />
+    <Compile Include="Services\IrProfilService.cs" />
+    <Compile Include="Services\IrRegionService.cs" />
+    <Compile Include="Services\IrReseauAppartenanceService.cs" />
+    <Compile Include="Services\IrReseauService.cs" />
+    <Compile Include="Services\IrStatutJuridiqueService.cs" />
+    <Compile Include="Services\IrTemplateMailService.cs" />
+    <Compile Include="Services\IrTypeDemandeControleurService.cs" />
+    <Compile Include="Services\IrTypeFormationService.cs" />
+    <Compile Include="Services\IrTypeOrganismeDemandeurService.cs" />
+    <Compile Include="Services\IrTypeSanctionCentreService.cs" />
+    <Compile Include="Services\IrTypeSanctionControleurService.cs" />
+    <Compile Include="Services\IrUtilisateurService.cs" />
+    <Compile Include="Services\IStatistiquesCentreService.cs" />
+    <Compile Include="Services\IStatistiquesControleurService.cs" />
+    <Compile Include="Services\IUtilisateurWebServiceCLService.cs" />
+    <Compile Include="Services\IUtilisateurWebServicePLService.cs" />
+    <Compile Include="Services\IUtilisateurWebServiceVLService.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\Utac.Rnc2.BusinessObjects\Utac.Rnc2.BusinessObjects.csproj">
+      <Project>{3e718bfc-1d98-4c65-8bdb-c492a7ad915d}</Project>
+      <Name>Utac.Rnc2.BusinessObjects</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Utac.Rnc2.Infrastructure\Utac.Rnc2.Infrastructure.csproj">
+      <Project>{65277784-51d1-4229-9f6f-ef942ba29376}</Project>
+      <Name>Utac.Rnc2.Infrastructure</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+</Project>

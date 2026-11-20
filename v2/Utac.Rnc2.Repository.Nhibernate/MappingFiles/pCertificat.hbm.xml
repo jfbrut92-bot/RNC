@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<hibernate-mapping xmlns="urn:nhibernate-mapping-2.2" namespace="Utac.Rnc2.BusinessObjects" assembly="Utac.Rnc2.BusinessObjects">
+	<class name="Utac.Rnc2.BusinessObjects.pCertificat, Utac.Rnc2.BusinessObjects" table="p_certificat" lazy="true">
+    <!--<id name="Id">
+      <column name="id_req" />
+      <column name="num_serie" />
+      <generator class="assigned" />
+    </id>
+    <property name="IdReq" column="id_req" />
+    <property name="NumSerie" column="num_serie" />
+    -->
+    <composite-id>
+      <key-property name="IdReq" column="id_req" />
+      <key-property name="NumSerie" column="num_serie" />
+    </composite-id>
+    
+    <property name="DateEffet" column="date_effet" />
+		<property name="DateExpiration" column="date_expiration" />
+		<property name="NomCert" column="nom_cert" />
+		<property name="NomCommunCert" column="nom_commun_cert" />
+		<property name="PasswordCert" column="password_cert" />
+		<property name="BddTechLogin" column="bdd_tech_login" />
+		<property name="BddTechPassword" column="bdd_tech_password" />
+		<property name="CodRaisonRevocation" column="cod_raison_revocation" />
+		<property name="LibRaisonRevocation" column="lib_raison_revocation" />
+		<property name="DateRevocation" column="date_revocation" />
+    <property name="CodCategorieVeh" column="cod_categorie_veh" />
+		<property name="NomFichier" column="nom_fichier" />
+		<property name="ImgFichier" column="img_fichier" />
+    <bag name="PGestionCertificats" lazy="true" cascade="all-delete-orphan" inverse="true" >
+      <key>
+        <column name="id_req" />
+        <column name="num_serie" />
+       </key>
+      <one-to-many class="pGestionCertificat" not-found="ignore"></one-to-many>
+    </bag>
+	</class>
+</hibernate-mapping>
+

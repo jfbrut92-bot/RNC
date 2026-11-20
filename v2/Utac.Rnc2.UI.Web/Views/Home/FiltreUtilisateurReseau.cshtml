@@ -1,0 +1,89 @@
+﻿@model Utac.Rnc2.UI.Web.Models.HomeModel
+
+<div class="sidebar-box inline-block">
+    <ul class="sections">
+        <li class="section">
+            <h3>Liste des installations</h3>
+            <div class="content-sidebar">
+                <form action="@Url.Action("ListeCentrePourReseau")" method="post">
+                    @Html.ValidationSummary(true)
+                    <fieldset>
+                        <span class="editor-label">
+                            <label>Département:</label>
+                        </span>
+                        <span class="editor-field">
+                            @Html.TextBoxFor(m => m.RechercheProfilReseauModel.Filtre.CodeDepartement, new { Value = Model.RechercheProfilReseauModel.Filtre.CodeDepartement, @class = "", size = "3", maxlength = "3" })
+                        </span>
+                    </fieldset>
+                    <fieldset>
+                        <span class="editor-label">
+                            <label>Réseau:</label>
+                        </span>
+                        <span class="editor-field">
+                            <select id="RechercheProfilReseauModel_Filtre_CodeReseau" name="RechercheProfilReseauModel.Filtre.CodeReseau">
+                                @foreach (var r in Model.utilisateur.RReseaux)
+                                {
+                                    <option value="@r.Id" @(r.Id.Equals(Model.RechercheProfilReseauModel.Filtre.CodeReseau) ? "selected" : "")>
+                                        @r.ReseauAvecLettreEtCategorieSeuls
+                                    </option>
+                                }
+                            </select>
+                        </span>
+                        <span class="editor-label">*</span>
+                    </fieldset>
+                    <!--
+                    <p>
+                        <label>Type de centre:</label>
+                        <select id="RechercheProfilReseauModel_Filtre_TypeCentre" name="RechercheProfilReseauModel.Filtre.TypeCentre">
+                            <option value="" @(string.IsNullOrEmpty(Model.RechercheProfilReseauModel.Filtre.TypeCentre) ? "selected" : "")>------</option>
+                            <option value="A" @("A".Equals(Model.RechercheProfilReseauModel.Filtre.TypeCentre) ? "selected" : "")>Auxiliaire</option>
+                            <option value="S" @("S".Equals(Model.RechercheProfilReseauModel.Filtre.TypeCentre) ? "selected" : "")>)Spécialisé</option>
+                        </select>
+                    </p>
+                    -->
+                    <input type="submit" value="Afficher" class="btn primary" align="center" />
+                </form>
+            </div>
+            <span> - Consulter la liste des installations<br />pour déclarer l'extension d'agrément <strong><nobr>catégorie L</nobr></strong></span>
+
+        </li>
+        <li class="section">
+            <h3>Liste des contrôleurs</h3>
+            <div class="content-sidebar">
+                <form action="@Url.Action("ListeControleurPourReseau")" method="post">
+                    @Html.ValidationSummary(true)
+                    <fieldset>
+                        <span class="editor-label">
+                            <label>Département:</label>
+                        </span>
+                        <span class="editor-field">
+                            @Html.TextBoxFor(m => m.RechercheProfilReseauModel.Filtre.CodeDepartement, new { Value = Model.RechercheProfilReseauModel.Filtre.CodeDepartement, @class = "", size = "3", maxlength = "3" })
+                        </span>
+                        <span class="editor-label">*</span>
+                    </fieldset>
+                    <fieldset>
+                        <span class="editor-label">
+                            <label>Réseau:</label>
+                        </span>
+                        <span class="editor-field">
+                            <select id="RechercheProfilReseauModel_Filtre_CodeReseau" name="RechercheProfilReseauModel.Filtre.CodeReseau">
+                                @foreach (var r in Model.utilisateur.RReseaux)
+                                {
+                                    <option value="@r.Id" @(r.Id.Equals(Model.RechercheProfilReseauModel.Filtre.CodeReseau) ? "selected" : "")>
+                                        @r.ReseauAvecLettreEtCategorieSeuls
+                                    </option>
+                                }
+                            </select>
+                        </span>
+                        <span class="editor-label">*</span>
+                    </fieldset>
+                    <input type="submit" value="Afficher" class="btn primary" />
+                </form>
+            </div>
+            <span> - Consulter la liste des contrôleurs<br />pour déclarer la <strong>formation initiale CL</strong><br />et l'extension d'agrément <strong><nobr>catégorie L</nobr></strong></span>
+        </li>
+    </ul>
+    @Html.ValidationMessageFor(model => model.RechercheProfilReseauModel.Filtre.CodeDepartement)
+
+
+</div>

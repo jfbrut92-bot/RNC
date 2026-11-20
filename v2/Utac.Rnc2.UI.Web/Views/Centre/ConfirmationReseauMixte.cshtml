@@ -1,0 +1,58 @@
+﻿@model Utac.Rnc2.UI.Web.Models.DemandeAgrementModel
+@using Utac.Rnc2.BusinessObjects
+
+@section TitleContent {
+    Confirmation d'agrément réseau mixte
+}
+@section SousTitrePage {
+    @switch (Model.CategorieVehicule)
+    {
+        case rCategorieVehicule.CategorieEnum.VL:
+            @:Confirmation demande d'agrément VL
+            break;
+        case rCategorieVehicule.CategorieEnum.PL:
+            @:Demande d'agrément PL
+            break;
+        case rCategorieVehicule.CategorieEnum.CL:
+            @:Demande d'agrément CL
+            break;
+    }
+}
+<h2>Installation: @Model.Centre.RaisonSociale</h2>
+<p class="avertissement">Attention les noms des réseaux de contrôle sont différents pour un même centre, vérifier la possibilité par rapport au code de la route et des arrêtés applicables.</p>
+@using (Html.BeginForm("DemandeAgrementSansConfirmation", "Centre", new { id = Model.Centre.Id }, FormMethod.Post))
+{
+    @Html.ValidationSummary(true)
+    @Html.HiddenFor(model => model.Centre.RaisonSociale)
+    @Html.HiddenFor(model => model.Centre.NumSiren)
+    @Html.HiddenFor(model => model.Centre.RStatutJuridique.Id)
+    @Html.HiddenFor(model => model.Centre.NomRepresentantLegal)
+    switch (Model.CategorieVehicule)
+    {
+        case rCategorieVehicule.CategorieEnum.VL:
+            @Html.HiddenFor(model => model.Centre.ReseauRattachementVL.Id)
+            break;
+        case rCategorieVehicule.CategorieEnum.PL:
+            @Html.HiddenFor(model => model.Centre.ReseauRattachementPL.Id)
+            break;
+        case rCategorieVehicule.CategorieEnum.CL:
+            @Html.HiddenFor(model => model.Centre.ReseauRattachementCL.Id)
+            break;
+    }
+    if ("S".Equals(Model.Centre.TypeCentre))
+    {
+        @Html.HiddenFor(model => model.Centre.EnseigneCommerciale)
+    }
+    @Html.HiddenFor(model => model.Centre.L1Adresse)
+    @Html.HiddenFor(model => model.Centre.L2Adresse)
+    @Html.HiddenFor(model => model.Centre.CpCentre)
+    @Html.HiddenFor(model => model.Centre.Ville)
+    @Html.HiddenFor(model => model.Centre.NumTel)
+    @Html.HiddenFor(m => m.Centre.CodDepartement)
+    @Html.HiddenFor(m => m.CategorieVehicule)
+    <div class="rowAligne">
+        <input type="submit" value="Confirmer" class="btn primary" />
+        <a class="btn success" href="@Url.Action("Fiche","Centre", new { id = Model.Centre.Id})">Retour à la fiche</a>
+    </div>
+}
+

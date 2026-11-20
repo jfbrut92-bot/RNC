@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+<notification_centre_vl>
+<type_agrement_vl>1</type_agrement_vl>
+<type_agrement_pl>0</type_agrement_pl>
+<nom_prenom>LEBLANC Pierre</nom_prenom>
+<date_naissance_jour_1>2</date_naissance_jour_1>
+<date_naissance_jour_2>0</date_naissance_jour_2>
+<date_naissance_mois_1>0</date_naissance_mois_1>
+<date_naissance_mois_2>4</date_naissance_mois_2>
+<date_naissance_annee_1>1</date_naissance_annee_1>
+<date_naissance_annee_2>9</date_naissance_annee_2>
+<date_naissance_annee_3>6</date_naissance_annee_3>
+<date_naissance_annee_4>8</date_naissance_annee_4>
+<n_agrement_centr_type_centre>S</n_agrement_centr_type_centre>
+<n_agrement_centr_code_dep_1>0</n_agrement_centr_code_dep_1>
+<n_agrement_centr_code_dep_2>0</n_agrement_centr_code_dep_2>
+<n_agrement_centr_code_dep_3>1</n_agrement_centr_code_dep_3>
+<n_agrement_centr_code_code_reseau>F</n_agrement_centr_code_code_reseau>
+<n_agrement_centr_num_ordre_1>0</n_agrement_centr_num_ordre_1>
+<n_agrement_centr_num_ordre_2>1</n_agrement_centr_num_ordre_2>
+<n_agrement_centr_num_ordre_3>0</n_agrement_centr_num_ordre_3>
+<libelle_departement>d'INDRE ET LOIRE</libelle_departement>
+<n_agrement_cntlr_code_dep_1>0</n_agrement_cntlr_code_dep_1>
+<n_agrement_cntlr_code_dep_2>0</n_agrement_cntlr_code_dep_2>
+<n_agrement_cntlr_code_dep_3>1</n_agrement_cntlr_code_dep_3>
+<n_agrement_cntlr_code_reseau>F</n_agrement_cntlr_code_reseau>
+<n_agrement_cntlr_num_ordre_1>1</n_agrement_cntlr_num_ordre_1>
+<n_agrement_cntlr_num_ordre_2>0</n_agrement_cntlr_num_ordre_2>
+<n_agrement_cntlr_num_ordre_3>0</n_agrement_cntlr_num_ordre_3>
+<n_agrement_cntlr_num_ordre_4>8</n_agrement_cntlr_num_ordre_4>
+<date_notification_agrement>2011-07-08</date_notification_agrement>
+<titre_departement>Préfecture d'INDRE ET LOIRE</titre_departement>
+</notification_centre_vl>

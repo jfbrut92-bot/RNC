@@ -1,0 +1,20 @@
+﻿@model Utac.Rnc2.UI.Web.Models.CertificatModel
+
+@section TitleContent {
+    Autorisation de renouvellement du certificat @Model.CategeorieVehicule du centre de contrôle technique @Model.Centre.RaisonSociale @Model.Centre.Ville
+}
+@section SousTitrePage {
+    Autorisation de renouvellement du certificat @Model.CategeorieVehicule du centre de contrôle technique @Model.Centre.RaisonSociale @Model.Centre.Ville
+}
+<p class="avertissement">
+    Attention, vous allez autoriser le renouvellement du certificat électronique @Model.CategeorieVehicule du centre de contrôle technique @Model.Centre.RaisonSociale @Model.Centre.Ville
+</p>
+@using (Html.BeginForm())
+{
+    <input type="hidden" name="id" value="@Model.Centre.Id" />
+    <input type="hidden" name="CategeorieVehicule" value="@Model.CategeorieVehicule" />
+    <p>
+        <input type="submit" value="Autoriser" class="btn primary" />
+        <a class="btn cancel" href="@Url.Action("ListeOperationCentreNonRattache", new { id = Model.Centre.Id, categorie = Model.CategeorieVehicule})">Retour.</a>
+    </p>
+}

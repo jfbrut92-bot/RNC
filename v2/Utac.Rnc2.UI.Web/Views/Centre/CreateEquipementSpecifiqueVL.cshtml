@@ -1,0 +1,55 @@
+﻿@model Utac.Rnc2.BusinessObjects.pCentreEncour
+
+@section TitleContent {
+    Renseignement des équipements spécifiques VL et du Contrôle GAZ pour le centre @Model.RaisonSociale
+}
+@section SousTitrePage {
+    Renseignement des équipements spécifiques VL et du Contrôle GAZ pour le centre @Model.RaisonSociale
+}
+@using (Html.BeginForm())
+{
+    @Html.ValidationSummary(true)
+    <fieldset>
+        <h1 class="panel">Contrôle GAZ</h1>
+        <div class="editor-label">@Html.Label("Contrôle des véhicules GAZ ( GPL / GNV )")</div>
+        <div class="editor-field">
+            @Html.CheckBoxFor(model => model.EquipementCentreVLs[0].ControleVehiculeGaz)
+            @Html.ValidationMessageFor(model => model.EquipementCentreVLs[0].ControleVehiculeGaz)
+        </div>
+        <h1 class="panel">Equipements spécifiques</h1>
+        <div class="editor-label">@Html.Label("Contrôle des véhicules à transmission spécifique")</div>
+        <div class="editor-field">
+            @Html.CheckBoxFor(model => model.EquipementCentreVLs[0].ControleVehiculeTransmissionSpecifique)
+            @Html.ValidationMessageFor(model => model.EquipementCentreVLs[0].ControleVehiculeTransmissionSpecifique)
+        </div>
+        <div class="editor-label">@Html.Label("Rouleaux fous")</div>
+        <div class="editor-field">
+            @Html.CheckBoxFor(model => model.EquipementCentreVLs[0].EquipementRouleauFou)
+            @Html.ValidationMessageFor(model => model.EquipementCentreVLs[0].EquipementRouleauFou)
+        </div>
+        <div class="editor-label">@Html.Label("Décéléromètre")</div>
+        <div class="editor-field">
+            @Html.CheckBoxFor(model => model.EquipementCentreVLs[0].Decelerometre)
+            @Html.ValidationMessageFor(model => model.EquipementCentreVLs[0].Decelerometre)
+        </div>
+        <div class="editor-label">@Html.Label("Banc à rotation inversée")</div>
+        <div class="editor-field">
+            @Html.CheckBoxFor(model => model.EquipementCentreVLs[0].BancRotationInverse)
+            @Html.ValidationMessageFor(model => model.EquipementCentreVLs[0].BancRotationInverse)
+        </div>
+        @if ("A".Equals(Model.TypeCentre))
+        {
+            <h1 class="panel">Stockage des PV</h1>
+            <div class="editor-label">@Html.Label("Lieu de stockage des PV")</div>
+            <div class="editor-field">
+                @Html.TextAreaFor(model => model.EquipementCentreVLs[0].LieuStockagePV)
+                @Html.ValidationMessageFor(model => model.EquipementCentreVLs[0].LieuStockagePV)
+            </div>
+        }
+        <br />
+        <div class="rowAligne">
+            <input type="submit" value="Enregistrer" class="btn primary" />
+            <a class="btn success" href="@Url.Action("Fiche","Centre", new { id = Model.Id})">Retour à la fiche</a>
+        </div>
+    </fieldset>
+}

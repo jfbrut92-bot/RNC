@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<hibernate-mapping xmlns="urn:nhibernate-mapping-2.2" namespace="Utac.Rnc2.BusinessObjects" assembly="Utac.Rnc2.BusinessObjects">
+	<class name="Utac.Rnc2.BusinessObjects.pRapportExceptionVl, Utac.Rnc2.BusinessObjects" table="p_rapport_exception_vl" lazy="true">
+		<id name="Id" column="id_rapport_exception">
+		 	<generator class="native" />
+		</id>
+		<property name="CodAgremCntr" column="cod_agrem_cntr" />
+		<property name="NomRapport" column="nom_rapport" />
+		<property name="DateDebutTransmissionPv" column="date_debut_transmission_pv" />
+		<property name="DateFinTransmissionPv" column="date_fin_transmission_pv" />
+		<property name="DateGenerationRapport" column="date_generation_rapport" />
+		<property name="CodUtilisateurTelechargement" column="cod_utilisateur_telechargement" />
+		<property name="DateTelechargementRapport" column="date_telechargement_rapport" />
+		<property name="ImgFichier" column="img_fichier" lazy="true" />
+    <many-to-one name="PCentreEncour" column="id_centre_encours" class="pCentreEncour" />
+	</class>
+</hibernate-mapping>
+

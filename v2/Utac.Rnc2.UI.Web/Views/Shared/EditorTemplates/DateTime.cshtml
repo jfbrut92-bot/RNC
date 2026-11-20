@@ -1,0 +1,6 @@
+﻿@model DateTime?
+
+<div class="display-field">
+    @Html.TextBoxFor(m => m, new { Value = Model.HasValue ? Model.Value.ToShortDateString() : string.Empty, @class = "datepicker" })
+</div>
+

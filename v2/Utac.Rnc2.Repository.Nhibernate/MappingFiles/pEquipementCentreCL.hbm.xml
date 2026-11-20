@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!-- EG le 11/08/2011 -->
+<hibernate-mapping xmlns="urn:nhibernate-mapping-2.2" namespace="Utac.Rnc2.BusinessObjects" assembly="Utac.Rnc2.BusinessObjects">
+	<class name="Utac.Rnc2.BusinessObjects.pEquipementCentreCL, Utac.Rnc2.BusinessObjects" table="p_equipement_centre_cl" lazy="true">
+    <id name="Id" column="id_equipement">
+      <generator class="assigned" />
+    </id>
+		<property name="ControleTricyles" column="cntrl_tricyles" />
+		<property name="LieuStockagePV" column="lieu_stockage" />
+		<many-to-one name="PCentreEnCour" column="id_centre_encours" class="pCentreEncour" />
+	</class>
+</hibernate-mapping>
+

@@ -1,0 +1,87 @@
+﻿@model Utac.Rnc2.UI.Web.Models.HomeModel
+@using Utac.Rnc2.BusinessObjects
+@using Utac.Rnc2.MVC.Extensions
+@using Utac.Rnc2.BusinessObjects
+@using Utac.Rnc2.UI.Web.Helpers
+@using Utac.Rnc2.UI.Web.Utils
+
+@section TitleContent {
+    Liste des centres de mon réseau : @Model.RechercheProfilReseauModel.ReseauCourant.ReseauAvecLettreEtCategorie
+}
+@section SousTitrePage {
+    Liste des centres de mon réseau :  @Model.RechercheProfilReseauModel.ReseauCourant.ReseauAvecLettreEtCategorie
+}
+<p>@Html.ActionLink("Retour à ma page d'accueil", "Index")</p>
+@if (Model.RechercheProfilReseauModel.ListeCentres != null && Model.RechercheProfilReseauModel.ListeCentres.Count > 0)
+{
+    <table>
+        <tr>
+            <th>Agrément / Date notification</th>
+            <th>Code postal / Ville</th>
+            <th>Actions</th>
+        </tr>
+        @{ var i = 0; }
+        @foreach (var item in Model.RechercheProfilReseauModel.ListeCentres)
+        {
+            <tr class="@(i % 2 == 0 ? " row1" : "row2")">
+                <td>
+                    @if (item.EstAgrementValideVL)
+                    {
+                        @:VL: @item.CodAgremVl @string.Format("{0:d}", item.DateEffetNotificationVl)
+                        if (!"".Equals(item.ExtAgremClStatutVLAsString))
+                        {
+                            <br /> @("Ext.agrément CL:")@item.ExtAgremClStatutVLAsString
+                        }
+                        else
+                        {
+                            if (GestionDroitsExecution.isRightActionForCentre(User, item, GestionDroitsExecution.ActionsFicheCentre.EXTDECLA_VL))
+                            {
+                                <br />@Html.SecuredActionLink("Déclarer ext. agrément Cat.L", "DeclarerExtensionAgrementCatL", "Centre", new { id = item.Id, categorie = rCategorieVehicule.CategorieEnum.VL, returnLettreReseau = Model.RechercheProfilReseauModel.Filtre.CodeReseau, returnCodDep = Model.RechercheProfilReseauModel.Filtre.CodeDepartement })
+                            }
+                        }
+                        <br />
+
+                    }
+                    @if (item.EstAgrementValidePL)
+                    {
+                        @:PL: @item.CodAgremPl @string.Format("{0:d}", item.DateEffetNotificationPl)
+                        if (!"".Equals(item.ExtAgremClStatutPLAsString))
+                        {
+                            <br /> @("Ext.agrément CL:")@item.ExtAgremClStatutPLAsString
+                        }
+                        else
+                        {
+                            if (GestionDroitsExecution.isRightActionForCentre(User, item, GestionDroitsExecution.ActionsFicheCentre.EXTDECLA_PL))
+                            {
+                                <br />@Html.SecuredActionLink("Déclarer ext. agrément Cat.L", "DeclarerExtensionAgrementCatL", "Centre", new { id = item.Id, categorie = rCategorieVehicule.CategorieEnum.PL, returnLettreReseau = Model.RechercheProfilReseauModel.Filtre.CodeReseau, returnCodDep = Model.RechercheProfilReseauModel.Filtre.CodeDepartement })
+                            }
+                        }
+                        <br />
+
+                    }
+                    @if (item.EstAgrementValideCL)
+                    {
+                        @:CL: @item.CodAgremCl @string.Format("{0:d}", item.DateEffetNotificationCl)
+                        <br />
+
+                    }
+                </td>
+                <td>@item.RaisonSociale<br /> @item.CpCentre @item.Ville</td>
+                <td>
+                    @Html.ActionLink("Ouvrir fiche", "Fiche", "Centre", new { id = item.Id }, new { })
+                </td>
+            </tr>
+            i++;
+        }
+    </table>
+}
+else
+{
+    <p>Aucun résultat pour le filtre sélectionné !</p>
+}
+@section SideBarDroite {
+    @if (User.IsInRole(rUtilisateur.Profil.RESEAU.ToString()))
+    {
+        @Html.Partial("FiltreUtilisateurReseau", Model)
+    }
+}

@@ -1,0 +1,110 @@
+﻿@model Utac.Rnc2.UI.Web.Models.TelechargerNotificationAgrementModel
+@using Utac.Rnc2.BusinessObjects
+
+@section TitleContent {
+    Notification de modification d'agrément
+}
+@section SousTitrePage {
+    @if (Model.ModifNotif)
+    {
+        @:Notification de modification d'agrément
+    }
+    else
+    {
+        @:Notification d'agrément
+    }
+}
+<h2>Téléchargement de(s) notification(s)</h2>
+Installation: @Model.Centre.RaisonSociale - @Model.Centre.CodAgremVl @Model.Centre.CodAgremPl @Model.Centre.CodAgremCl
+<br />
+<br />
+Notification(s) à télécharger :
+<br />
+<br />
+@if (Model.ModifNotif)
+{
+    if (Model.EtatVl)
+    {
+        <img src="/Content/images/PDF.png" alt="Notification PDF" title="Notification PDF" />
+        if (Model.Centre.TypeCentre.Equals(Convert.ToString(pCentreEncour.TypeInstallation.A)))
+        {
+            @Html.ActionLink("Télécharger la notification de modification VL", "TelechargerModifNotificationAuxiliairePDF", new { id = Model.Centre.Id, etatVl = true, etatPl = false, etatCl = false })
+        }
+        if (Model.Centre.TypeCentre.Equals(Convert.ToString(pCentreEncour.TypeInstallation.S)))
+        {
+            @Html.ActionLink("Télécharger la notification de modification VL", "TelechargerModifNotificationSpecialisePDF", new { id = Model.Centre.Id, etatVl = true, etatPl = false, etatCl = false })
+        }
+        <br />
+    }
+    if (Model.EtatPl)
+    {
+        <img src="/Content/images/PDF.png" alt="Notification PDF" title="Notification PDF" />
+        if (Model.Centre.TypeCentre.Equals(Convert.ToString(pCentreEncour.TypeInstallation.A)))
+        {
+            @Html.ActionLink("Télécharger la notification de modification PL", "TelechargerModifNotificationAuxiliairePDF", new { id = Model.Centre.Id, etatVl = false, etatPl = true, etatCl = false })
+        }
+        if (Model.Centre.TypeCentre.Equals(Convert.ToString(pCentreEncour.TypeInstallation.S)))
+        {
+            @Html.ActionLink("Télécharger la notification de modification PL", "TelechargerModifNotificationSpecialisePDF", new { id = Model.Centre.Id, etatVl = false, etatPl = true, etatCl = false })
+        }
+        <br />
+    }
+    if (Model.EtatCl)
+    {
+        <img src="/Content/images/PDF.png" alt="Notification PDF" title="Notification PDF" />
+        if (Model.Centre.TypeCentre.Equals(Convert.ToString(pCentreEncour.TypeInstallation.A)))
+        {
+            @Html.ActionLink("Télécharger la notification de modification CL", "TelechargerModifNotificationAuxiliairePDF", new { id = Model.Centre.Id, etatVl = false, etatPl = false, etatCl = true })
+        }
+        if (Model.Centre.TypeCentre.Equals(Convert.ToString(pCentreEncour.TypeInstallation.S)))
+        {
+            @Html.ActionLink("Télécharger la notification de modification CL", "TelechargerModifNotificationSpecialisePDF", new { id = Model.Centre.Id, etatVl = false, etatPl = false, etatCl = true })
+        }
+        <br />
+    }
+}
+else
+{
+    if (Model.EtatPl)
+    {
+        <img src="/Content/images/PDF.png" alt="Notification PDF" title="Notification PDF" />
+        if (Model.Centre.TypeCentre.Equals(Convert.ToString(pCentreEncour.TypeInstallation.A)))
+        {
+            @Html.ActionLink("Télécharger la notification PL", "TelechargerNotificationAuxiliairePDF", new { id = Model.Centre.Id, categVehicule = "PL" })
+        }
+        if (Model.Centre.TypeCentre.Equals(Convert.ToString(pCentreEncour.TypeInstallation.S)))
+        {
+            @Html.ActionLink("Télécharger la notification PL", "TelechargerNotificationSpecialisePDF", new { id = Model.Centre.Id, categVehicule = "PL" })
+        }
+        <br />
+    }
+    if (Model.EtatVl)
+    {
+        <img src="/Content/images/PDF.png" alt="Notification PDF" title="Notification PDF" />
+        if (Model.Centre.TypeCentre.Equals(Convert.ToString(pCentreEncour.TypeInstallation.A)))
+        {
+            @Html.ActionLink("Télécharger la notification VL", "TelechargerNotificationAuxiliairePDF", new { id = Model.Centre.Id, categVehicule = "VL" })
+        }
+        if (Model.Centre.TypeCentre.Equals(Convert.ToString(pCentreEncour.TypeInstallation.S)))
+        {
+            @Html.ActionLink("Télécharger la notification VL", "TelechargerNotificationSpecialisePDF", new { id = Model.Centre.Id, categVehicule = "VL" })
+        }
+        <br />
+    }
+    if (Model.EtatCl)
+    {
+        <img src="/Content/images/PDF.png" alt="Notification PDF" title="Notification PDF" />
+        if (Model.Centre.TypeCentre.Equals(Convert.ToString(pCentreEncour.TypeInstallation.A)))
+        {
+            @Html.ActionLink("Télécharger la notification CL", "TelechargerNotificationAuxiliairePDF", new { id = Model.Centre.Id, categVehicule = "CL" })
+        }
+        if (Model.Centre.TypeCentre.Equals(Convert.ToString(pCentreEncour.TypeInstallation.S)))
+        {
+            @Html.ActionLink("Télécharger la notification CL", "TelechargerNotificationSpecialisePDF", new { id = Model.Centre.Id, categVehicule = "CL" })
+        }
+        <br />
+    }
+}
+
+<br />
+@Html.ActionLink("Retourner à la fiche du centre", "Fiche", new { id = Model.Centre.Id })

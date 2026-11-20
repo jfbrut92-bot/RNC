@@ -1,0 +1,37 @@
+﻿@model Utac.Rnc2.UI.Web.Models.ControleurHabilitationPLModel
+
+@section TitleContent {
+    Déclaration habilitation PL pour le @Model.Controleur.Titre @Model.Controleur.Nom @Model.Controleur.Prenom
+}
+@section SousTitrePage {
+    Déclaration habilitation PL pour le @Model.Controleur.Titre @Model.Controleur.Nom @Model.Controleur.Prenom
+}
+@section StyleContent {
+    @Styles.Render("~/styles/jquery-ui")
+}
+<p class="avertissement">Attention, Vous êtes sur le point de modifier l'habilitation PL sur cette fiche. Cliquer sur le bouton ci-dessous pour confirmer.</p>
+@using (Html.BeginForm())
+{
+    @Html.ValidationSummary(true)
+    <fieldset>
+        <div class="editor-label">Habilitation</div>
+        <div class="editor-field">
+            @Html.DropDownListFor(model => model.Controleur.RHabilitation.Id, new SelectList(Model.ListeHabilitation, "Id", "LibelleAvecCode", Model.Controleur.RHabilitation == null ? "" : Model.Controleur.RHabilitation.Id))
+            @Html.ValidationMessageFor(model => model.Controleur.RHabilitation.Id)
+        </div>
+        <div class="editor-label">Depuis le</div>
+        <div class="editor-field">
+            @Html.TextBoxFor(model => model.Controleur.DateDebutHabilitationPl, new { Value = Model.NombreChargement > 0 ? String.Format("{0:d}", Model.Controleur.DateDebutHabilitationPl) : "", @class = "datepicker" })
+            @Html.ValidationMessageFor(model => model.Controleur.DateDebutHabilitationPl)
+        </div>
+        <br />
+        <div class="rowAligne">
+            <input type="submit" value="Enregistrer" class="btn primary" />
+            <a class="btn success" href="@Url.Action("Fiche","ControleurTechnique", new { id = Model.Controleur.Id})">Retour à la fiche</a>
+        </div>
+    </fieldset>
+}
+@section JavaScriptContent {
+    <!-- DatePicker -->
+    @Scripts.Render("~/scripts/date-picker")
+}

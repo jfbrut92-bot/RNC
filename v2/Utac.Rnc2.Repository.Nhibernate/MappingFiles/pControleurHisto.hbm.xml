@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<hibernate-mapping xmlns="urn:nhibernate-mapping-2.2" namespace="Utac.Rnc2.BusinessObjects" assembly="Utac.Rnc2.BusinessObjects">
+	<class name="Utac.Rnc2.BusinessObjects.pControleurHisto, Utac.Rnc2.BusinessObjects" table="p_controleur_histo" lazy="true">
+		<composite-id>
+			<key-property name="DateHisto" column="date_histo" /> 
+			<key-property name="IdControleurHisto" column="id_controleur_histo" /> 
+		</composite-id>
+		<property name="Nom" column="nom" />
+		<property name="Prenom" column="prenom" />
+		<property name="DateNaissance" column="date_naissance" />
+		<property name="CodAgremRattachementVl" column="cod_agrem_rattachement_vl" />
+		<property name="CodAgremRattachementPl" column="cod_agrem_rattachement_pl" />
+		<property name="DateDebutRattachementVl" column="date_debut_rattachement_vl" />
+		<property name="DateDebutRattachementPl" column="date_debut_rattachement_pl" />
+		<property name="DateFinRattachementVl" column="date_fin_rattachement_vl" />
+		<property name="DateFinRattachementPl" column="date_fin_rattachement_pl" />
+		<property name="DateEffetNotificationVl" column="date_effet_notification_vl" />
+		<property name="DateEffetNotificationPl" column="date_effet_notification_pl" />
+		<property name="CodAgremVl" column="cod_agrem_vl" />
+		<property name="CodAgremPl" column="cod_agrem_pl" />
+		<property name="DateFinAgrementVl" column="date_fin_agrement_vl" />
+		<property name="DateFinAgrementPl" column="date_fin_agrement_pl" />
+		<property name="MotifFinAgrementVl" column="motif_fin_agrement_vl" />
+		<property name="MotifFinAgrementPl" column="motif_fin_agrement_pl" />
+		<property name="EtatAgrementVl" column="etat_agrement_vl" />
+		<property name="EtatAgrementPl" column="etat_agrement_pl" />
+		<property name="AvisOtcVl" column="avis_otc_vl" />
+		<property name="AvisOtcPl" column="avis_otc_pl" />
+		<property name="ReferenceAvisOtcVl" column="reference_avis_otc_vl" />
+		<property name="ReferenceAvisOtcPl" column="reference_avis_otc_pl" />
+		<property name="DateAvisOtcVl" column="date_avis_otc_vl" />
+		<property name="DateAvisOtcPl" column="date_avis_otc_pl" />
+		<property name="CommentaireAvisOtcVl" column="commentaire_avis_otc_vl" />
+		<property name="CommentaireAvisOtcPl" column="commentaire_avis_otc_pl" />
+		<property name="DateDebutHabilitationPl" column="date_debut_habilitation_pl" />
+		<property name="CodDepartement" column="cod_departement" />
+		<property name="NumOrdrePl" column="num_ordre_pl" />
+		<property name="NumOrdreVl" column="num_ordre_vl" />
+		<many-to-one name="RHabilitation" column="cod_habilitation" class="rHabilitation" />
+		<many-to-one name="RPrefecture" column="id_prefecture" class="rPrefecture" />
+		<many-to-one name="RTypeDemandeControleur" column="cod_type_demande_cntlr" class="rTypeDemandeControleur" />
+		<many-to-one name="RUtilisateur" column="cod_utilisateur" class="rUtilisateur" />
+
+    <!-- EG le 13/07/2011 pour la prise en compte du CL -->
+    <many-to-one name="PCentreEncourCL" column="id_centre_cl" class="pCentreEncour" />
+    <property name="CodAgremRattachementCl" column="cod_agrem_rattachement_cl" />
+    <property name="DateDebutRattachementCl" column="date_debut_rattachement_cl" />
+    <property name="DateFinRattachementCl" column="date_fin_rattachement_cl" />
+    <property name="DateEffetNotificationCl" column="date_effet_notification_cl" />
+    <property name="CodAgremCl" column="cod_agrem_cl" />
+    <property name="DateFinAgrementCl" column="date_fin_agrement_cl" />
+    <property name="MotifFinAgrementCl" column="motif_fin_agrement_cl" />
+    <property name="EtatAgrementCl" column="etat_agrement_cl" />
+    <property name="CommentaireAvisOtcCl" column="commentaire_avis_otc_cl" />
+    <property name="NumOrdreCl" column="num_ordre_cl" />
+    <!-- EG le 16/09/2011 -->
+    <property name="HabilitationGazVL" column="habilitation_gaz_vl" />
+    <property name="DateDebutFinHabilitationGazVL" column="date_debut_habilitation_gaz_vl" />
+    
+    <!-- EG le 25/11/2011 
+    <many-to-one name="PContoleurEncour" column="id_controleur_histo" foreign-key="id_controleur_encours"  class="pContoleurEncour" />
+      -->
+    <!--PLE le 19/01/2024-->
+    <property name="ExtAgremClStatut" column="ext_agrem_cl_statut" />
+    <property name="ExtAgremClDateValid" column="ext_agrem_cl_date_valid" />
+    <property name="ExtAgremClDateDecla" column="ext_agrem_cl_date_decla" />
+    <property name="ExtAgremClCatVeh" column="ext_agrem_cl_cat_veh" />
+
+    <!-- PLE le 08/04/2025 -->
+    <property name="SvaVL" column="sva_vl" />
+    <property name="SvaPL" column="sva_pl" />
+    <property name="SvaCL" column="sva_cl" />
+  </class>
+</hibernate-mapping>
+

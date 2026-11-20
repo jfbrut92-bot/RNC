@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<hibernate-mapping xmlns="urn:nhibernate-mapping-2.2" namespace="Utac.Rnc2.BusinessObjects" assembly="Utac.Rnc2.BusinessObjects">
+	<class name="Utac.Rnc2.BusinessObjects.pAmendeCentre, Utac.Rnc2.BusinessObjects" table="p_amende_centre" lazy="true">
+		<id name="Id" column="ref_amende_centre">
+		 	<generator class="native" />
+		</id>
+		<property name="LibContravention" column="lib_contravention" />
+		<property name="DateEmisAmende" column="date_emis_amende" />
+		<many-to-one name="PCentreEncour" column="id_centre_encours" class="pCentreEncour" />
+	</class>
+</hibernate-mapping>
+

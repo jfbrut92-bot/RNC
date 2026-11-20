@@ -1,0 +1,46 @@
+﻿@model Utac.Rnc2.UI.Web.Models.ModificationCourrielUtilisateurModel
+
+@section TitleContent {
+    Modifier l'adresse de votre courriel
+}
+@section SousTitrePage {
+    Modifier l'adresse de votre courriel
+}
+@using (Html.BeginForm())
+{
+    @Html.ValidationSummary(true)
+    <fieldset>
+        <label>Adresse actuelle : </label>
+        <div class="display-field">
+            @if (Model.Utilisateur.Email != null)
+            {
+                @Model.Utilisateur.Email
+
+            }
+            else
+            {
+                @:Aucune adresse n'est enregistrée!
+            }
+        </div>
+        <br />
+        <div class="editor-label">
+            <label>Nouvelle adresse :</label>
+        </div>
+        <div class="editor-field">
+            @Html.TextBoxFor(model => model.NouveauCourriel, new { size = "100", maxlength = "80" })
+            @Html.ValidationMessageFor(model => model.NouveauCourriel)
+        </div>
+        <div class="editor-label">
+            <label>Confirmez :</label>
+        </div>
+        <div class="editor-field">
+            @Html.TextBoxFor(model => model.ConfirmationCourriel, new { size = "100", maxlength = "80" })
+            @Html.ValidationMessageFor(model => model.ConfirmationCourriel)
+        </div>
+        @Html.HiddenFor(model => model.Utilisateur.Id)
+        @Html.HiddenFor(model => model.IdCentre)
+        <p>
+            <input type="submit" value="Enregistrer" class="btn primary" />
+        </p>
+    </fieldset>
+}

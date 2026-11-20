@@ -1,0 +1,50 @@
+﻿@model IEnumerable<Utac.Rnc2.BusinessObjects.rUtilisateur>
+
+@section TitleContent {
+    Index
+}
+<h2>Index</h2>
+<table>
+    <tr>
+        <th></th>
+        <th> MotDePasse</th>
+        <th> Nom</th>
+        <th>Prenom</th>
+        <th>Actif</th>
+        <th>Bloque</th>
+        <th>NumTentative</th>
+        <th>DateDerniereConnection</th>
+        <th>NumTel</th>
+        <th>Email</th>
+        <th>CodUsrCrea</th>
+        <th>CodUsrMaj</th>
+        <th>DateCrea</th>
+        <th>DateMaj</th>
+        <th>Id</th>
+    </tr>
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>
+                @Html.ActionLink("Edit", "Edit", new { /* id=item.PrimaryKey */ }) |
+                @Html.ActionLink("Details", "Details", new { /* id=item.PrimaryKey */ }) |
+                @Html.ActionLink("Delete", "Delete", new { /* id=item.PrimaryKey */ })
+            </td>
+            <td>@item.MotDePasse</td>
+            <td>@item.Nom</td>
+            <td>@item.Prenom</td>
+            <td>@item.Actif</td>
+            <td>@item.Bloque</td>
+            <td>@item.NumTentative</td>
+            <td>@String.Format("{0:g}", item.DateDerniereConnection)</td>
+            <td>@item.NumTel</td>
+            <td>@item.Email</td>
+            <td>@item.CodUsrCrea</td>
+            <td>@item.CodUsrMaj</td>
+            <td>@String.Format("{0:g}", item.DateCrea)</td>
+            <td>@String.Format("{0:g}", item.DateMaj)</td>
+            <td>@item.Id</td>
+        </tr>
+    }
+</table>
+<p>@Html.ActionLink("Create New", "Create")</p>

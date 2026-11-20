@@ -1,0 +1,153 @@
+﻿@model Utac.Rnc2.UI.Web.Models.NouveauCentreModel
+@using Utac.Rnc2.BusinessObjects
+
+@section TitleContent {
+    Nouveau Centre
+}
+@section SousTitrePage {
+    @switch (Model.TypeCentre)
+    {
+        case "S":
+            @:Création d'un nouveau Centre spécialisé @Model.CategorieVehicule.ToString()
+            break;
+        case "A":
+            @:Création d'une nouvelle Installation auxiliaire @Model.CategorieVehicule.ToString()
+            break;
+    }
+}
+@section StyleContent {
+    @Styles.Render("~/styles/jquery-ui")
+}
+@using (Html.BeginForm("CreationCentre", "Centre", FormMethod.Post))
+{
+    @Html.HiddenFor(m => m.Token)
+    @Html.ValidationSummary(true)
+    <fieldset>
+        <div class="editor-label">
+            @if ("S".Equals(Model.TypeCentre))
+            {
+                @Html.Label("Raison Sociale (ou nom et prénom de la personne physique)")
+            }
+            else
+            {
+                @Html.Label("Raison Sociale (ou nom et prénom de la personne physique abritant l'installation)")
+            }
+        </div>
+        <div class="editor-field">
+            @Html.TextBoxFor(model => model.Centre.RaisonSociale, new { size = "110", maxlength = "100", style = "text-transform:uppercase" })
+            @Html.ValidationMessageFor(model => model.Centre.RaisonSociale)
+        </div>
+        <div class="row">
+            <div class="floatLeft first">
+                @Html.Label("Numéro de Siren")
+                <div class="input">
+                    @Html.TextBoxFor(model => model.Centre.NumSiren, new { maxlength = "9" })
+                    @Html.ValidationMessageFor(model => model.Centre.NumSiren)
+                </div>
+            </div>
+            <div class="floatLeft">
+                @Html.Label("Statut juridique")
+                <div class="input">
+                    @Html.DropDownListFor(model => model.Centre.RStatutJuridique.Id, new SelectList(Model.ListeStatutJuridique, "Id", "Libelle", Model.Centre.RStatutJuridique != null ? Model.Centre.RStatutJuridique.Id : "-1"))
+                    @Html.ValidationMessageFor(model => model.Centre.RStatutJuridique.Id)
+                </div>
+            </div>
+        </div>
+        <div class="editor-label">@Html.Label("Nom et Prénom du représentant légal")</div>
+        <div class="editor-field">
+            @Html.TextBoxFor(model => model.Centre.NomRepresentantLegal, new { size = "100", maxlength = "100", style = "text-transform:uppercase" })
+            @Html.ValidationMessageFor(model => model.Centre.NomRepresentantLegal)
+        </div>
+        @if ("S".Equals(Model.TypeCentre))
+        {
+            <div class="editor-label">@Html.Label("Enseigne commerciale")</div>
+            <div class="editor-field">
+                @Html.TextBoxFor(model => model.Centre.EnseigneCommerciale, new { size = "100", maxlength = "100" })
+                @Html.ValidationMessageFor(model => model.Centre.EnseigneCommerciale)
+            </div>
+        }
+        <div class="editor-label">@Html.Label("Adresse ligne 1")</div>
+        <div class="editor-field">
+            @Html.TextBoxFor(model => model.Centre.L1Adresse, new { size = "90", maxlength = "80" })
+            @Html.ValidationMessageFor(model => model.Centre.L1Adresse)
+        </div>
+        <div class="editor-label">@Html.Label("Adresse ligne 2")</div>
+        <div class="editor-field">
+            @Html.TextBoxFor(model => model.Centre.L2Adresse, new { size = "90", maxlength = "80" })
+            @Html.ValidationMessageFor(model => model.Centre.L2Adresse)
+        </div>
+        <div class="row">
+            <div class="floatLeft first">
+                <div class="editor-label">@Html.Label("Code postal")</div>
+                <div class="editor-field">
+                    @Html.TextBoxFor(model => model.Centre.CpCentre, new { maxlength = "5" })
+                    @Html.ValidationMessageFor(model => model.Centre.CpCentre)
+                </div>
+            </div>
+            <div class="floatleft">
+                <div class="editor-label">@Html.Label("Ville")</div>
+                <div class="editor-field">
+                    @Html.TextBoxFor(model => model.Centre.Ville, new { size = "60", maxlength = "50" })
+                    @Html.ValidationMessageFor(model => model.Centre.Ville)
+                </div>
+            </div>
+        </div>
+        <div class="editor-label">@Html.Label("Numéro de téléphone")</div>
+        <div class="editor-field">
+            @Html.TextBoxFor(model => model.Centre.NumTel, new { size = "12", maxlength = "10" })
+            @Html.ValidationMessageFor(model => model.Centre.NumTel)
+        </div>
+        @if (Model.Centre.RPrefecture == null)
+        {
+            <div class="editor-label">@Html.Label("Code Préfecture")</div>
+            <div class="editor-field">
+                @Html.TextBoxFor(model => model.Centre.CodDepartement, new { size = "6", maxlength = "3" })
+                @Html.ValidationMessageFor(model => model.Centre.CodDepartement)
+            </div>
+        }
+        else
+        {
+            <div class="display-label">@Html.Label("Code Préfecture")</div>
+            <div class="display-field">@Model.Centre.CodDepartement</div>
+            @Html.HiddenFor(m => m.Centre.CodDepartement)
+        }
+        <div class="editor-label">
+                @if (Model.TypeCentre == "S")
+                {
+                    @Html.Label("Réseau de rattachement")
+                }
+                else
+                {
+                    @Html.Label("Réseau exploitant")
+                }
+        </div>
+        <div class="editor-field">
+            @switch (Model.CategorieVehicule)
+            {
+                case rCategorieVehicule.CategorieEnum.VL:
+                    @Html.DropDownListFor(model => model.Centre.ReseauRattachementVL.Id, new SelectList(Model.ListeReseau, "Id", "ReseauAvecLettre", Model.Centre.ReseauRattachementVL != null ? Model.Centre.ReseauRattachementVL.Id : "-1"))
+                    @Html.ValidationMessageFor(model => model.Centre.ReseauRattachementVL.Id)
+                    break;
+                case rCategorieVehicule.CategorieEnum.PL:
+                    @Html.DropDownListFor(model => model.Centre.ReseauRattachementPL.Id, new SelectList(Model.ListeReseau, "Id", "ReseauAvecLettre", Model.Centre.ReseauRattachementPL != null ? Model.Centre.ReseauRattachementPL.Id : "-1"))
+                    @Html.ValidationMessageFor(model => model.Centre.ReseauRattachementPL.Id)
+                    break;
+                case rCategorieVehicule.CategorieEnum.CL:
+                    @Html.DropDownListFor(model => model.Centre.ReseauRattachementCL.Id, new SelectList(Model.ListeReseau, "Id", "ReseauAvecLettre", Model.Centre.ReseauRattachementCL != null ? Model.Centre.ReseauRattachementCL.Id : "-1"))
+                    @Html.ValidationMessageFor(model => model.Centre.ReseauRattachementCL.Id)
+                    break;
+            }
+        </div>
+        <br />
+        @Html.HiddenFor(m => m.TypeCentre)
+        @Html.HiddenFor(m => m.CategorieVehicule)
+        @Html.HiddenFor(m => m.EstCentreAdministration)
+        <p>
+            <input type="submit" value="Enregistrer" class="btn primary" />
+        </p>
+    </fieldset>
+}
+@section JavaScriptContent {
+    @Scripts.Render("~/scripts/jquery-ui")
+    @Scripts.Render("~/scripts/creation-centre")
+}

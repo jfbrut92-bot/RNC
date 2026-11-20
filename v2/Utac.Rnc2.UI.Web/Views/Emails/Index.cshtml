@@ -1,0 +1,36 @@
+﻿@model IEnumerable<Utac.Rnc2.BusinessObjects.rTemplateMail>
+
+@section TitleContent {
+    Liste des templates d'email
+}
+@section SousTitrePage {
+    Liste des templates d'email
+}
+<table>
+    <tr>
+        <th></th>
+        <th>Nom du template</th>
+        <th>Corps</th>
+        <th>Id</th>
+    </tr>
+    @{ var i = 0; }
+    @foreach (var item in Model)
+    {
+        <tr class="@(i % 2 == 0 ? "row1" : "row2")">
+            <td>
+                @Html.ActionLink("Modifier", "Edit", new { id = item.Id }) |
+                @Html.ActionLink("Supprimer", "Delete", new { id = item.Id })
+            </td>
+            <td>
+                <b>@item.NomTemplate</b>
+            </td>
+            <td>@Html.Raw(item.BodyTemplate)</td>
+            <td> @item.Id</td>
+        </tr>
+        i++;
+    }
+</table>
+<br />
+<div class="rowAligne">
+    @Html.ActionLink("Ajouter un template", "New", null, new { @class = "btn primary" })
+</div>

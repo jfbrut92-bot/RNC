@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<hibernate-mapping xmlns="urn:nhibernate-mapping-2.2" namespace="Utac.Rnc2.BusinessObjects" assembly="Utac.Rnc2.BusinessObjects">
+	<class name="Utac.Rnc2.BusinessObjects.rHabilitation, Utac.Rnc2.BusinessObjects" table="r_habilitation" lazy="true">
+		<id name="Id" column="cod_habilitation">
+		 	<generator class="assigned" />
+		</id>
+		<property name="LibelleHabilitation" column="libelle_habilitation" />
+		<bag name="PContoleurEncours" lazy="true" cascade="all" inverse="true" >
+			<key column="cod_habilitation"></key>
+			<one-to-many class="pContoleurEncour"></one-to-many>
+		</bag>
+		<bag name="PControleurHistos" lazy="true" cascade="all" inverse="true" >
+			<key column="cod_habilitation"></key>
+			<one-to-many class="pControleurHisto"></one-to-many>
+		</bag>
+		<bag name="RCategorieVehicules" lazy="true" cascade="all" inverse="true" >
+			<key column="cod_habilitation"></key>
+			<one-to-many class="rCategorieVehicule"></one-to-many>
+		</bag>
+		<bag name="RTypeFormations" lazy="true" cascade="all" inverse="true" >
+			<key column="cod_habilitation"></key>
+			<one-to-many class="rTypeFormation"></one-to-many>
+		</bag>
+	</class>
+</hibernate-mapping>
+

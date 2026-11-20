@@ -1,0 +1,73 @@
+﻿@model Utac.Rnc2.BusinessObjects.pContoleurEncour
+@using Utac.Rnc2.UI.Web.Helpers
+
+@section TitleContent {
+    Liste des sanctions pour le  @Model.Titre @Model.Nom @Model.Prenom
+}
+@section SousTitrePage {
+    Liste des sanctions pour le  @Model.Titre @Model.Nom @Model.Prenom
+}
+<table>
+    <tr>
+        <th></th>
+        <th>Type Sanction / Motif</th>
+        <th>Organisme<br />demandeur</th>
+        <th>Date Evènement<br />origine</th>
+        <th>Date Début</th>
+        <th>Date Fin</th>
+        <th>Liste des agrément(s) affecté(s)</th>
+    </tr>
+    @{ var i = 0; }
+    @foreach (var item in Model.PSanctionControleurs.OrderByDescending(s => s.Id))
+    {
+        <tr class="@(i % 2 == 0 ? "row1" : "row2")">
+            <td>
+                @if (GestionDroitsExecution.isRightActionForControleur(User, Model, GestionDroitsExecution.ActionsFicheControleur.SANCT))
+                {
+                    @Html.ActionLink("Modifier", "ModifierSanction", new { id = item.Id })
+                    @:|
+                    @Html.ActionLink("Supprimer", "ConfirmationDeleteSanction", new { id = item.Id })
+                }
+            </td>
+            <td><b>
+                @if (item.RTypeSanctionControleur.Id != 5)
+                {
+                    @item.RTypeSanctionControleur.Libelle
+                }
+                else
+                {
+                    @item.TypeSanctionAutre
+                }</b>
+                <br />
+                @item.MotifSanction
+            </td>
+            <td>@item.RTypeOrganismeDemandeur.Libelle</td>
+            <td>@String.Format("{0:d}", item.DateEvenementOrigine)</td>
+            <td>@String.Format("{0:d}", item.DateDebut)</td>
+            <td>@String.Format("{0:d}", item.DateFin)</td>
+            <td>
+                @if (item.IsAgrementAffecteVL)
+                {
+                    @($"VL:{@item.CodAgremVl}")
+                }
+                @if (item.IsAgrementAffectePL)
+                {
+                    @($"PL:@item.CodAgremPl");
+                }
+                @if (item.IsAgrementAffecteCL)
+                {
+                    @($"CL:{@item.CodAgremCl}")
+                }
+            </td>
+        </tr>
+        i++;
+    }
+</table>
+<br />
+<div class="rowAligne">
+    @if (GestionDroitsExecution.isRightActionForControleur(User, Model, GestionDroitsExecution.ActionsFicheControleur.SANCT))
+    {
+        @Html.ActionLink("Ajouter une sanction", "AjouterSanction", new { id = Model.Id }, new { @class = "btn primary" })
+    }
+    @Html.ActionLink("Retour à la fiche", "Fiche", new { id = Model.Id }, new { @class = "btn success" })
+</div>

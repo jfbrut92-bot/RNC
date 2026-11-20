@@ -1,0 +1,103 @@
+﻿@model Utac.Rnc2.UI.Web.Models.NouveauControleurTechniqueModel
+
+@section TitleContent {
+    Création d'un nouvel agrément contrôleur ou prestataire
+}
+@section SousTitrePage {
+    Création d'un nouvel agrément contrôleur ou prestataire
+}
+@using (Html.BeginForm("Create", "ControleurTechnique", FormMethod.Post))
+{
+
+    @Html.HiddenFor(m => m.Token)
+    @Html.ValidationSummary(true)
+    <fieldset>
+        @Html.HiddenFor(m => m.categorie)
+        @if (!String.IsNullOrEmpty(Model.ConfirmControleursEnDoublons))
+        {
+            <input data-val="true" data-val-required="Le champ categorie est requis." id="ConfirmControleursEnDoublons" name="ConfirmControleursEnDoublons" type="hidden" value="oui">
+        }
+
+        <div class="editor-label">@Html.LabelFor(model => model.controleur.Nom)</div>
+        <div class="editor-field">
+            @Html.TextBoxFor(model => model.controleur.Nom, new { @class = "input-large", maxlength = "50" })
+            @Html.ValidationMessageFor(model => model.controleur.Nom)
+        </div>
+        <div class="editor-label">@Html.Label("Prénom")</div>
+        <div class="editor-field">
+            @Html.TextBoxFor(model => model.controleur.Prenom, new { @class = "input-large", maxlength = "50" })
+            @Html.ValidationMessageFor(model => model.controleur.Prenom)
+        </div>
+        <div class="editor-label">@Html.Label("Date de naissance")</div>
+        <div class="editor-field">
+            @Html.TextBoxFor(model => model.controleur.DateNaissance, String.Format("{0:d}", (Model.controleur != null) ? Model.controleur.DateNaissance : null), new {@placeholder="JJ/MM/AAAA" })
+            @Html.ValidationMessageFor(model => model.controleur.DateNaissance)
+        </div>
+        @if (Model.categorie.Equals(Utac.Rnc2.BusinessObjects.rCategorieVehicule.CategorieEnum.VL))
+        {
+            <div class="editor-label">@Html.Label("N° agrément du centre VL de rattachement")</div>
+            <div class="editor-field">
+                @Html.TextBoxFor(model => model.controleur.CodAgremRattachementVl, new { maxlength = "8" })
+                @Html.ValidationMessageFor(model => model.controleur.CodAgremRattachementVl)
+            </div>
+        }
+        @if (Model.categorie.Equals(Utac.Rnc2.BusinessObjects.rCategorieVehicule.CategorieEnum.PL))
+        {
+            <div class="editor-label">@Html.Label("N° agrément du centre PL de rattachement")</div>
+            <div class="editor-field">
+                @Html.TextBoxFor(model => model.controleur.CodAgremRattachementPl, new { maxlength = "8" })
+                @Html.ValidationMessageFor(model => model.controleur.CodAgremRattachementPl)
+            </div>
+        }
+        @if (Model.categorie.Equals(Utac.Rnc2.BusinessObjects.rCategorieVehicule.CategorieEnum.CL))
+        {
+            <div class="editor-label">@Html.Label("N° agrément du centre CL de rattachement")</div>
+            <div class="editor-field">
+                @Html.TextBoxFor(model => model.controleur.CodAgremRattachementCl, new { maxlength = "8" })
+                @Html.ValidationMessageFor(model => model.controleur.CodAgremRattachementCl)
+            </div>
+        }
+        <div class="editor-label">
+            <label for="EstPrestataire">Prestataire de l'Union Européenne oui/non ?</label>
+        </div>
+        <div class="editor-field">
+            <select id="EstPrestataire" name="EstPrestataire">
+                <option value="" @(Model.NombreChargement > 0 ? (string.IsNullOrEmpty(Model.EstPrestataire) ? "selected" : "") : "")>---</option>
+                <option value="false" @(Model.NombreChargement > 0 ? ("false".Equals(Model.EstPrestataire) ? "selected" : "") : "selected")>non</option>
+                <option value="true" @(Model.NombreChargement > 0 ? ("true".Equals(Model.EstPrestataire) ? "selected" : "") : "")>oui</option>
+            </select>
+            @Html.ValidationMessageFor(model => model.EstPrestataire)
+        </div>
+
+        <div class="editor-label">
+            @if (String.IsNullOrEmpty(Model.ConfirmControleursEnDoublons))
+            {
+                <input type="submit" value="Créer" class="btn primary" />
+            }
+            else
+            {
+                <input type="submit" value="Confirmer création" class="btn primary" />
+            }
+        </div>
+
+        <div class="row no-gutters p-0 mx-2 mx-md-0">
+            <div class="col-12 row no-gutters">
+                @Html.Partial("NewDoublonsControleursResultat", Model)
+            </div>
+        </div>
+        @if (String.IsNullOrEmpty(Model.ConfirmControleursEnDoublons))
+        {
+            <div class="avertissement">
+                <b>Attention à la sélection concernant le prestataire</b>
+                <br />
+                <i>Extrait Article L323-1 du code de la route concernant le prestataire</i>
+                <br />
+                <i>II.-Par dérogation au I, tout ressortissant d'un Etat membre de la Communauté européenne ou d'un autre Etat partie à l'Espace économique européen, légalement établi, pour l'exercice de la profession de contrôleur technique de véhicules, dans un de ces Etats, peut exercer cette activité de façon temporaire et occasionnelle en France.</i>
+                <br />
+                <i>Toutefois, lorsque cette activité ou la formation y conduisant n'est pas réglementée dans l'Etat d'établissement, le prestataire doit avoir exercé cette activité dans cet Etat pendant au moins deux ans au cours des dix années qui précèdent la prestation.</i>
+                <br />
+                <i>Lorsque le prestataire fournit pour la première fois des services en France, il en informe au préalable l'autorité compétente par une déclaration écrite, dans les conditions fixées par décret en Conseil d'Etat.</i>
+            </div>
+        }
+    </fieldset>
+}

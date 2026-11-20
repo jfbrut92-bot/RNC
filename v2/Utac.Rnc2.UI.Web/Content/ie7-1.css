@@ -1,0 +1,17 @@
+#middle .content .content-box hr,
+#middle .content .reference-box hr,
+hr { border:#9AB5C9 1px solid!important; outline:none!important; height:0!important; line-height:0!important; font-size:0!important; background:none!important; margin:10px 0 25px; }
+
+.kwo-form input.text { height:24px; width:255px; background-attachment:scroll; background-position:top right; }
+.kwo-form .field-textarea   { background:scroll url('/app/kernix/pix/form-textarea-bg.png') no-repeat 0 30px; height:220px; overflow:hidden; margin-bottom:15px; }
+.kwo-form textarea   { height:185px; background:none; width:555px; }
+.kwo-form .action .button { padding:0; }
+
+.clear { margin-top:-1px; }
+
+#middle .sous-nav { line-height:5px; font-size:5px; }
+
+.pagination-box .pagination-content {
+  padding-top:0px!important;
+  padding-bottom:0px!important;
+}

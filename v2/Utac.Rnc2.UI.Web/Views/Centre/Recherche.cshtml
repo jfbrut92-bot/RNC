@@ -1,0 +1,212 @@
+﻿@model Utac.Rnc2.UI.Web.Models.RechercheCentreModel
+@using Utac.Rnc2.UI.Web.Helpers
+@using Utac.Rnc2.UI.Web.Models
+@using Utac.Rnc2.UI.Web.Utils
+
+@section TitleContent {
+    Recherche d'une installation
+}
+@section SousTitrePage {
+    Recherche d'une installation de contrôle
+}
+<div class="row w-100 no-gutters">
+    @using (Html.BeginForm("Recherche", "Centre",
+            new { ReturnUrl = ViewBag.ReturnUrl },
+            FormMethod.Post, new { @class = "col-12" }))
+    {
+        @Html.ValidationSummary(true)
+    <fieldset class="row no-gutters mx-2 mx-md-0">
+        <div class="col-12 no-gutters row mb-3 order-last order-md-first">
+            <div class="col-md-3 d-none d-md-block">
+                @Html.Label("Raison sociale")
+                <div class="d-flex flex-column">
+                    @Html.TextBoxFor(model => model.RaisonSociale, new { @class = "w-75" })
+                    @Html.ValidationMessageFor(model => model.RaisonSociale, null, new { @class = "w-100" })
+                </div>
+            </div>
+            <!-- /clearfix -->
+            <div class="col-md-3 d-none d-md-block">
+                @Html.Label("Numéro de SIREN")
+                <div class="d-flex flex-column">
+                    @Html.TextBoxFor(model => model.NumSiren, new { @class = "w-75", maxlength = "9" })
+                    @Html.ValidationMessageFor(model => model.NumSiren, null, new { @class = "w-100" })
+                </div>
+            </div>
+            <div class="col-md-4  mt-2 mt-md-0 row no-gutters align-items-md-start">
+                <input type="submit" value="Rechercher" class="@(DeviceHelper.IsMobileDevice(Request.UserAgent) ? "btn-primary col-12 p-1 col-form-label-sm  rounded-lg":"btn primary col-md-4")" />
+                <a class="btn success col-md-6 offset-md-1 d-none d-md-block" href="@Url.Action("Recherche","Centre")">Effacer les critères</a>
+                <div>@Html.ValidationMessageFor(model => model.Resultat, null, new { @class = "w-100" })</div>
+            </div>
+        </div>
+        <div class="col-12 no-gutters row mb-3">
+            <div class="col-12 col-md-3">
+                @Html.Label("Code Postal")
+                <div class="d-flex flex-column">
+                    @Html.TextBoxFor(model => model.CodePostal, new { @class = DeviceHelper.IsMobileDevice(Request.UserAgent) ? "form-control-sm w-100" : "w-75", maxlength = "5" })
+                    @Html.ValidationMessageFor(model => model.CodePostal, null, new { @class = "w-100" })
+                </div>
+            </div>
+            <div class="col-md-3 d-none d-md-block">
+                @Html.Label("Ville")
+                <div class="d-flex flex-column">
+                    @Html.TextBoxFor(model => model.Ville, new { @class = "w-75" })
+                    @Html.ValidationMessageFor(model => model.Ville, null, new { @class = "w-100" })
+                </div>
+            </div>
+            <div class="etatsAgrement col-md-4 d-none d-md-block align-content-center">
+                @Html.CheckBoxFor(model => model.AvecExtentionAgrement, new { @class = "checkbox" })
+                <label for="IsAgrementVlValide">Avec extension agrément CL</label>
+            </div>
+        </div>
+        <div class="col-12 row no-gutters mb-3">
+            <div class="col-12 col-md-3">
+                @Html.Label("N° agrément VL")
+                <div class="d-flex flex-column">
+                    @Html.TextBoxFor(model => model.NumAgrementVl, new { @class = DeviceHelper.IsMobileDevice(Request.UserAgent) ? "form-control-sm w-100" : "w-75", maxlength = "8" })
+                    @Html.ValidationMessageFor(model => model.NumAgrementVl, null, new { @class = "w-100" })
+                </div>
+            </div>
+            <div class="col-md-3 d-none d-md-block">
+                @Html.Label("Ancien N° agrément VL")
+                <div class="d-flex flex-column">
+                    @Html.TextBoxFor(model => model.AncienNumAgrementVl, new { @class = "w-75", maxlength = "8" })
+                    @Html.ValidationMessageFor(model => model.AncienNumAgrementVl, null, new { @class = "w-100" })
+                </div>
+            </div>
+            <div class="etatsAgrement col-md-4 d-none d-md-block align-content-center">
+                <ul class="d-flex m-0">
+                    <li class="mr-auto my-0">
+                        @Html.CheckBoxFor(model => model.IsAgrementVlValide, new { @class = "checkbox" })
+                        <label for="IsAgrementVlValide">Valide</label>
+                    </li>
+                    <li class="mr-auto my-0">
+                        @Html.CheckBoxFor(model => model.IsAgrementVlAnnule, new { @class = "checkbox" })
+                        <label for="IsAgrementVlAnnule">Annulé</label>
+                    </li>
+                    <li class="mr-auto my-0">
+                        @Html.CheckBoxFor(model => model.IsAgrementVlRejete, new { @class = "checkbox" })
+                        <label for="IsAgrementVlRejete">Rejeté</label>
+                    </li>
+                    <li class="mr-auto my-0">
+                        @Html.CheckBoxFor(model => model.IsAgrementVlDemandeEnCours, new { @class = "checkbox" })
+                        <label for="IsAgrementVlDemandeEnCours">En cours</label>
+                    </li>
+                </ul>
+            </div>
+        </div>
+        <div class=" col-12 row no-gutters mb-3">
+            <div class="col-12 col-md-3">
+                @Html.Label("N° agrément CL")
+                <div class="d-flex flex-column">
+                    @Html.TextBoxFor(model => model.NumAgrementCl, new { @class = DeviceHelper.IsMobileDevice(Request.UserAgent) ? "form-control-sm w-100" : "w-75", maxlength = "8" })
+                    @Html.ValidationMessageFor(model => model.NumAgrementCl, null, new { @class = "w-100" })
+                </div>
+            </div>
+            <div class="col-md-3 d-none d-md-block">
+                @Html.Label("Ancien N° agrément CL")
+                <div class="d-flex flex-column">
+                    @Html.TextBoxFor(model => model.AncienNumAgrementCl, new { @class = "w-75", maxlength = "8" })
+                    @Html.ValidationMessageFor(model => model.AncienNumAgrementCl, null, new { @class = "w-100" })
+                </div>
+            </div>
+            <div class="etatsAgrement col-md-4 d-none d-md-block">
+                <ul class="d-flex m-0">
+                    <li class="mr-auto my-0">
+                        @Html.CheckBoxFor(model => model.IsAgrementClValide, new { @class = "checkbox" })
+                        <label for="IsAgrementClValide">Valide</label>
+                    </li>
+                    <li class="mr-auto my-0">
+                        @Html.CheckBoxFor(model => model.IsAgrementClAnnule, new { @class = "checkbox" })
+                        <label for="IsAgrementClAnnule">Annulé</label>
+                    </li>
+                    <li class="mr-auto my-0">
+                        @Html.CheckBoxFor(model => model.IsAgrementClRejete, new { @class = "checkbox" })
+                        <label for="IsAgrementClRejete">Rejeté</label>
+                    </li>
+                    <li class="mr-auto my-0">
+                        @Html.CheckBoxFor(model => model.IsAgrementClDemandeEnCours, new { @class = "checkbox" })
+                        <label for="IsAgrementPlDemandeEnCours">Encours</label>
+                    </li>
+                </ul>
+            </div>
+        </div>
+        <div class=" col-12 row no-gutters mb-3">
+            <div class="col-12 col-md-3">
+                @Html.Label("N° agrément PL")
+                <div class="d-flex flex-column">
+                    @Html.TextBoxFor(model => model.NumAgrementPl, new { @class = DeviceHelper.IsMobileDevice(Request.UserAgent) ? "form-control-sm w-100" : "w-75", maxlength = "8" })
+                    @Html.ValidationMessageFor(model => model.NumAgrementPl, null, new { @class = "w-100" })
+                </div>
+            </div>
+            <div class="col-md-3 d-none d-md-block">
+                @Html.Label("Ancien N° agrément PL")
+                <div class="d-flex flex-column">
+                    @Html.TextBoxFor(model => model.AncienNumAgrementPl, new { @class = "w-75", maxlength = "8" })
+                    @Html.ValidationMessageFor(model => model.AncienNumAgrementPl, null, new { @class = "w-100" })
+                </div>
+            </div>
+            <div class="etatsAgrement col-md-4 d-none d-md-block">
+                <ul class="d-flex m-0">
+                    <li class="mr-auto my-0">
+                        @Html.CheckBoxFor(model => model.IsAgrementPlValide, new { @class = "checkbox" })
+                        <label for="IsAgrementPlValide">Valide</label>
+                    </li>
+                    <li class="mr-auto my-0">
+                        @Html.CheckBoxFor(model => model.IsAgrementPlAnnule, new { @class = "checkbox" })
+                        <label for="IsAgrementPlAnnule">Annulé</label>
+                    </li>
+                    <li class="mr-auto my-0">
+                        @Html.CheckBoxFor(model => model.IsAgrementPlRejete, new { @class = "checkbox" })
+                        <label for="IsAgrementPlRejete">Rejeté</label>
+                    </li>
+                    <li class="mr-auto my-0">
+                        @Html.CheckBoxFor(model => model.IsAgrementPlDemandeEnCours, new { @class = "checkbox" })
+                        <label for="IsAgrementPlDemandeEnCours">Encours</label>
+                    </li>
+                </ul>
+            </div>
+        </div>
+        @if (Model == null || Model.Resultat == null || Model.Resultat.Count.Equals(0))
+        {
+            <div class="static-msg d-none d-md-block mb-3 p-2 pl-5 col-md-12">
+                <p>Utilisation du moteur de recherche</p>
+                <ul>
+                    <li>Pour faciliter la recherche, nous vous conseillons de ne saisir <i>qu’un seul</i> critère : le numéro d'agrément ou le début du numéro (en priorité), le code postal ou la ville</li>
+                </ul>
+            </div>
+        }
+        <div class="well d-none d-md-block mb-3 col-md-12">
+            @if (Model != null)
+            {
+                if (Model != null && Model.Resultat != null)
+                {
+                    <span>@Model.Resultat.Count() Installation(s) trouvée(s)</span>
+                }
+                if (this.ViewData.ModelState.IsValid)
+                {
+                    if ((GestionDroitsExecution.isRightActionForCentre(User, null, GestionDroitsExecution.ActionsFicheCentre.CRECEVL))
+                        || (GestionDroitsExecution.isRightActionForCentre(User, null, GestionDroitsExecution.ActionsFicheCentre.CRECEPL))
+                        || (GestionDroitsExecution.isRightActionForCentre(User, null, GestionDroitsExecution.ActionsFicheCentre.CRECECL)))
+                    {
+                        NouveauCentreModel etape0 = new NouveauCentreModel();
+                        etape0 = null;
+                        <a class="btn success" href="@Url.Action("NouveauCentreEtape0", "Centre", new { centreAdministration = false })">Nouveau Centre Spécialisé</a>
+                    }
+                }
+            }
+        </div>
+    </fieldset>
+ }
+</div>
+<div class="row no-gutters p-0 mx-2 mx-md-0">
+    <!-- Afficher une vue partielle -->
+    @if (Model != null && Model.Resultat != null)
+    {
+        if (Model.Resultat.Count() > 0)
+        {
+            <div class="col-12 row no-gutters">
+                @Html.Partial("RechercheCentreResult", Model.Resultat)
+            </div>
+        }
+    }
+</div>

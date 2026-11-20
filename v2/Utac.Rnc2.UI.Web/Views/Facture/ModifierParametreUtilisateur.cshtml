@@ -1,0 +1,55 @@
+﻿@model Utac.Rnc2.UI.Web.Models.FactureModel
+@using Utac.Rnc2.BusinessObjects
+
+@section TitleContent {
+    Options de facturation
+}
+@section SousTitrePage {
+    @switch (Model.Categorie)
+    {
+        case rCategorieVehicule.CategorieEnum.VL:
+            <span>Options de facturation du centre @Model.Categorie @Model.MonCentre.CodAgremVl</span>
+            break;
+        case rCategorieVehicule.CategorieEnum.PL:
+            <span>Options de facturation du centre @Model.Categorie @Model.MonCentre.CodAgremPl</span>
+            break;
+        case rCategorieVehicule.CategorieEnum.CL:
+            <span>Options de facturation du centre @Model.Categorie @Model.MonCentre.CodAgremCl</span>
+            break;
+    }
+}
+@using (Html.BeginForm())
+{
+    @Html.ValidationSummary(true)
+    <fieldset>
+        Vous ne désirez plus recevoir vos factures au format papier
+        @Html.RadioButtonFor(model => model.UtilisateurCentre.FacturePapier, false, !Model.UtilisateurCentre.FacturePapier ? new { @checked = "checked" } : null)
+        <br />
+        Vous voulez continuer à recevoir vos factures au format papier
+        @Html.RadioButtonFor(model => model.UtilisateurCentre.FacturePapier, true, Model.UtilisateurCentre.FacturePapier ? new { @checked = "checked" } : null)
+        <br />
+        <br />
+        Si vous avez choisi de ne plus recevoir vos factures au format papier, l'adresse de messagerie ci-dessous nous permettra
+        <br />
+        de vous informer de la mise à disposition d'une nouvelle facture dans votre espace client.
+        <div class="editor-field">
+            @Html.TextBoxFor(model => model.UtilisateurCentre.Email, new { size = "100", maxlength = "80" })
+            @Html.ValidationMessageFor(model => model.UtilisateurCentre.Email)
+        </div>
+        <div class="avertissement">
+            ATTENTION: cette adresse n'est pas spécifique à la facturation, elle est également utilisée par RNC2 pour l'envoi des différents
+            <br />
+            courriels concernant la gestion de votre centre.
+        </div>
+        <br />
+        <br />
+        @* Propager le paramètre du formulaire précédent*@
+        @Html.HiddenFor(model => model.UtilisateurCentre.Id)
+        @Html.HiddenFor(model => model.MonCentre.Id)
+        @Html.HiddenFor(model => model.Categorie)
+        <p>
+            <input type="submit" value="Enregistrer" class="btn primary" />
+            <a class="btn success" href="@Url.Action("ListeFactureCentre","Facture", new { id = Model.MonCentre.Id, categorie = Model.Categorie })">Retour à la liste des factures</a>
+        </p>
+    </fieldset>
+}

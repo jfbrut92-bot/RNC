@@ -1,0 +1,7 @@
+﻿@model IEnumerable<Utac.Rnc2.BusinessObjects.statistiques.ItemListeDesInstallationsVéhiculesLegersELourdsSelonRegion>
+@{ Layout = null; }
+Catégorie;Département;Région;Raison Sociale;Adresse 1;Adresse 2;Code Postal;Ville;Agrément;Date Effet Notification;Date Echéance;Reseau;Type Centre;Controle Gaz;Décélérometre;Rouleaux Fous;Banc Rotation Inversée;Statut/Ext agrem cat L;Valide depuis le / Ext agrem cat L
+@foreach (var item in Model)
+{
+    @:@item.CategorieVehicule;="@item.CodeDepartement";@item.Region;@item.RaisonSociale;@item.L1Adresse;@item.L2Adresse;@item.CPCentre;@item.Ville;@item.Agrement;@item.DateEffetAgrement;@item.DateEcheance;@item.Reseau;@item.TypeCentre;@item.ControlGaz;@item.Decelerometre;@item.RouleauFou;@item.BancRotationInversee;@item.ExtAgremClStatut;@item.ExtAgremClDateValid
+}

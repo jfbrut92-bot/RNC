@@ -1,0 +1,45 @@
+﻿@model Utac.Rnc2.UI.Web.Models.FactureModel
+@using Utac.Rnc2.BusinessObjects
+
+@section TitleContent {
+    Liste des factures disponibles pour le réseau @Model.Reseau.ReseauAvecLettreEtCategorieSeuls
+}
+@section SousTitrePage {
+    Liste des factures disponibles pour le réseau @Model.Reseau.ReseauAvecLettreEtCategorieSeuls
+}
+<br />
+<table>
+    <tr>
+        <th>Date</th>
+        <th>Facture N°</th>
+        <th>Catégorie</th>
+        <th>Action</th>
+        @if (User.IsInRole(rUtilisateur.Profil.OTC_Administration.ToString()))
+        {
+            <th>Date du téléchargement</th>
+            <th>Téléchargée par</th>
+        }
+    </tr>
+    @{ var i = 0; }
+    @foreach (var item in Model.Reseau.PFactures.OrderByDescending(h => h.DateGenerationFacture))
+    {
+        <tr class="@(i % 2 == 0 ? "row1" : "row2")">
+            <td>@String.Format("{0:d}", item.DateFacture)</td>
+            <td>@item.NumFacture</td>
+            <td align="center">@item.CodCategorieVeh</td>
+            <td>@Html.ActionLink("Télécharger le fichier", "Telecharge", "Facture", new { id = item.Id, categorie = item.CodCategorieVeh }, new { })</td>
+            @if (User.IsInRole(rUtilisateur.Profil.OTC_Administration.ToString()))
+            {
+                <td>@item.DateTelechargementFacture</td>
+                <td>@item.CodUtilisateurTelechargement</td>
+            }
+        </tr>
+        i++;
+    }
+</table>
+<br />
+<br />
+@if (!User.IsInRole(rUtilisateur.Profil.OTC_Administration.ToString()) && !User.IsInRole(rUtilisateur.Profil.OTC_Consultation.ToString()))
+{
+    <a class="btn cancel" href="@Url.Action("Index","Home")">Retour à l'accueil</a>
+}

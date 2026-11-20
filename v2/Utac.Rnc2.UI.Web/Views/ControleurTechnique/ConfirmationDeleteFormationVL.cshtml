@@ -1,0 +1,14 @@
+﻿@model Utac.Rnc2.BusinessObjects.pFormationControleurVL
+
+@section TitleContent {
+    ConfirmationDeleteFormation
+}
+@section SousTitrePage {
+    Confirmation de la suppression d'une formation du @Model.Controleur.Titre @Model.Controleur.Nom @Model.Controleur.Prenom @Model.Controleur.CodAgremVl @Model.Controleur.CodAgremPl @Model.Controleur.CodAgremCl
+}
+Attention veuillez confirmer la suppression de la formation VL du : @String.Format("{0:d}", Model.DateDebut) au @String.Format("{0:d}", Model.DateFin) en cliquant sur le lien ci-dessous. Pour revenir à la liste des formations VL cliquez
+@Html.ActionLink("ici", "ListeFormationsVL", new { id = Model.Controleur.Id })
+<form method="post" action="@Url.Action("DeleteFormationVL")">
+    <input type="hidden" name="id" value="@Model.Id" />
+    <input type="submit" value="Confirmer" class="btn primary" />
+</form>

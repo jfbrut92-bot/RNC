@@ -1,0 +1,197 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="15.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{3E718BFC-1D98-4C65-8BDB-C492A7AD915D}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>Utac.Rnc2.BusinessObjects</RootNamespace>
+    <AssemblyName>Utac.Rnc2.BusinessObjects</AssemblyName>
+    <TargetFrameworkVersion>v4.8</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <Deterministic>true</Deterministic>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="System" />
+    <Reference Include="System.ComponentModel.DataAnnotations" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Net.Http" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="BeanModifiable.cs" />
+    <Compile Include="BusinessBase.cs" />
+    <Compile Include="certificats\ItemListeDesInfosCertificatsExpireOuRevoque.cs" />
+    <Compile Include="CommuneInsee.cs" />
+    <Compile Include="IModifiable.cs" />
+    <Compile Include="pActiviteControleurCL.cs" />
+    <Compile Include="pActiviteControleurVL.cs" />
+    <Compile Include="pActiviteControleurCL.generated.cs" />
+    <Compile Include="pActiviteControleurVL.generated.cs" />
+    <Compile Include="pAmendeCentre.cs" />
+    <Compile Include="pAmendeCentre.generated.cs" />
+    <Compile Include="pAmendeControleur.cs" />
+    <Compile Include="pAmendeControleur.generated.cs" />
+    <Compile Include="Parametre.cs" />
+    <Compile Include="pAuditControleur.cs" />
+    <Compile Include="pAuditControleur.generated.cs" />
+    <Compile Include="pAuditControleurCL.cs" />
+    <Compile Include="pAuditControleurVL.cs" />
+    <Compile Include="pCentreEncour.cs" />
+    <Compile Include="pCentreEncour.generated.cs" />
+    <Compile Include="pCentreHisto.cs" />
+    <Compile Include="pCentreHisto.generated.cs" />
+    <Compile Include="pCertificat.cs" />
+    <Compile Include="pCertificat.generated.cs" />
+    <Compile Include="pConformiteLogiciel.cs" />
+    <Compile Include="pConformiteLogiciel.generated.cs" />
+    <Compile Include="pContoleurEncour.cs" />
+    <Compile Include="pContoleurEncour.generated.cs" />
+    <Compile Include="pControleurHisto.cs" />
+    <Compile Include="pControleurHisto.generated.cs" />
+    <Compile Include="pCourrierEnvoye.cs" />
+    <Compile Include="pCourrierEnvoye.generated.cs" />
+    <Compile Include="pCumulActivitePlControleur.cs" />
+    <Compile Include="pCumulActivitePlControleur.generated.cs" />
+    <Compile Include="pCumulActivitePlJrnTrt.cs" />
+    <Compile Include="pCumulActivitePlJrnTrt.generated.cs" />
+    <Compile Include="pDerogationCentre.cs" />
+    <Compile Include="pEquipementCentreCL.cs" />
+    <Compile Include="pEquipementCentrePL.cs" />
+    <Compile Include="pEquipementCentreVL.cs" />
+    <Compile Include="pFacture.cs" />
+    <Compile Include="pFacture.generated.cs" />
+    <Compile Include="pFormationControleurCL.cs" />
+    <Compile Include="pFormationControleurPL.cs" />
+    <Compile Include="pFormationControleurPL.generated.cs" />
+    <Compile Include="pFormationControleurVL.cs" />
+    <Compile Include="pGestionCertificat.cs" />
+    <Compile Include="pGestionCertificat.generated.cs" />
+    <Compile Include="pHoraireOuverture.cs" />
+    <Compile Include="pHoraireOuverture.generated.cs" />
+    <Compile Include="pInfoRdv.cs" />
+    <Compile Include="pInfoRdv.generated.cs" />
+    <Compile Include="pJournalActivite.cs" />
+    <Compile Include="pLogiciel.cs" />
+    <Compile Include="pLogiciel.generated.cs" />
+    <Compile Include="pRapportException.cs" />
+    <Compile Include="pRapportException.generated.cs" />
+    <Compile Include="pRapportExceptionCl.cs" />
+    <Compile Include="pRapportExceptionCl.generated.cs" />
+    <Compile Include="pRapportExceptionVl.cs" />
+    <Compile Include="pRapportExceptionVl.generated.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="pSanctionCentre.cs" />
+    <Compile Include="pSanctionCentre.generated.cs" />
+    <Compile Include="pSanctionControleur.cs" />
+    <Compile Include="pSanctionControleur.generated.cs" />
+    <Compile Include="pTraceRechLieuVl.cs" />
+    <Compile Include="pTraceRechLieuVl.generated.cs" />
+    <Compile Include="pTraceRechPvVl.cs" />
+    <Compile Include="pTraceRechPvVl.generated.cs" />
+    <Compile Include="pVersionMineure.cs" />
+    <Compile Include="pVersionMineure.generated.cs" />
+    <Compile Include="rActionCertificat.cs" />
+    <Compile Include="rActionCertificat.generated.cs" />
+    <Compile Include="rCategorieVehicule.cs" />
+    <Compile Include="rCategorieVehicule.generated.cs" />
+    <Compile Include="RechercheCentreAgreeResultat.cs" />
+    <Compile Include="rEdition.cs" />
+    <Compile Include="rEdition.generated.cs" />
+    <Compile Include="rHabilitation.cs" />
+    <Compile Include="rHabilitation.generated.cs" />
+    <Compile Include="rLoginTempCnr.cs" />
+    <Compile Include="rLoginTempCnr.generated.cs" />
+    <Compile Include="rMessageUtilisateur.cs" />
+    <Compile Include="rMessageUtilisateur.generated.cs" />
+    <Compile Include="rMotifModification.cs" />
+    <Compile Include="rMotifModification.generated.cs" />
+    <Compile Include="rNumordreAgrement.cs" />
+    <Compile Include="rNumordreAgrement.generated.cs" />
+    <Compile Include="rPrefecture.cs" />
+    <Compile Include="rPrefecture.generated.cs" />
+    <Compile Include="rProfil.cs" />
+    <Compile Include="rProfil.generated.cs" />
+    <Compile Include="rProfil2.cs" />
+    <Compile Include="rProfil2.generated.cs" />
+    <Compile Include="rRegion.cs" />
+    <Compile Include="rRegion.generated.cs" />
+    <Compile Include="rRegroupementIndependant.cs" />
+    <Compile Include="rRegroupementIndependant.generated.cs" />
+    <Compile Include="rReseau.cs" />
+    <Compile Include="rReseau.generated.cs" />
+    <Compile Include="rReseauAppartenance.cs" />
+    <Compile Include="rStatutJuridique.cs" />
+    <Compile Include="rStatutJuridique.generated.cs" />
+    <Compile Include="rTemplateMail.cs" />
+    <Compile Include="rTypeControleTechnique.cs" />
+    <Compile Include="rTypeDemandeControleur.cs" />
+    <Compile Include="rTypeDemandeControleur.generated.cs" />
+    <Compile Include="rTypeFormation.cs" />
+    <Compile Include="rTypeFormation.generated.cs" />
+    <Compile Include="rTypeOrganismeDemandeur.cs" />
+    <Compile Include="rTypeOrganismeDemandeur.generated.cs" />
+    <Compile Include="rTypeSanctionCentre.cs" />
+    <Compile Include="rTypeSanctionCentre.generated.cs" />
+    <Compile Include="rTypeSanctionControleur.cs" />
+    <Compile Include="rTypeSanctionControleur.generated.cs" />
+    <Compile Include="rUtilisateur.cs" />
+    <Compile Include="rUtilisateur.generated.cs" />
+    <Compile Include="SharedModel\AjouterUtilisateurModel.cs" />
+    <Compile Include="statistiques\ItemListeDesControleurs.cs" />
+    <Compile Include="statistiques\ItemListeDesControleursPLCentreRattachementSelonDepartement.cs" />
+    <Compile Include="statistiques\ItemListeDesControleursRattachesAuxCentresDuReseau.cs" />
+    <Compile Include="statistiques\ItemListeDesControleursVLCentreRattachementSelonDepartement.cs" />
+    <Compile Include="statistiques\ItemListeDesControleursVéhiculesLegersEtLourds.cs" />
+    <Compile Include="statistiques\ItemListeDesInstallations.cs" />
+    <Compile Include="statistiques\ItemListeDesInstallationsVehiculesLegersSelonRegion.cs" />
+    <Compile Include="statistiques\ItemListeDesInstallationsVéhiculesLegersELourdsSelonRegion.cs" />
+    <Compile Include="statistiques\ItemListeSuiviActiviteVL.cs" />
+    <Compile Include="statistiques\ItemListeSuiviQualificationPL.cs" />
+    <Compile Include="statistiques\ItemListeSuiviQualificationPLQuery.cs" />
+    <Compile Include="statistiques\ItemListeSuiviQualificationVL.cs" />
+    <Compile Include="statistiques\ItemListeSuiviQualificationVLQuery.cs" />
+    <Compile Include="statistiques\ItemNombreDeControleurs.cs" />
+    <Compile Include="statistiques\ItemNombreInstallations.cs" />
+    <Compile Include="statistiques\NombreControleursParRegionEtDepartement.cs" />
+    <Compile Include="UtilisateurWebService.cs" />
+    <Compile Include="UtilisateurWebServiceCL.cs" />
+    <Compile Include="UtilisateurWebServicePL.cs" />
+    <Compile Include="UtilisateurWebServiceVL.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\Utac.Rnc2.Infrastructure\Utac.Rnc2.Infrastructure.csproj">
+      <Project>{65277784-51d1-4229-9f6f-ef942ba29376}</Project>
+      <Name>Utac.Rnc2.Infrastructure</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <PackageReference Include="NHibernate">
+      <Version>5.3.6</Version>
+    </PackageReference>
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+</Project>

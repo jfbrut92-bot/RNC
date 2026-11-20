@@ -1,0 +1,22 @@
+﻿@model System.Web.Mvc.HandleErrorInfo
+
+@section TitleContent {
+    Une erreur est survenue lors du traitement de votre requête
+}
+@section SousTitrePage {
+    Une erreur est survenue lors du traitement de votre requête.
+}
+<p>Controller : @Model.ControllerName</p>
+<p>Action : @Model.ActionName</p>
+<p>
+    Erreur :
+    <code>@Model.Exception.Message</code>
+</p>
+<p>
+    Inner exception :
+    <code>@Model.Exception.InnerException</code>
+</p>
+@if (Model.Exception.StackTrace != null)
+{
+    <p>trace : <code>@Model.Exception.StackTrace.ToString()</code></p>
+}

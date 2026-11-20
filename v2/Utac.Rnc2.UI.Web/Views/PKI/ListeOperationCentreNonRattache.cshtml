@@ -1,0 +1,165 @@
+﻿@model Utac.Rnc2.UI.Web.Models.CertificatModel
+@using Utac.Rnc2.BusinessObjects
+
+@section TitleContent {
+    Liste des opérations effectuées sur les certificats du centre de contrôle technique @Model.Centre.RaisonSociale @Model.Centre.Ville
+}
+
+@section SousTitrePage {
+    Liste des opérations effectuées sur les certificats
+    <br />
+    du centre de contrôle technique
+    <br />
+    @Model.Centre.RaisonSociale @Model.Centre.Ville
+}
+
+<div class="bloc_main">
+    <!-- BLOC PRINCIPAL -->
+    <div class="bloc_principal">
+        @if (this.User.IsInRole(rUtilisateur.Profil.CENTRE_INDEPENDANT.ToString()))
+        {
+            <span>@Html.ActionLink("Retour à la page d'accueil", "Index", "Home", null, new { }) | </span>
+        }
+        <span>@Html.ActionLink("Retour à la fiche du centre", "Fiche", "Centre", new { id = Model.Centre.Id }, new { })</span>
+        @{ IList<pGestionCertificat> gestionCertificats = Model.CategeorieVehicule.Equals(rCategorieVehicule.CategorieEnum.VL) ?
+                Model.Centre.PGestionCertificatVLs : Model.CategeorieVehicule.Equals(rCategorieVehicule.CategorieEnum.PL) ?
+                    Model.Centre.PGestionCertificatPLs : Model.Centre.PGestionCertificatCLs; }
+        @if (gestionCertificats.Any())
+        {
+            <table>
+                <tr>
+                    <th>Date</th>
+                    <th>Opération/Fichier Téléchargé</th>
+                    <th>Date début validité<br />Date d'expiration</th>
+                    <th>Date révocation</th>
+                </tr>
+                @{ var i = 0; }
+                @foreach (var item in gestionCertificats.OrderByDescending(a => a.DateMaj))
+                {
+                    <tr class="@(i % 2 == 0 ? "row1" : "row2")">
+                        <td>@item.DateMaj.ToShortDateString() @item.DateMaj.ToShortTimeString()</td>
+                        <td>
+                            @item.RActionCertificat.LibAction
+                            <br />
+                            @try
+                            {
+                                <span>@item.PCertificat.NomFichier</span>
+                            }
+                            catch (Exception)
+                            {
+                                <span>-</span>
+                            }
+                        </td>
+                        @try
+                        {
+                            <td>
+                                du: @item.PCertificat.DateEffet.ToShortDateString()
+                                <br />
+                                au: @item.PCertificat.DateExpiration.ToShortDateString()
+                            </td>
+                            <td>@item.PCertificat.DateRevocation</td>
+                        }
+                        catch (Exception)
+                        {
+                            <td></td>
+                            <td></td>
+                        }
+                    </tr>
+                    i++;
+                }
+            </table>
+        }
+        else
+        {
+            <p>Vous n'avez aucun certificat actuellement.</p>
+        }
+    </div>
+</div>
+<!-- FIN BLOC PRINCIPAL -->
+
+@section SideBarDroite {
+    <div class="sidebar-box inline-block">
+        <!-- BLOC DROITE -->
+        <ul class="sections">
+            <li class="section">
+                <h3>Actions</h3>
+                <div class="content-sidebar">
+                    @if (Model.DerniereTraceGestion != null && Model.DerniereTraceGestion.CertificatRevoque)
+                    {
+                        <p class="avertissement">Certificat révoqué</p>
+                    }
+                    <ul>
+                        @if (Model.AUnCertificatValide)
+                        {
+                            if (!Model.DerniereTraceGestion.CertificatRevoque)
+                            {
+                                if (Model.DerniereTraceGestion.CertificatAutorisationRenouvellement)
+                                {
+                                    <li>@Html.ActionLink("Télécharger un certificat électronique renouvelé", "CreerCertificatCentre", new { id = Model.Centre.Id, categorie = Model.CategeorieVehicule, renew = true, first = false }, new { @class = "download" }) </li>
+                                }
+                                else
+                                {
+                                    @*EG le 01/06/2012 TEST SI RESTE MOINS DE N JOURS DE VALIDITE*@
+                                    if (Model.MustRenew)
+                                    {
+                                        <li>@Html.ActionLink("Télécharger un certificat électronique renouvelé", "CreerCertificatCentre", new { id = Model.Centre.Id, categorie = Model.CategeorieVehicule, renew = true, first = false }, new { @class = "download" }) </li>
+                                    }
+                                    else
+                                    {
+                                        if (User.IsInRole(rUtilisateur.Profil.OTC_Administration.ToString()))
+                                        {
+                                            <li>
+                                                <img alt="Certificat SSL" title="Certificat SSL" src="../../Content/images/ssl-certificates-icon.png" />@Html.ActionLink("Télécharger une copie du certificat électronique", "TelechargerCertificatCentre", new { id = Model.Centre.Id, categorie = Model.CategeorieVehicule }, new { @class = "download" })
+                                            </li>
+
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                        else
+                        {
+                            if (Model.DerniereTraceGestion != null && Model.DerniereTraceGestion.CertificatRevoqueAvecRenouvellement)
+                            {
+                                <li>@Html.ActionLink("Télécharger un certificat électronique renouvelé", "CreerCertificatCentre", new { id = Model.Centre.Id, categorie = Model.CategeorieVehicule, renew = true, first = false }, new { @class = "download" }) </li>
+                            }
+                            else
+                            {
+                                if (User.IsInRole(rUtilisateur.Profil.OTC_Administration.ToString()))
+                                {
+                                    <li>@Html.ActionLink("Autoriser le renouvellement", "AutoriserRenouvellementCertificatCentre", new { id = Model.Centre.Id, categorie = Model.CategeorieVehicule }) </li>
+                                }
+                            }
+                        }
+                        @if (User.IsInRole(rUtilisateur.Profil.OTC_Administration.ToString()) && (Model.DerniereTraceGestion == null || Model.DerniereTraceGestion.CertificatRevoque))
+                        {
+                            <li>@Html.ActionLink("Révoquer le certificat", "RevoquerCertificatCentre", new { id = Model.Centre.Id, categorie = Model.CategeorieVehicule }) </li>
+                        }
+                        @if (Model.DernierCertificat == null)
+                        {
+                            <li>
+                                @Html.ActionLink("Télécharger le 1er certificat électronique", "CreerCertificatCentre", new { id = Model.Centre.Id, categorie = Model.CategeorieVehicule, renew = false, first = true }, new { @class = "download" }) <img alt="Certificat SSL" title="Certificat SSL" src="../../Content/images/ssl-certificates-icon.png" />
+                            </li>
+                        }
+                        @if (Model.DernierCertificat != null)
+                        {
+                            if (this.User.IsInRole(rUtilisateur.Profil.OTC_Administration.ToString()))
+                            {
+                                <li>@Html.ActionLink("Information certificat", "InformationCertificat", new { idReq = Model.DernierCertificat.IdReq, NumSerie = Model.DernierCertificat.NumSerie }) </li>
+                            }
+                            if (!Model.AUnCertificatValide)
+                            {
+                                <li>@Html.ActionLink("Télécharger un certificat électronique renouvellé", "CreerCertificatCentre", new { id = Model.Centre.Id, categorie = Model.CategeorieVehicule, renew = true, first = false }, new { @class = "download" }) </li>
+                            }
+                        }
+                    </ul>
+                </div>
+                <span class="clear">&nbsp;</span>
+            </li>
+        </ul>
+    </div>
+}
+
+@section JavaScriptContent {
+    @Scripts.Render("~/scripts/download")
+}

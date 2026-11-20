@@ -1,0 +1,1933 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="15.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="..\packages\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.2.0.1\build\net46\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.props" Condition="Exists('..\packages\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.2.0.1\build\net46\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.props')" />
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProductVersion>
+    </ProductVersion>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{7E37FC89-DD08-45B7-8924-6FCF1A50CB5F}</ProjectGuid>
+    <ProjectTypeGuids>{349c5851-65df-11da-9384-00065b846f21};{fae04ec0-301f-11d3-bf4b-00c04f79efbc}</ProjectTypeGuids>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>Utac.Rnc2.UI.Web</RootNamespace>
+    <AssemblyName>Utac.Rnc2.UI.Web</AssemblyName>
+    <TargetFrameworkVersion>v4.8</TargetFrameworkVersion>
+    <MvcBuildViews>false</MvcBuildViews>
+    <UseIISExpress>true</UseIISExpress>
+    <Use64BitIISExpress />
+    <IISExpressSSLPort>44349</IISExpressSSLPort>
+    <IISExpressAnonymousAuthentication />
+    <IISExpressWindowsAuthentication />
+    <IISExpressUseClassicPipelineMode />
+    <UseGlobalApplicationHostFile />
+    <NuGetPackageImportStamp>
+    </NuGetPackageImportStamp>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="Antlr3.Runtime, Version=3.5.0.2, Culture=neutral, PublicKeyToken=eb42632606e9261f, processorArchitecture=MSIL">
+      <HintPath>..\packages\Antlr3.Runtime.3.5.1\lib\net40-client\Antlr3.Runtime.dll</HintPath>
+    </Reference>
+    <Reference Include="BouncyCastle.Crypto, Version=1.8.6.0, Culture=neutral, PublicKeyToken=0e99375e54769942">
+      <HintPath>..\packages\BouncyCastle.1.8.6.1\lib\BouncyCastle.Crypto.dll</HintPath>
+    </Reference>
+    <Reference Include="CrystalDecisions.CrystalReports.Engine, Version=13.0.4000.0, Culture=neutral, PublicKeyToken=692fbea5521e1304, processorArchitecture=MSIL">
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="CrystalDecisions.ReportSource, Version=13.0.4000.0, Culture=neutral, PublicKeyToken=692fbea5521e1304, processorArchitecture=MSIL">
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="CrystalDecisions.Shared, Version=13.0.4000.0, Culture=neutral, PublicKeyToken=692fbea5521e1304, processorArchitecture=MSIL">
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="DeviceDetector.NET, Version=4.2.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\DeviceDetector.NET.4.2.0\lib\netstandard2.0\DeviceDetector.NET.dll</HintPath>
+    </Reference>
+    <Reference Include="ICSharpCode.SharpZipLib, Version=0.85.4.369, Culture=neutral, PublicKeyToken=1b03e6acf1164f73, processorArchitecture=MSIL">
+      <HintPath>..\packages\ICSharpCode.SharpZipLib.dll.0.85.4.369\lib\net20\ICSharpCode.SharpZipLib.dll</HintPath>
+    </Reference>
+    <Reference Include="Iesi.Collections, Version=4.0.0.4000, Culture=neutral, PublicKeyToken=aa95f207798dfdb4, processorArchitecture=MSIL">
+      <HintPath>..\packages\Iesi.Collections.4.0.4\lib\net461\Iesi.Collections.dll</HintPath>
+    </Reference>
+    <Reference Include="log4net, Version=2.0.12.0, Culture=neutral, PublicKeyToken=669e0ddf0bb1aa2a, processorArchitecture=MSIL">
+      <HintPath>..\packages\log4net.2.0.12\lib\net45\log4net.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="Microsoft.Web.Mvc, Version=4.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\Mvc4Futures.4.0.20710.0\lib\net40\Microsoft.Web.Mvc.dll</HintPath>
+    </Reference>
+    <Reference Include="MvcContrib, Version=5.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\MvcContrib.Mvc5.5.0.0.0\lib\MvcContrib.dll</HintPath>
+    </Reference>
+    <Reference Include="MvcSiteMapProvider, Version=4.6.26.0, Culture=neutral, PublicKeyToken=1923abe4657913cc, processorArchitecture=MSIL">
+      <HintPath>..\packages\MvcSiteMapProvider.MVC5.Core.4.6.26\lib\net45\MvcSiteMapProvider.dll</HintPath>
+    </Reference>
+    <Reference Include="MvcSiteMapProvider.WebActivator, Version=4.6.26.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\MvcSiteMapProvider.MVC5.4.6.26\lib\net45\MvcSiteMapProvider.WebActivator.dll</HintPath>
+    </Reference>
+    <Reference Include="NHibernate, Version=5.3.0.0, Culture=neutral, PublicKeyToken=aa95f207798dfdb4, processorArchitecture=MSIL">
+      <HintPath>..\packages\NHibernate.5.3.6\lib\net461\NHibernate.dll</HintPath>
+    </Reference>
+    <Reference Include="Remotion.Linq, Version=2.2.0.0, Culture=neutral, PublicKeyToken=fee00910d6e5f53b, processorArchitecture=MSIL">
+      <HintPath>..\packages\Remotion.Linq.2.2.0\lib\net45\Remotion.Linq.dll</HintPath>
+    </Reference>
+    <Reference Include="Remotion.Linq.EagerFetching, Version=2.2.0.0, Culture=neutral, PublicKeyToken=fee00910d6e5f53b, processorArchitecture=MSIL">
+      <HintPath>..\packages\Remotion.Linq.EagerFetching.2.2.0\lib\net45\Remotion.Linq.EagerFetching.dll</HintPath>
+    </Reference>
+    <Reference Include="Sybase.AdoNet45.AseClient, Version=16.0.4.0, Culture=neutral, PublicKeyToken=95d94fac46c88e1e, processorArchitecture=MSIL" />
+    <Reference Include="System" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Data.Entity" />
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.IdentityModel" />
+    <Reference Include="System.Runtime.Serialization" />
+    <Reference Include="System.ServiceModel" />
+    <Reference Include="System.Transactions" />
+    <Reference Include="System.Web.DynamicData" />
+    <Reference Include="System.Web.Entity" />
+    <Reference Include="System.Web.ApplicationServices" />
+    <Reference Include="System.ComponentModel.DataAnnotations" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="System.Windows.Forms" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Web" />
+    <Reference Include="System.Web.Extensions" />
+    <Reference Include="System.Web.Abstractions" />
+    <Reference Include="System.Web.Routing" />
+    <Reference Include="System.Xml" />
+    <Reference Include="System.Configuration" />
+    <Reference Include="System.Web.Services" />
+    <Reference Include="System.EnterpriseServices" />
+    <Reference Include="Microsoft.Web.Infrastructure, Version=1.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <Private>True</Private>
+      <HintPath>..\packages\Microsoft.Web.Infrastructure.1.0.0.0\lib\net40\Microsoft.Web.Infrastructure.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Net.Http">
+    </Reference>
+    <Reference Include="System.Net.Http.WebRequest">
+    </Reference>
+    <Reference Include="System.Web.Helpers, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <Private>True</Private>
+      <HintPath>..\packages\Microsoft.AspNet.WebPages.3.2.7\lib\net45\System.Web.Helpers.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.Mvc, Version=5.2.7.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <Private>True</Private>
+      <HintPath>..\packages\Microsoft.AspNet.Mvc.5.2.7\lib\net45\System.Web.Mvc.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.Optimization">
+      <HintPath>..\packages\Microsoft.AspNet.Web.Optimization.1.1.3\lib\net40\System.Web.Optimization.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.Razor, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <Private>True</Private>
+      <HintPath>..\packages\Microsoft.AspNet.Razor.3.2.7\lib\net45\System.Web.Razor.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.WebPages, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <Private>True</Private>
+      <HintPath>..\packages\Microsoft.AspNet.WebPages.3.2.7\lib\net45\System.Web.WebPages.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.WebPages.Deployment, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <Private>True</Private>
+      <HintPath>..\packages\Microsoft.AspNet.WebPages.3.2.7\lib\net45\System.Web.WebPages.Deployment.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.WebPages.Razor, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <Private>True</Private>
+      <HintPath>..\packages\Microsoft.AspNet.WebPages.3.2.7\lib\net45\System.Web.WebPages.Razor.dll</HintPath>
+    </Reference>
+    <Reference Include="Newtonsoft.Json">
+      <HintPath>..\packages\Newtonsoft.Json.12.0.2\lib\net45\Newtonsoft.Json.dll</HintPath>
+    </Reference>
+    <Reference Include="WebActivatorEx, Version=2.0.0.0, Culture=neutral, PublicKeyToken=7b26dc2a43f6a0d4, processorArchitecture=MSIL">
+      <HintPath>..\packages\WebActivatorEx.2.0.1\lib\net40\WebActivatorEx.dll</HintPath>
+    </Reference>
+    <Reference Include="WebGrease">
+      <Private>True</Private>
+      <HintPath>..\packages\WebGrease.1.6.0\lib\WebGrease.dll</HintPath>
+    </Reference>
+    <Reference Include="YamlDotNet, Version=8.0.0.0, Culture=neutral, PublicKeyToken=ec19458f3c15af5e, processorArchitecture=MSIL">
+      <HintPath>..\packages\YamlDotNet.8.1.2\lib\net45\YamlDotNet.dll</HintPath>
+    </Reference>
+  </ItemGroup>
+  <ItemGroup>
+    <Reference Include="Microsoft.CodeDom.Providers.DotNetCompilerPlatform">
+      <HintPath>..\packages\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.2.0.1\lib\net45\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.dll</HintPath>
+    </Reference>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="App_Start\BundleConfig.cs" />
+    <Compile Include="App_Start\FilterConfig.cs" />
+    <Compile Include="App_Start\RouteConfig.cs" />
+    <Compile Include="CategorieVehicule.cs" />
+    <Compile Include="Connected Services\ServiceRnc2\Reference.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </Compile>
+    <Compile Include="Controllers\AccessDeniedController.cs" />
+    <Compile Include="Controllers\AccountController.cs" />
+    <Compile Include="Controllers\AdminController.cs" />
+    <Compile Include="Controllers\CentreController.cs" />
+    <Compile Include="Controllers\CommunesController.cs" />
+    <Compile Include="Controllers\ControleurTechniqueController.cs" />
+    <Compile Include="Controllers\EmailsController.cs" />
+    <Compile Include="Controllers\ExempleController.cs" />
+    <Compile Include="Controllers\FactureController.cs" />
+    <Compile Include="Controllers\GestionControleurController.cs" />
+    <Compile Include="Controllers\GestionOTCController.cs" />
+    <Compile Include="Controllers\HomeController.cs" />
+    <Compile Include="Controllers\InformationController.cs" />
+    <Compile Include="Controllers\InscriptionController.cs" />
+    <Compile Include="Controllers\LieuPassageCTController.cs" />
+    <Compile Include="Controllers\NotRestrictedAcessController.cs" />
+    <Compile Include="Controllers\NumOrdreController.cs" />
+    <Compile Include="Controllers\PKIController.cs" />
+    <Compile Include="Controllers\RapportCEController.cs" />
+    <Compile Include="Controllers\RendererController.cs" />
+    <Compile Include="Controllers\RestrictedAcessController.cs" />
+    <Compile Include="Controllers\StatistiquesController_EG.cs" />
+    <Compile Include="Controllers\StatistiquesController_YM.cs" />
+    <Compile Include="Controllers\SuiviCourrierController.cs" />
+    <Compile Include="Controllers\SuiviInscriptionController.cs" />
+    <Compile Include="Controllers\SuiviTelechargementPvController.cs" />
+    <Compile Include="Controllers\TestController.cs" />
+    <Compile Include="Controllers\UtilisateursController.cs" />
+    <Compile Include="DataSets\Adapters\ControleurDataRowAdapter.cs" />
+    <Compile Include="DataSets\auxi_notification_decision_agrem_init_annexe3-A.cs">
+      <DependentUpon>auxi_notification_decision_agrem_init_annexe3-A.xsd</DependentUpon>
+    </Compile>
+    <Compile Include="DataSets\auxi_notification_decision_agrem_init_annexe3-A.Designer.cs">
+      <DependentUpon>auxi_notification_decision_agrem_init_annexe3-A.cs</DependentUpon>
+    </Compile>
+    <Compile Include="DataSets\auxi_notification_decision_agrem_modif_annexe3-B.cs">
+      <DependentUpon>auxi_notification_decision_agrem_modif_annexe3-B.xsd</DependentUpon>
+    </Compile>
+    <Compile Include="DataSets\auxi_notification_decision_agrem_modif_annexe3-B.Designer.cs">
+      <DependentUpon>auxi_notification_decision_agrem_modif_annexe3-B.cs</DependentUpon>
+    </Compile>
+    <Compile Include="DataSets\cntlr_notification_decision_agrem_init_annexe1-AB.cs">
+      <DependentUpon>cntlr_notification_decision_agrem_init_annexe1-AB.xsd</DependentUpon>
+    </Compile>
+    <Compile Include="DataSets\cntlr_notification_decision_agrem_init_annexe1-AB1.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>cntlr_notification_decision_agrem_init_annexe1-AB.xsd</DependentUpon>
+    </Compile>
+    <Compile Include="DataSets\cntlr_notification_decision_agrem_modif_annexe1-CD1.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>cntlr_notification_decision_agrem_modif_annexe1-CD.xsd</DependentUpon>
+    </Compile>
+    <Compile Include="DataSets\cntr_notification_decision_agrem_init_annexe2-A.cs">
+      <DependentUpon>cntr_notification_decision_agrem_init_annexe2-A.xsd</DependentUpon>
+    </Compile>
+    <Compile Include="DataSets\cntr_notification_decision_agrem_init_annexe2-A1.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>cntr_notification_decision_agrem_init_annexe2-A.xsd</DependentUpon>
+    </Compile>
+    <Compile Include="DataSets\cntr_notification_decision_agrem_modif_annexe2-B.cs">
+      <DependentUpon>cntr_notification_decision_agrem_modif_annexe2-B.xsd</DependentUpon>
+    </Compile>
+    <Compile Include="DataSets\cntr_notification_decision_agrem_modif_annexe2-B.Designer.cs">
+      <DependentUpon>cntr_notification_decision_agrem_modif_annexe2-B.cs</DependentUpon>
+    </Compile>
+    <Compile Include="DataSets\DSficheControleurSuiviActiviteCL.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>DSficheControleurSuiviActiviteCL.xsd</DependentUpon>
+    </Compile>
+    <Compile Include="DataSets\DataSetPvTransfertCTVL.cs">
+      <DependentUpon>DataSetPvTransfertCTVL.xsd</DependentUpon>
+    </Compile>
+    <Compile Include="DataSets\DSficheControleur.cs">
+      <DependentUpon>DSficheControleur.xsd</DependentUpon>
+    </Compile>
+    <Compile Include="DataSets\DSficheControleur.Designer.cs">
+      <DependentUpon>DSficheControleur.cs</DependentUpon>
+    </Compile>
+    <Compile Include="DataSets\DSficheControleurSuiviActiviteVL.cs">
+      <DependentUpon>DSficheControleurSuiviActiviteVL.xsd</DependentUpon>
+    </Compile>
+    <Compile Include="DataSets\DSficheControleurSuiviActiviteVL.Designer.cs">
+      <DependentUpon>DSficheControleurSuiviActiviteVL.cs</DependentUpon>
+    </Compile>
+    <Compile Include="DataSets\DSficheControleurSuiviQualificationPL.cs">
+      <DependentUpon>DSficheControleurSuiviQualificationPL.xsd</DependentUpon>
+    </Compile>
+    <Compile Include="DataSets\DSficheControleurSuiviQualificationPL.Designer.cs">
+      <DependentUpon>DSficheControleurSuiviQualificationPL.cs</DependentUpon>
+    </Compile>
+    <Compile Include="DataSets\DSficheInstallation.cs">
+      <DependentUpon>DSficheInstallation.xsd</DependentUpon>
+    </Compile>
+    <Compile Include="DataSets\DSficheInstallation1.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>DSficheInstallation.xsd</DependentUpon>
+    </Compile>
+    <Compile Include="DataSets\RCN2DataSet.cs">
+      <DependentUpon>RCN2DataSet.xsd</DependentUpon>
+    </Compile>
+    <Compile Include="DataSets\RCN2DataSet.Designer.cs">
+      <DependentUpon>RCN2DataSet.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Global.asax.cs">
+      <DependentUpon>Global.asax</DependentUpon>
+    </Compile>
+    <Compile Include="Helpers\ErrorHelper.cs" />
+    <Compile Include="Helpers\GestionDroitsExecution.cs" />
+    <Compile Include="Helpers\InformationHelper.cs" />
+    <Compile Include="Helpers\ViewHelper.cs" />
+    <Compile Include="MemberShip\RNC2MembershipProvider.cs" />
+    <Compile Include="MemberShip\RNC2RoleProvider.cs" />
+    <Compile Include="Models\AccountModels.cs" />
+    <Compile Include="Models\AccuseReceptionModel.cs" />
+    <Compile Include="Models\ActionAgrementControleurModel.cs" />
+    <Compile Include="Models\AjoutAuditControleurCLModel.cs" />
+    <Compile Include="Models\AjoutAuditControleurPLModel.cs" />
+    <Compile Include="Models\AjoutAuditControleurVLModel.cs" />
+    <Compile Include="Models\AjouterAmendeControleurModel.cs" />
+    <Compile Include="Models\AjouterAmendeModel.cs" />
+    <Compile Include="Models\AjouterDerogationModel.cs" />
+    <Compile Include="Models\AjouterSanctionControleurModel.cs" />
+    <Compile Include="Models\AjouterSanctionModel.cs" />
+    <Compile Include="Models\AjoutFormationControleurCLModel.cs" />
+    <Compile Include="Models\AjoutFormationControleurPLModel.cs" />
+    <Compile Include="Models\AjoutFormationControleurVLModel.cs" />
+    <Compile Include="Models\AnnulerAgrementModel.cs" />
+    <Compile Include="Models\AutreModificationModel.cs" />
+    <Compile Include="Models\CaptchaImageResult.cs" />
+    <Compile Include="Models\CertificatModel.cs" />
+    <Compile Include="Models\DeclarerHabilitationPLModel.cs" />
+    <Compile Include="Models\DemandeAgrementModel.cs" />
+    <Compile Include="Models\ExtensionAgrementCatLModel.cs" />
+    <Compile Include="Models\ExtensionAgrementControleurCatLModel.cs" />
+    <Compile Include="Models\FactureModel.cs" />
+    <Compile Include="Models\FicheModel.cs" />
+    <Compile Include="Models\GenCertificatModel.cs" />
+    <Compile Include="Models\GestionOTCModel.cs" />
+    <Compile Include="Models\HomeModel.cs" />
+    <Compile Include="Models\InfoCertificatModel.cs" />
+    <Compile Include="Models\InformationPersonelle.cs" />
+    <Compile Include="Models\InscriptionEtape1Model.cs" />
+    <Compile Include="Models\InscriptionEtape2Model.cs" />
+    <Compile Include="Models\InscriptionEtape3Model.cs" />
+    <Compile Include="Models\JournalActiviteModel.cs" />
+    <Compile Include="Models\LieuPassageCTModel.cs" />
+    <Compile Include="Models\ListeDesInfosCertificatsExpireOuRevoqueModel.cs" />
+    <Compile Include="Models\ListeSansCertificatModel.cs" />
+    <Compile Include="Models\ModificationCourrielUtilisateurModel.cs" />
+    <Compile Include="Models\ModificationDenominationSocialeModel.cs" />
+    <Compile Include="Models\NotificationAgrementModel.cs" />
+    <Compile Include="Models\NouveauCentreModel.cs" />
+    <Compile Include="Models\NouveauControleurTechniqueModel.cs" />
+    <Compile Include="Models\NumOrdreForm.cs" />
+    <Compile Include="Models\RapportExceptionModel.cs" />
+    <Compile Include="Models\RechercheCentreModel.cs" />
+    <Compile Include="Models\RechercheControleur.cs" />
+    <Compile Include="Models\RechercheProfilReseauModel.cs" />
+    <Compile Include="Models\RejetAgrementModel.cs" />
+    <Compile Include="Models\RetourArriereModel.cs" />
+    <Compile Include="Models\SiteOtcListCentreModel.cs" />
+    <Compile Include="Models\StatistiquesModel.cs" />
+    <Compile Include="Models\TelechargerNotificationAgrementModel.cs" />
+    <Compile Include="Models\TestServeurPKIResult.cs" />
+    <Compile Include="Models\UtilisateurEditModel.cs" />
+    <Compile Include="Models\UtilisateurListeModel.cs" />
+    <Compile Include="Modules\NHibernateHttpModule.cs" />
+    <Compile Include="NiveauDetails.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="reporting\auxi_notification_decision_agrem_init_annexe3-A.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>auxi_notification_decision_agrem_init_annexe3-A.rpt</DependentUpon>
+      <SubType>Component</SubType>
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Compile>
+    <Compile Include="reporting\auxi_notification_decision_agrem_modif_annexe3-B.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>auxi_notification_decision_agrem_modif_annexe3-B.rpt</DependentUpon>
+      <SubType>Component</SubType>
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Compile>
+    <Compile Include="reporting\cntlr_ficheControleur1.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>cntlr_ficheControleur.rpt</DependentUpon>
+      <SubType>Component</SubType>
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Compile>
+    <Compile Include="reporting\cntlr_ficheControleurSuiviActiviteCL.cs">
+      <DependentUpon>cntlr_ficheControleurSuiviActiviteCL.rpt</DependentUpon>
+      <AutoGen>True</AutoGen>
+      <SubType>Component</SubType>
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+      <DesignTime>True</DesignTime>
+    </Compile>
+    <Compile Include="reporting\cntlr_ficheControleurSuiviActiviteVL1.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>cntlr_ficheControleurSuiviActiviteVL.rpt</DependentUpon>
+      <SubType>Component</SubType>
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Compile>
+    <Compile Include="reporting\cntlr_ficheControleurSuiviQualificationPL1.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>cntlr_ficheControleurSuiviQualificationPL.rpt</DependentUpon>
+      <SubType>Component</SubType>
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Compile>
+    <Compile Include="reporting\cntlr_notification_decision_agrem_init_annexe1-AB.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>cntlr_notification_decision_agrem_init_annexe1-AB.rpt</DependentUpon>
+      <SubType>Component</SubType>
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Compile>
+    <Compile Include="reporting\cntlr_notification_decision_agrem_modif_annexe1-CD1.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>cntlr_notification_decision_agrem_modif_annexe1-CD.rpt</DependentUpon>
+      <SubType>Component</SubType>
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Compile>
+    <Compile Include="reporting\cntr_ficheInstallation1.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>cntr_ficheInstallation.rpt</DependentUpon>
+      <SubType>Component</SubType>
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Compile>
+    <Compile Include="reporting\cntr_notification_decision_agrem_init_annexe2-A1.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>cntr_notification_decision_agrem_init_annexe2-A.rpt</DependentUpon>
+      <SubType>Component</SubType>
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Compile>
+    <Compile Include="reporting\cntr_notification_decision_agrem_modif_annexe2-B1.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>cntr_notification_decision_agrem_modif_annexe2-B.rpt</DependentUpon>
+      <SubType>Component</SubType>
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Compile>
+    <Compile Include="reporting\NewPvTransfertCTVL1.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>NewPvTransfertCTVL.rpt</DependentUpon>
+      <SubType>Component</SubType>
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Compile>
+    <Compile Include="reporting\PvTransfertCTPL1.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>PvTransfertCTPL.rpt</DependentUpon>
+      <SubType>Component</SubType>
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Compile>
+    <Compile Include="reporting\PvTransfertCTVL1.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>PvTransfertCTVL.rpt</DependentUpon>
+      <SubType>Component</SubType>
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Compile>
+    <Compile Include="reporting\regions1.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>regions.rpt</DependentUpon>
+      <SubType>Component</SubType>
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Compile>
+    <Compile Include="reporting\test1.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>test.rpt</DependentUpon>
+      <SubType>Component</SubType>
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Compile>
+    <Compile Include="Service References\ctvlpv\Reference.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </Compile>
+    <Compile Include="Utils\DeviceHelper.cs" />
+    <Compile Include="Utils\GenerateurCertificat.cs" />
+    <Compile Include="Utils\GenerationCertificatResultat.cs" />
+    <Compile Include="Utils\InfoCertificat.cs" />
+    <Compile Include="Utils\LieuVlWebUtil.cs" />
+    <Compile Include="Utils\OpenSSLStringCypher.cs" />
+    <Compile Include="Utils\PvCtWebUtil.cs" />
+    <Compile Include="Utils\StringCipher.cs" />
+    <Compile Include="Utils\StringEncoder.cs" />
+    <Compile Include="Utils\StringValidator.cs" />
+    <Compile Include="Utils\WebServiceResult.cs" />
+    <Compile Include="Utils\Zip.cs" />
+    <Compile Include="Utils\ZipParameter.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="compilerconfig.json" />
+    <None Include="compilerconfig.json.defaults">
+      <DependentUpon>compilerconfig.json</DependentUpon>
+    </None>
+    <None Include="Connected Services\ServiceRnc2\configuration91.svcinfo" />
+    <None Include="Connected Services\ServiceRnc2\configuration.svcinfo" />
+    <None Include="Connected Services\ServiceRnc2\Reference.svcmap">
+      <Generator>WCF Proxy Generator</Generator>
+      <LastGenOutput>Reference.cs</LastGenOutput>
+    </None>
+    <Content Include="Content\accept.png" />
+    <Content Include="Content\active-navigate-back.gif" />
+    <Content Include="Content\active-navigate-forward.gif" />
+    <Content Include="Content\Background.jpg" />
+    <Content Include="Content\BannerBottomEdge.gif" />
+    <Content Include="Content\BannerTopEdge.gif" />
+    <Content Include="Content\bg-main-corner-sprite.png" />
+    <Content Include="Content\bg-main.png" />
+    <Content Include="Content\bg-nav-corner-sprite.png" />
+    <Content Include="Content\bootstrap.css" />
+    <Content Include="Content\ButtonBack.gif" />
+    <Content Include="Content\Datepicker\calendar.gif" />
+    <Content Include="Content\Error.png" />
+    <Content Include="Content\exclamation.png" />
+    <Content Include="Content\font-awesome.css" />
+    <Content Include="Content\font-awesome.min.css" />
+    <Content Include="Content\ie6.css" />
+    <Content Include="Content\ie7-1.css" />
+    <Content Include="Content\ie7-2.css" />
+    <Content Include="Content\images\action-success.png" />
+    <Content Include="Content\images\arrow_down.png" />
+    <Content Include="Content\images\arrow_up.png" />
+    <Content Include="Content\images\background.png" />
+    <Content Include="Content\images\bar.gif" />
+    <Content Include="Content\images\bg.gif" />
+    <Content Include="Content\images\bottom.png" />
+    <Content Include="Content\images\btn-home.png" />
+    <Content Include="Content\images\button.png" />
+    <Content Include="Content\images\Compressed-File-Zip-icon.png" />
+    <Content Include="Content\images\empty.gif" />
+    <Content Include="Content\images\Folder-Downloads-icon.png" />
+    <Content Include="Content\images\footer.png" />
+    <Content Include="Content\images\loading16.gif" />
+    <Content Include="Content\images\logo-utac-otc.gif" />
+    <Content Include="Content\images\logotype.jpg" />
+    <Content Include="Content\images\Logo_OTC_Blue_RGB.png" />
+    <Content Include="Content\images\logo_otc_complet_old.png" />
+    <Content Include="Content\images\logo_otc_complet.png" />
+    <Content Include="Content\images\logo_utac_otc.jpg" />
+    <Content Include="Content\images\msg-std.png" />
+    <Content Include="Content\images\page-error.png" />
+    <Content Include="Content\images\page-pattern.png" />
+    <Content Include="Content\images\PDF.png" />
+    <Content Include="Content\images\puce-li-encart.png" />
+    <Content Include="Content\images\small_logotype.jpg" />
+    <Content Include="Content\images\ssl-certificates-icon.png" />
+    <Content Include="Content\images\step.gif" />
+    <Content Include="Content\images\teaserbg.gif" />
+    <Content Include="Content\images\teaserbg.jpg" />
+    <Content Include="Content\images\ui-bg_diagonals-thick_18_b81900_40x40.png" />
+    <Content Include="Content\images\ui-bg_diagonals-thick_20_666666_40x40.png" />
+    <Content Include="Content\images\ui-bg_flat_10_000000_40x100.png" />
+    <Content Include="Content\images\ui-bg_glass_100_f6f6f6_1x400.png" />
+    <Content Include="Content\images\ui-bg_glass_100_fdf5ce_1x400.png" />
+    <Content Include="Content\images\ui-bg_glass_65_ffffff_1x400.png" />
+    <Content Include="Content\images\ui-bg_gloss-wave_35_f6a828_500x100.png" />
+    <Content Include="Content\images\ui-bg_highlight-soft_100_eeeeee_1x100.png" />
+    <Content Include="Content\images\ui-bg_highlight-soft_75_ffe45c_1x100.png" />
+    <Content Include="Content\images\ui-icons_222222_256x240.png" />
+    <Content Include="Content\images\ui-icons_228ef1_256x240.png" />
+    <Content Include="Content\images\ui-icons_444444_256x240.png" />
+    <Content Include="Content\images\ui-icons_555555_256x240.png" />
+    <Content Include="Content\images\ui-icons_777620_256x240.png" />
+    <Content Include="Content\images\ui-icons_777777_256x240.png" />
+    <Content Include="Content\images\ui-icons_cc0000_256x240.png" />
+    <Content Include="Content\images\ui-icons_ef8c08_256x240.png" />
+    <Content Include="Content\images\ui-icons_ffd27a_256x240.png" />
+    <Content Include="Content\images\ui-icons_ffffff_256x240.png" />
+    <Content Include="Content\images\warning.png" />
+    <Content Include="Content\img\background_home.png" />
+    <Content Include="Content\img\bg-form-search-ie6.png" />
+    <Content Include="Content\img\bg-top-link.png" />
+    <Content Include="Content\img\btn-home.png" />
+    <Content Include="Content\images\btn-home1.png" />
+    <Content Include="Content\img\button.png" />
+    <Content Include="Content\img\encart-bottom-sidebar.png" />
+    <Content Include="Content\img\encart-top-sidebar.png" />
+    <Content Include="Content\img\form-input-bg.png" />
+    <Content Include="Content\img\form-textarea-bg.png" />
+    <Content Include="Content\img\navigation-ie6.gif" />
+    <Content Include="Content\img\navigation.png" />
+    <Content Include="Content\jquery-ui.css" />
+    <Content Include="Content\jquery-ui.structure.css" />
+    <Content Include="Content\jquery-ui.theme.css" />
+    <Content Include="Content\jquery.ui.autocomplete.css" />
+    <Content Include="Content\logos\Logo_OTC.jpg" />
+    <Content Include="Content\menuBack.gif" />
+    <Content Include="Content\menuHoverBack.gif" />
+    <Content Include="Content\rnc2.css" />
+    <Content Include="Content\Site.css" />
+    <Content Include="Content\site_externe.css" />
+    <Content Include="Content\style-app-desktop.css">
+      <DependentUpon>style-app-desktop.scss</DependentUpon>
+    </Content>
+    <Content Include="Content\style-app-desktop.min.css">
+      <DependentUpon>style-app-desktop.css</DependentUpon>
+    </Content>
+    <Content Include="Content\style-app-mobile.css">
+      <DependentUpon>style-app-mobile.scss</DependentUpon>
+    </Content>
+    <Content Include="Content\style-app-mobile.min.css">
+      <DependentUpon>style-app-mobile.css</DependentUpon>
+    </Content>
+    <Content Include="Content\style.css" />
+    <Content Include="Content\style2.css" />
+    <Content Include="Content\TableHeaderBackground.gif" />
+    <Content Include="Content\images\favicon.ico" />
+    <Content Include="fonts\fontawesome-webfont.svg" />
+    <Content Include="Global.asax" />
+    <Content Include="lib\bootstrap\dist\css\bootstrap-grid.css" />
+    <Content Include="lib\bootstrap\dist\css\bootstrap-grid.min.css" />
+    <Content Include="lib\bootstrap\dist\css\bootstrap-reboot.css" />
+    <Content Include="lib\bootstrap\dist\css\bootstrap-reboot.min.css" />
+    <Content Include="lib\bootstrap\dist\css\bootstrap.css" />
+    <Content Include="lib\bootstrap\dist\css\bootstrap.min.css" />
+    <Content Include="lib\bootstrap\dist\js\bootstrap.bundle.js" />
+    <Content Include="lib\bootstrap\dist\js\bootstrap.bundle.min.js" />
+    <Content Include="lib\bootstrap\dist\js\bootstrap.js" />
+    <Content Include="lib\bootstrap\dist\js\bootstrap.min.js" />
+    <Content Include="lib\bootstrap\js\dist\alert.js" />
+    <Content Include="lib\bootstrap\js\dist\button.js" />
+    <Content Include="lib\bootstrap\js\dist\carousel.js" />
+    <Content Include="lib\bootstrap\js\dist\collapse.js" />
+    <Content Include="lib\bootstrap\js\dist\dropdown.js" />
+    <Content Include="lib\bootstrap\js\dist\index.js" />
+    <Content Include="lib\bootstrap\js\dist\modal.js" />
+    <Content Include="lib\bootstrap\js\dist\popover.js" />
+    <Content Include="lib\bootstrap\js\dist\scrollspy.js" />
+    <Content Include="lib\bootstrap\js\dist\tab.js" />
+    <Content Include="lib\bootstrap\js\dist\toast.js" />
+    <Content Include="lib\bootstrap\js\dist\tooltip.js" />
+    <Content Include="lib\bootstrap\js\dist\util.js" />
+    <Content Include="lib\bootstrap\js\src\alert.js" />
+    <Content Include="lib\bootstrap\js\src\button.js" />
+    <Content Include="lib\bootstrap\js\src\carousel.js" />
+    <Content Include="lib\bootstrap\js\src\collapse.js" />
+    <Content Include="lib\bootstrap\js\src\dropdown.js" />
+    <Content Include="lib\bootstrap\js\src\modal.js" />
+    <Content Include="lib\bootstrap\js\src\popover.js" />
+    <Content Include="lib\bootstrap\js\src\scrollspy.js" />
+    <Content Include="lib\bootstrap\js\src\tab.js" />
+    <Content Include="lib\bootstrap\js\src\toast.js" />
+    <Content Include="lib\bootstrap\js\src\tools\sanitizer.js" />
+    <Content Include="lib\bootstrap\js\src\tooltip.js" />
+    <Content Include="lib\bootstrap\js\src\util.js" />
+    <Content Include="reporting\TestXML.xml" />
+    <Content Include="reporting\XSLWS_ctvlpv.xslt" />
+    <Content Include="Ressources\logoOTC.gif" />
+    <Content Include="Mvc.sitemap" />
+    <Content Include="DataSets\auxi_notification_decision_agrem_init_annexe3-A.xsc">
+      <DependentUpon>auxi_notification_decision_agrem_init_annexe3-A.xsd</DependentUpon>
+    </Content>
+    <Content Include="Content\ressources\CrystalReport1.mht" />
+    <Content Include="Content\ressources\RNC2_manuel_cnr.pdf" />
+    <Content Include="Content\ressources\RNC2_manuel_prefecture.pdf" />
+    <Content Include="Content\ressources\RNC2_manuel_reseau.pdf" />
+    <Content Include="Content\ressources\UTAC-OTC.zip" />
+    <Content Include="Content\web.config" />
+    <None Include="Connected Services\ServiceRnc2\Rnc2.wsdl" />
+    <None Include="Connected Services\ServiceRnc2\Rnc2.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Connected Services\ServiceRnc2\Rnc21.wsdl" />
+    <None Include="Connected Services\ServiceRnc2\Rnc21.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Connected Services\ServiceRnc2\Rnc22.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <Content Include="Connected Services\ServiceRnc2\Utac.Rnc2.UI.Web.ServiceRnc2.AboutResponse.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </Content>
+    <Content Include="Connected Services\ServiceRnc2\Utac.Rnc2.UI.Web.ServiceRnc2.findPlByCodAgrCentreControleurResponse.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </Content>
+    <Content Include="Connected Services\ServiceRnc2\Utac.Rnc2.UI.Web.ServiceRnc2.findPlByImmatVehOrNumSerieResponse.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </Content>
+    <Content Include="Connected Services\ServiceRnc2\Utac.Rnc2.UI.Web.ServiceRnc2.findPlByNumPvCodAgrDateCtrlResponse.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </Content>
+    <Content Include="Connected Services\ServiceRnc2\Utac.Rnc2.UI.Web.ServiceRnc2.findPlByNumVisitOrigineResponse.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </Content>
+    <Content Include="Connected Services\ServiceRnc2\Utac.Rnc2.UI.Web.ServiceRnc2.findVlByCodAgrCentreControleurResponse.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </Content>
+    <Content Include="Connected Services\ServiceRnc2\Utac.Rnc2.UI.Web.ServiceRnc2.findVlByImmatVehOrNumSerieResponse.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </Content>
+    <Content Include="Connected Services\ServiceRnc2\Utac.Rnc2.UI.Web.ServiceRnc2.findVlByNumPvCodAgrDateCtrlResponse.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </Content>
+    <Content Include="Connected Services\ServiceRnc2\Utac.Rnc2.UI.Web.ServiceRnc2.findVlByNumVisitOrigineResponse.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </Content>
+    <Content Include="Connected Services\ServiceRnc2\Utac.Rnc2.UI.Web.ServiceRnc2.PlPControle1.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </Content>
+    <Content Include="Connected Services\ServiceRnc2\Utac.Rnc2.UI.Web.ServiceRnc2.VlPControle1.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </Content>
+    <Content Include="Content\style-app-mobile.scss" />
+    <Content Include="Content\style-app-desktop.scss" />
+    <Content Include="Content\variables.scss" />
+    <Content Include="Content\ressources\Procédure RNC2 - déclaration extension agréments catégorie L V2.pdf" />
+    <Content Include="Content\ressources\Web.config" />
+    <None Include="DataSets\auxi_notification_decision_agrem_init_annexe3-A.xsd">
+      <Generator>MSDataSetGenerator</Generator>
+      <LastGenOutput>auxi_notification_decision_agrem_init_annexe3-A1.Designer.cs</LastGenOutput>
+      <SubType>Designer</SubType>
+    </None>
+    <Content Include="DataSets\auxi_notification_decision_agrem_init_annexe3-A.xss">
+      <DependentUpon>auxi_notification_decision_agrem_init_annexe3-A.xsd</DependentUpon>
+    </Content>
+    <Content Include="DataSets\auxi_notification_decision_agrem_modif_annexe3-B.xsc">
+      <DependentUpon>auxi_notification_decision_agrem_modif_annexe3-B.xsd</DependentUpon>
+    </Content>
+    <None Include="DataSets\auxi_notification_decision_agrem_modif_annexe3-B.xsd">
+      <Generator>MSDataSetGenerator</Generator>
+      <LastGenOutput>auxi_notification_decision_agrem_modif_annexe3-B1.Designer.cs</LastGenOutput>
+      <SubType>Designer</SubType>
+    </None>
+    <Content Include="DataSets\auxi_notification_decision_agrem_modif_annexe3-B.xss">
+      <DependentUpon>auxi_notification_decision_agrem_modif_annexe3-B.xsd</DependentUpon>
+    </Content>
+    <Content Include="DataSets\cntlr_notification_decision_agrem_init_annexe1-AB.xsc">
+      <DependentUpon>cntlr_notification_decision_agrem_init_annexe1-AB.xsd</DependentUpon>
+    </Content>
+    <None Include="DataSets\cntlr_notification_decision_agrem_init_annexe1-AB.xsd">
+      <Generator>MSDataSetGenerator</Generator>
+      <LastGenOutput>cntlr_notification_decision_agrem_init_annexe1-AB1.Designer.cs</LastGenOutput>
+      <SubType>Designer</SubType>
+    </None>
+    <Content Include="DataSets\cntlr_notification_decision_agrem_init_annexe1-AB.xss">
+      <DependentUpon>cntlr_notification_decision_agrem_init_annexe1-AB.xsd</DependentUpon>
+    </Content>
+    <Content Include="DataSets\cntlr_notification_decision_agrem_modif_annexe1-CD.xsc">
+      <DependentUpon>cntlr_notification_decision_agrem_modif_annexe1-CD.xsd</DependentUpon>
+    </Content>
+    <None Include="DataSets\cntlr_notification_decision_agrem_modif_annexe1-CD.xsd">
+      <Generator>MSDataSetGenerator</Generator>
+      <LastGenOutput>cntlr_notification_decision_agrem_modif_annexe1-CD1.Designer.cs</LastGenOutput>
+      <SubType>Designer</SubType>
+    </None>
+    <Content Include="DataSets\cntlr_notification_decision_agrem_modif_annexe1-CD.xss">
+      <DependentUpon>cntlr_notification_decision_agrem_modif_annexe1-CD.xsd</DependentUpon>
+    </Content>
+    <Content Include="DataSets\cntr_notification_decision_agrem_init_annexe2-A.xsc">
+      <DependentUpon>cntr_notification_decision_agrem_init_annexe2-A.xsd</DependentUpon>
+    </Content>
+    <None Include="DataSets\cntr_notification_decision_agrem_init_annexe2-A.xsd">
+      <Generator>MSDataSetGenerator</Generator>
+      <LastGenOutput>cntr_notification_decision_agrem_init_annexe2-A1.Designer.cs</LastGenOutput>
+      <SubType>Designer</SubType>
+    </None>
+    <Content Include="DataSets\cntr_notification_decision_agrem_init_annexe2-A.xss">
+      <DependentUpon>cntr_notification_decision_agrem_init_annexe2-A.xsd</DependentUpon>
+    </Content>
+    <Content Include="DataSets\cntr_notification_decision_agrem_modif_annexe2-B.xsc">
+      <DependentUpon>cntr_notification_decision_agrem_modif_annexe2-B.xsd</DependentUpon>
+    </Content>
+    <None Include="DataSets\cntr_notification_decision_agrem_modif_annexe2-B.xsd">
+      <Generator>MSDataSetGenerator</Generator>
+      <LastGenOutput>cntr_notification_decision_agrem_modif_annexe2-B1.Designer.cs</LastGenOutput>
+      <SubType>Designer</SubType>
+    </None>
+    <Content Include="DataSets\cntr_notification_decision_agrem_modif_annexe2-B.xss">
+      <DependentUpon>cntr_notification_decision_agrem_modif_annexe2-B.xsd</DependentUpon>
+    </Content>
+    <Content Include="DataSets\DSficheControleurSuiviActiviteCL.xsc">
+      <DependentUpon>DSficheControleurSuiviActiviteCL.xsd</DependentUpon>
+    </Content>
+    <None Include="DataSets\DSficheControleurSuiviActiviteCL.xsd">
+      <SubType>Designer</SubType>
+      <Generator>MSDataSetGenerator</Generator>
+      <LastGenOutput>DSficheControleurSuiviActiviteCL.Designer.cs</LastGenOutput>
+    </None>
+    <Content Include="DataSets\DSficheControleurSuiviActiviteCL.xss">
+      <DependentUpon>DSficheControleurSuiviActiviteCL.xsd</DependentUpon>
+    </Content>
+    <None Include="DataSets\DataSetPvTransfertCTVL.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <Content Include="DataSets\DSficheControleur.xsc">
+      <DependentUpon>DSficheControleur.xsd</DependentUpon>
+    </Content>
+    <None Include="DataSets\DSficheControleur.xsd">
+      <Generator>MSDataSetGenerator</Generator>
+      <LastGenOutput>DSficheControleur1.Designer.cs</LastGenOutput>
+      <SubType>Designer</SubType>
+    </None>
+    <Content Include="DataSets\DSficheControleur.xss">
+      <DependentUpon>DSficheControleur.xsd</DependentUpon>
+    </Content>
+    <Content Include="DataSets\DSficheControleurSuiviActiviteVL.xsc">
+      <DependentUpon>DSficheControleurSuiviActiviteVL.xsd</DependentUpon>
+    </Content>
+    <None Include="DataSets\DSficheControleurSuiviActiviteVL.xsd">
+      <Generator>MSDataSetGenerator</Generator>
+      <LastGenOutput>DSficheControleurSuiviActiviteVL1.Designer.cs</LastGenOutput>
+      <SubType>Designer</SubType>
+    </None>
+    <Content Include="DataSets\DSficheControleurSuiviActiviteVL.xss">
+      <DependentUpon>DSficheControleurSuiviActiviteVL.xsd</DependentUpon>
+    </Content>
+    <Content Include="DataSets\DSficheControleurSuiviQualificationPL.xsc">
+      <DependentUpon>DSficheControleurSuiviQualificationPL.xsd</DependentUpon>
+    </Content>
+    <None Include="DataSets\DSficheControleurSuiviQualificationPL.xsd">
+      <Generator>MSDataSetGenerator</Generator>
+      <LastGenOutput>DSficheControleurSuiviQualificationPL1.Designer.cs</LastGenOutput>
+      <SubType>Designer</SubType>
+    </None>
+    <Content Include="DataSets\DSficheControleurSuiviQualificationPL.xss">
+      <DependentUpon>DSficheControleurSuiviQualificationPL.xsd</DependentUpon>
+    </Content>
+    <Content Include="DataSets\DSficheInstallation.xsc">
+      <DependentUpon>DSficheInstallation.xsd</DependentUpon>
+    </Content>
+    <None Include="DataSets\DSficheInstallation.xsd">
+      <Generator>MSDataSetGenerator</Generator>
+      <LastGenOutput>DSficheInstallation1.Designer.cs</LastGenOutput>
+      <SubType>Designer</SubType>
+    </None>
+    <Content Include="DataSets\DSficheInstallation.xss">
+      <DependentUpon>DSficheInstallation.xsd</DependentUpon>
+    </Content>
+    <Content Include="DataSets\RCN2DataSet.xsc">
+      <DependentUpon>RCN2DataSet.xsd</DependentUpon>
+    </Content>
+    <None Include="DataSets\RCN2DataSet.xsd">
+      <Generator>MSDataSetGenerator</Generator>
+      <LastGenOutput>RCN2DataSet1.Designer.cs</LastGenOutput>
+      <SubType>Designer</SubType>
+    </None>
+    <Content Include="DataSets\RCN2DataSet.xss">
+      <DependentUpon>RCN2DataSet.xsd</DependentUpon>
+    </Content>
+    <Content Include="libman.json" />
+    <Content Include="lib\bootstrap\dist\css\bootstrap-grid.css.map" />
+    <Content Include="lib\bootstrap\dist\css\bootstrap-grid.min.css.map" />
+    <Content Include="lib\bootstrap\dist\css\bootstrap-reboot.css.map" />
+    <Content Include="lib\bootstrap\dist\css\bootstrap-reboot.min.css.map" />
+    <Content Include="lib\bootstrap\dist\css\bootstrap.css.map" />
+    <Content Include="lib\bootstrap\dist\css\bootstrap.min.css.map" />
+    <Content Include="lib\bootstrap\dist\js\bootstrap.bundle.js.map" />
+    <Content Include="lib\bootstrap\dist\js\bootstrap.bundle.min.js.map" />
+    <Content Include="lib\bootstrap\dist\js\bootstrap.js.map" />
+    <Content Include="lib\bootstrap\dist\js\bootstrap.min.js.map" />
+    <Content Include="lib\bootstrap\js\dist\alert.js.map" />
+    <Content Include="lib\bootstrap\js\dist\button.js.map" />
+    <Content Include="lib\bootstrap\js\dist\carousel.js.map" />
+    <Content Include="lib\bootstrap\js\dist\collapse.js.map" />
+    <Content Include="lib\bootstrap\js\dist\dropdown.js.map" />
+    <Content Include="lib\bootstrap\js\dist\modal.js.map" />
+    <Content Include="lib\bootstrap\js\dist\popover.js.map" />
+    <Content Include="lib\bootstrap\js\dist\scrollspy.js.map" />
+    <Content Include="lib\bootstrap\js\dist\tab.js.map" />
+    <Content Include="lib\bootstrap\js\dist\toast.js.map" />
+    <Content Include="lib\bootstrap\js\dist\tooltip.js.map" />
+    <Content Include="lib\bootstrap\js\dist\util.js.map" />
+    <Content Include="lib\bootstrap\scss\bootstrap-grid.scss" />
+    <Content Include="lib\bootstrap\scss\bootstrap-reboot.scss" />
+    <Content Include="lib\bootstrap\scss\bootstrap.scss" />
+    <Content Include="lib\bootstrap\scss\_alert.scss" />
+    <Content Include="lib\bootstrap\scss\_badge.scss" />
+    <Content Include="lib\bootstrap\scss\_breadcrumb.scss" />
+    <Content Include="lib\bootstrap\scss\_button-group.scss" />
+    <Content Include="lib\bootstrap\scss\_buttons.scss" />
+    <Content Include="lib\bootstrap\scss\_card.scss" />
+    <Content Include="lib\bootstrap\scss\_carousel.scss" />
+    <Content Include="lib\bootstrap\scss\_close.scss" />
+    <Content Include="lib\bootstrap\scss\_code.scss" />
+    <Content Include="lib\bootstrap\scss\_custom-forms.scss" />
+    <Content Include="lib\bootstrap\scss\_dropdown.scss" />
+    <Content Include="lib\bootstrap\scss\_forms.scss" />
+    <Content Include="lib\bootstrap\scss\_functions.scss" />
+    <Content Include="lib\bootstrap\scss\_grid.scss" />
+    <Content Include="lib\bootstrap\scss\_images.scss" />
+    <Content Include="lib\bootstrap\scss\_input-group.scss" />
+    <Content Include="lib\bootstrap\scss\_jumbotron.scss" />
+    <Content Include="lib\bootstrap\scss\_list-group.scss" />
+    <Content Include="lib\bootstrap\scss\_media.scss" />
+    <Content Include="lib\bootstrap\scss\_mixins.scss" />
+    <Content Include="lib\bootstrap\scss\_modal.scss" />
+    <Content Include="lib\bootstrap\scss\_nav.scss" />
+    <Content Include="lib\bootstrap\scss\_navbar.scss" />
+    <Content Include="lib\bootstrap\scss\_pagination.scss" />
+    <Content Include="lib\bootstrap\scss\_popover.scss" />
+    <Content Include="lib\bootstrap\scss\_print.scss" />
+    <Content Include="lib\bootstrap\scss\_progress.scss" />
+    <Content Include="lib\bootstrap\scss\_reboot.scss" />
+    <Content Include="lib\bootstrap\scss\_root.scss" />
+    <Content Include="lib\bootstrap\scss\mixins\_alert.scss" />
+    <Content Include="lib\bootstrap\scss\mixins\_background-variant.scss" />
+    <Content Include="lib\bootstrap\scss\_spinners.scss" />
+    <Content Include="lib\bootstrap\scss\_tables.scss" />
+    <Content Include="lib\bootstrap\scss\_toasts.scss" />
+    <Content Include="lib\bootstrap\scss\_tooltip.scss" />
+    <Content Include="lib\bootstrap\scss\_transitions.scss" />
+    <Content Include="lib\bootstrap\scss\_type.scss" />
+    <Content Include="lib\bootstrap\scss\_utilities.scss" />
+    <Content Include="lib\bootstrap\scss\_variables.scss" />
+    <Content Include="lib\bootstrap\scss\mixins\_badge.scss" />
+    <Content Include="lib\bootstrap\scss\mixins\_border-radius.scss" />
+    <Content Include="lib\bootstrap\scss\mixins\_box-shadow.scss" />
+    <Content Include="lib\bootstrap\scss\mixins\_breakpoints.scss" />
+    <Content Include="lib\bootstrap\scss\mixins\_buttons.scss" />
+    <Content Include="lib\bootstrap\scss\mixins\_caret.scss" />
+    <Content Include="lib\bootstrap\scss\mixins\_clearfix.scss" />
+    <Content Include="lib\bootstrap\scss\mixins\_deprecate.scss" />
+    <Content Include="lib\bootstrap\scss\mixins\_float.scss" />
+    <Content Include="lib\bootstrap\scss\mixins\_forms.scss" />
+    <Content Include="lib\bootstrap\scss\mixins\_gradients.scss" />
+    <Content Include="lib\bootstrap\scss\mixins\_grid-framework.scss" />
+    <Content Include="lib\bootstrap\scss\mixins\_grid.scss" />
+    <Content Include="lib\bootstrap\scss\mixins\_hover.scss" />
+    <Content Include="lib\bootstrap\scss\mixins\_image.scss" />
+    <Content Include="lib\bootstrap\scss\mixins\_list-group.scss" />
+    <Content Include="lib\bootstrap\scss\mixins\_lists.scss" />
+    <Content Include="lib\bootstrap\scss\mixins\_nav-divider.scss" />
+    <Content Include="lib\bootstrap\scss\mixins\_pagination.scss" />
+    <Content Include="lib\bootstrap\scss\mixins\_reset-text.scss" />
+    <Content Include="lib\bootstrap\scss\mixins\_resize.scss" />
+    <Content Include="lib\bootstrap\scss\mixins\_screen-reader.scss" />
+    <Content Include="lib\bootstrap\scss\mixins\_size.scss" />
+    <Content Include="lib\bootstrap\scss\mixins\_table-row.scss" />
+    <Content Include="lib\bootstrap\scss\mixins\_text-emphasis.scss" />
+    <Content Include="lib\bootstrap\scss\mixins\_text-hide.scss" />
+    <Content Include="lib\bootstrap\scss\mixins\_text-truncate.scss" />
+    <Content Include="lib\bootstrap\scss\mixins\_transition.scss" />
+    <Content Include="lib\bootstrap\scss\mixins\_visibility.scss" />
+    <Content Include="lib\bootstrap\scss\utilities\_align.scss" />
+    <Content Include="lib\bootstrap\scss\utilities\_background.scss" />
+    <Content Include="lib\bootstrap\scss\utilities\_borders.scss" />
+    <Content Include="lib\bootstrap\scss\utilities\_clearfix.scss" />
+    <Content Include="lib\bootstrap\scss\utilities\_display.scss" />
+    <Content Include="lib\bootstrap\scss\utilities\_embed.scss" />
+    <Content Include="lib\bootstrap\scss\utilities\_flex.scss" />
+    <Content Include="lib\bootstrap\scss\utilities\_float.scss" />
+    <Content Include="lib\bootstrap\scss\utilities\_interactions.scss" />
+    <Content Include="lib\bootstrap\scss\utilities\_overflow.scss" />
+    <Content Include="lib\bootstrap\scss\utilities\_position.scss" />
+    <Content Include="lib\bootstrap\scss\utilities\_screenreaders.scss" />
+    <Content Include="lib\bootstrap\scss\utilities\_shadows.scss" />
+    <Content Include="lib\bootstrap\scss\utilities\_sizing.scss" />
+    <Content Include="lib\bootstrap\scss\utilities\_spacing.scss" />
+    <Content Include="lib\bootstrap\scss\utilities\_stretched-link.scss" />
+    <Content Include="lib\bootstrap\scss\utilities\_text.scss" />
+    <Content Include="lib\bootstrap\scss\utilities\_visibility.scss" />
+    <Content Include="lib\bootstrap\scss\vendor\_rfs.scss" />
+    <Content Include="fonts\FontAwesome.otf" />
+    <Content Include="fonts\fontawesome-webfont.woff2" />
+    <Content Include="fonts\fontawesome-webfont.woff" />
+    <Content Include="fonts\fontawesome-webfont.ttf" />
+    <Content Include="fonts\fontawesome-webfont.eot" />
+    <None Include="MvcSiteMapSchema.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <Content Include="Ressources\UTAC-OTC.cer" />
+    <Content Include="Ressources\UTAC-OTC2031.cer">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Ressources\UTACTEST2030.cer">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <None Include="Ressources\WS_ctvlpvPort.wsdl" />
+    <Content Include="robots.txt" />
+    <Content Include="Scripts\ckeditor\CHANGES.md" />
+    <Content Include="Scripts\ckeditor\LICENSE.md" />
+    <Content Include="Scripts\ckeditor\package.json" />
+    <Content Include="Scripts\ckeditor\plugins\exportpdf\CHANGELOG.md" />
+    <Content Include="Scripts\ckeditor\plugins\exportpdf\LICENSE.md" />
+    <Content Include="Scripts\ckeditor\plugins\exportpdf\README.md" />
+    <Content Include="Scripts\ckeditor\plugins\exportpdf\tests\manual\configfilename.md" />
+    <Content Include="Scripts\ckeditor\plugins\exportpdf\tests\manual\emptyeditor.md" />
+    <Content Include="Scripts\ckeditor\plugins\exportpdf\tests\manual\integration.md" />
+    <Content Include="Scripts\ckeditor\plugins\exportpdf\tests\manual\integrations\easyimage.md" />
+    <Content Include="Scripts\ckeditor\plugins\exportpdf\tests\manual\notifications.md" />
+    <Content Include="Scripts\ckeditor\plugins\exportpdf\tests\manual\notificationsasync.md" />
+    <Content Include="Scripts\ckeditor\plugins\exportpdf\tests\manual\paperformat.md" />
+    <Content Include="Scripts\ckeditor\plugins\exportpdf\tests\manual\readonly.md" />
+    <Content Include="Scripts\ckeditor\plugins\exportpdf\tests\manual\stylesheets.md" />
+    <Content Include="Scripts\ckeditor\plugins\exportpdf\tests\manual\tokenfetching.md" />
+    <Content Include="Scripts\ckeditor\plugins\exportpdf\tests\manual\tokentwoeditorscorrect.md" />
+    <Content Include="Scripts\ckeditor\plugins\exportpdf\tests\manual\tokentwoeditorswrong.md" />
+    <Content Include="Scripts\ckeditor\plugins\exportpdf\tests\manual\tokenwithouturl.md" />
+    <Content Include="Scripts\ckeditor\plugins\exportpdf\tests\manual\wrongendpoint.md" />
+    <Content Include="Scripts\ckeditor\plugins\scayt\CHANGELOG.md" />
+    <Content Include="Scripts\ckeditor\plugins\scayt\LICENSE.md" />
+    <Content Include="Scripts\ckeditor\plugins\scayt\README.md" />
+    <Content Include="Scripts\ckeditor\plugins\wsc\LICENSE.md" />
+    <Content Include="Scripts\ckeditor\plugins\wsc\README.md" />
+    <Content Include="Scripts\ckeditor\README.md" />
+    <Content Include="Scripts\ckeditor\skins\moono-lisa\readme.md" />
+    <None Include="Scripts\jquery-3.5.1.intellisense.js" />
+    <Content Include="Scripts\ckeditor\adapters\jquery.js" />
+    <Content Include="Scripts\ckeditor\ckeditor.js" />
+    <Content Include="Scripts\ckeditor\config.js" />
+    <Content Include="Scripts\ckeditor\contents.css" />
+    <Content Include="Scripts\ckeditor\lang\af.js" />
+    <Content Include="Scripts\ckeditor\lang\ar.js" />
+    <Content Include="Scripts\ckeditor\lang\az.js" />
+    <Content Include="Scripts\ckeditor\lang\bg.js" />
+    <Content Include="Scripts\ckeditor\lang\bn.js" />
+    <Content Include="Scripts\ckeditor\lang\bs.js" />
+    <Content Include="Scripts\ckeditor\lang\ca.js" />
+    <Content Include="Scripts\ckeditor\lang\cs.js" />
+    <Content Include="Scripts\ckeditor\lang\cy.js" />
+    <Content Include="Scripts\ckeditor\lang\da.js" />
+    <Content Include="Scripts\ckeditor\lang\de-ch.js" />
+    <Content Include="Scripts\ckeditor\lang\de.js" />
+    <Content Include="Scripts\ckeditor\lang\el.js" />
+    <Content Include="Scripts\ckeditor\lang\en-au.js" />
+    <Content Include="Scripts\ckeditor\lang\en-ca.js" />
+    <Content Include="Scripts\ckeditor\lang\en-gb.js" />
+    <Content Include="Scripts\ckeditor\lang\en.js" />
+    <Content Include="Scripts\ckeditor\lang\eo.js" />
+    <Content Include="Scripts\ckeditor\lang\es-mx.js" />
+    <Content Include="Scripts\ckeditor\lang\es.js" />
+    <Content Include="Scripts\ckeditor\lang\et.js" />
+    <Content Include="Scripts\ckeditor\lang\eu.js" />
+    <Content Include="Scripts\ckeditor\lang\fa.js" />
+    <Content Include="Scripts\ckeditor\lang\fi.js" />
+    <Content Include="Scripts\ckeditor\lang\fo.js" />
+    <Content Include="Scripts\ckeditor\lang\fr-ca.js" />
+    <Content Include="Scripts\ckeditor\lang\fr.js" />
+    <Content Include="Scripts\ckeditor\lang\gl.js" />
+    <Content Include="Scripts\ckeditor\lang\gu.js" />
+    <Content Include="Scripts\ckeditor\lang\he.js" />
+    <Content Include="Scripts\ckeditor\lang\hi.js" />
+    <Content Include="Scripts\ckeditor\lang\hr.js" />
+    <Content Include="Scripts\ckeditor\lang\hu.js" />
+    <Content Include="Scripts\ckeditor\lang\id.js" />
+    <Content Include="Scripts\ckeditor\lang\is.js" />
+    <Content Include="Scripts\ckeditor\lang\it.js" />
+    <Content Include="Scripts\ckeditor\lang\ja.js" />
+    <Content Include="Scripts\ckeditor\lang\ka.js" />
+    <Content Include="Scripts\ckeditor\lang\km.js" />
+    <Content Include="Scripts\ckeditor\lang\ko.js" />
+    <Content Include="Scripts\ckeditor\lang\ku.js" />
+    <Content Include="Scripts\ckeditor\lang\lt.js" />
+    <Content Include="Scripts\ckeditor\lang\lv.js" />
+    <Content Include="Scripts\ckeditor\lang\mk.js" />
+    <Content Include="Scripts\ckeditor\lang\mn.js" />
+    <Content Include="Scripts\ckeditor\lang\ms.js" />
+    <Content Include="Scripts\ckeditor\lang\nb.js" />
+    <Content Include="Scripts\ckeditor\lang\nl.js" />
+    <Content Include="Scripts\ckeditor\lang\no.js" />
+    <Content Include="Scripts\ckeditor\lang\oc.js" />
+    <Content Include="Scripts\ckeditor\lang\pl.js" />
+    <Content Include="Scripts\ckeditor\lang\pt-br.js" />
+    <Content Include="Scripts\ckeditor\lang\pt.js" />
+    <Content Include="Scripts\ckeditor\lang\ro.js" />
+    <Content Include="Scripts\ckeditor\lang\ru.js" />
+    <Content Include="Scripts\ckeditor\lang\si.js" />
+    <Content Include="Scripts\ckeditor\lang\sk.js" />
+    <Content Include="Scripts\ckeditor\lang\sl.js" />
+    <Content Include="Scripts\ckeditor\lang\sq.js" />
+    <Content Include="Scripts\ckeditor\lang\sr-latn.js" />
+    <Content Include="Scripts\ckeditor\lang\sr.js" />
+    <Content Include="Scripts\ckeditor\lang\sv.js" />
+    <Content Include="Scripts\ckeditor\lang\th.js" />
+    <Content Include="Scripts\ckeditor\lang\tr.js" />
+    <Content Include="Scripts\ckeditor\lang\tt.js" />
+    <Content Include="Scripts\ckeditor\lang\ug.js" />
+    <Content Include="Scripts\ckeditor\lang\uk.js" />
+    <Content Include="Scripts\ckeditor\lang\vi.js" />
+    <Content Include="Scripts\ckeditor\lang\zh-cn.js" />
+    <Content Include="Scripts\ckeditor\lang\zh.js" />
+    <Content Include="Scripts\ckeditor\plugins\a11yhelp\dialogs\a11yhelp.js" />
+    <Content Include="Scripts\ckeditor\plugins\a11yhelp\dialogs\lang\af.js" />
+    <Content Include="Scripts\ckeditor\plugins\a11yhelp\dialogs\lang\ar.js" />
+    <Content Include="Scripts\ckeditor\plugins\a11yhelp\dialogs\lang\az.js" />
+    <Content Include="Scripts\ckeditor\plugins\a11yhelp\dialogs\lang\bg.js" />
+    <Content Include="Scripts\ckeditor\plugins\a11yhelp\dialogs\lang\ca.js" />
+    <Content Include="Scripts\ckeditor\plugins\a11yhelp\dialogs\lang\cs.js" />
+    <Content Include="Scripts\ckeditor\plugins\a11yhelp\dialogs\lang\cy.js" />
+    <Content Include="Scripts\ckeditor\plugins\a11yhelp\dialogs\lang\da.js" />
+    <Content Include="Scripts\ckeditor\plugins\a11yhelp\dialogs\lang\de-ch.js" />
+    <Content Include="Scripts\ckeditor\plugins\a11yhelp\dialogs\lang\de.js" />
+    <Content Include="Scripts\ckeditor\plugins\a11yhelp\dialogs\lang\el.js" />
+    <Content Include="Scripts\ckeditor\plugins\a11yhelp\dialogs\lang\en-au.js" />
+    <Content Include="Scripts\ckeditor\plugins\a11yhelp\dialogs\lang\en-gb.js" />
+    <Content Include="Scripts\ckeditor\plugins\a11yhelp\dialogs\lang\en.js" />
+    <Content Include="Scripts\ckeditor\plugins\a11yhelp\dialogs\lang\eo.js" />
+    <Content Include="Scripts\ckeditor\plugins\a11yhelp\dialogs\lang\es-mx.js" />
+    <Content Include="Scripts\ckeditor\plugins\a11yhelp\dialogs\lang\es.js" />
+    <Content Include="Scripts\ckeditor\plugins\a11yhelp\dialogs\lang\et.js" />
+    <Content Include="Scripts\ckeditor\plugins\a11yhelp\dialogs\lang\eu.js" />
+    <Content Include="Scripts\ckeditor\plugins\a11yhelp\dialogs\lang\fa.js" />
+    <Content Include="Scripts\ckeditor\plugins\a11yhelp\dialogs\lang\fi.js" />
+    <Content Include="Scripts\ckeditor\plugins\a11yhelp\dialogs\lang\fo.js" />
+    <Content Include="Scripts\ckeditor\plugins\a11yhelp\dialogs\lang\fr-ca.js" />
+    <Content Include="Scripts\ckeditor\plugins\a11yhelp\dialogs\lang\fr.js" />
+    <Content Include="Scripts\ckeditor\plugins\a11yhelp\dialogs\lang\gl.js" />
+    <Content Include="Scripts\ckeditor\plugins\a11yhelp\dialogs\lang\gu.js" />
+    <Content Include="Scripts\ckeditor\plugins\a11yhelp\dialogs\lang\he.js" />
+    <Content Include="Scripts\ckeditor\plugins\a11yhelp\dialogs\lang\hi.js" />
+    <Content Include="Scripts\ckeditor\plugins\a11yhelp\dialogs\lang\hr.js" />
+    <Content Include="Scripts\ckeditor\plugins\a11yhelp\dialogs\lang\hu.js" />
+    <Content Include="Scripts\ckeditor\plugins\a11yhelp\dialogs\lang\id.js" />
+    <Content Include="Scripts\ckeditor\plugins\a11yhelp\dialogs\lang\it.js" />
+    <Content Include="Scripts\ckeditor\plugins\a11yhelp\dialogs\lang\ja.js" />
+    <Content Include="Scripts\ckeditor\plugins\a11yhelp\dialogs\lang\km.js" />
+    <Content Include="Scripts\ckeditor\plugins\a11yhelp\dialogs\lang\ko.js" />
+    <Content Include="Scripts\ckeditor\plugins\a11yhelp\dialogs\lang\ku.js" />
+    <Content Include="Scripts\ckeditor\plugins\a11yhelp\dialogs\lang\lt.js" />
+    <Content Include="Scripts\ckeditor\plugins\a11yhelp\dialogs\lang\lv.js" />
+    <Content Include="Scripts\ckeditor\plugins\a11yhelp\dialogs\lang\mk.js" />
+    <Content Include="Scripts\ckeditor\plugins\a11yhelp\dialogs\lang\mn.js" />
+    <Content Include="Scripts\ckeditor\plugins\a11yhelp\dialogs\lang\nb.js" />
+    <Content Include="Scripts\ckeditor\plugins\a11yhelp\dialogs\lang\nl.js" />
+    <Content Include="Scripts\ckeditor\plugins\a11yhelp\dialogs\lang\no.js" />
+    <Content Include="Scripts\ckeditor\plugins\a11yhelp\dialogs\lang\oc.js" />
+    <Content Include="Scripts\ckeditor\plugins\a11yhelp\dialogs\lang\pl.js" />
+    <Content Include="Scripts\ckeditor\plugins\a11yhelp\dialogs\lang\pt-br.js" />
+    <Content Include="Scripts\ckeditor\plugins\a11yhelp\dialogs\lang\pt.js" />
+    <Content Include="Scripts\ckeditor\plugins\a11yhelp\dialogs\lang\ro.js" />
+    <Content Include="Scripts\ckeditor\plugins\a11yhelp\dialogs\lang\ru.js" />
+    <Content Include="Scripts\ckeditor\plugins\a11yhelp\dialogs\lang\si.js" />
+    <Content Include="Scripts\ckeditor\plugins\a11yhelp\dialogs\lang\sk.js" />
+    <Content Include="Scripts\ckeditor\plugins\a11yhelp\dialogs\lang\sl.js" />
+    <Content Include="Scripts\ckeditor\plugins\a11yhelp\dialogs\lang\sq.js" />
+    <Content Include="Scripts\ckeditor\plugins\a11yhelp\dialogs\lang\sr-latn.js" />
+    <Content Include="Scripts\ckeditor\plugins\a11yhelp\dialogs\lang\sr.js" />
+    <Content Include="Scripts\ckeditor\plugins\a11yhelp\dialogs\lang\sv.js" />
+    <Content Include="Scripts\ckeditor\plugins\a11yhelp\dialogs\lang\th.js" />
+    <Content Include="Scripts\ckeditor\plugins\a11yhelp\dialogs\lang\tr.js" />
+    <Content Include="Scripts\ckeditor\plugins\a11yhelp\dialogs\lang\tt.js" />
+    <Content Include="Scripts\ckeditor\plugins\a11yhelp\dialogs\lang\ug.js" />
+    <Content Include="Scripts\ckeditor\plugins\a11yhelp\dialogs\lang\uk.js" />
+    <Content Include="Scripts\ckeditor\plugins\a11yhelp\dialogs\lang\vi.js" />
+    <Content Include="Scripts\ckeditor\plugins\a11yhelp\dialogs\lang\zh-cn.js" />
+    <Content Include="Scripts\ckeditor\plugins\a11yhelp\dialogs\lang\zh.js" />
+    <Content Include="Scripts\ckeditor\plugins\a11yhelp\dialogs\lang\_translationstatus.txt" />
+    <Content Include="Scripts\ckeditor\plugins\about\dialogs\about.js" />
+    <Content Include="Scripts\ckeditor\plugins\about\dialogs\hidpi\logo_ckeditor.png" />
+    <Content Include="Scripts\ckeditor\plugins\about\dialogs\logo_ckeditor.png" />
+    <Content Include="Scripts\ckeditor\plugins\clipboard\dialogs\paste.js" />
+    <Content Include="Scripts\ckeditor\plugins\colordialog\dialogs\colordialog.css" />
+    <Content Include="Scripts\ckeditor\plugins\colordialog\dialogs\colordialog.js" />
+    <Content Include="Scripts\ckeditor\plugins\copyformatting\cursors\cursor-disabled.svg" />
+    <Content Include="Scripts\ckeditor\plugins\copyformatting\cursors\cursor.svg" />
+    <Content Include="Scripts\ckeditor\plugins\copyformatting\styles\copyformatting.css" />
+    <Content Include="Scripts\ckeditor\plugins\dialog\dialogDefinition.js" />
+    <Content Include="Scripts\ckeditor\plugins\dialog\styles\dialog.css" />
+    <Content Include="Scripts\ckeditor\plugins\div\dialogs\div.js" />
+    <Content Include="Scripts\ckeditor\plugins\exportpdf\plugindefinition.js" />
+    <Content Include="Scripts\ckeditor\plugins\exportpdf\tests\authentication.js" />
+    <Content Include="Scripts\ckeditor\plugins\exportpdf\tests\exportpdf.js" />
+    <Content Include="Scripts\ckeditor\plugins\exportpdf\tests\manual\configfilename.html" />
+    <Content Include="Scripts\ckeditor\plugins\exportpdf\tests\manual\emptyeditor.html" />
+    <Content Include="Scripts\ckeditor\plugins\exportpdf\tests\manual\integration.html" />
+    <Content Include="Scripts\ckeditor\plugins\exportpdf\tests\manual\integrations\easyimage.html" />
+    <Content Include="Scripts\ckeditor\plugins\exportpdf\tests\manual\notifications.html" />
+    <Content Include="Scripts\ckeditor\plugins\exportpdf\tests\manual\notificationsasync.html" />
+    <Content Include="Scripts\ckeditor\plugins\exportpdf\tests\manual\paperformat.html" />
+    <Content Include="Scripts\ckeditor\plugins\exportpdf\tests\manual\readonly.html" />
+    <Content Include="Scripts\ckeditor\plugins\exportpdf\tests\manual\stylesheets.html" />
+    <Content Include="Scripts\ckeditor\plugins\exportpdf\tests\manual\tokenfetching.html" />
+    <Content Include="Scripts\ckeditor\plugins\exportpdf\tests\manual\tokentwoeditorscorrect.html" />
+    <Content Include="Scripts\ckeditor\plugins\exportpdf\tests\manual\tokentwoeditorswrong.html" />
+    <Content Include="Scripts\ckeditor\plugins\exportpdf\tests\manual\tokenwithouturl.html" />
+    <Content Include="Scripts\ckeditor\plugins\exportpdf\tests\manual\wrongendpoint.html" />
+    <Content Include="Scripts\ckeditor\plugins\exportpdf\tests\notification.js" />
+    <Content Include="Scripts\ckeditor\plugins\exportpdf\tests\resourcespaths.js" />
+    <Content Include="Scripts\ckeditor\plugins\exportpdf\tests\statistics.js" />
+    <Content Include="Scripts\ckeditor\plugins\exportpdf\tests\stylesheets.js" />
+    <Content Include="Scripts\ckeditor\plugins\exportpdf\tests\_helpers\tools.js" />
+    <Content Include="Scripts\ckeditor\plugins\find\dialogs\find.js" />
+    <Content Include="Scripts\ckeditor\plugins\flash\dialogs\flash.js" />
+    <Content Include="Scripts\ckeditor\plugins\flash\images\placeholder.png" />
+    <Content Include="Scripts\ckeditor\plugins\forms\dialogs\button.js" />
+    <Content Include="Scripts\ckeditor\plugins\forms\dialogs\checkbox.js" />
+    <Content Include="Scripts\ckeditor\plugins\forms\dialogs\form.js" />
+    <Content Include="Scripts\ckeditor\plugins\forms\dialogs\hiddenfield.js" />
+    <Content Include="Scripts\ckeditor\plugins\forms\dialogs\radio.js" />
+    <Content Include="Scripts\ckeditor\plugins\forms\dialogs\select.js" />
+    <Content Include="Scripts\ckeditor\plugins\forms\dialogs\textarea.js" />
+    <Content Include="Scripts\ckeditor\plugins\forms\dialogs\textfield.js" />
+    <Content Include="Scripts\ckeditor\plugins\forms\images\hiddenfield.gif" />
+    <Content Include="Scripts\ckeditor\plugins\icons.png" />
+    <Content Include="Scripts\ckeditor\plugins\icons_hidpi.png" />
+    <Content Include="Scripts\ckeditor\plugins\iframe\dialogs\iframe.js" />
+    <Content Include="Scripts\ckeditor\plugins\iframe\images\placeholder.png" />
+    <Content Include="Scripts\ckeditor\plugins\image\dialogs\image.js" />
+    <Content Include="Scripts\ckeditor\plugins\image\images\noimage.png" />
+    <Content Include="Scripts\ckeditor\plugins\link\dialogs\anchor.js" />
+    <Content Include="Scripts\ckeditor\plugins\link\dialogs\link.js" />
+    <Content Include="Scripts\ckeditor\plugins\link\images\anchor.png" />
+    <Content Include="Scripts\ckeditor\plugins\link\images\hidpi\anchor.png" />
+    <Content Include="Scripts\ckeditor\plugins\liststyle\dialogs\liststyle.js" />
+    <Content Include="Scripts\ckeditor\plugins\magicline\images\hidpi\icon-rtl.png" />
+    <Content Include="Scripts\ckeditor\plugins\magicline\images\hidpi\icon.png" />
+    <Content Include="Scripts\ckeditor\plugins\magicline\images\icon-rtl.png" />
+    <Content Include="Scripts\ckeditor\plugins\magicline\images\icon.png" />
+    <Content Include="Scripts\ckeditor\plugins\pagebreak\images\pagebreak.gif" />
+    <Content Include="Scripts\ckeditor\plugins\pastefromgdocs\filter\default.js" />
+    <Content Include="Scripts\ckeditor\plugins\pastefromlibreoffice\filter\default.js" />
+    <Content Include="Scripts\ckeditor\plugins\pastefromword\filter\default.js" />
+    <Content Include="Scripts\ckeditor\plugins\pastetools\filter\common.js" />
+    <Content Include="Scripts\ckeditor\plugins\pastetools\filter\image.js" />
+    <Content Include="Scripts\ckeditor\plugins\preview\images\pagebreak.gif" />
+    <Content Include="Scripts\ckeditor\plugins\preview\preview.html" />
+    <Content Include="Scripts\ckeditor\plugins\preview\styles\screen.css" />
+    <Content Include="Scripts\ckeditor\plugins\scayt\dialogs\dialog.css" />
+    <Content Include="Scripts\ckeditor\plugins\scayt\dialogs\options.js" />
+    <Content Include="Scripts\ckeditor\plugins\scayt\dialogs\toolbar.css" />
+    <Content Include="Scripts\ckeditor\plugins\scayt\skins\moono-lisa\scayt.css" />
+    <Content Include="Scripts\ckeditor\plugins\showblocks\images\block_address.png" />
+    <Content Include="Scripts\ckeditor\plugins\showblocks\images\block_blockquote.png" />
+    <Content Include="Scripts\ckeditor\plugins\showblocks\images\block_div.png" />
+    <Content Include="Scripts\ckeditor\plugins\showblocks\images\block_h1.png" />
+    <Content Include="Scripts\ckeditor\plugins\showblocks\images\block_h2.png" />
+    <Content Include="Scripts\ckeditor\plugins\showblocks\images\block_h3.png" />
+    <Content Include="Scripts\ckeditor\plugins\showblocks\images\block_h4.png" />
+    <Content Include="Scripts\ckeditor\plugins\showblocks\images\block_h5.png" />
+    <Content Include="Scripts\ckeditor\plugins\showblocks\images\block_h6.png" />
+    <Content Include="Scripts\ckeditor\plugins\showblocks\images\block_p.png" />
+    <Content Include="Scripts\ckeditor\plugins\showblocks\images\block_pre.png" />
+    <Content Include="Scripts\ckeditor\plugins\smiley\dialogs\smiley.js" />
+    <Content Include="Scripts\ckeditor\plugins\smiley\images\angel_smile.gif" />
+    <Content Include="Scripts\ckeditor\plugins\smiley\images\angel_smile.png" />
+    <Content Include="Scripts\ckeditor\plugins\smiley\images\angry_smile.gif" />
+    <Content Include="Scripts\ckeditor\plugins\smiley\images\angry_smile.png" />
+    <Content Include="Scripts\ckeditor\plugins\smiley\images\broken_heart.gif" />
+    <Content Include="Scripts\ckeditor\plugins\smiley\images\broken_heart.png" />
+    <Content Include="Scripts\ckeditor\plugins\smiley\images\confused_smile.gif" />
+    <Content Include="Scripts\ckeditor\plugins\smiley\images\confused_smile.png" />
+    <Content Include="Scripts\ckeditor\plugins\smiley\images\cry_smile.gif" />
+    <Content Include="Scripts\ckeditor\plugins\smiley\images\cry_smile.png" />
+    <Content Include="Scripts\ckeditor\plugins\smiley\images\devil_smile.gif" />
+    <Content Include="Scripts\ckeditor\plugins\smiley\images\devil_smile.png" />
+    <Content Include="Scripts\ckeditor\plugins\smiley\images\embaressed_smile.gif" />
+    <Content Include="Scripts\ckeditor\plugins\smiley\images\embarrassed_smile.gif" />
+    <Content Include="Scripts\ckeditor\plugins\smiley\images\embarrassed_smile.png" />
+    <Content Include="Scripts\ckeditor\plugins\smiley\images\envelope.gif" />
+    <Content Include="Scripts\ckeditor\plugins\smiley\images\envelope.png" />
+    <Content Include="Scripts\ckeditor\plugins\smiley\images\heart.gif" />
+    <Content Include="Scripts\ckeditor\plugins\smiley\images\heart.png" />
+    <Content Include="Scripts\ckeditor\plugins\smiley\images\kiss.gif" />
+    <Content Include="Scripts\ckeditor\plugins\smiley\images\kiss.png" />
+    <Content Include="Scripts\ckeditor\plugins\smiley\images\lightbulb.gif" />
+    <Content Include="Scripts\ckeditor\plugins\smiley\images\lightbulb.png" />
+    <Content Include="Scripts\ckeditor\plugins\smiley\images\omg_smile.gif" />
+    <Content Include="Scripts\ckeditor\plugins\smiley\images\omg_smile.png" />
+    <Content Include="Scripts\ckeditor\plugins\smiley\images\regular_smile.gif" />
+    <Content Include="Scripts\ckeditor\plugins\smiley\images\regular_smile.png" />
+    <Content Include="Scripts\ckeditor\plugins\smiley\images\sad_smile.gif" />
+    <Content Include="Scripts\ckeditor\plugins\smiley\images\sad_smile.png" />
+    <Content Include="Scripts\ckeditor\plugins\smiley\images\shades_smile.gif" />
+    <Content Include="Scripts\ckeditor\plugins\smiley\images\shades_smile.png" />
+    <Content Include="Scripts\ckeditor\plugins\smiley\images\teeth_smile.gif" />
+    <Content Include="Scripts\ckeditor\plugins\smiley\images\teeth_smile.png" />
+    <Content Include="Scripts\ckeditor\plugins\smiley\images\thumbs_down.gif" />
+    <Content Include="Scripts\ckeditor\plugins\smiley\images\thumbs_down.png" />
+    <Content Include="Scripts\ckeditor\plugins\smiley\images\thumbs_up.gif" />
+    <Content Include="Scripts\ckeditor\plugins\smiley\images\thumbs_up.png" />
+    <Content Include="Scripts\ckeditor\plugins\smiley\images\tongue_smile.gif" />
+    <Content Include="Scripts\ckeditor\plugins\smiley\images\tongue_smile.png" />
+    <Content Include="Scripts\ckeditor\plugins\smiley\images\tounge_smile.gif" />
+    <Content Include="Scripts\ckeditor\plugins\smiley\images\whatchutalkingabout_smile.gif" />
+    <Content Include="Scripts\ckeditor\plugins\smiley\images\whatchutalkingabout_smile.png" />
+    <Content Include="Scripts\ckeditor\plugins\smiley\images\wink_smile.gif" />
+    <Content Include="Scripts\ckeditor\plugins\smiley\images\wink_smile.png" />
+    <Content Include="Scripts\ckeditor\plugins\specialchar\dialogs\lang\af.js" />
+    <Content Include="Scripts\ckeditor\plugins\specialchar\dialogs\lang\ar.js" />
+    <Content Include="Scripts\ckeditor\plugins\specialchar\dialogs\lang\az.js" />
+    <Content Include="Scripts\ckeditor\plugins\specialchar\dialogs\lang\bg.js" />
+    <Content Include="Scripts\ckeditor\plugins\specialchar\dialogs\lang\ca.js" />
+    <Content Include="Scripts\ckeditor\plugins\specialchar\dialogs\lang\cs.js" />
+    <Content Include="Scripts\ckeditor\plugins\specialchar\dialogs\lang\cy.js" />
+    <Content Include="Scripts\ckeditor\plugins\specialchar\dialogs\lang\da.js" />
+    <Content Include="Scripts\ckeditor\plugins\specialchar\dialogs\lang\de-ch.js" />
+    <Content Include="Scripts\ckeditor\plugins\specialchar\dialogs\lang\de.js" />
+    <Content Include="Scripts\ckeditor\plugins\specialchar\dialogs\lang\el.js" />
+    <Content Include="Scripts\ckeditor\plugins\specialchar\dialogs\lang\en-au.js" />
+    <Content Include="Scripts\ckeditor\plugins\specialchar\dialogs\lang\en-ca.js" />
+    <Content Include="Scripts\ckeditor\plugins\specialchar\dialogs\lang\en-gb.js" />
+    <Content Include="Scripts\ckeditor\plugins\specialchar\dialogs\lang\en.js" />
+    <Content Include="Scripts\ckeditor\plugins\specialchar\dialogs\lang\eo.js" />
+    <Content Include="Scripts\ckeditor\plugins\specialchar\dialogs\lang\es-mx.js" />
+    <Content Include="Scripts\ckeditor\plugins\specialchar\dialogs\lang\es.js" />
+    <Content Include="Scripts\ckeditor\plugins\specialchar\dialogs\lang\et.js" />
+    <Content Include="Scripts\ckeditor\plugins\specialchar\dialogs\lang\eu.js" />
+    <Content Include="Scripts\ckeditor\plugins\specialchar\dialogs\lang\fa.js" />
+    <Content Include="Scripts\ckeditor\plugins\specialchar\dialogs\lang\fi.js" />
+    <Content Include="Scripts\ckeditor\plugins\specialchar\dialogs\lang\fr-ca.js" />
+    <Content Include="Scripts\ckeditor\plugins\specialchar\dialogs\lang\fr.js" />
+    <Content Include="Scripts\ckeditor\plugins\specialchar\dialogs\lang\gl.js" />
+    <Content Include="Scripts\ckeditor\plugins\specialchar\dialogs\lang\he.js" />
+    <Content Include="Scripts\ckeditor\plugins\specialchar\dialogs\lang\hr.js" />
+    <Content Include="Scripts\ckeditor\plugins\specialchar\dialogs\lang\hu.js" />
+    <Content Include="Scripts\ckeditor\plugins\specialchar\dialogs\lang\id.js" />
+    <Content Include="Scripts\ckeditor\plugins\specialchar\dialogs\lang\it.js" />
+    <Content Include="Scripts\ckeditor\plugins\specialchar\dialogs\lang\ja.js" />
+    <Content Include="Scripts\ckeditor\plugins\specialchar\dialogs\lang\km.js" />
+    <Content Include="Scripts\ckeditor\plugins\specialchar\dialogs\lang\ko.js" />
+    <Content Include="Scripts\ckeditor\plugins\specialchar\dialogs\lang\ku.js" />
+    <Content Include="Scripts\ckeditor\plugins\specialchar\dialogs\lang\lt.js" />
+    <Content Include="Scripts\ckeditor\plugins\specialchar\dialogs\lang\lv.js" />
+    <Content Include="Scripts\ckeditor\plugins\specialchar\dialogs\lang\nb.js" />
+    <Content Include="Scripts\ckeditor\plugins\specialchar\dialogs\lang\nl.js" />
+    <Content Include="Scripts\ckeditor\plugins\specialchar\dialogs\lang\no.js" />
+    <Content Include="Scripts\ckeditor\plugins\specialchar\dialogs\lang\oc.js" />
+    <Content Include="Scripts\ckeditor\plugins\specialchar\dialogs\lang\pl.js" />
+    <Content Include="Scripts\ckeditor\plugins\specialchar\dialogs\lang\pt-br.js" />
+    <Content Include="Scripts\ckeditor\plugins\specialchar\dialogs\lang\pt.js" />
+    <Content Include="Scripts\ckeditor\plugins\specialchar\dialogs\lang\ro.js" />
+    <Content Include="Scripts\ckeditor\plugins\specialchar\dialogs\lang\ru.js" />
+    <Content Include="Scripts\ckeditor\plugins\specialchar\dialogs\lang\si.js" />
+    <Content Include="Scripts\ckeditor\plugins\specialchar\dialogs\lang\sk.js" />
+    <Content Include="Scripts\ckeditor\plugins\specialchar\dialogs\lang\sl.js" />
+    <Content Include="Scripts\ckeditor\plugins\specialchar\dialogs\lang\sq.js" />
+    <Content Include="Scripts\ckeditor\plugins\specialchar\dialogs\lang\sr-latn.js" />
+    <Content Include="Scripts\ckeditor\plugins\specialchar\dialogs\lang\sr.js" />
+    <Content Include="Scripts\ckeditor\plugins\specialchar\dialogs\lang\sv.js" />
+    <Content Include="Scripts\ckeditor\plugins\specialchar\dialogs\lang\th.js" />
+    <Content Include="Scripts\ckeditor\plugins\specialchar\dialogs\lang\tr.js" />
+    <Content Include="Scripts\ckeditor\plugins\specialchar\dialogs\lang\tt.js" />
+    <Content Include="Scripts\ckeditor\plugins\specialchar\dialogs\lang\ug.js" />
+    <Content Include="Scripts\ckeditor\plugins\specialchar\dialogs\lang\uk.js" />
+    <Content Include="Scripts\ckeditor\plugins\specialchar\dialogs\lang\vi.js" />
+    <Content Include="Scripts\ckeditor\plugins\specialchar\dialogs\lang\zh-cn.js" />
+    <Content Include="Scripts\ckeditor\plugins\specialchar\dialogs\lang\zh.js" />
+    <Content Include="Scripts\ckeditor\plugins\specialchar\dialogs\lang\_translationstatus.txt" />
+    <Content Include="Scripts\ckeditor\plugins\specialchar\dialogs\specialchar.js" />
+    <Content Include="Scripts\ckeditor\plugins\tableselection\styles\tableselection.css" />
+    <Content Include="Scripts\ckeditor\plugins\tabletools\dialogs\tableCell.js" />
+    <Content Include="Scripts\ckeditor\plugins\table\dialogs\table.js" />
+    <Content Include="Scripts\ckeditor\plugins\templates\dialogs\templates.css" />
+    <Content Include="Scripts\ckeditor\plugins\templates\dialogs\templates.js" />
+    <Content Include="Scripts\ckeditor\plugins\templates\templates\default.js" />
+    <Content Include="Scripts\ckeditor\plugins\templates\templates\images\template1.gif" />
+    <Content Include="Scripts\ckeditor\plugins\templates\templates\images\template2.gif" />
+    <Content Include="Scripts\ckeditor\plugins\templates\templates\images\template3.gif" />
+    <Content Include="Scripts\ckeditor\plugins\widget\images\handle.png" />
+    <Content Include="Scripts\ckeditor\plugins\wsc\dialogs\ciframe.html" />
+    <Content Include="Scripts\ckeditor\plugins\wsc\dialogs\tmpFrameset.html" />
+    <Content Include="Scripts\ckeditor\plugins\wsc\dialogs\wsc.css" />
+    <Content Include="Scripts\ckeditor\plugins\wsc\dialogs\wsc.js" />
+    <Content Include="Scripts\ckeditor\plugins\wsc\dialogs\wsc_ie.js" />
+    <Content Include="Scripts\ckeditor\plugins\wsc\icons\hidpi\spellchecker.png" />
+    <Content Include="Scripts\ckeditor\plugins\wsc\icons\spellchecker.png" />
+    <Content Include="Scripts\ckeditor\plugins\wsc\lang\af.js" />
+    <Content Include="Scripts\ckeditor\plugins\wsc\lang\ar.js" />
+    <Content Include="Scripts\ckeditor\plugins\wsc\lang\bg.js" />
+    <Content Include="Scripts\ckeditor\plugins\wsc\lang\bn.js" />
+    <Content Include="Scripts\ckeditor\plugins\wsc\lang\bs.js" />
+    <Content Include="Scripts\ckeditor\plugins\wsc\lang\ca.js" />
+    <Content Include="Scripts\ckeditor\plugins\wsc\lang\cs.js" />
+    <Content Include="Scripts\ckeditor\plugins\wsc\lang\cy.js" />
+    <Content Include="Scripts\ckeditor\plugins\wsc\lang\da.js" />
+    <Content Include="Scripts\ckeditor\plugins\wsc\lang\de.js" />
+    <Content Include="Scripts\ckeditor\plugins\wsc\lang\el.js" />
+    <Content Include="Scripts\ckeditor\plugins\wsc\lang\en-au.js" />
+    <Content Include="Scripts\ckeditor\plugins\wsc\lang\en-ca.js" />
+    <Content Include="Scripts\ckeditor\plugins\wsc\lang\en-gb.js" />
+    <Content Include="Scripts\ckeditor\plugins\wsc\lang\en.js" />
+    <Content Include="Scripts\ckeditor\plugins\wsc\lang\eo.js" />
+    <Content Include="Scripts\ckeditor\plugins\wsc\lang\es.js" />
+    <Content Include="Scripts\ckeditor\plugins\wsc\lang\et.js" />
+    <Content Include="Scripts\ckeditor\plugins\wsc\lang\eu.js" />
+    <Content Include="Scripts\ckeditor\plugins\wsc\lang\fa.js" />
+    <Content Include="Scripts\ckeditor\plugins\wsc\lang\fi.js" />
+    <Content Include="Scripts\ckeditor\plugins\wsc\lang\fo.js" />
+    <Content Include="Scripts\ckeditor\plugins\wsc\lang\fr-ca.js" />
+    <Content Include="Scripts\ckeditor\plugins\wsc\lang\fr.js" />
+    <Content Include="Scripts\ckeditor\plugins\wsc\lang\gl.js" />
+    <Content Include="Scripts\ckeditor\plugins\wsc\lang\gu.js" />
+    <Content Include="Scripts\ckeditor\plugins\wsc\lang\he.js" />
+    <Content Include="Scripts\ckeditor\plugins\wsc\lang\hi.js" />
+    <Content Include="Scripts\ckeditor\plugins\wsc\lang\hr.js" />
+    <Content Include="Scripts\ckeditor\plugins\wsc\lang\hu.js" />
+    <Content Include="Scripts\ckeditor\plugins\wsc\lang\is.js" />
+    <Content Include="Scripts\ckeditor\plugins\wsc\lang\it.js" />
+    <Content Include="Scripts\ckeditor\plugins\wsc\lang\ja.js" />
+    <Content Include="Scripts\ckeditor\plugins\wsc\lang\ka.js" />
+    <Content Include="Scripts\ckeditor\plugins\wsc\lang\km.js" />
+    <Content Include="Scripts\ckeditor\plugins\wsc\lang\ko.js" />
+    <Content Include="Scripts\ckeditor\plugins\wsc\lang\ku.js" />
+    <Content Include="Scripts\ckeditor\plugins\wsc\lang\lt.js" />
+    <Content Include="Scripts\ckeditor\plugins\wsc\lang\lv.js" />
+    <Content Include="Scripts\ckeditor\plugins\wsc\lang\mk.js" />
+    <Content Include="Scripts\ckeditor\plugins\wsc\lang\mn.js" />
+    <Content Include="Scripts\ckeditor\plugins\wsc\lang\ms.js" />
+    <Content Include="Scripts\ckeditor\plugins\wsc\lang\nb.js" />
+    <Content Include="Scripts\ckeditor\plugins\wsc\lang\nl.js" />
+    <Content Include="Scripts\ckeditor\plugins\wsc\lang\no.js" />
+    <Content Include="Scripts\ckeditor\plugins\wsc\lang\pl.js" />
+    <Content Include="Scripts\ckeditor\plugins\wsc\lang\pt-br.js" />
+    <Content Include="Scripts\ckeditor\plugins\wsc\lang\pt.js" />
+    <Content Include="Scripts\ckeditor\plugins\wsc\lang\ro.js" />
+    <Content Include="Scripts\ckeditor\plugins\wsc\lang\ru.js" />
+    <Content Include="Scripts\ckeditor\plugins\wsc\lang\sk.js" />
+    <Content Include="Scripts\ckeditor\plugins\wsc\lang\sl.js" />
+    <Content Include="Scripts\ckeditor\plugins\wsc\lang\sr-latn.js" />
+    <Content Include="Scripts\ckeditor\plugins\wsc\lang\sr.js" />
+    <Content Include="Scripts\ckeditor\plugins\wsc\lang\sv.js" />
+    <Content Include="Scripts\ckeditor\plugins\wsc\lang\th.js" />
+    <Content Include="Scripts\ckeditor\plugins\wsc\lang\tr.js" />
+    <Content Include="Scripts\ckeditor\plugins\wsc\lang\ug.js" />
+    <Content Include="Scripts\ckeditor\plugins\wsc\lang\uk.js" />
+    <Content Include="Scripts\ckeditor\plugins\wsc\lang\vi.js" />
+    <Content Include="Scripts\ckeditor\plugins\wsc\lang\zh-cn.js" />
+    <Content Include="Scripts\ckeditor\plugins\wsc\lang\zh.js" />
+    <Content Include="Scripts\ckeditor\plugins\wsc\plugin.js" />
+    <Content Include="Scripts\ckeditor\plugins\wsc\skins\moono-lisa\wsc.css" />
+    <Content Include="Scripts\ckeditor\skins\moono-lisa\dialog.css" />
+    <Content Include="Scripts\ckeditor\skins\moono-lisa\dialog_ie.css" />
+    <Content Include="Scripts\ckeditor\skins\moono-lisa\dialog_ie8.css" />
+    <Content Include="Scripts\ckeditor\skins\moono-lisa\dialog_iequirks.css" />
+    <Content Include="Scripts\ckeditor\skins\moono-lisa\editor.css" />
+    <Content Include="Scripts\ckeditor\skins\moono-lisa\editor_gecko.css" />
+    <Content Include="Scripts\ckeditor\skins\moono-lisa\editor_ie.css" />
+    <Content Include="Scripts\ckeditor\skins\moono-lisa\editor_ie8.css" />
+    <Content Include="Scripts\ckeditor\skins\moono-lisa\editor_iequirks.css" />
+    <Content Include="Scripts\ckeditor\skins\moono-lisa\icons.png" />
+    <Content Include="Scripts\ckeditor\skins\moono-lisa\icons_hidpi.png" />
+    <Content Include="Scripts\ckeditor\skins\moono-lisa\images\arrow.png" />
+    <Content Include="Scripts\ckeditor\skins\moono-lisa\images\close.png" />
+    <Content Include="Scripts\ckeditor\skins\moono-lisa\images\hidpi\close.png" />
+    <Content Include="Scripts\ckeditor\skins\moono-lisa\images\hidpi\lock-open.png" />
+    <Content Include="Scripts\ckeditor\skins\moono-lisa\images\hidpi\lock.png" />
+    <Content Include="Scripts\ckeditor\skins\moono-lisa\images\hidpi\refresh.png" />
+    <Content Include="Scripts\ckeditor\skins\moono-lisa\images\lock-open.png" />
+    <Content Include="Scripts\ckeditor\skins\moono-lisa\images\lock.png" />
+    <Content Include="Scripts\ckeditor\skins\moono-lisa\images\refresh.png" />
+    <Content Include="Scripts\ckeditor\skins\moono-lisa\images\spinner.gif" />
+    <Content Include="Scripts\ckeditor\styles.js" />
+    <Content Include="Scripts\ckeditor\vendor\promise.js" />
+    <Content Include="Scripts\jquery-3.5.1.js" />
+    <Content Include="Scripts\jquery-3.5.1.min.js" />
+    <Content Include="Scripts\jquery-3.5.1.slim.js" />
+    <Content Include="Scripts\jquery-3.5.1.slim.min.js" />
+    <Content Include="Scripts\jquery-3.5.1.slim.min.map" />
+    <Content Include="Scripts\jquery-3.5.1.min.map" />
+    <None Include="Service References\ctvlpv\configuration.svcinfo" />
+    <None Include="Service References\ctvlpv\configuration91.svcinfo" />
+    <None Include="Service References\ctvlpv\Reference.svcmap">
+      <Generator>WCF Proxy Generator</Generator>
+      <LastGenOutput>Reference.cs</LastGenOutput>
+    </None>
+    <Content Include="Scripts\jquery-ui-i18n.js" />
+    <Content Include="Scripts\jquery-ui.js" />
+    <Content Include="Scripts\Rnc2\ajout-formation-controleur.js" />
+    <Content Include="Scripts\Rnc2\ajout-sanction-centre.js" />
+    <Content Include="Scripts\Rnc2\ajout-sanction-controleur.js" />
+    <Content Include="Scripts\Rnc2\common.js" />
+    <Content Include="Scripts\Rnc2\creation-centre.js" />
+    <Content Include="Scripts\Rnc2\creation-utilisateur.js" />
+    <Content Include="Scripts\Rnc2\date-picker.js" />
+    <Content Include="Scripts\Rnc2\delete-centre.js" />
+    <Content Include="Scripts\Rnc2\download.js" />
+    <Content Include="Scripts\Rnc2\dropdown-menu.js" />
+    <Content Include="Scripts\Rnc2\menu.js" />
+    <Content Include="Scripts\Rnc2\renew-password.js" />
+    <Content Include="Scripts\Rnc2\saisie-numeric.js" />
+    <Content Include="Scripts\Rnc2\set-focus.js" />
+    <Content Include="Scripts\Rnc2\url.js" />
+    <Content Include="Scripts\Rnc2\utilisateurs.js" />
+    <Content Include="Views\Centre\DeclarerExtensionAgrementCatL.cshtml" />
+    <Content Include="Views\Centre\RetirerExtensionAgrementCatL.cshtml" />
+    <Content Include="Views\ControleurTechnique\DeclarerExtensionAgrementCatL.cshtml" />
+    <Content Include="Views\ControleurTechnique\RechercheControleurResultat.cshtml" />
+    <Content Include="Views\Home\ListeControleurPourReseau.cshtml" />
+    <Content Include="Web.config" />
+    <Content Include="Web.Debug.config">
+      <DependentUpon>Web.config</DependentUpon>
+    </Content>
+    <Content Include="Web.Release.config">
+      <DependentUpon>Web.config</DependentUpon>
+    </Content>
+    <Content Include="Views\Web.config" />
+    <Content Include="Views\_ViewStart.cshtml" />
+    <Content Include="Views\Shared\Error.cshtml" />
+    <Content Include="Views\Shared\_Layout.cshtml" />
+    <Content Include="Views\Home\Index.cshtml" />
+    <Content Include="Views\Shared\DisplayTemplates\SiteMapTitleHelperModel.cshtml" />
+    <Content Include="Views\Shared\DisplayTemplates\SiteMapPathHelperModel.cshtml" />
+    <Content Include="Views\Shared\DisplayTemplates\SiteMapNodeModelList.cshtml" />
+    <Content Include="Views\Shared\DisplayTemplates\SiteMapNodeModel.cshtml" />
+    <Content Include="Views\Shared\DisplayTemplates\SiteMapHelperModel.cshtml" />
+    <Content Include="Views\Shared\DisplayTemplates\MetaRobotsHelperModel.cshtml" />
+    <Content Include="Views\Shared\DisplayTemplates\MenuHelperModel.cshtml" />
+    <Content Include="Views\Shared\DisplayTemplates\CanonicalHelperModel.cshtml" />
+    <Content Include="Views\AccessDenied\Index.cshtml" />
+    <Content Include="Views\Account\ChangePassword.cshtml" />
+    <Content Include="Views\Account\ChangePasswordSuccess.cshtml" />
+    <Content Include="Views\Account\Contact.cshtml" />
+    <Content Include="Views\Account\LogOn.cshtml" />
+    <Content Include="Views\Account\Register.cshtml" />
+    <Content Include="Views\Account\TempLogOn.cshtml" />
+    <Content Include="Views\Admin\ConfirmerDeleteParametre.cshtml" />
+    <Content Include="Views\Admin\CreateParametre.cshtml" />
+    <Content Include="Views\Admin\EditParametre.cshtml" />
+    <Content Include="Views\Admin\Index.cshtml" />
+    <Content Include="Views\Admin\ListeParametres.cshtml" />
+    <Content Include="Views\Admin\Message.cshtml" />
+    <Content Include="Views\Centre\AjouterAmende.cshtml" />
+    <Content Include="Views\Centre\AjouterDerogation.cshtml" />
+    <Content Include="Views\Centre\AjouterSanction.cshtml" />
+    <Content Include="Views\Centre\AnnulerAgrement.cshtml" />
+    <Content Include="Views\Centre\AuteurModification.cshtml" />
+    <Content Include="Views\Centre\AutreModification.cshtml" />
+    <Content Include="Views\Centre\confirmationDateNotification.cshtml" />
+    <Content Include="Views\Centre\ConfirmationDateNotificationNouvelAgrement.cshtml" />
+    <Content Include="Views\Centre\ConfirmationDeleteAmende.cshtml" />
+    <Content Include="Views\Centre\ConfirmationDeleteDerogation.cshtml" />
+    <Content Include="Views\Centre\ConfirmationDeleteFiche.cshtml" />
+    <Content Include="Views\Centre\ConfirmationDeleteSanction.cshtml" />
+    <Content Include="Views\Centre\ConfirmationModificationRetourArriere.cshtml" />
+    <Content Include="Views\Centre\ConfirmationModificationRetourArriereErreur.cshtml" />
+    <Content Include="Views\Centre\ConfirmationModificationRetourArriereErreurCntlrRattache.cshtml" />
+    <Content Include="Views\Centre\ConfirmationRenouvellementAgrementPl.cshtml" />
+    <Content Include="Views\Centre\ConfirmationReseauMixte.cshtml" />
+    <Content Include="Views\Centre\CreateEquipementSpecifiqueCL.cshtml" />
+    <Content Include="Views\Centre\CreateEquipementSpecifiquePL.cshtml" />
+    <Content Include="Views\Centre\CreateEquipementSpecifiqueVL.cshtml" />
+    <Content Include="Views\Centre\CreateHoraireOuverturePL.cshtml" />
+    <Content Include="Views\Centre\CreateInfoRDVPL.cshtml" />
+    <Content Include="Views\Centre\CreateJournalActivite.cshtml" />
+    <Content Include="Views\Centre\DemandeAgrement.cshtml" />
+    <Content Include="Views\Centre\ErreurRechercheNouveauCentre.cshtml" />
+    <Content Include="Views\Centre\Fiche.cshtml" />
+    <Content Include="Views\Centre\FicheHistorique.cshtml" />
+    <Content Include="Views\Centre\FicheNotifAgrementCentrePdf.cshtml" />
+    <Content Include="Views\Centre\Index.cshtml" />
+    <Content Include="Views\Centre\InformationCertificat.cshtml" />
+    <Content Include="Views\Centre\ListeAmendes.cshtml" />
+    <Content Include="Views\Centre\ListeAvecCertificatExpireOuRevoque.cshtml" />
+    <Content Include="Views\Centre\ListeCertificat.cshtml" />
+    <Content Include="Views\Centre\ListeCertificatRevoqueOuExpire.cshtml" />
+    <Content Include="Views\Centre\ListeControleurs.cshtml" />
+    <Content Include="Views\Centre\ListeDerogations.cshtml" />
+    <Content Include="Views\Centre\ListeHistorique.cshtml" />
+    <Content Include="Views\Centre\ListeRapportException.cshtml" />
+    <Content Include="Views\Centre\ListeSanctions.cshtml" />
+    <Content Include="Views\Centre\ListeSansCertificat.cshtml" />
+    <Content Include="Views\Centre\ModificationDenominationSociale.cshtml" />
+    <Content Include="Views\Centre\ModificationRepresentantLegal.cshtml" />
+    <Content Include="Views\Centre\ModifierAdresseMail.cshtml" />
+    <Content Include="Views\Centre\ModifierAmende.cshtml" />
+    <Content Include="Views\Centre\ModifierDerogation.cshtml" />
+    <Content Include="Views\Centre\ModifierEquipementSpecifiqueCL.cshtml" />
+    <Content Include="Views\Centre\ModifierEquipementSpecifiquePL.cshtml" />
+    <Content Include="Views\Centre\ModifierEquipementSpecifiqueVL.cshtml" />
+    <Content Include="Views\Centre\ModifierFiche.cshtml" />
+    <Content Include="Views\Centre\ModifierHoraireOuverturePL.cshtml" />
+    <Content Include="Views\Centre\ModifierInfoRDVPL.cshtml" />
+    <Content Include="Views\Centre\ModifierJournalActivite.cshtml" />
+    <Content Include="Views\Centre\ModifierSanction.cshtml" />
+    <Content Include="Views\Centre\NotificationAgrement.cshtml" />
+    <Content Include="Views\Centre\NouveauCentre.cshtml" />
+    <Content Include="Views\Centre\NouveauCentreConfirmation.cshtml" />
+    <Content Include="Views\Centre\NouveauCentreEtape0.cshtml" />
+    <Content Include="Views\Centre\NouveauCentreEtape1.cshtml" />
+    <Content Include="Views\Centre\NouveauCentreEtape2.cshtml" />
+    <Content Include="Views\Centre\NouvelAgrement.cshtml" />
+    <Content Include="Views\Centre\Recherche.cshtml" />
+    <Content Include="Views\Centre\RechercheCentreResult.cshtml" />
+    <Content Include="Views\Centre\RejetAgrement.cshtml" />
+    <Content Include="Views\Centre\RejetRenouvellementAgrement.cshtml" />
+    <Content Include="Views\Centre\ResultatNotifierAgrement.cshtml" />
+    <Content Include="Views\Centre\TelechargerNotification.cshtml" />
+    <Content Include="Views\Centre\VoirEquipementSpecifiqueCL.cshtml" />
+    <Content Include="Views\Centre\VoirEquipementSpecifiquePL.cshtml" />
+    <Content Include="Views\Centre\VoirEquipementSpecifiqueVL.cshtml" />
+    <Content Include="Views\Centre\VoirHoraireOuverturePL.cshtml" />
+    <Content Include="Views\Centre\VoirInfoRDVPL.cshtml" />
+    <Content Include="Views\Centre\VoirJournalActivite.cshtml" />
+    <Content Include="Views\ControleurTechnique\AjouterAmende.cshtml" />
+    <Content Include="Views\ControleurTechnique\AjouterAuditCL.cshtml" />
+    <Content Include="Views\ControleurTechnique\AjouterAuditPL.cshtml" />
+    <Content Include="Views\ControleurTechnique\AjouterAuditVL.cshtml" />
+    <Content Include="Views\ControleurTechnique\AjouterFormationCL.cshtml" />
+    <Content Include="Views\ControleurTechnique\AjouterFormationPL.cshtml" />
+    <Content Include="Views\ControleurTechnique\AjouterFormationVL.cshtml" />
+    <Content Include="Views\ControleurTechnique\AjouterSanction.cshtml" />
+    <Content Include="Views\ControleurTechnique\AnnulerAgrement.cshtml" />
+    <Content Include="Views\ControleurTechnique\AuteurModification.cshtml" />
+    <Content Include="Views\ControleurTechnique\ConfirmationAnnulerModification.cshtml" />
+    <Content Include="Views\ControleurTechnique\ConfirmationCreationPrestataire.cshtml" />
+    <Content Include="Views\ControleurTechnique\ConfirmationDeleteAmende.cshtml" />
+    <Content Include="Views\ControleurTechnique\ConfirmationDeleteAuditCL.cshtml" />
+    <Content Include="Views\ControleurTechnique\ConfirmationDeleteAuditPL.cshtml" />
+    <Content Include="Views\ControleurTechnique\ConfirmationDeleteAuditVL.cshtml" />
+    <Content Include="Views\ControleurTechnique\ConfirmationDeleteFiche.cshtml" />
+    <Content Include="Views\ControleurTechnique\ConfirmationDeleteFormationCL.cshtml" />
+    <Content Include="Views\ControleurTechnique\ConfirmationDeleteFormationPL.cshtml" />
+    <Content Include="Views\ControleurTechnique\ConfirmationDeleteFormationVL.cshtml" />
+    <Content Include="Views\ControleurTechnique\ConfirmationDeleteSanction.cshtml" />
+    <Content Include="Views\ControleurTechnique\ConfirmationModificationRetourArriere.cshtml" />
+    <Content Include="Views\ControleurTechnique\ConfirmerCreation.cshtml" />
+    <Content Include="Views\ControleurTechnique\DeclarerHabilitationPL.cshtml" />
+    <Content Include="Views\ControleurTechnique\DemandeAgrement.cshtml" />
+    <Content Include="Views\ControleurTechnique\Fiche.cshtml" />
+    <Content Include="Views\ControleurTechnique\FicheHisto.cshtml" />
+    <Content Include="Views\ControleurTechnique\ListeAmendes.cshtml" />
+    <Content Include="Views\ControleurTechnique\ListeAuditsCL.cshtml" />
+    <Content Include="Views\ControleurTechnique\ListeAuditsPL.cshtml" />
+    <Content Include="Views\ControleurTechnique\ListeAuditsVL.cshtml" />
+    <Content Include="Views\ControleurTechnique\ListeControleurAgreeSansCentre.cshtml" />
+    <Content Include="Views\ControleurTechnique\ListeFormationsCL.cshtml" />
+    <Content Include="Views\ControleurTechnique\ListeFormationsPL.cshtml" />
+    <Content Include="Views\ControleurTechnique\ListeFormationsVL.cshtml" />
+    <Content Include="Views\ControleurTechnique\ListeHistoriques.cshtml" />
+    <Content Include="Views\ControleurTechnique\ListeSanctions.cshtml" />
+    <Content Include="Views\ControleurTechnique\ModificationEtatCivil.cshtml" />
+    <Content Include="Views\ControleurTechnique\ModifierAmende.cshtml" />
+    <Content Include="Views\ControleurTechnique\ModifierAuditCL.cshtml" />
+    <Content Include="Views\ControleurTechnique\ModifierAuditPL.cshtml" />
+    <Content Include="Views\ControleurTechnique\ModifierAuditVL.cshtml" />
+    <Content Include="Views\ControleurTechnique\ModifierFiche.cshtml" />
+    <Content Include="Views\ControleurTechnique\ModifierFormationCL.cshtml" />
+    <Content Include="Views\ControleurTechnique\ModifierFormationPL.cshtml" />
+    <Content Include="Views\ControleurTechnique\ModifierFormationVL.cshtml" />
+    <Content Include="Views\ControleurTechnique\ModifierSanction.cshtml" />
+    <Content Include="Views\ControleurTechnique\New.cshtml" />
+    <Content Include="Views\ControleurTechnique\NotifierAgrement.cshtml" />
+    <Content Include="Views\ControleurTechnique\NouveauCentreRattachement.cshtml" />
+    <Content Include="Views\ControleurTechnique\Recherche.cshtml" />
+    <Content Include="Views\ControleurTechnique\Recherchetest.cshtml" />
+    <Content Include="Views\ControleurTechnique\Recherche_old.cshtml" />
+    <Content Include="Views\ControleurTechnique\RejetAgrement.cshtml" />
+    <Content Include="Views\ControleurTechnique\ResultatAnnulerAgrement.cshtml" />
+    <Content Include="Views\ControleurTechnique\ResultatChangementCentreRattachement.cshtml" />
+    <Content Include="Views\ControleurTechnique\ResultatNotifierAgrement.cshtml" />
+    <Content Include="Views\ControleurTechnique\Test.cshtml" />
+    <Content Include="Views\Emails\Edit.cshtml" />
+    <Content Include="Views\Emails\Index.cshtml" />
+    <Content Include="Views\Emails\New.cshtml" />
+    <Content Include="Views\Exemple\Edit.cshtml" />
+    <Content Include="Views\Exemple\Index.cshtml" />
+    <Content Include="Views\Facture\ListeFactureCentre.cshtml" />
+    <Content Include="Views\Facture\ListeFactureReseau.cshtml" />
+    <Content Include="Views\Facture\ModifierParametreReseau.cshtml" />
+    <Content Include="Views\Facture\ModifierParametreUtilisateur.cshtml" />
+    <Content Include="Views\GestionControleur\Edit.cshtml" />
+    <Content Include="Views\GestionControleur\Index.cshtml" />
+    <Content Include="Views\GestionOTC\Index.cshtml" />
+    <Content Include="Views\Home\CreateInfoRDVPL.cshtml" />
+    <Content Include="Views\Home\CustomError.cshtml" />
+    <Content Include="Views\Home\HomeUtilisateurCentreIndependant.cshtml" />
+    <Content Include="Views\Home\HomeUtilisateurCentreIndependantListeControleur.cshtml" />
+    <Content Include="Views\Home\HomeUtilisateurDrire.cshtml" />
+    <Content Include="Views\Home\HomeUtilisateurPrefecture.cshtml" />
+    <Content Include="Views\Home\HomeUtilisateurReseau.cshtml" />
+    <Content Include="Views\Home\ListeCentreAccuseReceptionUtilisateurReseau.cshtml" />
+    <Content Include="Views\Home\ListeCentrePourReseau.cshtml" />
+    <Content Include="Views\Home\ModifierAdresseMail.cshtml" />
+    <Content Include="Views\Home\ModifierInfoRDVPL.cshtml" />
+    <Content Include="Views\Home\Version.cshtml" />
+    <Content Include="Views\Home\VoirInfoRDVPL.cshtml" />
+    <Content Include="Views\Information\Index.cshtml" />
+    <Content Include="Views\Information\RenewPassword0.cshtml" />
+    <Content Include="Views\Information\RenewPassword1.cshtml" />
+    <Content Include="Views\Information\RenewPassword2.cshtml" />
+    <Content Include="Views\Information\Support.cshtml" />
+    <Content Include="Views\Inscription\Etape1.cshtml" />
+    <Content Include="Views\Inscription\Etape2.cshtml" />
+    <Content Include="Views\Inscription\Etape3.cshtml" />
+    <Content Include="Views\Inscription\Etape4.cshtml" />
+    <Content Include="Views\Inscription\Index.cshtml" />
+    <Content Include="Views\Inscription\InscriptionKO.cshtml" />
+    <Content Include="Views\LieuPassageCT\Rechercher.cshtml" />
+    <Content Include="Views\LieuPassageCT\ResultatLieuPassageCT.cshtml" />
+    <Content Include="Views\LieuPassageCT\SuiviRechercheLieuPassageCT.cshtml" />
+    <Content Include="Views\NumOrdre\Edit.cshtml" />
+    <Content Include="Views\NumOrdre\Index.cshtml" />
+    <Content Include="Views\PKI\AutoriserRenouvellementCertificatCentre.cshtml" />
+    <Content Include="Views\PKI\AutoriserRenouvellementCertificatReseau.cshtml" />
+    <Content Include="Views\PKI\GenCertificatCentre.cshtml" />
+    <Content Include="Views\PKI\Index.cshtml" />
+    <Content Include="Views\PKI\InformationCertificat.cshtml" />
+    <Content Include="Views\PKI\List.cshtml" />
+    <Content Include="Views\PKI\ListeOperationCentreNonRattache.cshtml" />
+    <Content Include="Views\PKI\ListeOperationReseau.cshtml" />
+    <Content Include="Views\PKI\RevoquerCertificatCentre.cshtml" />
+    <Content Include="Views\PKI\RevoquerCertificatReseau.cshtml" />
+    <Content Include="Views\PKI\TestServeurPKI.cshtml" />
+    <Content Include="Views\RapportCE\ListeDispoAllCNRPL.cshtml" />
+    <Content Include="Views\RapportCE\ListeDispoAllReseau.cshtml" />
+    <Content Include="Views\RapportCE\ListeDispoCNR.cshtml" />
+    <Content Include="Views\RapportCE\ListeDispoCTVL.cshtml" />
+    <Content Include="Views\RapportCE\ListeDispoReseau.cshtml" />
+    <Content Include="Views\Shared\DisplayTemplates\DateTime.cshtml" />
+    <Content Include="Views\Shared\EditorTemplates\DateTime.cshtml" />
+    <Content Include="Views\Shared\HowtoDatePicker.cshtml" />
+    <Content Include="Views\Shared\LogOnUserControl.cshtml" />
+    <Content Include="Views\Statistiques\d_edition_controleur_pl_cntr_dep.cshtml" />
+    <Content Include="Views\Statistiques\d_edition_controleur_pl_cntr_region.cshtml" />
+    <Content Include="Views\Statistiques\d_edition_controleur_pl_region.cshtml" />
+    <Content Include="Views\Statistiques\d_edition_controleur_vl_cntr_dep.cshtml" />
+    <Content Include="Views\Statistiques\d_edition_controleur_vl_cntr_region.cshtml" />
+    <Content Include="Views\Statistiques\d_edition_controleur_vl_region.cshtml" />
+    <Content Include="Views\Statistiques\d_edition_excel_activite_vl.cshtml" />
+    <Content Include="Views\Statistiques\d_edition_excel_activite_vl_nat_reseau.cshtml" />
+    <Content Include="Views\Statistiques\d_edition_excel_centre_vlpl.cshtml" />
+    <Content Include="Views\Statistiques\d_edition_excel_cntlr_vlpl.cshtml" />
+    <Content Include="Views\Statistiques\d_edition_excel_cntlr_vlpl_nat_reseau.cshtml" />
+    <Content Include="Views\Statistiques\d_edition_excel_suivi_pl.cshtml" />
+    <Content Include="Views\Statistiques\d_edition_excel_suivi_vl.cshtml" />
+    <Content Include="Views\Statistiques\d_edition_installation_pl_dep.cshtml" />
+    <Content Include="Views\Statistiques\d_edition_installation_vl_dep.cshtml" />
+    <Content Include="Views\Statistiques\d_edition_installation_vl_region.cshtml" />
+    <Content Include="Views\Statistiques\d_edition_nb_controleur.cshtml" />
+    <Content Include="Views\Statistiques\d_edition_nb_installation_pl.cshtml" />
+    <Content Include="Views\Statistiques\d_edition_nb_installation_vl.cshtml" />
+    <Content Include="Views\Statistiques\Index.cshtml" />
+    <Content Include="Views\Statistiques\NBControleurParRegionEtDepartement.cshtml" />
+    <Content Include="Views\Statistiques\TestEG.cshtml" />
+    <Content Include="Views\Statistiques\TestYM.cshtml" />
+    <Content Include="Views\SuiviCourrier\Index.cshtml" />
+    <Content Include="Views\SuiviInscription\Index.cshtml" />
+    <Content Include="Views\Test\Edit.cshtml" />
+    <Content Include="Views\Test\etat1.cshtml" />
+    <Content Include="Views\Test\etat2.cshtml" />
+    <Content Include="Views\Test\etat3.cshtml" />
+    <Content Include="Views\Test\etat4.cshtml" />
+    <Content Include="Views\Test\etat5.cshtml" />
+    <Content Include="Views\Test\etat6.cshtml" />
+    <Content Include="Views\Test\Index.cshtml" />
+    <Content Include="Views\Test\Mail.cshtml" />
+    <Content Include="Views\Test\message.cshtml" />
+    <Content Include="Views\Test\NewPvCtvlPdf.cshtml" />
+    <Content Include="Views\Test\PvCtvlPdf.cshtml" />
+    <Content Include="Views\Test\PvCtvlPdfInterface.cshtml" />
+    <Content Include="Views\Test\TestCrystal.cshtml" />
+    <Content Include="Views\Utilisateurs\Ajouter.cshtml" />
+    <Content Include="Views\Utilisateurs\Delete.cshtml" />
+    <Content Include="Views\Utilisateurs\Edit.cshtml" />
+    <Content Include="Views\Utilisateurs\Filtre.cshtml" />
+    <Content Include="Views\Utilisateurs\Liste.cshtml" />
+    <Content Include="Views\ControleurTechnique\DeclarerHabilitationGaz.cshtml" />
+    <Content Include="Service References\ctvlpv\Utac.Rnc2.UI.Web.ctvlpv.BeanLieuOut.datasource" />
+    <Content Include="Service References\ctvlpv\Utac.Rnc2.UI.Web.ctvlpv.BeanPvOut.datasource" />
+    <None Include="Service References\ctvlpv\WS_ctvlpvPort.wsdl" />
+    <Content Include="Views\SuiviTelechargementPv\Index.cshtml" />
+    <Content Include="Views\Shared\_SiteExterneLayout.cshtml" />
+    <Content Include="Views\Home\HomeMessageVerifPV.cshtml" />
+    <Content Include="Views\Home\ReturnToListeCentrePourReseau.cshtml" />
+    <Content Include="Views\Home\FiltreUtilisateurReseau.cshtml" />
+    <Content Include="Views\ControleurTechnique\RetirerExtensionAgrementCatL.cshtml" />
+    <Content Include="Views\ControleurTechnique\AlerteFormationInitialeCL.cshtml" />
+    <Content Include="Views\Home\ReturnToListeControleurPourReseau.cshtml" />
+    <Content Include="Views\ControleurTechnique\NewDoublonsControleursResultat.cshtml" />
+    <Content Include="Views\Centre\DeclarerExtensionAgrementCatLImpossible.cshtml" />
+    <Content Include="Views\LieuPassageCT\ListCentreAgree.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="App_Data\" />
+    <Folder Include="Logs\" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="packages.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\Utac.Rnc2.BusinessObjects\Utac.Rnc2.BusinessObjects.csproj">
+      <Project>{3e718bfc-1d98-4c65-8bdb-c492a7ad915d}</Project>
+      <Name>Utac.Rnc2.BusinessObjects</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Utac.Rnc2.Contrats\Utac.Rnc2.Contrats.csproj">
+      <Project>{822e4bb5-6d5e-461e-ad2e-822a08c6b142}</Project>
+      <Name>Utac.Rnc2.Contrats</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Utac.Rnc2.Fabriques\Utac.Rnc2.Fabriques.csproj">
+      <Project>{f0cf54d8-afc6-42cf-bbc9-ab80759ca50e}</Project>
+      <Name>Utac.Rnc2.Fabriques</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Utac.Rnc2.Infrastructure\Utac.Rnc2.Infrastructure.csproj">
+      <Project>{65277784-51d1-4229-9f6f-ef942ba29376}</Project>
+      <Name>Utac.Rnc2.Infrastructure</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Utac.Rnc2.MVC.Extensions\Utac.Rnc2.MVC.Extensions.csproj">
+      <Project>{a28be3f9-2ab5-4741-add2-39d95c3b4ce0}</Project>
+      <Name>Utac.Rnc2.MVC.Extensions</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Utac.Rnc2.PKI.RemoteClient\Utac.Rnc2.PKI.RemoteClient.csproj">
+      <Project>{6073dac9-8a19-4415-9168-f7bd84e9ef9f}</Project>
+      <Name>Utac.Rnc2.PKI.RemoteClient</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Utac.Rnc2.Repository.Nhibernate\Utac.Rnc2.Repository.Nhibernate.csproj">
+      <Project>{aad0d60b-8ce6-4ca5-b199-2697d2647bf0}</Project>
+      <Name>Utac.Rnc2.Repository.Nhibernate</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Utac.Rnc2.Repository\Utac.Rnc2.Repository.csproj">
+      <Project>{66f7ed5e-85b1-4b71-b814-ea71497881af}</Project>
+      <Name>Utac.Rnc2.Repository</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Utac.Rnc2.Services\Utac.Rnc2.Services.csproj">
+      <Project>{03a54f6b-341d-4991-9948-339e05562bcf}</Project>
+      <Name>Utac.Rnc2.Services</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <Service Include="{C0C07587-41A7-46C8-8FBD-3F9C8EBE2DDC}" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="DataSets\DataSetPvTransfertCTVL.resx">
+      <DependentUpon>DataSetPvTransfertCTVL.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="reporting\auxi_notification_decision_agrem_init_annexe3-A.rpt">
+      <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
+      <LastGenOutput>auxi_notification_decision_agrem_init_annexe3-A.cs</LastGenOutput>
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </EmbeddedResource>
+    <EmbeddedResource Include="reporting\auxi_notification_decision_agrem_modif_annexe3-B.rpt">
+      <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
+      <LastGenOutput>auxi_notification_decision_agrem_modif_annexe3-B.cs</LastGenOutput>
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </EmbeddedResource>
+    <EmbeddedResource Include="reporting\cntlr_ficheControleur.rpt">
+      <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
+      <LastGenOutput>cntlr_ficheControleur1.cs</LastGenOutput>
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </EmbeddedResource>
+    <EmbeddedResource Include="reporting\cntlr_ficheControleurSuiviActiviteCL.rpt">
+      <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
+      <LastGenOutput>cntlr_ficheControleurSuiviActiviteCL.cs</LastGenOutput>
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </EmbeddedResource>
+    <EmbeddedResource Include="reporting\cntlr_ficheControleurSuiviActiviteVL.rpt">
+      <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
+      <LastGenOutput>cntlr_ficheControleurSuiviActiviteVL1.cs</LastGenOutput>
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </EmbeddedResource>
+    <EmbeddedResource Include="reporting\cntlr_ficheControleurSuiviQualificationPL.rpt">
+      <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
+      <LastGenOutput>cntlr_ficheControleurSuiviQualificationPL1.cs</LastGenOutput>
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </EmbeddedResource>
+    <EmbeddedResource Include="reporting\cntlr_notification_decision_agrem_init_annexe1-AB.rpt">
+      <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
+      <LastGenOutput>cntlr_notification_decision_agrem_init_annexe1-AB.cs</LastGenOutput>
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </EmbeddedResource>
+    <EmbeddedResource Include="reporting\cntlr_notification_decision_agrem_modif_annexe1-CD.rpt">
+      <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
+      <LastGenOutput>cntlr_notification_decision_agrem_modif_annexe1-CD1.cs</LastGenOutput>
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </EmbeddedResource>
+    <EmbeddedResource Include="reporting\cntr_ficheInstallation.rpt">
+      <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
+      <LastGenOutput>cntr_ficheInstallation1.cs</LastGenOutput>
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </EmbeddedResource>
+    <EmbeddedResource Include="reporting\cntr_notification_decision_agrem_init_annexe2-A.rpt">
+      <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
+      <LastGenOutput>cntr_notification_decision_agrem_init_annexe2-A1.cs</LastGenOutput>
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </EmbeddedResource>
+    <EmbeddedResource Include="reporting\cntr_notification_decision_agrem_modif_annexe2-B.rpt">
+      <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
+      <LastGenOutput>cntr_notification_decision_agrem_modif_annexe2-B1.cs</LastGenOutput>
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </EmbeddedResource>
+    <EmbeddedResource Include="reporting\NewPvTransfertCTVL.rpt">
+      <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
+      <LastGenOutput>NewPvTransfertCTVL1.cs</LastGenOutput>
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </EmbeddedResource>
+    <EmbeddedResource Include="reporting\PvTransfertCTPL.rpt">
+      <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
+      <LastGenOutput>PvTransfertCTPL1.cs</LastGenOutput>
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </EmbeddedResource>
+    <EmbeddedResource Include="reporting\PvTransfertCTVL.rpt">
+      <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
+      <LastGenOutput>PvTransfertCTVL1.cs</LastGenOutput>
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </EmbeddedResource>
+    <EmbeddedResource Include="reporting\regions.rpt">
+      <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
+      <LastGenOutput>regions1.cs</LastGenOutput>
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </EmbeddedResource>
+    <EmbeddedResource Include="reporting\test.rpt">
+      <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
+      <LastGenOutput>test1.cs</LastGenOutput>
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </EmbeddedResource>
+  </ItemGroup>
+  <ItemGroup>
+    <WCFMetadata Include="Connected Services\" />
+  </ItemGroup>
+  <ItemGroup>
+    <WCFMetadataStorage Include="Connected Services\ServiceRnc2\" />
+  </ItemGroup>
+  <PropertyGroup>
+    <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
+    <VSToolsPath Condition="'$(VSToolsPath)' == ''">$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)</VSToolsPath>
+  </PropertyGroup>
+  <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
+  <Import Project="$(VSToolsPath)\WebApplications\Microsoft.WebApplication.targets" Condition="'$(VSToolsPath)' != ''" />
+  <Import Project="$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v10.0\WebApplications\Microsoft.WebApplication.targets" Condition="false" />
+  <Target Name="MvcBuildViews" AfterTargets="AfterBuild" Condition="'$(MvcBuildViews)'=='true'">
+    <AspNetCompiler VirtualPath="temp" PhysicalPath="$(WebProjectOutputDir)" />
+  </Target>
+  <ProjectExtensions>
+    <VisualStudio>
+      <FlavorProperties GUID="{349c5851-65df-11da-9384-00065b846f21}">
+        <WebProjectProperties>
+          <UseIIS>True</UseIIS>
+          <AutoAssignPort>True</AutoAssignPort>
+          <DevelopmentServerPort>5502</DevelopmentServerPort>
+          <DevelopmentServerVPath>/</DevelopmentServerVPath>
+          <IISUrl>https://localhost:44349/</IISUrl>
+          <NTLMAuthentication>False</NTLMAuthentication>
+          <UseCustomServer>False</UseCustomServer>
+          <CustomServerUrl>
+          </CustomServerUrl>
+          <SaveServerSettingsInUserFile>False</SaveServerSettingsInUserFile>
+        </WebProjectProperties>
+      </FlavorProperties>
+    </VisualStudio>
+  </ProjectExtensions>
+  <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
+    <PropertyGroup>
+      <ErrorText>This project references NuGet package(s) that are missing on this computer. Use NuGet Package Restore to download them.  For more information, see http://go.microsoft.com/fwlink/?LinkID=322105. The missing file is {0}.</ErrorText>
+    </PropertyGroup>
+    <Error Condition="!Exists('..\packages\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.2.0.1\build\net46\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.props')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.2.0.1\build\net46\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.props'))" />
+  </Target>
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it.
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target> -->
+</Project>

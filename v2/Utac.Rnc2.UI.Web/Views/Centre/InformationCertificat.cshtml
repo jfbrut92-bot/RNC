@@ -1,0 +1,36 @@
+﻿@model Utac.Rnc2.UI.Web.Models.CertificatModel
+
+@section TitleContent {
+    InformationCertificat
+}
+@section SousTitrePage {
+    Information certificat
+}
+<h3>Installation: @Model.Centre.RaisonSociale - @Model.Centre.CodAgremVl @Model.Centre.CodAgremPl @Model.Centre.CodAgremCl</h3>
+<br />
+<fieldset>
+    Certificat @Model.DernierCertificat.CodCategorieVeh
+    <br />
+    Dernière opération effectuée le @String.Format("{0:g}", Model.DernierCertificat.PGestionCertificats[0].DateMaj) par
+    l'utilisateur : @Model.DernierCertificat.PGestionCertificats[0].RUtilisateur.CodUsrMaj
+    <br />
+    Certificat Num Req :@Model.DernierCertificat.IdReq
+    <br />
+    Certificat Num Série :@Model.DernierCertificat.NumSerie
+    <br />
+    Nom certificat : @Model.DernierCertificat.NomCert
+    <br />
+    Nom commun : @Model.DernierCertificat.NomCommunCert
+    <br />
+    Nom du fichier téléchargé : @Model.DernierCertificat.NomFichier
+    <br />
+    Mot de passe d'installation du certificat : @Model.DernierCertificat.PasswordCert
+    <br />
+    Base de donnée CT identifiant accés :@Model.DernierCertificat.BddTechLogin
+    <br />
+    Base de donnée CT mot de passe accés :@Model.DernierCertificat.BddTechPassword
+</fieldset>
+@Html.HiddenFor(model => model.Centre.Id)
+@Html.ActionLink("Retour à la liste des certificats", "ListeCertificat", new { id = Model.Centre.Id, categVehicule = Model.CategeorieVehicule })
+<br />
+@Html.ActionLink("Retour à la fiche", "Fiche", new { id = Model.Centre.Id })

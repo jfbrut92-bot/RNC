@@ -1,0 +1,1087 @@
+﻿@model Utac.Rnc2.UI.Web.Models.FicheModel
+@using Utac.Rnc2.MVC.Extensions
+@using Utac.Rnc2.BusinessObjects
+@using Utac.Rnc2.UI.Web.Helpers
+@using Utac.Rnc2.UI.Web.Utils
+
+@section TitleContent {
+    Fiche Installationerogation
+}
+@section SousTitrePage {
+    @switch (Model.Centre.TypeCentre)
+    {
+        case "S":
+            @:Fiche centre spécialisé
+            <br />
+            <span class="">@Model.Centre.RaisonSociale</span>
+            break;
+        case "A":
+            @:Fiche installation auxiliaire
+            <br />
+            <span class="titre">@Model.Centre.RaisonSociale</span>
+            break;
+    }
+}
+
+@section SideBarDroite {
+    <div class="sidebar-box inline-block row no-gutters">
+        <ul class="sections col-11">
+            @if (User.IsInRole(rUtilisateur.Profil.OTC_Administration.ToString()) || User.IsInRole(rUtilisateur.Profil.PREFECTURE.ToString()) || User.IsInRole(rUtilisateur.Profil.DRIRE.ToString()) || User.IsInRole(rUtilisateur.Profil.DSCR.ToString()) || User.IsInRole(rUtilisateur.Profil.PIV.ToString()))
+            {
+                <li class="section w-100 row no-gutters">
+                    <h3 class="col-12 py-1">Editions</h3>
+                    <div class="content-sidebar border-top-0 py-3 px-2 col-12">
+                        <ul class="w-100">
+                            @if (GestionDroitsExecution.isRightActionForCentre(User, Model.Centre, GestionDroitsExecution.ActionsFicheCentre.TELECHARGE_FICHE_CENTRE))
+                            {
+                                <li>@Html.SecuredActionLink("Fiche", "TelechargeFichePDF", new { id = Model.Centre.Id })</li>
+                            }
+                        </ul>
+                    </div>
+                    <span class="clear col-12">&nbsp;</span>
+                </li>
+            }
+            @* Limiter les action de modifications aux centres de la préfécture en connectée*@
+            @if (GestionDroitsExecution.isRightModificationCentre(User, Model.Centre))
+            {
+                <li class="section w-100 row no-gutters">
+                    <h3 class="col-12 py-1">Modifications</h3>
+                    <div class="content-sidebar border-top-0 py-3 px-2 col-12">
+                        <ul class="w-100">
+                            @if (Model.NouveauCentre == null)
+                            {
+                                if (GestionDroitsExecution.isRightActionForCentre(User, Model.Centre, GestionDroitsExecution.ActionsFicheCentre.CHDECOM))
+                                {
+                                    <li>@Html.SecuredActionLink("Dénomination sociale", "ModificationDenominationSociale", new { id = Model.Centre.Id })</li>
+                                }
+                                if (GestionDroitsExecution.isRightActionForCentre(User, Model.Centre, GestionDroitsExecution.ActionsFicheCentre.CHREPLEG))
+                                {
+                                    <li>@Html.SecuredActionLink("Représentant légal", "ModificationRepresentantLegal", new { id = Model.Centre.Id })</li>
+                                }
+                                if (GestionDroitsExecution.isRightActionForCentre(User, Model.Centre, GestionDroitsExecution.ActionsFicheCentre.MODAUTRE))
+                                {
+                                    <li>@Html.SecuredActionLink("Autre modification ou correction", "AutreModification", new { id = Model.Centre.Id })</li>
+                                }
+                                if (GestionDroitsExecution.isRightActionForCentre(User, Model.Centre, GestionDroitsExecution.ActionsFicheCentre.RETOUR))
+                                {
+                                    if (!Model.Centre.RMotifModification.Id.Equals("CRECEVL") && !Model.Centre.RMotifModification.Id.Equals("CRECEPL") && !Model.Centre.RMotifModification.Id.Equals("CRECECL") && !Model.Centre.RMotifModification.Id.Equals("RETOUR"))
+                                    {
+                                        <li>@Html.SecuredActionLink("Retour arrière", "ConfirmationModificationRetourArriere", new { id = Model.Centre.Id, deleteHisto = "false" })</li>
+                                    }
+                                }
+                            }
+                        </ul>
+                    </div>
+                    <span class="clear col-12">&nbsp;</span>
+                </li>
+            }
+            <li class="section w-100 row no-gutters">
+                <h3 class="col-12 py-1">Agrément VL</h3>
+                <div class="content-sidebar border-top-0 py-3 px-2 col-12">
+                    <ul class="w-100">
+                        @switch (Model.Centre.EtatAgrementVl)
+                        {
+                            case "0": //AGREMENT_KO
+                                if (GestionDroitsExecution.isRightActionForCentre(User, Model.Centre, GestionDroitsExecution.ActionsFicheCentre.DEAVL))
+                                {
+                                    <li>@Html.SecuredActionLink("Demande d'agrément", "DemandeAgrement", new { id = Model.Centre.Id, categVehicule = rCategorieVehicule.CategorieEnum.VL })</li>
+                                }
+                                if (GestionDroitsExecution.isRightActionForCentre(User, Model.Centre, GestionDroitsExecution.ActionsFicheCentre.NOUVEL_AGREM_VL))
+                                {
+                                    <li>@Html.SecuredActionLink("Nouvel agrément", "NouvelAgrement", new { id = Model.Centre.Id, categVehicule = rCategorieVehicule.CategorieEnum.VL })</li>
+                                }
+                                if (GestionDroitsExecution.isRightActionForCentre(User, Model.Centre, GestionDroitsExecution.ActionsFicheCentre.TELECHARGE_CE_VL))
+                                {
+                                    <li>@Html.SecuredActionLink("Téléchargement rapport d'exceptions", "ListeRapportException", "Centre", new { id = Model.Centre.Id, categorie = rCategorieVehicule.CategorieEnum.VL })</li>
+                                }
+                                if (GestionDroitsExecution.isRightActionForCentre(User, Model.Centre, GestionDroitsExecution.ActionsFicheCentre.TELECHARGE_CERTIF_SSL_VL))
+                                {
+                                    <li>@Html.SecuredActionLink("Téléchargement du certificat électronique", "ListeOperationCentreNonRattache", "PKI", new { id = Model.Centre.Id, categorie = rCategorieVehicule.CategorieEnum.VL })</li>
+                                }
+                                break;
+                            case "1": //AGREMENT_OK
+                                      //PLE le 23/01 Prise en compte agrément catégorie L
+                                if (GestionDroitsExecution.isRightActionForCentre(User, Model.Centre, GestionDroitsExecution.ActionsFicheCentre.EXTDECLA_VL))
+                                {
+                                    <li>@Html.SecuredActionLink("Déclarer extension agrément Cat.L", "DeclarerExtensionAgrementCatL", new { id = Model.Centre.Id, categorie = rCategorieVehicule.CategorieEnum.VL })</li>
+                                }
+                                //PLE le 23/01 Prise en compte agrément catégorie L
+                                if (GestionDroitsExecution.isRightActionForCentre(User, Model.Centre, GestionDroitsExecution.ActionsFicheCentre.EXTRETRA_VL))
+                                {
+                                    <li>@Html.SecuredActionLink("Retirer extension agrément Cat.L", "RetirerExtensionAgrementCatL", new { id = Model.Centre.Id, categorie = rCategorieVehicule.CategorieEnum.VL })</li>
+                                }
+                                if (GestionDroitsExecution.isRightActionForCentre(User, Model.Centre, GestionDroitsExecution.ActionsFicheCentre.ANUVL))
+                                {
+                                    <li>@Html.SecuredActionLink("Annuler l'agrément", "AnnulerAgrement", new { id = Model.Centre.Id, categVehicule = rCategorieVehicule.CategorieEnum.VL })</li>
+                                }
+                                if (GestionDroitsExecution.isRightActionForCentre(User, Model.Centre, GestionDroitsExecution.ActionsFicheCentre.TELECHARGE_CE_VL))
+                                {
+                                    <li>@Html.SecuredActionLink("Téléchargement rapport d'exceptions", "ListeRapportException", "Centre", new { id = Model.Centre.Id, categorie = rCategorieVehicule.CategorieEnum.VL })</li>
+                                }
+                                if (GestionDroitsExecution.isRightActionForCentre(User, Model.Centre, GestionDroitsExecution.ActionsFicheCentre.EQUIPVL))
+                                {
+                                    <li>
+                                        @Html.SecuredActionLink((Model.Centre.EquipementCentreVLs.Count == 0 ? "Renseigner" : "Voir") + " équipements spéc. / Contrôle GAZ" + ("A".Equals(Model.Centre.TypeCentre) ? " / Stockage PV " : ""), Model.Centre.EquipementCentreVLs.Count == 0 ? "CreateEquipementSpecifiqueVL" : "VoirEquipementSpecifiqueVL", new { id = Model.Centre.Id })
+                                    </li>
+                                }
+                                else
+                                {
+                                    if (Model.Centre.EquipementCentreVLs.Count > 0 && GestionDroitsExecution.isRightActionForCentre(User, Model.Centre, GestionDroitsExecution.ActionsFicheCentre.SHOW_EQUIPVL))
+                                    {
+                                        <li>
+                                            @Html.SecuredActionLink("Voir équipements spécifiques / Contrôle GAZ", "VoirEquipementSpecifiqueVL", new { id = Model.Centre.Id })
+                                        </li>
+                                    }
+                                }
+                                if (GestionDroitsExecution.isRightActionForCentre(User, Model.Centre, GestionDroitsExecution.ActionsFicheCentre.TELECHARGE_CERTIF_SSL_VL))
+                                {
+                                    <li>@Html.SecuredActionLink("Téléchargement du certificat électronique", "ListeOperationCentreNonRattache", "PKI", new { id = Model.Centre.Id, categorie = rCategorieVehicule.CategorieEnum.VL })</li>
+                                }
+                                if (GestionDroitsExecution.isRightActionForCentre(User, Model.Centre, GestionDroitsExecution.ActionsFicheCentre.DEROG_VL))
+                                {
+                                    <li>
+                                        @Html.SecuredActionLink("Ajouter une dérogation", "AjouterDerogation", new { id = Model.Centre.Id, categorie = rCategorieVehicule.CategorieEnum.VL })
+                                    </li>
+                                }
+                                break;
+                            case "2": //AGREMENT_DEMANDE_EN_COURS}
+                                if (GestionDroitsExecution.isRightActionForCentre(User, Model.Centre, GestionDroitsExecution.ActionsFicheCentre.REJVL))
+                                {
+                                    <li>@Html.SecuredActionLink("Rejet de la demande", "RejetAgrement", new { id = Model.Centre.Id, categVehicule = rCategorieVehicule.CategorieEnum.VL })</li>
+                                }
+                                if (GestionDroitsExecution.isRightActionForCentre(User, Model.Centre, GestionDroitsExecution.ActionsFicheCentre.NOTVL))
+                                {
+                                    <li>@Html.SecuredActionLink("Notification d'agrément", "NotificationAgrement", new { id = Model.Centre.Id, categVehicule = rCategorieVehicule.CategorieEnum.VL })</li>
+                                }
+                                break;
+                            case "3": //AGREMENT_REJETE}
+                                if (GestionDroitsExecution.isRightActionForCentre(User, Model.Centre, GestionDroitsExecution.ActionsFicheCentre.DEAVL))
+                                {
+                                    <li>@Html.SecuredActionLink("Demande d'agrément", "DemandeAgrement", new { id = Model.Centre.Id, categVehicule = rCategorieVehicule.CategorieEnum.VL })</li>
+                                }
+                                break;
+                            case "4": //AGREMENT_RENOUVELEMENT_EN_COURS}
+                                if (GestionDroitsExecution.isRightActionForCentre(User, Model.Centre, GestionDroitsExecution.ActionsFicheCentre.REJVL))
+                                {
+                                    <li>@Html.SecuredActionLink("Rejet de la demande", "RejetAgrement", new { id = Model.Centre.Id, categVehicule = rCategorieVehicule.CategorieEnum.VL })</li>
+                                }
+                                if (GestionDroitsExecution.isRightActionForCentre(User, Model.Centre, GestionDroitsExecution.ActionsFicheCentre.NOTVL))
+                                {
+                                    <li>@Html.SecuredActionLink("Notification d'agrément", "NotificationAgrement", new { id = Model.Centre.Id, categVehicule = rCategorieVehicule.CategorieEnum.VL })</li>
+                                }
+                                break;
+                            case "5": //AGREMENT_RENOUVELE_OK}
+                                if (GestionDroitsExecution.isRightActionForCentre(User, Model.Centre, GestionDroitsExecution.ActionsFicheCentre.ANUVL))
+                                {
+                                    <li>@Html.SecuredActionLink("Annuler l'agrément", "AnnulerAgrement", new { id = Model.Centre.Id, categVehicule = rCategorieVehicule.CategorieEnum.VL })</li>
+                                }
+                                break;
+                            case "6": //AGREMENT_RENOUVELE_REJETE}
+                                if (GestionDroitsExecution.isRightActionForCentre(User, Model.Centre, GestionDroitsExecution.ActionsFicheCentre.DEAVL))
+                                {
+                                    <li>@Html.SecuredActionLink("Demande d'agrément", "DemandeAgrement", new { id = Model.Centre.Id, categVehicule = rCategorieVehicule.CategorieEnum.VL })</li>
+                                }
+                                break;
+                        }
+                        @if (GestionDroitsExecution.isRightImpNotification(User, Model.Centre, rCategorieVehicule.CategorieEnum.VL))
+                        {
+                            if ("A".Equals(Model.Centre.TypeCentre))
+                            {
+                                <li>@Html.SecuredActionLink("Editer la notification", "TelechargerNotificationAuxiliairePDF", new { id = Model.Centre.Id, categVehicule = rCategorieVehicule.CategorieEnum.VL })</li>
+                            }
+                            else
+                            {
+                                <li>@Html.SecuredActionLink("Editer la notification", "TelechargerNotificationSpecialisePDF", new { id = Model.Centre.Id, categVehicule = rCategorieVehicule.CategorieEnum.VL })</li>
+                            }
+                        }
+                        @if (GestionDroitsExecution.isRightImpModifNotification(User, Model.Centre, rCategorieVehicule.CategorieEnum.VL))
+                        {
+                            <li>@Html.SecuredActionLink("Editer la notification", "ChoixTelechargerModifNotificationPDF", new { id = Model.Centre.Id })</li>
+                        }
+                        @if ((User.IsInRole(rUtilisateur.Profil.OTC_Administration.ToString()) || User.IsInRole(rUtilisateur.Profil.OTC_Consultation.ToString())) && Model.Centre.CodAgremVl != null)
+                        {
+                            <li>
+                                @{var nbFactures = 0; }
+                                @if (Model.Centre.ReseauRattachementVL.Id == Convert.ToString(rReseau.IdCodeReseau.Z))
+                                {
+                                    nbFactures = Model.Centre.PFactures.Count;
+                                }
+                                else
+                                {
+                                    nbFactures = Model.Centre.ReseauRattachementVL.PFactures.Count;
+                                }
+                                @if (nbFactures > 0)
+                                {
+                                    if (Model.Centre.ReseauRattachementVL.Id == Convert.ToString(rReseau.IdCodeReseau.Z))
+                                    {
+                                        <!--: Html.SecuredActionLink("Liste des factures", "listeFactureCentre", new { id = Model.Centre.Id, categorie = rCategorieVehicule.CategorieEnum.VL })-->
+                                        <!-- 29/09/2014 Appel direct du controleur FACTURE -->
+                                        @Html.SecuredActionLink("Liste des factures", "listeFactureCentre", "Facture", new { id = Model.Centre.Id, categorie = rCategorieVehicule.CategorieEnum.VL })
+                                    }
+                                    else
+                                    {
+                                        @Html.SecuredActionLink("Liste des factures", "listeFactureReseau", "Facture", new { id = Model.Centre.ReseauRattachementVL.Id })
+                                    }
+                                }
+                                else
+                                {
+                                    @:Liste des factures(0)
+                                }
+                            </li>
+                        }
+                    </ul>
+                </div>
+                <span class="clear col-12">&nbsp;</span>
+            </li>
+
+            <li class="section w-100 row no-gutters">
+                <h3 class="col-12 py-1">Agrément CL</h3>
+                <div class="content-sidebar border-top-0 py-3 px-2 col-12">
+                    <ul class="w-100">
+                        @switch (Model.Centre.EtatAgrementCl)
+                        {
+                            case "0": //AGREMENT_KO
+                                if (GestionDroitsExecution.isRightActionForCentre(User, Model.Centre, GestionDroitsExecution.ActionsFicheCentre.DEACL))
+                                {
+                                    <li>@Html.SecuredActionLink("Demande d'agrément", "DemandeAgrement", new { id = Model.Centre.Id, categVehicule = rCategorieVehicule.CategorieEnum.CL })</li>
+                                }
+                                if (GestionDroitsExecution.isRightActionForCentre(User, Model.Centre, GestionDroitsExecution.ActionsFicheCentre.NOUVEL_AGREM_CL))
+                                {
+                                    <li>@Html.SecuredActionLink("Nouvel agrément", "NouvelAgrement", new { id = Model.Centre.Id, categVehicule = rCategorieVehicule.CategorieEnum.CL })</li>
+                                }
+                                if (GestionDroitsExecution.isRightActionForCentre(User, Model.Centre, GestionDroitsExecution.ActionsFicheCentre.TELECHARGE_CE_CL))
+                                {
+                                    <li>@Html.SecuredActionLink("Téléchargement rapport d'exceptions", "ListeRapportException", "Centre", new { id = Model.Centre.Id, categorie = rCategorieVehicule.CategorieEnum.CL })</li>
+                                }
+                                if (GestionDroitsExecution.isRightActionForCentre(User, Model.Centre, GestionDroitsExecution.ActionsFicheCentre.TELECHARGE_CERTIF_SSL_CL))
+                                {
+                                    <li>@Html.SecuredActionLink("Téléchargement du certificat électronique", "ListeOperationCentreNonRattache", "PKI", new { id = Model.Centre.Id, categorie = rCategorieVehicule.CategorieEnum.CL })</li>
+                                }
+                                break;
+                            case "1": //AGREMENT_OK
+                                if (GestionDroitsExecution.isRightActionForCentre(User, Model.Centre, GestionDroitsExecution.ActionsFicheCentre.ANUCL))
+                                {
+                                    <li>@Html.SecuredActionLink("Annuler l'agrément", "AnnulerAgrement", new { id = Model.Centre.Id, categVehicule = rCategorieVehicule.CategorieEnum.CL })</li>
+                                }
+                                if (GestionDroitsExecution.isRightActionForCentre(User, Model.Centre, GestionDroitsExecution.ActionsFicheCentre.TELECHARGE_CE_CL))
+                                {
+                                    <li>@Html.SecuredActionLink("Téléchargement rapport d'exceptions", "ListeRapportException", "Centre", new { id = Model.Centre.Id, categorie = rCategorieVehicule.CategorieEnum.CL })</li>
+                                }
+
+                                if (GestionDroitsExecution.isRightActionForCentre(User, Model.Centre, GestionDroitsExecution.ActionsFicheCentre.TELECHARGE_CERTIF_SSL_CL))
+                                {
+                                    <li>@Html.SecuredActionLink("Téléchargement du certificat électronique", "ListeOperationCentreNonRattache", "PKI", new { id = Model.Centre.Id, categorie = rCategorieVehicule.CategorieEnum.CL })</li>
+                                }
+
+                                break;
+                            case "2": //AGREMENT_DEMANDE_EN_COURS}
+                                if (GestionDroitsExecution.isRightActionForCentre(User, Model.Centre, GestionDroitsExecution.ActionsFicheCentre.REJCL))
+                                {
+                                    <li>@Html.SecuredActionLink("Rejet de la demande", "RejetAgrement", new { id = Model.Centre.Id, categVehicule = rCategorieVehicule.CategorieEnum.CL })</li>
+                                }
+                                if (GestionDroitsExecution.isRightActionForCentre(User, Model.Centre, GestionDroitsExecution.ActionsFicheCentre.NOTCL))
+                                {
+                                    <li>@Html.SecuredActionLink("Notification d'agrément", "NotificationAgrement", new { id = Model.Centre.Id, categVehicule = rCategorieVehicule.CategorieEnum.CL })</li>
+                                }
+                                break;
+                            case "3": //AGREMENT_REJETE}
+                                if (GestionDroitsExecution.isRightActionForCentre(User, Model.Centre, GestionDroitsExecution.ActionsFicheCentre.DEACL))
+                                {
+                                    <li>@Html.SecuredActionLink("Demande d'agrément", "DemandeAgrement", new { id = Model.Centre.Id, categVehicule = rCategorieVehicule.CategorieEnum.CL })</li>
+                                }
+                                break;
+                            case "4": //AGREMENT_RENOUVELEMENT_EN_COURS}
+                                if (GestionDroitsExecution.isRightActionForCentre(User, Model.Centre, GestionDroitsExecution.ActionsFicheCentre.REJCL))
+                                {
+                                    <li>@Html.SecuredActionLink("Rejet de la demande", "RejetAgrement", new { id = Model.Centre.Id, categVehicule = rCategorieVehicule.CategorieEnum.CL })</li>
+                                }
+                                if (GestionDroitsExecution.isRightActionForCentre(User, Model.Centre, GestionDroitsExecution.ActionsFicheCentre.NOTVL))
+                                {
+                                    <li>@Html.SecuredActionLink("Notification d'agrément", "NotificationAgrement", new { id = Model.Centre.Id, categVehicule = rCategorieVehicule.CategorieEnum.CL })</li>
+                                }
+                                break;
+                            case "5": //AGREMENT_RENOUVELE_OK}
+                                if (GestionDroitsExecution.isRightActionForCentre(User, Model.Centre, GestionDroitsExecution.ActionsFicheCentre.ANUCL))
+                                {
+                                    <li>@Html.SecuredActionLink("Annuler l'agrément", "AnnulerAgrement", new { id = Model.Centre.Id, categVehicule = rCategorieVehicule.CategorieEnum.CL })</li>
+                                }
+                                break;
+                            case "6": //AGREMENT_RENOUVELE_REJETE}
+                                if (GestionDroitsExecution.isRightActionForCentre(User, Model.Centre, GestionDroitsExecution.ActionsFicheCentre.DEACL))
+                                {
+                                    <li>@Html.SecuredActionLink("Demande d'agrément", "DemandeAgrement", new { id = Model.Centre.Id, categVehicule = rCategorieVehicule.CategorieEnum.CL })</li>
+                                }
+                                break;
+                        }
+                        @if (GestionDroitsExecution.isRightImpNotification(User, Model.Centre, rCategorieVehicule.CategorieEnum.CL))
+                        {
+                            if ("A".Equals(Model.Centre.TypeCentre))
+                            {
+                                <li>@Html.SecuredActionLink("Editer la notification", "TelechargerNotificationAuxiliairePDF", new { id = Model.Centre.Id, categVehicule = rCategorieVehicule.CategorieEnum.CL })</li>
+                            }
+                            else
+                            {
+                                <li>@Html.SecuredActionLink("Editer la notification", "TelechargerNotificationSpecialisePDF", new { id = Model.Centre.Id, categVehicule = rCategorieVehicule.CategorieEnum.CL })</li>
+                            }
+                        }
+                        @if (GestionDroitsExecution.isRightImpModifNotification(User, Model.Centre, rCategorieVehicule.CategorieEnum.CL))
+                        {
+                            <li>@Html.SecuredActionLink("Editer la notification", "ChoixTelechargerModifNotificationPDF", new { id = Model.Centre.Id })</li>
+                        }
+                        @if ((User.IsInRole(rUtilisateur.Profil.OTC_Administration.ToString()) || User.IsInRole(rUtilisateur.Profil.OTC_Consultation.ToString())) && Model.Centre.CodAgremCl != null)
+                        {
+                            <li>
+                                @{var nbFactures = 0; }
+                                @if (Model.Centre.ReseauRattachementCL.Id == Convert.ToString(rReseau.IdCodeReseau.Z))
+                                {
+                                    nbFactures = Model.Centre.PFactures.Count;
+                                }
+                                else
+                                {
+                                    nbFactures = Model.Centre.ReseauRattachementCL.PFactures.Count;
+                                }
+                                @if (nbFactures > 0)
+                                {
+                                    if (Model.Centre.ReseauRattachementCL.Id == Convert.ToString(rReseau.IdCodeReseau.Z))
+                                    {
+                                        <!--: Html.SecuredActionLink("Liste des factures", "listeFactureCentre", new { id = Model.Centre.Id, categorie = rCategorieVehicule.CategorieEnum.CL })-->
+                                        <!-- 29/09/2014 Appel direct du controleur FACTURE -->
+                                        @Html.SecuredActionLink("Liste des factures", "listeFactureCentre", "Facture", new { id = Model.Centre.Id, categorie = rCategorieVehicule.CategorieEnum.CL })
+                                    }
+                                    else
+                                    {
+                                        @Html.SecuredActionLink("Liste des factures", "listeFactureReseau", "Facture", new { id = Model.Centre.ReseauRattachementCL.Id })
+                                    }
+                                }
+                                else
+                                {
+                                    @:Liste des factures(0)
+                                }
+                            </li>
+                        }
+                    </ul>
+                </div>
+                <span class="clear col-12">&nbsp;</span>
+            </li>
+
+
+
+
+
+            <li class="section w-100 row no-gutters">
+                <h3 class="col-12 py-1">Agrément PL</h3>
+                <div class="content-sidebar border-top-0 py-3 px-2 col-12">
+                    <ul class="w-100">
+                        @switch (Model.Centre.EtatAgrementPl)
+                        {
+                            case "0":<!--AGREMENT_KO-->
+                                if (GestionDroitsExecution.isRightActionForCentre(User, Model.Centre, GestionDroitsExecution.ActionsFicheCentre.DEAPL))
+                                {
+                                    <li>@Html.SecuredActionLink("Demande d'agrément", "DemandeAgrement", new { id = Model.Centre.Id, categVehicule = rCategorieVehicule.CategorieEnum.PL })</li>
+                                }
+                                if (GestionDroitsExecution.isRightActionForCentre(User, Model.Centre, GestionDroitsExecution.ActionsFicheCentre.NOUVEL_AGREM_PL))
+                                {
+                                    <li>@Html.SecuredActionLink("Nouvel agrément", "NouvelAgrement", new { id = Model.Centre.Id, categVehicule = rCategorieVehicule.CategorieEnum.PL })</li>
+                                }
+                                if (GestionDroitsExecution.isRightActionForCentre(User, Model.Centre, GestionDroitsExecution.ActionsFicheCentre.TELECHARGE_CE_PL))
+                                {
+                                    <li>@Html.SecuredActionLink("Téléchargement rapport d'exceptions", "ListeRapportException", "Centre", new { id = Model.Centre.Id, categorie = rCategorieVehicule.CategorieEnum.PL })</li>
+                                }
+                                if (GestionDroitsExecution.isRightActionForCentre(User, Model.Centre, GestionDroitsExecution.ActionsFicheCentre.TELECHARGE_CERTIF_SSL_PL))
+                                {
+                                    <li>@Html.SecuredActionLink("Téléchargement du certificat électronique", "ListeOperationCentreNonRattache", "PKI", new { id = Model.Centre.Id, categorie = rCategorieVehicule.CategorieEnum.PL })</li>
+                                }
+                                break;
+                            case "1": <!--AGREMENT_OK -->
+                                if (GestionDroitsExecution.isRightActionForCentre(User, Model.Centre, GestionDroitsExecution.ActionsFicheCentre.EXTDECLA_PL))
+                                {
+                                    <li>@Html.SecuredActionLink("Déclarer extension agrément Cat.L", "DeclarerExtensionAgrementCatL", new { id = Model.Centre.Id, categorie = rCategorieVehicule.CategorieEnum.PL })</li>
+                                }
+                                //PLE le 23/01 Prise en compte agrément catégorie L
+                                if (GestionDroitsExecution.isRightActionForCentre(User, Model.Centre, GestionDroitsExecution.ActionsFicheCentre.EXTRETRA_PL))
+                                {
+                                    <li>@Html.SecuredActionLink("Retirer extension agrément Cat.L", "RetirerExtensionAgrementCatL", new { id = Model.Centre.Id, categorie = rCategorieVehicule.CategorieEnum.PL })</li>
+                                }
+                                if (GestionDroitsExecution.isRightActionForCentre(User, Model.Centre, GestionDroitsExecution.ActionsFicheCentre.ANUPL))
+                                {
+                                    <li>@Html.SecuredActionLink("Annuler l'agrément", "AnnulerAgrement", new { id = Model.Centre.Id, categVehicule = rCategorieVehicule.CategorieEnum.PL })</li>
+                                }
+                                if (GestionDroitsExecution.isRightActionForCentre(User, Model.Centre, GestionDroitsExecution.ActionsFicheCentre.DERPL) &&
+                                       Model.Centre.TypeCentre == Convert.ToString(pCentreEncour.TypeInstallation.A))
+                                {
+                                    <li>@Html.SecuredActionLink("Demande de renouvellement", "ConfirmationRenouvellementAgrementPl", new { id = Model.Centre.Id, categVehicule = rCategorieVehicule.CategorieEnum.PL })</li>
+                                }
+                                if (GestionDroitsExecution.isRightActionForCentre(User, Model.Centre, GestionDroitsExecution.ActionsFicheCentre.EQUIPPL))
+                                {
+                                    <li>
+                                        @Html.SecuredActionLink((Model.Centre.EquipementCentrePLs.Count == 0 ? "Renseigner" : "Voir") + " équipements spécifiques", Model.Centre.EquipementCentrePLs.Count == 0 ? "CreateEquipementSpecifiquePL" : "VoirEquipementSpecifiquePL", new { id = Model.Centre.Id })
+                                    </li>
+                                }
+                                else
+                                {
+                                    if (Model.Centre.EquipementCentrePLs.Count > 0 && GestionDroitsExecution.isRightActionForCentre(User, Model.Centre, GestionDroitsExecution.ActionsFicheCentre.SHOW_EQUIPPL))
+                                    {
+                                        <li>
+                                            @Html.SecuredActionLink("Voir équipements spécifiques", "VoirEquipementSpecifiquePL", new { id = Model.Centre.Id })
+                                        </li>
+                                    }
+                                }
+                                if (GestionDroitsExecution.isRightActionForCentre(User, Model.Centre, GestionDroitsExecution.ActionsFicheCentre.TELECHARGE_CERTIF_SSL_PL))
+                                {
+                                    <li>@Html.SecuredActionLink("Téléchargement du certificat électronique", "ListeOperationCentreNonRattache", "PKI", new { id = Model.Centre.Id, categorie = rCategorieVehicule.CategorieEnum.PL })</li>
+                                }
+                                if (GestionDroitsExecution.isRightActionForCentre(User, Model.Centre, GestionDroitsExecution.ActionsFicheCentre.TELECHARGE_CE_PL))
+                                {
+                                    <li>@Html.SecuredActionLink("Téléchargement rapport d'exceptions", "ListeRapportException", "Centre", new { id = Model.Centre.Id, categorie = rCategorieVehicule.CategorieEnum.PL })</li>
+                                }
+                                if (GestionDroitsExecution.isRightActionForCentre(User, Model.Centre, GestionDroitsExecution.ActionsFicheCentre.DEROG_PL))
+                                {
+                                    <li>
+                                        @Html.SecuredActionLink("Ajouter une dérogation", "AjouterDerogation", new { id = Model.Centre.Id, categorie = rCategorieVehicule.CategorieEnum.PL })
+                                    </li>
+                                }
+                                break;
+                            case "2": <!-- AGREMENT_DEMANDE_EN_COURS -->
+                                if (GestionDroitsExecution.isRightActionForCentre(User, Model.Centre, GestionDroitsExecution.ActionsFicheCentre.REJPL))
+                                {
+                                    <li>@Html.SecuredActionLink("Rejet de la demande", "RejetAgrement", new { id = Model.Centre.Id, categVehicule = rCategorieVehicule.CategorieEnum.PL })</li>
+                                }
+                                if (GestionDroitsExecution.isRightActionForCentre(User, Model.Centre, GestionDroitsExecution.ActionsFicheCentre.NOTPL))
+                                {
+                                    <li>@Html.SecuredActionLink("Notification d'agrément", "NotificationAgrement", new { id = Model.Centre.Id, categVehicule = rCategorieVehicule.CategorieEnum.PL })</li>
+                                }
+                                break;
+                            case "3": <!--AGREMENT_REJETE -->
+                                if (GestionDroitsExecution.isRightActionForCentre(User, Model.Centre, GestionDroitsExecution.ActionsFicheCentre.DEAPL))
+                                {
+                                    <li>@Html.SecuredActionLink("Demande d'agrément", "DemandeAgrement", new { id = Model.Centre.Id, categVehicule = rCategorieVehicule.CategorieEnum.PL })</li>
+                                }
+                                break;
+                            case "4": <!--AGREMENT_RENOUVELEMENT_EN_COURS -->
+                                if (GestionDroitsExecution.isRightActionForCentre(User, Model.Centre, GestionDroitsExecution.ActionsFicheCentre.REJRPL))
+                                {
+                                    <li>@Html.SecuredActionLink("Rejet de renouvellement", "RejetRenouvellementAgrement", new { id = Model.Centre.Id, categVehicule = rCategorieVehicule.CategorieEnum.PL })</li>
+                                }
+                                if (GestionDroitsExecution.isRightActionForCentre(User, Model.Centre, GestionDroitsExecution.ActionsFicheCentre.NOTRPL))
+                                {
+                                    <li>@Html.SecuredActionLink("Notification de renouvellement", "NotificationAgrement", new { id = Model.Centre.Id, categVehicule = rCategorieVehicule.CategorieEnum.PL })</li>
+                                }
+                                break;
+                            case "5": <!--AGREMENT_RENOUVELE_OK -->
+                                if (GestionDroitsExecution.isRightActionForCentre(User, Model.Centre, GestionDroitsExecution.ActionsFicheCentre.ANUPL))
+                                {
+                                    <li>@Html.SecuredActionLink("Annuler l'agrément", "AnnulerAgrement", new { id = Model.Centre.Id, categVehicule = rCategorieVehicule.CategorieEnum.PL })</li>
+                                }
+                                <!-- 10/06/2013 PLE (fiche 127) Ajout du lien renouvellement PL pour l'état agrément PL = AGREMENT_RENOUVELE_OK -->
+                                if (GestionDroitsExecution.isRightActionForCentre(User, Model.Centre, GestionDroitsExecution.ActionsFicheCentre.DERPL) &&
+                                       Model.Centre.TypeCentre == Convert.ToString(pCentreEncour.TypeInstallation.A))
+                                {
+                                    <li>@Html.SecuredActionLink("Demande de renouvellement", "ConfirmationRenouvellementAgrementPl", new { id = Model.Centre.Id, categVehicule = rCategorieVehicule.CategorieEnum.PL })</li>
+                                }
+                                if (GestionDroitsExecution.isRightActionForCentre(User, Model.Centre, GestionDroitsExecution.ActionsFicheCentre.EQUIPPL))
+                                {
+                                    <li>
+                                        @Html.SecuredActionLink((Model.Centre.EquipementCentrePLs.Count == 0 ? "Renseigner" : "Voir") + " équipements spécifiques", Model.Centre.EquipementCentrePLs.Count == 0 ? "CreateEquipementSpecifiquePL" : "VoirEquipementSpecifiquePL", new { id = Model.Centre.Id })
+                                    </li>
+                                }
+                                else
+                                {
+                                    if (Model.Centre.EquipementCentrePLs.Count > 0 && GestionDroitsExecution.isRightActionForCentre(User, Model.Centre, GestionDroitsExecution.ActionsFicheCentre.SHOW_EQUIPPL))
+                                    {
+                                        <li>
+                                            @Html.SecuredActionLink("Voir équipements spécifiques", "VoirEquipementSpecifiquePL", new { id = Model.Centre.Id })
+                                        </li>
+                                    }
+                                }
+                                if (GestionDroitsExecution.isRightActionForCentre(User, Model.Centre, GestionDroitsExecution.ActionsFicheCentre.TELECHARGE_CERTIF_SSL_PL))
+                                {
+                                    <li>@Html.SecuredActionLink("Téléchargement du certificat électronique", "ListeOperationCentreNonRattache", "PKI", new { id = Model.Centre.Id, categorie = rCategorieVehicule.CategorieEnum.PL })</li>
+                                }
+                                if (GestionDroitsExecution.isRightActionForCentre(User, Model.Centre, GestionDroitsExecution.ActionsFicheCentre.TELECHARGE_CE_PL))
+                                {
+                                    <li>@Html.SecuredActionLink("Téléchargement rapport d'exceptions", "ListeRapportException", "Centre", new { id = Model.Centre.Id, categorie = rCategorieVehicule.CategorieEnum.PL })</li>
+                                }
+                                break;
+                            case "6": <!-- AGREMENT_RENOUVELE_REJETE -->
+                                if (GestionDroitsExecution.isRightActionForCentre(User, Model.Centre, GestionDroitsExecution.ActionsFicheCentre.DEAPL))
+                                {
+                                    <li>@Html.SecuredActionLink("Demande d'agrément", "DemandeAgrement", new { id = Model.Centre.Id, categVehicule = rCategorieVehicule.CategorieEnum.PL })</li>
+                                }
+                                break;
+                        }
+                        @if (GestionDroitsExecution.isRightActionForCentre(User, Model.Centre, GestionDroitsExecution.ActionsFicheCentre.RDV))
+                        {
+                            <li>
+                                @if (Model.Centre.ReseauRattachementPL.Id == Convert.ToString(rReseau.IdCodeReseau.Z))
+                                {
+                                    @Html.SecuredActionLink((Model.Centre.PInfoRdvs.Count == 0 ? "Renseigner" : "Voir") + " info prise de RDV", Model.Centre.PInfoRdvs.Count == 0 ? "CreateInfoRDVPL" : "VoirInfoRDVPL", new { id = Model.Centre.Id })
+                                }
+                                @if (Model.Centre.ReseauRattachementPL.Id != Convert.ToString(rReseau.IdCodeReseau.Z))
+                                {
+                                    @Html.SecuredActionLink((Model.Centre.ReseauRattachementPL.PInfoRdvs.Count == 0 ? "Renseigner" : "Voir") + " info prise de RDV", Model.Centre.ReseauRattachementPL.PInfoRdvs.Count == 0 ? "CreateInfoRDVPL" : "VoirInfoRDVPL", new { id = Model.Centre.Id })
+                                }
+                            </li>
+                        }
+                        else
+                        {
+                            if (GestionDroitsExecution.isRightActionForCentre(User, Model.Centre, GestionDroitsExecution.ActionsFicheCentre.SHOW_RDV) &&
+                                   (Model.Centre.PInfoRdvs.Count > 0 || Model.Centre.ReseauRattachementPL.PInfoRdvs.Count > 0)
+            )
+                            {
+                                < li >
+                                @Html.SecuredActionLink("Voir info prise de RDV", "VoirInfoRDVPL", new { id = Model.Centre.Id })
+                                </ li >
+                            }
+                        }
+                        @if (GestionDroitsExecution.isRightActionForCentre(User, Model.Centre, GestionDroitsExecution.ActionsFicheCentre.CHHORAI))
+                        {
+                            <li>
+                                @Html.SecuredActionLink((Model.Centre.PHoraireOuvertures.Count == 0 ? "Renseigner" : "Voir") + " horaires ouverture", Model.Centre.PHoraireOuvertures.Count == 0 ? "CreateHoraireOuverturePL" : "VoirHoraireOuverturePL", new { id = Model.Centre.Id })
+                            </li>
+                        }
+                        else
+                        {
+                            if (Model.Centre.PHoraireOuvertures.Count > 0 && GestionDroitsExecution.isRightActionForCentre(User, Model.Centre, GestionDroitsExecution.ActionsFicheCentre.SHOW_HORAIRE_OUVERTURE))
+                            {
+                                <li>
+                                    @Html.SecuredActionLink("Voir horaires ouverture", "VoirHoraireOuverturePL", new { id = Model.Centre.Id })
+                                </li>
+                            }
+                        }
+                        @if (GestionDroitsExecution.isRightImpNotification(User, Model.Centre, rCategorieVehicule.CategorieEnum.PL))
+                        {
+                            if ("A".Equals(Model.Centre.TypeCentre))
+                            {
+                                if (Model.Centre.EstAgrementRenouvellementRejetePL)
+                                {
+                                    <li>@Html.SecuredActionLink("Editer la notification", "TelechargerModifNotificationAuxiliairePDF", new { id = Model.Centre.Id, categVehicule = rCategorieVehicule.CategorieEnum.PL, etatVl = false, etatCl = false, etatPl = true })</li>
+                                }
+                                else
+                                {
+                                    <li>@Html.SecuredActionLink("Editer la notification", "TelechargerNotificationAuxiliairePDF", new { id = Model.Centre.Id, categVehicule = rCategorieVehicule.CategorieEnum.PL })</li>
+                                }
+                            }
+                            else
+                            {
+                                <li>@Html.SecuredActionLink("Editer la notification", "TelechargerNotificationSpecialisePDF", new { id = Model.Centre.Id, categVehicule = rCategorieVehicule.CategorieEnum.PL })</li>
+                            }
+                        }
+                        @if (GestionDroitsExecution.isRightImpModifNotification(User, Model.Centre, rCategorieVehicule.CategorieEnum.PL))
+                        {
+                            <li>@Html.SecuredActionLink("Editer la notification", "ChoixTelechargerModifNotificationPDF", new { id = Model.Centre.Id })</li>
+                        }
+                        @if ((User.IsInRole(rUtilisateur.Profil.OTC_Administration.ToString()) || User.IsInRole(rUtilisateur.Profil.OTC_Consultation.ToString())) && Model.Centre.CodAgremPl != null)
+                        {
+                            <li>
+                                @{var nbFactures = 0; }
+                                @if (Model.Centre.ReseauRattachementPL.Id == Convert.ToString(rReseau.IdCodeReseau.Z))
+                                {
+                                    nbFactures = Model.Centre.PFactures.Count;
+                                }
+                                else
+                                {
+                                    nbFactures = Model.Centre.ReseauRattachementPL.PFactures.Count;
+                                }
+                                @if (nbFactures > 0)
+                                {
+                                    if (Model.Centre.ReseauRattachementPL.Id == Convert.ToString(rReseau.IdCodeReseau.Z))
+                                    {
+                                        @Html.SecuredActionLink("Liste des factures", "listeFactureCentre", "Facture", new { id = Model.Centre.Id, categorie = rCategorieVehicule.CategorieEnum.PL })
+                                    }
+                                    else
+                                    {
+                                        @Html.SecuredActionLink("Liste des factures", "listeFactureReseau", "Facture", new { id = Model.Centre.ReseauRattachementPL.Id })
+                                    }
+                                }
+                                else
+                                {
+                                    @:Liste des factures(0)
+                                }
+                            </li>
+                        }
+                    </ul>
+                </div>
+                <span class="clear col-12">&nbsp;</span>
+            </li>
+
+            @if (User.IsInRole(rUtilisateur.Profil.OTC_Administration.ToString()) || User.IsInRole(rUtilisateur.Profil.PREFECTURE.ToString()) || User.IsInRole(rUtilisateur.Profil.DRIRE.ToString()))
+            {
+                <li class="section w-100 row no-gutters">
+                    <h3 class="col-12 py-1">Sanctions et Contraventions</h3>
+                    <div class="content-sidebar border-top-0 py-3 px-2 col-12">
+                        <ul class="w-100">
+                            @if (GestionDroitsExecution.isRightActionForCentre(User, Model.Centre, GestionDroitsExecution.ActionsFicheCentre.SANCT))
+                            {
+                                <li>
+                                    @Html.SecuredActionLink("Ajouter une sanction", "AjouterSanction", new { id = Model.Centre.Id })
+                                </li>
+                            }
+                            @if (GestionDroitsExecution.isRightActionForCentre(User, Model.Centre, GestionDroitsExecution.ActionsFicheCentre.AMEND))
+                            {
+                                <li>
+                                    @Html.SecuredActionLink("Ajouter une contravention", "AjouterAmende", new { id = Model.Centre.Id })
+                                </li>
+                            }
+                        </ul>
+                    </div>
+                    <span class="clear col-12">&nbsp;</span>
+                </li>
+            }
+            @if (User.IsInRole(rUtilisateur.Profil.OTC_Administration.ToString()))
+            {
+                <li class="section w-100 row no-gutters">
+                    <h3 class="col-12 py-1">Administration OTC</h3>
+                    <div class="content-sidebar border-top-0 py-3 px-2 col-12">
+                        <ul class="w-100">
+                            @if (GestionDroitsExecution.isRightActionForCentre(User, Model.Centre, GestionDroitsExecution.ActionsFicheCentre.ADMMODFI))
+                            {
+                                <li>
+                                    @Html.SecuredActionLink("Modifier fiche", "ModifierFiche", new { id = Model.Centre.Id })
+                                </li>
+                            }
+                            @if (GestionDroitsExecution.isRightActionForCentre(User, Model.Centre, GestionDroitsExecution.ActionsFicheCentre.ADMSUPFI))
+                            {
+                                <li>
+                                    @Html.SecuredActionLink("Supprimer fiche", "ConfirmationDeleteFiche", new { id = Model.Centre.Id })
+                                </li>
+                            }
+                            @if (GestionDroitsExecution.isRightActionForCentre(User, Model.Centre, GestionDroitsExecution.ActionsFicheCentre.RETOUR) && Model.Centre.PCentreHisto.Count > 0 && (Model.NouveauCentre == null))
+                            {
+                                <li>
+                                    @Html.SecuredActionLink("Annuler modification", "ConfirmationModificationRetourArriere", new { id = Model.Centre.Id, deleteHisto = "true" })
+                                </li>
+                            }
+                            @if (GestionDroitsExecution.isRightActionForCentre(User, Model.Centre, GestionDroitsExecution.ActionsFicheCentre.ADMSUPFI))
+                            {
+                                <li>
+                                    @Html.SecuredActionLink("Auteur modification", "AuteurModification", new { id = Model.Centre.Id })
+                                </li>
+                            }
+                            @if (GestionDroitsExecution.isRightActionForCentre(User, Model.Centre, GestionDroitsExecution.ActionsFicheCentre.JOURNAL))
+                            {
+                                <li>
+                                    @Html.SecuredActionLink("Nouvelle entrée journal", "CreateJournalActivite", new { id = Model.Centre.Id })
+                                </li>
+                            }
+                            @if (GestionDroitsExecution.isRightActionForCentre(User, Model.Centre, GestionDroitsExecution.ActionsFicheCentre.JOURNAL))
+                            {
+                                if (Model.Centre.Journaux.Count > 0)
+                                {
+                                    <li>
+                                        @Html.SecuredActionLink("Journaux(" + Model.Centre.Journaux.Count + ")", "VoirJournalActivite", new { id = Model.Centre.Id })
+                                    </li>
+                                }
+                            }
+                        </ul>
+                    </div>
+                    <span class="clear col-12">&nbsp;</span>
+                </li>
+            }
+            @* Limiter l'acces aux sanctions, amendes et historique*@
+            @* //EG commenté avec l'ajout de la liste des contrôleurs
+           //23/08/2021 PLE comentaire supprimé durant la refonte upperlink
+        if (GestionDroitsExecution.isRightAfficheAcceder(User, Model.Centre))
+        {*@
+            <li class="section w-100 row no-gutters">
+                <h3 class="col-12 py-1">Accéder à</h3>
+                <div class="content-sidebar border-top-0 py-3 px-2 col-12">
+                    <ul class="w-100">
+                        <!-- Sanctions -->
+                        @if (GestionDroitsExecution.isRightActionForCentre(User, Model.Centre, GestionDroitsExecution.ActionsFicheCentre.SHOW_SANCT))
+                        {
+                            <li>
+                                @if (Model.Centre.PSanctionCentres.Count > 0)
+                                {
+                                    <a href="@Url.Action("ListeSanctions", new { id = Model.Centre.Id })">Sanction (<span class="orange">@Model.Centre.PSanctionCentres.Count</span>)</a>
+                                }
+                                else
+                                {
+                                    @:Sanctions(0)
+                                }
+                            </li>
+                        }
+                        <!-- Amendes -->
+                        @if (GestionDroitsExecution.isRightActionForCentre(User, Model.Centre, GestionDroitsExecution.ActionsFicheCentre.SHOW_AMEND))
+                        {
+                            <li>
+                                @if (Model.Centre.PAmendeCentres.Count > 0)
+                                {
+                                    <a href="@Url.Action("ListeAmendes", new { id = Model.Centre.Id })">Contraventions (<span class="orange">@Model.Centre.PAmendeCentres.Count</span>)</a>
+                                }
+                                else
+                                {
+                                    @:Contravention(0)
+                                }
+                            </li>
+                        }
+                        <!-- Dérogations -->
+                        @if (GestionDroitsExecution.isRightActionForCentre(User, Model.Centre, GestionDroitsExecution.ActionsFicheCentre.SHOW_DEROG))
+                        {
+                            <li>
+                                @if (Model.Centre.PDerogationCentres.Count > 0)
+                                {
+                                    <a href="@Url.Action("ListeDerogations", new { id = Model.Centre.Id })">Dérogations (<span class="orange">@Model.Centre.PDerogationCentres.Count</span>)</a>
+                                }
+                                else
+                                {
+                                    @:Dérogations(0)
+                                }
+                            </li>
+                        }
+                        <!-- Historique -->
+                        @if (GestionDroitsExecution.isRightActionForCentre(User, Model.Centre, GestionDroitsExecution.ActionsFicheCentre.SHOW_HISTO))
+                        {
+                            <li>
+                                @if (Model.Centre.PCentreHisto.Count > 0)
+                                {
+                                    <a href="@Url.Action("ListeHistorique", new { id = Model.Centre.Id })">Historique (<span class="orange">@Model.Centre.PCentreHisto.Count</span>)</a>
+                                }
+                                else
+                                {
+                                    @:Historique(0)
+                                }
+                            </li>
+                        }
+                        <!-- Controleurs -->
+                        @if (GestionDroitsExecution.isRightActionForCentre(User, Model.Centre, GestionDroitsExecution.ActionsFicheCentre.SHOW_CONTROLEUR))
+                        {
+                            <li>
+                                @{ var nbControleurs = Model.Centre.ControleurVLs.Count + Model.Centre.ControleurPLs.Count + Model.Centre.ControleurCLs.Count; }
+                                @if (nbControleurs > 0)
+                                {
+                                    <a href="@Url.Action("ListeControleurs", new { id = Model.Centre.Id })">Controleurs (<span class="orange">@nbControleurs</span>)</a>
+                                }
+                                else
+                                {
+                                    @:Controleurs(0)
+                                }
+                            </li>
+                        }
+                    </ul>
+                </div>
+                <span class="clear col-12">&nbsp;</span>
+            </li>
+            @*}*@
+        </ul>
+    </div>
+}
+<div class="bloc_main row no-gutters mx-2 mx-md-0">
+    <!-- BLOC PRINCIPAL -->
+    <div class="bloc_principal  col-12 row no-gutters">
+        @if (Model.NouveauCentre != null)
+        {
+            <div class="static-msg col-12 p-2 pl-md-5">
+                ATTENTION, il existe une fiche plus récente pour ce centre suite à un nouvel agrément.
+                <br />
+                Pour accéder à cette fiche cliquer @Html.ActionLink("ici", "Fiche", new { id = Model.NouveauCentre.Id })
+            </div>
+        }
+        else
+        {
+            if (Model.Centre.PCentreEncourPrecedent != null)
+            {
+                <div class="static-msg col-12 d-flex flex-column p-2 @(DeviceHelper.IsMobileDevice(Request.UserAgent)? "text-justify":"pl-5")">
+                    <span>Une ancienne fiche existe pour ce centre avant la demande d'un nouvel agrément.<br />
+                    En accédant à l'ancienne fiche en cliquant
+                    <span><b>
+                        @Html.ActionLink("ici", "Fiche", new { id = Model.Centre.PCentreEncourPrecedent.Id })</b>, vous pourrez:
+                    </span>
+                    </span>
+                    <ul class="w-100 pl-4">
+                        <li>Vérifier l'existence de contrôleurs encore rattachés à un ancien agrément</li>
+                        <li>Consulter l'ancien historique des actions effectuées sur ce centre.</li>
+                    </ul>
+                    <a class="static-msg-btn d-none d-md-block text-white">cliquer ici pour faire disparaître cette information</a>
+                    <a class="btn-primary rounded-lg d-md-none text-center text-white p-2 mx-3">cliquer ici pour faire disparaître cette information</a>
+                </div>
+            }
+        }
+    <fieldset class="col-12 row no-gutters text-primary">
+        <h1 class="panel my-2 col-12">Informations société</h1>
+        <div class="col-12 col-md-6">
+            <span>Numéro de SIREN:</span>
+            <span class="font-weight-bold">@Model.Centre.NumSiren</span>
+        </div>
+        <div class="col-12 col-md-6">
+            <span>Statut juridique:</span>
+            @if (Model.Centre.RStatutJuridique != null)
+            {
+                <span class="font-weight-bold">@Model.Centre.RStatutJuridique.Libelle</span>
+            }
+        </div>
+        <div class="col-12">
+            <span>Nom/prénom du représentant légal:</span>
+            <span class="font-weight-bold">@Model.Centre.NomRepresentantLegal</span>
+        </div>
+        @switch (Model.Centre.TypeCentre)
+        {
+            case "S":
+                <div class="col-12">
+                    <span>Enseigne commerciale:</span>
+                    <span class="font-weight-bold">@Model.Centre.EnseigneCommerciale</span>
+                </div>
+                break;
+        }
+        <div class="col-12 row no-gutters">
+            <div class="col-6">Adresse:</div>
+            <div class="d-flex flex-column col-6">
+                <div class="font-weight-bold">@Model.Centre.L1Adresse</div>
+                <div class="font-weight-bold">@Model.Centre.L2Adresse</div>
+                <div>
+                    <span class="font-weight-bold">@Model.Centre.CpCentre</span>
+                    <span class="font-weight-bold">@Model.Centre.Ville</span>
+                </div>
+            </div>
+        </div>
+        <div class="col-12">
+            <span>Numéro téléphone:</span>
+            <span class="font-weight-bold">@Model.Centre.NumTel</span>
+        </div>
+        <div class="col-12">
+            <span>Préfecture :</span>
+            <span class="font-weight-bold">@Model.Centre.RPrefecture.LibellePrefecture (@Model.Centre.CodDepartement)</span>
+        </div>
+        <div class="col-12">
+            <span>Dernière modification fiche :</span>
+            <span class="font-weight-bold">@Model.Centre.DateMiseaJour - @Model.Centre.RMotifModification.Libelle</span>
+        </div>
+        <div class="col-12">
+            <span>Date effet dernier changement dénomination sociale:</span>
+            <span class="font-weight-bold">@String.Format("{0:d}", Model.Centre.DateEffetModification)</span>
+        </div>
+        <h1 class="panel my-2 col-12">
+            Agrément VL : @(!Model.Centre.AccesPublicVl && Model.Centre.EstAgrementValideVL && (User.IsInRole(rUtilisateur.Profil.CENTRE_INDEPENDANT.ToString()) || User.IsInRole(rUtilisateur.Profil.RESEAU.ToString()))
+                    ? "En attente accusé" : Model.Centre.CodAgremVl) @Model.Centre.EtatAgrementVlAsLibelle
+                </h1>
+                <!-- 28/08/2018 -PLE- ne pas afficher le message si tous les contrôleurs rattachés ont un agrément annulé -->
+                @if (Model.Centre.EstAgrementAnnuleVL && Model.Centre.ExisteControleurValide(rCategorieVehicule.CategorieEnum.VL))
+                {
+                    <div class="static-msg col-12 p-2 pl-md-5">ATTENTION, il existe au moins 1 contrôleur VL rattaché à ce centre !</div>
+                }
+                @if (Model.Centre.PDerogationCentres.Count > 0 && Model.Centre.EstAgrementValideVL && Model.Centre.ExisteDerogationEncours(rCategorieVehicule.CategorieEnum.VL))
+                {
+                    <div class="static-msg col-12 p-2 pl-md-5">ATTENTION, il existe une dérogation VL pour ce centre !</div>
+                }
+                @if (User.IsInRole(rUtilisateur.Profil.OTC_Administration.ToString()))
+                {
+                    if (Model.Centre.EstAgrementValideVL && !Model.Centre.AccesPublicVl)
+                    {
+                        <p class="col-12">Numéro accusé réception : @Model.Centre.NumAccuseReceptionVL</p>
+                    }
+                }
+                <div class="col-12">
+                    <span>
+                        @switch (Model.Centre.TypeCentre)
+                        {
+                            case "S":
+                                @:Réseau VL de rattachement:
+                                break;
+                            case "A":
+                                @:"Réseau VL exploitant:
+                                break;
+                        }
+                    </span>
+                    <span class="font-weight-bold">
+                        @if (Model.Centre.ReseauRattachementVL != null)
+                        {
+                            @Model.Centre.ReseauRattachementVL.ReseauAvecLettre}
+                        else
+                        {
+                            @:"Aucun"
+                        }
+                    </span>
+                </div>
+                <div class="col-12 col-md-6">
+                    <span>Date d'effet notification:</span>
+                    <span class="font-weight-bold">@String.Format("{0:d}", Model.Centre.DateEffetNotificationVl)</span>
+
+                </div>
+                <div class="col-12 col-md-6">
+                    <span>Agrément précédent:</span>
+                    <span class="font-weight-bold">@Model.Centre.AncienNumeroAgrementVl</span>
+
+                </div>
+                <div class="col-12 col-md-6">
+                    <span>Date fin agrément:</span>
+                    <span class="font-weight-bold">@String.Format("{0:d}", Model.Centre.DateFinAgrementVl)</span>
+                </div>
+                <div class="col-12 col-md-6">
+                    <span>Motif fin agrément:</span>
+                    <span class="font-weight-bold">@Model.Centre.MotifFinAgrementVlAsLibelle</span>
+                </div>
+                <div class="col-12 col-md-6">
+                    <span>Extension agrément CL:</span>
+                    <span class="font-weight-bold">@Model.Centre.ExtAgremClStatutVLAsString</span>
+                    <span>(<i>Déclarée le:</i></span>
+                    <span><i>@Model.Centre.ExtAgremClDateDeclaVLAsDate</i>)</span>
+                </div>
+                <div class="col-12 col-md-6">
+                    <span>Validée à compter du:</span>
+                    <span class="font-weight-bold">@String.Format("{0:d}", @Model.Centre.ExtAgremClDateValidVLAsDate)</span>
+                </div>
+                @if (!String.IsNullOrEmpty(@Model.Centre.CommentaireAvisOtcVl) && !User.IsInRole(rUtilisateur.Profil.RESEAU.ToString()) && !User.IsInRole(rUtilisateur.Profil.CENTRE_INDEPENDANT.ToString()))
+                {
+                    <div class="col-12">
+                        <span>Commentaires:</span>
+                        <span class="font-weight-bold"> @Model.Centre.CommentaireAvisOtcVl</span>
+                    </div>
+                }
+
+
+
+
+                <h1 class="panel my-2 col-12">
+                    Agrément CL : @(!Model.Centre.AccesPublicCl && Model.Centre.EstAgrementValideCL && (User.IsInRole(rUtilisateur.Profil.CENTRE_INDEPENDANT.ToString()) || User.IsInRole(rUtilisateur.Profil.RESEAU.ToString()))
+                    ? "En attente accusé" : Model.Centre.CodAgremCl) @Model.Centre.EtatAgrementClAsLibelle
+                </h1>
+                <!-- 28/08/2018 -PLE- ne pas afficher le message si tous les contrôleurs rattachés ont un agrément annulé -->
+                @if (Model.Centre.EstAgrementAnnuleCL && Model.Centre.ExisteControleurValide(rCategorieVehicule.CategorieEnum.CL))
+                {
+                    <div class="static-msg col-12 p-2 pl-md-5">ATTENTION, il existe au moins 1 contrôleur CL rattaché à ce centre !</div>
+                }
+                @if (User.IsInRole(rUtilisateur.Profil.OTC_Administration.ToString()))
+                {
+                    if (Model.Centre.EstAgrementValideCL && !Model.Centre.AccesPublicCl)
+                    {
+                        <p class="col-12">Numéro accusé réception : @Model.Centre.NumAccuseReceptionCL</p>
+                    }
+                }
+                <div class="col-12">
+                    <span>
+                        @switch (Model.Centre.TypeCentre)
+                        {
+                            case "S":
+                                @:Réseau CL de rattachement:
+                                break;
+                            case "A":
+                                @:"Réseau CL exploitant:
+                                break;
+                        }
+                    </span>
+                    <span class="font-weight-bold">
+                        @if (Model.Centre.ReseauRattachementCL != null)
+                        {
+                            @Model.Centre.ReseauRattachementCL.ReseauAvecLettre}
+                        else
+                        {
+                            @:"Aucun"
+                        }
+                    </span>
+                </div>
+                <div class="col-12 col-md-6">
+                    <span>Date d'effet notification:</span>
+                    <span class="font-weight-bold">@String.Format("{0:d}", Model.Centre.DateEffetNotificationCl)</span>
+
+                </div>
+                <div class="col-12 col-md-6">
+                    <span>Agrément précédent:</span>
+                    <span class="font-weight-bold">@Model.Centre.AncienNumeroAgrementCl</span>
+
+                </div>
+                <div class="col-12 col-md-6">
+                    <span>Date fin agrément:</span>
+                    <span class="font-weight-bold">@String.Format("{0:d}", Model.Centre.DateFinAgrementCl)</span>
+                </div>
+                <div class="col-12 col-md-6">
+                    <span>Motif fin agrément:</span>
+                    <span class="font-weight-bold">@Model.Centre.MotifFinAgrementClAsLibelle</span>
+                </div>
+                @if (!String.IsNullOrEmpty(@Model.Centre.CommentaireAvisOtcCl) && !User.IsInRole(rUtilisateur.Profil.RESEAU.ToString()) && !User.IsInRole(rUtilisateur.Profil.CENTRE_INDEPENDANT.ToString()))
+                {
+                    <div class="col-12">
+                        <span>Commentaires:</span>
+                        <span class="font-weight-bold"> @Model.Centre.CommentaireAvisOtcCl</span>
+                    </div>
+                }
+
+
+
+
+
+                <h1 class="panel my-2 col-12">
+                    Agrément PL : @(!Model.Centre.AccesPublicPl && Model.Centre.EstAgrementValidePL && (User.IsInRole(rUtilisateur.Profil.CENTRE_INDEPENDANT.ToString()) || User.IsInRole(rUtilisateur.Profil.RESEAU.ToString()))
+                    ? "En attente accusé" : Model.Centre.CodAgremPl) @Model.Centre.EtatAgrementPlAsLibelle
+                </h1>
+                <!-- 28/08/2018 -PLE- ne pas afficher le message si tous les contrôleurs rattachés ont un agrément annulé -->
+                @if (Model.Centre.EstAgrementAnnulePL && Model.Centre.ExisteControleurValide(rCategorieVehicule.CategorieEnum.PL))
+                {
+                    <div class="static-msg col-12 p-2 pl-md-5">ATTENTION, il existe au moins 1 contrôleur PL rattaché à ce centre !</div>
+                }
+                @if (Model.Centre.PDerogationCentres.Count > 0 && Model.Centre.EstAgrementValidePL && Model.Centre.ExisteDerogationEncours(rCategorieVehicule.CategorieEnum.PL))
+                {
+                    <div class="static-msg col-12 p-2 pl-md-5">ATTENTION, il existe une dérogation PL pour ce centre !</div>
+                }
+                @if (User.IsInRole(rUtilisateur.Profil.OTC_Administration.ToString()))
+                {
+                    if (Model.Centre.EstAgrementValidePL && !Model.Centre.AccesPublicPl)
+                    {
+                        <p class="col-12">Numéro accusé réception : @Model.Centre.NumAccuseReceptionPL</p>
+                    }
+                }
+                <div class="col-12">
+                    <span>
+                        @switch (Model.Centre.TypeCentre)
+                        {
+                            case "S":
+                                @:Réseau PL de rattachement:
+                                break;
+                            case "A":
+                                @:Réseau PL exploitant:
+                                break;
+                        }
+                    </span>
+                    <span class="font-weight-bold">
+                        @if (Model.Centre.ReseauRattachementPL != null)
+                        {
+                            @Model.Centre.ReseauRattachementPL.ReseauAvecLettre
+                        }
+                        else
+                        {
+                            @:Aucun
+                        }
+                    </span>
+                </div>
+                <div class="col-12 col-md-6">
+                    <span>Date d'effet notification:</span>
+                    <span class="font-weight-bold">@String.Format("{0:d}", Model.Centre.DateEffetNotificationPl)</span>
+                </div>
+                <div class="col-12 col-md-6">
+                    <span>Date échéance agrément:</span>
+                    <span class="font-weight-bold">@String.Format("{0:d}", Model.Centre.DateEcheanceAgrementPl)</span>
+                </div>
+                <div class="col-12">
+                    <span>Agrément précédent:</span>
+                    <span class="font-weight-bold">@Model.Centre.AncienNumeroAgrementPl</span>
+                </div>
+                <div class="col-12 col-md-6">
+                    <span>Date fin agrément:</span>
+                    <span class="font-weight-bold">@String.Format("{0:d}", Model.Centre.DateFinAgrementPl)</span>
+                </div>
+                <div class="col-12 col-md-6">
+                    <span>Motif fin agrément:</span>
+                    <span class="font-weight-bold">@Model.Centre.MotifFinAgrementPlAsLibelle</span>
+                </div>
+                <div class="col-12 col-md-6">
+                    <span>Extension agrément CL:</span>
+                    <span class="font-weight-bold">@Model.Centre.ExtAgremClStatutPLAsString</span>
+                    <span>(<i>Déclaré le:</i></span>
+                    <span><i>@Model.Centre.ExtAgremClDateDeclaPLAsDate</i>)</span>
+                </div>
+                <div class="col-12 col-md-6">
+                    <span>Validée à compter du:</span>
+                    <span class="font-weight-bold">@String.Format("{0:d}", @Model.Centre.ExtAgremClDateValidPLAsDate)</span>
+                </div>
+                @if (!String.IsNullOrEmpty(@Model.Centre.CommentaireAvisOtcPl) && !User.IsInRole(rUtilisateur.Profil.RESEAU.ToString()) && !User.IsInRole(rUtilisateur.Profil.CENTRE_INDEPENDANT.ToString()))
+                {
+                    <div class="col-12">
+                        <span>Commentaires:</span>
+                        <span class="font-weight-bold"> @Model.Centre.CommentaireAvisOtcPl</span>
+                    </div>
+                }
+            </fieldset>
+        </div>
+        <!-- FIN BLOC PRINCIPAL -->
+    </div>
+    @section JavaScriptContent {
+        @Scripts.Render("~/scripts/common")
+    }

@@ -1,0 +1,64 @@
+﻿@model Utac.Rnc2.UI.Web.Models.AjouterDerogationModel
+
+@section TitleContent {
+    Ajouter une dérogation @Model.CategorieVehicule Installation: @Model.Centre.RaisonSociale - @Model.Centre.CodAgremVl @Model.Centre.CodAgremPl @Model.Centre.CodAgremCl
+}
+@section SousTitrePage {
+    Ajouter une dérogation @Model.CategorieVehicule
+}
+@section StyleContent {
+    @Styles.Render("~/styles/jquery-ui")
+}
+<h2>Installation: @Model.Centre.RaisonSociale - @Model.Centre.CodAgremVl @Model.Centre.CodAgremPl @Model.Centre.CodAgremCl</h2>
+@using (Html.BeginForm())
+{
+    @Html.ValidationSummary(true)
+    <fieldset>
+        <div class="row">
+            <div class="floatLeft first">
+                <div class="floatLeft">
+                    @Html.Label("Date début dérogation")
+                    <div class="input">
+                        @Html.TextBoxFor(model => model.Derogation.DateDebut, new { @class = "datepicker" })
+                        @Html.ValidationMessageFor(model => model.Derogation.DateDebut)
+                    </div>
+                </div>
+                <div class="floatLeft">
+                    @Html.Label("Date fin dérogation")
+                    <div class="input">
+                        @Html.TextBoxFor(model => model.Derogation.DateFin, new { @class = "datepicker" })
+                        @Html.ValidationMessageFor(model => model.Derogation.DateFin)
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="editor-label">
+            @Html.Label("Description de la dérogation")
+        </div>
+        <div class="editor-field">
+            @Html.TextAreaFor(model => model.Derogation.Commentaire, new { rows = 4, cols = 80, maxlength = "250" })
+            @Html.ValidationMessageFor(model => model.Derogation.Commentaire)
+        </div>
+        @Html.HiddenFor(model => model.CategorieVehicule)
+        @*propager le paramètre du formulaire précédent*@
+        @Html.HiddenFor(model => model.Centre.RaisonSociale)
+        @Html.HiddenFor(model => model.Centre.Id)
+        @Html.HiddenFor(model => model.Centre.CodAgremVl)
+        @Html.HiddenFor(model => model.Centre.CodAgremPl)
+        @Html.HiddenFor(model => model.Centre.CodAgremCl)
+        @Html.HiddenFor(model => model.Centre.EstAgrementValideVL)
+        @Html.HiddenFor(model => model.Centre.EstAgrementValidePL)
+        @Html.HiddenFor(model => model.Centre.EstAgrementValideCL)
+        <br />
+        <div class="rowAligne">
+            <input type="submit" value="Enregistrer" class="btn primary" />
+            <a class="btn cancel" href="@Url.Action("Fiche","Centre", new { id = Model.Centre.Id})">Retour à la fiche</a>
+        </div>
+    </fieldset>
+}
+@section JavaScriptContent {
+    <!-- DatePicker -->
+    @Scripts.Render("~/scripts/date-picker")
+    <!-- Affichage/masquage du champ autre sanction -->
+    @Scripts.Render("~/scripts/ajout-sanction-centre")
+}

@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<hibernate-mapping xmlns="urn:nhibernate-mapping-2.2" namespace="Utac.Rnc2.BusinessObjects" assembly="Utac.Rnc2.BusinessObjects">
+	<class name="Utac.Rnc2.BusinessObjects.pActiviteControleurVL, Utac.Rnc2.BusinessObjects" table="p_activite_controleur_vl" lazy="true">
+		
+    <id name="Id" column="id_controleur_encours" unsaved-value="0">
+      <generator class="native" />
+      <!--<generator class="identity">-->
+        <!--<param name="property">PContoleurEncour</param>-->
+      <!--</generator>-->
+		</id>
+    <property name="CodReseauRattachementVl" column="cod_reseau_rattachement_vl" />
+		<property name="Nom" column="nom"  />
+		<property name="Prenom" column="prenom" />
+    <property name="CodAgremCntlr" column="cod_agrem_cntlr" />
+    <property name="CodAgremCentre" column="cod_agrem_centre" />
+    <property name="CodDepartement" column="cod_departement" />
+    <property name="Region" column="region" />
+    <property name="DateEffetNotificationVl" column="date_effet_notification_vl" />
+    <property name="DateDebutRattachementVl" column="date_debut_rattachement_vl" />
+    <property name="DateFinAgrementVl" column="date_fin_agrement_vl" />
+    <property name="DateDernierCtrl" column="date_dernier_ctrl" />
+    <property name="ActiviteJanvierN1" column="activite_janvier_n1" />
+    <property name="ActiviteFevrierN1" column="activite_fevrier_n1" />
+    <property name="ActiviteMarsN1" column="activite_mars_n1" />
+    <property name="ActiviteAvrilN1" column="activite_avril_n1" />
+    <property name="ActiviteMaiN1" column="activite_mai_n1" />
+    <property name="ActiviteJuinN1" column="activite_juin_n1" />
+    <property name="ActiviteJuilletN1" column="activite_juillet_n1" />
+    <property name="ActiviteAoutN1" column="activite_aout_n1" />
+    <property name="ActiviteSeptembreN1" column="activite_septembre_n1" />
+    <property name="ActiviteOctobreN1" column="activite_octobre_n1" />
+    <property name="ActiviteNovembreN1" column="activite_novembre_n1" />
+    <property name="ActiviteDecembreN1" column="activite_decembre_n1" />
+    <property name="TotalVtpN1" column="total_vtp_n1" />
+    <property name="SeuilN1ARealiser" column="seuil_n1_a_realiser" />
+    <property name="SeuilAtteintN1" column="seuil_atteint_n1" />
+    <property name="ActiviteJanvierN" column="activite_janvier_n" />
+    <property name="ActiviteFevrierN" column="activite_fevrier_n" />
+    <property name="ActiviteMarsN" column="activite_mars_n" />
+    <property name="ActiviteAvrilN" column="activite_avril_n" />
+    <property name="ActiviteMaiN" column="activite_mai_n" />
+    <property name="ActiviteJuinN" column="activite_juin_n" />
+    <property name="ActiviteJuilletN" column="activite_juillet_n" />
+    <property name="ActiviteAoutN" column="activite_aout_n" />
+    <property name="ActiviteSeptembreN" column="activite_septembre_n" />
+    <property name="ActiviteOctobreN" column="activite_octobre_n" />
+    <property name="ActiviteNovembreN" column="activite_novembre_n" />
+    <property name="ActiviteDecembreN" column="activite_decembre_n" />
+    <property name="TotalVtpN" column="total_vtp_n" />
+    <property name="SeuilNARealiser" column="seuil_n_a_realiser" />
+    <property name="SeuilAtteintN" column="seuil_atteint_n" />
+    <property name="AnneeMois" column="annee_mois" />
+  </class>
+</hibernate-mapping>
+

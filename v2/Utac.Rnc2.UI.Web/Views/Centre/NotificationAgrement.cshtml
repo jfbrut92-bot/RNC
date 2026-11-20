@@ -1,0 +1,165 @@
+﻿@model Utac.Rnc2.UI.Web.Models.NotificationAgrementModel
+@using Utac.Rnc2.BusinessObjects
+
+@section TitleContent {
+    Notification Agrement
+}
+@section SousTitrePage {
+    @switch (Model.CategVehicule)
+    {
+        case rCategorieVehicule.CategorieEnum.VL:
+            @:Notification de l'agrément VL
+            break;
+        case rCategorieVehicule.CategorieEnum.PL:
+            @:Notification de l'agrément PL
+            break;
+        case rCategorieVehicule.CategorieEnum.CL:
+            @:Notification de l'agrément CL
+            break;
+    }
+}
+@section StyleContent {
+    @Styles.Render("~/styles/jquery-ui")
+}
+<h2>Installation: @Model.Centre.RaisonSociale</h2>
+<p class="avertissement">Attention, Vous êtes sur le point de notifier un agrément sur cette fiche.Cliquer sur le bouton "confirmer" pour continuer.</p>
+<br />
+<br />
+@using (Html.BeginForm())
+{
+    @Html.ValidationSummary(true)
+    @* Propager le paramètre du formulaire précédent*@
+    @Html.HiddenFor(model => model.Centre.RaisonSociale)
+    @Html.HiddenFor(model => model.Centre.Id)
+    @Html.HiddenFor(model => model.Centre.TypeCentre)
+    switch (Model.CategVehicule)
+    {
+        case rCategorieVehicule.CategorieEnum.VL:
+            @Html.HiddenFor(model => model.Centre.CodAgremPl)
+            @Html.HiddenFor(model => model.Centre.CodAgremCl)
+            break;
+        case rCategorieVehicule.CategorieEnum.PL:
+            @Html.HiddenFor(model => model.Centre.CodAgremVl)
+            @Html.HiddenFor(model => model.Centre.CodAgremCl)
+            break;
+        case rCategorieVehicule.CategorieEnum.CL:
+            @Html.HiddenFor(model => model.Centre.CodAgremVl)
+            @Html.HiddenFor(model => model.Centre.CodAgremPl)
+            break;
+    }
+<fieldset>
+    @if (User.IsInRole("OTC_Administration"))
+    {
+        switch (Model.CategVehicule)
+        {
+            case rCategorieVehicule.CategorieEnum.VL:
+                <div class="editor-label">@Html.Label("Numéro d'agrément VL")</div>
+                <div class="editor-field">
+                    @Html.TextBoxFor(model => model.Centre.CodAgremVl, new { maxlength = "8" })
+                    @Html.ValidationMessageFor(model => model.Centre.CodAgremVl)
+                </div>
+                break;
+            case rCategorieVehicule.CategorieEnum.PL:
+                <div class="editor-label">@Html.Label("Numéro d'agrément pL")</div>
+                if (Model.Centre.EtatAgrementPl.Equals(Convert.ToString((int)pCentreEncour.CodeEtatAgrementPl.AGREMENT_RENOUVELEMENT_EN_COURS)))
+                {
+                    <div class="editor-field">
+                        @Model.Centre.CodAgremPl
+                        @Html.ValidationMessageFor(model => model.Centre.CodAgremPl)
+                        @Html.HiddenFor(model => model.Centre.CodAgremPl)
+                    </div>
+                }
+                else
+                {
+                    <div class="editor-field">
+                        @Html.TextBoxFor(model => model.Centre.CodAgremPl, new { maxlength = "8" })
+                        @Html.ValidationMessageFor(model => model.Centre.CodAgremPl)
+                    </div>
+                }
+                break;
+            case rCategorieVehicule.CategorieEnum.CL:
+                <div class="editor-label">@Html.Label("Numéro d'agrément CL")</div>
+                <div class="editor-field">
+                    @Html.TextBoxFor(model => model.Centre.CodAgremCl, new { maxlength = "8" })
+                    @Html.ValidationMessageFor(model => model.Centre.CodAgremCl)
+                </div>
+                break;
+        }
+    }
+    else
+    {
+        @* YMA 22/10/2013 dans la cas d'un renouvellement PL, il ne faut pas recalculer un nouveau code agrément *@
+        if (Model.CategVehicule == rCategorieVehicule.CategorieEnum.PL && Model.Centre.EtatAgrementPl.Equals(Convert.ToString((int)pCentreEncour.CodeEtatAgrementPl.AGREMENT_RENOUVELEMENT_EN_COURS)))
+        {
+            @Html.HiddenFor(model => model.Centre.CodAgremPl)
+        }
+    }
+    @switch (Model.CategVehicule)
+    {
+        case rCategorieVehicule.CategorieEnum.VL:
+            Model.Centre.DateEffetNotificationVl = null;
+            <div class="editor-label">@Html.Label("Date d'effet de la notification VL")</div>
+            <div class="editor-field">
+                @Html.TextBoxFor(model => model.Centre.DateEffetNotificationVl, new { @class = "datepicker" })
+                @Html.ValidationMessageFor(model => model.Centre.DateEffetNotificationVl)
+            </div>
+            <div class="editor-label">@Html.Label("Application de la règle Silence Vaut Acceptation, (délai de 2 mois pour un centre)")</div>
+            <div class="editor-field">
+                @Html.RadioButtonFor(model => model.Centre.SvaVL, true)
+                <label for="SvaVL">Oui</label>
+                @Html.RadioButtonFor(model => model.Centre.SvaVL, false)
+                <label for="SvaVL">Non</label>
+            </div>
+            break;
+        case rCategorieVehicule.CategorieEnum.PL:
+            Model.Centre.DateEffetNotificationPl = null;
+            <div class="editor-label">@Html.Label("Date d'effet de la notification PL")</div>
+            <div class="editor-field">
+                @Html.TextBoxFor(model => model.Centre.DateEffetNotificationPl, new { @class = "datepicker" })
+                @Html.ValidationMessageFor(model => model.Centre.DateEffetNotificationPl)
+            </div>
+            <div class="editor-label">@Html.Label("Application de la règle Silence Vaut Acceptation, (délai de 2 mois pour un centre)")</div>
+            <div class="editor-field">
+                @Html.RadioButtonFor(model => model.Centre.SvaPL, true)
+                <label for="SvaPL">Oui</label>
+                @Html.RadioButtonFor(model => model.Centre.SvaPL, false)
+                <label for="SvaPL">Non</label>
+            </div>
+            if (Model.Centre.TypeCentre == "A")
+            {
+                <div class="editor-label">@Html.Label("Date d'échéance de la notification PL")</div>
+                <div class="editor-field">
+                    @Html.TextBoxFor(model => model.Centre.DateEcheanceAgrementPl, new { @class = "datepicker" })
+                    @Html.ValidationMessageFor(model => model.Centre.DateEcheanceAgrementPl)
+                </div>
+            }
+            break;
+        case rCategorieVehicule.CategorieEnum.CL:
+            Model.Centre.DateEffetNotificationCl = null;
+            <div class="editor-label">@Html.Label("Date d'effet de la notification CL")</div>
+            <div class="editor-field">
+                @Html.TextBoxFor(model => model.Centre.DateEffetNotificationCl, new { @class = "datepicker" })
+                @Html.ValidationMessageFor(model => model.Centre.DateEffetNotificationCl)
+            </div>
+            <div class="editor-label">@Html.Label("Application de la règle Silence Vaut Acceptation, (délai de 2 mois pour un centre)")</div>
+            <div class="editor-field">
+                @Html.RadioButtonFor(model => model.Centre.SvaCL, true)
+                <label for="SvaCL">Oui</label>
+                @Html.RadioButtonFor(model => model.Centre.SvaCL, false)
+                <label for="SvaCL">Non</label>
+            </div>
+            break;
+    }
+    <br />
+    <div class="rowAligne">
+        <input type="submit" value="Confirmer" class="btn primary" />
+        <a class="btn cancel" href="@Url.Action("Fiche","Centre", new { id = Model.Centre.Id})">Retour à la fiche</a>
+    </div>
+    <br />
+</fieldset>
+}
+@Html.Partial("HowtoDatePicker")
+@section JavaScriptContent {
+    <!-- DatePicker -->
+    @Scripts.Render("~/scripts/date-picker")
+}

@@ -1,0 +1,67 @@
+﻿@model Utac.Rnc2.UI.Web.Models.LogOnModel
+
+@section TitleContent {
+    Connexion
+}
+@section SousTitrePage {
+    Connexion à RNC2
+}
+@if (!string.IsNullOrEmpty(Request.QueryString["Raison"]))
+{
+    <div class="avertissement">Session expirée. Veuillez vous reconnecter</div>
+}
+<div class="row no-gutters justify-content-center justify-content-md-start">
+    <h2 class="font-weight-bold d-none d-md-block col-md-12">Entrez votre identifiant d'utilisateur et votre mot de passe.</h2>
+    <div class="d-none d-sm-none d-md-block">
+        @using (Html.BeginForm())
+        {
+            @Html.ValidationSummary(true, "Échec de la connexion. Corrigez les erreurs et réessayez.")
+            <div>
+                <fieldset>
+                    <div class="editor-label"> @Html.Label("Identifiant utilisateur")</div>
+                    <div class="editor-field">
+                        @Html.TextBoxFor(m => m.UserName, new { Size = 20, Maxlength = 20 })
+                        @Html.ValidationMessageFor(m => m.UserName)
+                    </div>
+                    <div class="editor-label"> @Html.Label("Mot de passe")</div>
+                    <div class="editor-field">
+                        @Html.PasswordFor(m => m.Password, new { Size = 20, Maxlength = 20 })
+                    </div>
+                    <p class="rnc2-form mt-md-3">
+                        <button type="submit" value="Connexion" class="button">Connexion</button>
+                    </p>
+                </fieldset>
+            </div>
+            <div class="static-msg d-none d-md-block w-75  p-2 pl-5">
+                <p>Authentification dans Vérification des PV</p>
+                <ul>
+                    <li>Le lien permanent "Se déconnecter", qui apparaît après une authentification réussie, désactive la mémorisation du mot de passe</li>
+                    <li>La durée d'une session dans RNC2 est de 30 minutes. Au delà de cette limite, sans aucune activité de votre part, vous devrez vous connecter de nouveau</li>
+                </ul>
+            </div>
+        }
+    </div>
+    <div class="d-sm-block d-md-none col-11 row no-gutters">
+        @using (Html.BeginForm())
+        {
+            @Html.ValidationSummary(true, "Échec de la connexion. Corrigez les erreurs et réessayez.")
+            <div class="col-12 row no-gutters">
+                <fieldset class="col-12 row no-gutters">
+                    <div class="editor-label col-12 py-0"> @Html.Label("Identifiant utilisateur", new { @class = "col-form-label-sm " })</div>
+                    <div class="editor-field col-12 py-0">
+                        @Html.TextBoxFor(m => m.UserName, new { Size = 20, Maxlength = 20, @class = "w-100 h-100 py-1 border-top-0 border-left-0 border-right-0 spinner-border-sm" })
+                        @Html.ValidationMessageFor(m => m.UserName)
+                    </div>
+                    <div class="editor-label col-form-label-sm col-12"> @Html.Label("Mot de passe", new { @class = "col-form-label-sm " })</div>
+                    <div class="editor-field col-12">
+                        @Html.PasswordFor(m => m.Password, new { Size = 20, Maxlength = 20, @class = "w-100 h-100 py-1 border-top-0 border-left-0 border-right-0 spinner-border-sm" })
+                        @Html.ValidationMessageFor(m => m.Password)
+                    </div>
+                    <p class="rnc2-form w-100 col-12 row no-gutters">
+                        <button type="submit" value="Connexion" class=" col-form-label-sm col-12 btn-primary rounded mt-4  w-100 py-2">Connexion</button>
+                    </p>
+                </fieldset>
+            </div>
+        }
+    </div>
+</div>

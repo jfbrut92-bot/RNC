@@ -1,0 +1,11 @@
+﻿@model Utac.Rnc2.UI.Web.Models.ActionAgrementControleurModel
+
+@section TitleContent {
+    Prise en compte de la notification de l'agrément @Model.categorieVehicule.ToString() pour le controleur @Model.controleur.Nom @Model.controleur.Prenom
+}
+@section SousTitrePage {
+    Prise en compte de la notification de l'agrément @Model.categorieVehicule.ToString() pour le controleur @Model.controleur.Nom @Model.controleur.Prenom
+}
+<p>La demande de notification @Model.categorieVehicule.ToString() pour le controleur @Model.controleur.Nom @Model.controleur.Prenom a été prise en compte</p>
+<p><img src="/Content/images/PDF.png" alt="Notification PDF" title="Notification PDF" />@Html.ActionLink("Cliquer sur ce  lien pour télécharger la notification au format PDF", "TelechargerNotificationPDF", new { id = Model.controleur.Id, categorieVehicule = Model.categorieVehicule })</p>
+<p>@Html.ActionLink("Cliquer sur ce  lien pour retourner à la fiche du contrôleur", "Fiche", new { id = Model.controleur.Id })</p>

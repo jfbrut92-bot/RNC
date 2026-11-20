@@ -1,0 +1,24 @@
+﻿@model Utac.Rnc2.BusinessObjects.rUtilisateur
+
+@section TitleContent {
+    Inscription
+}
+@section SousTitrePage {
+    Inscription sur RNC2 - Etape 3/4
+}
+Saisissez le numéro de téléphone du centre. (10 chiffres)
+@using (Html.BeginForm())
+{
+    @Html.ValidationSummary(true)
+    <fieldset>
+        <legend></legend>
+        <div class="editor-label">@Html.Label("Téléphone")</div>
+        <div class="editor-field">
+            @Html.TextBoxFor(model => model.NumTel, new { Size = 10, Maxlength = 10, @class = "input-medium" })
+            @Html.ValidationMessageFor(model => model.NumTel)
+        </div>
+        <p class="rnc2-form">
+            <button type="submit" value="Continuer" class="button">Continuer</button>
+        </p>
+    </fieldset>
+}

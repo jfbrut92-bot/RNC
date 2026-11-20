@@ -1,0 +1,36 @@
+﻿@model Utac.Rnc2.BusinessObjects.pCentreEncour
+
+@section TitleContent {
+    Changement Représentant Légal
+}
+@section SousTitrePage {
+    Changement du représentant légal
+}
+<h2>Installation: @Model.RaisonSociale - @Model.CodAgremVl @Model.CodAgremPl @Model.CodAgremCl</h2>
+<p>Veuillez saisir le nouveau représentant légal</p>
+@using (Html.BeginForm())
+{
+    @Html.ValidationSummary(true)
+    <fieldset>
+        <div class="editor-label">@Html.Label("Nom et prénom du représentant légal")</div>
+        <div class="editor-field">
+            @Html.TextBoxFor(model => model.NomRepresentantLegal, new { size = "100", maxlength = "100", style = "text-transform:uppercase" })
+            @Html.ValidationMessageFor(model => model.NomRepresentantLegal)
+        </div>
+        @* Propager le paramètre du formulaire précédent*@
+        @Html.HiddenFor(model => model.RaisonSociale)
+        @Html.HiddenFor(model => model.Id)
+        @Html.HiddenFor(model => model.CodAgremVl)
+        @Html.HiddenFor(model => model.CodAgremPl)
+        @Html.HiddenFor(model => model.CodAgremCl)
+        <br />
+        <p class="avertissement">
+            ATTENTION ! Le simple changement de représentant légal d'une société (ex: gérant) ne modifie pas la décision d'agrément du centre.<br />
+            En effet, l'agrément du centre est délivré à la personne morale (société), il n'y a pas d'édition d'une nouvelle décision.Vous pouvez accuser réception de la modification via un courrier
+        </p>
+        <div class="rowAligne">
+            <input type="submit" value="Enregistrer" class="btn primary" />
+            <a class="btn success" href="@Url.Action("Fiche","Centre", new { id = Model.Id})">Retour à la fiche</a>
+        </div>
+    </fieldset>
+}

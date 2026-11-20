@@ -1,0 +1,207 @@
+﻿@model Utac.Rnc2.UI.Web.Models.UtilisateurEditModel
+@using Utac.Rnc2.BusinessObjects
+
+@section TitleContent {
+    Détails de utilisateur @Model.Utilisateur.Nom  de profil : @Model.Utilisateur.RProfil.LibelleProfil
+}
+@section SousTitrePage {
+    Détails de utilisateur @Model.Utilisateur.Nom  de profil : @Model.Utilisateur.RProfil.LibelleProfil
+}
+@using (Html.BeginForm())
+{
+    @Html.ValidationSummary(true)
+    if (!string.IsNullOrWhiteSpace(Model.Message))
+    {
+        <div class="alert-message error">
+            <p>Une erreur est survenue : @Model.Message</p>
+        </div>
+        if (!string.IsNullOrWhiteSpace(Model.MessageTechnique))
+        {
+            <div class="message_technique">@Model.MessageTechnique</div>
+        }
+    }
+    <fieldset>
+        <div class="row">
+            <div class="floatLeft first">
+                @Html.LabelFor(model => model.Utilisateur.Nom)
+                <div class="input">
+                    @Html.TextBoxFor(model => model.Utilisateur.Nom, new { Size = 32, Maxlength = 32 })
+                    @Html.ValidationMessageFor(model => model.Utilisateur.Nom)
+                </div>
+            </div>
+            <div class="floatLeft">
+                @Html.Label("Prénom")
+                <div class="input">
+                    @Html.TextBoxFor(model => model.Utilisateur.Prenom, new { Size = 32, Maxlength = 32 })
+                    @Html.ValidationMessageFor(model => model.Utilisateur.Prenom)
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="floatLeft first">
+                @Html.LabelFor(model => model.Utilisateur.Email)
+                <div class="input">
+                    @Html.TextBoxFor(model => model.Utilisateur.Email, new { Size = 80, Maxlength = 80 })
+                    @Html.ValidationMessageFor(model => model.Utilisateur.Email)
+                </div>
+            </div>
+            <div class="floatLeft">
+                @Html.Label("Téléphone")
+                <div class="input">
+                    @Html.TextBoxFor(model => model.Utilisateur.NumTel, new { Size = 10, Maxlength = 10 })
+                    @Html.ValidationMessageFor(model => model.Utilisateur.NumTel)
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="floatLeft first">
+                @Html.Label("Identifiant")
+                <div class="input">
+                    @Html.TextBoxFor(model => model.Utilisateur.Id, new { @readonly = "readonly", Value = String.Format("{0:g}", Model.Utilisateur.Id) })
+                </div>
+            </div>
+            <div class="floatLeft">
+                @Html.LabelFor(model => model.Utilisateur.DateDerniereConnection)
+                <div class="input">
+                    @Html.TextBoxFor(model => model.Utilisateur.DateDerniereConnection, new { @readonly = "readonly" })
+                </div>
+            </div>
+            <div class="floatLeft">
+                @Html.Label("Utilisateur actif")
+                <div class="editor-field">
+                    @Html.CheckBoxFor(model => model.Utilisateur.Actif)
+                    @Html.ValidationMessageFor(model => model.Utilisateur.Actif)
+                </div>
+            </div>
+            <div class="floatLeft">
+                @Html.Label("Utilisateur bloqué")
+                <div class="input">
+                    @Html.CheckBoxFor(model => model.Utilisateur.Bloque)
+                    @Html.ValidationMessageFor(model => model.Utilisateur.Bloque)
+                </div>
+            </div>
+        </div>       
+        @Html.HiddenFor(model => model.Utilisateur.RProfil.Id)
+        @if (Model.Utilisateur.RProfil.Id == 1 || Model.Utilisateur.RProfil.Id == 5)
+        {
+            <div class="row">
+                <div class="floatLeft first">
+                    @Html.Label("Profil")
+                    <div class="input">
+                        @Html.DropDownListFor(model => model.Utilisateur.RProfil2.Id, new SelectList(Model.ListeSousProfil, "Id", "LibelleProfil", Model.Utilisateur.RProfil2.Id))
+                        @Html.ValidationMessageFor(model => model.Utilisateur.RProfil2.Id)
+                    </div>
+                </div>
+            </div>
+        }
+        else
+        {
+            @Html.HiddenFor(model => model.Utilisateur.RProfil2.Id)
+        }
+        @if (Model.Utilisateur.RProfil.Id == 2)
+        {
+            <div class="editor-label">@Html.Label("Code département")</div>
+            <div class="editor-field">
+                @Html.TextBoxFor(model => model.Utilisateur.RPrefecture.CodDepartement)
+                @Html.ValidationMessageFor(model => model.Utilisateur.RPrefecture.CodDepartement)
+            </div>
+        }
+        @if (Model.Utilisateur.RProfil.Id == 3)
+        {
+            <div class="editor-label">@Html.Label("Région")</div>
+            <div class="editor-field">
+                @Html.DropDownListFor(model => model.Utilisateur.RRegion.Id, new SelectList(Model.ListeRegion, "Id", "LibelleRegion", Model.Utilisateur.RRegion.Id))
+                @Html.ValidationMessageFor(model => model.Utilisateur.RRegion.Id)
+            </div>
+        }
+        @if (Model.Utilisateur.RProfil.Id == 4 && Model.Utilisateur.PCentreEncourVL != null)
+        {
+            <div class="editor-label">@Html.Label("Code agrément centre VL")</div>
+            <div class="editor-field">
+                @Html.TextBoxFor(model => model.Utilisateur.PCentreEncourVL.CodAgremVl)
+                @Html.ValidationMessageFor(model => model.Utilisateur.PCentreEncourVL.CodAgremVl)
+            </div>
+        }
+        @if (Model.Utilisateur.RProfil.Id == 4 && Model.Utilisateur.PCentreEncourPL != null)
+        {
+            <div class="editor-label">@Html.Label("Code agrément centre PL")</div>
+            <div class="editor-field">
+                @Html.TextBoxFor(model => model.Utilisateur.PCentreEncourPL.CodAgremPl)
+                @Html.ValidationMessageFor(model => model.Utilisateur.PCentreEncourPL.CodAgremPl)
+            </div>
+        }
+        @if (Model.Utilisateur.RProfil.Id == 4 && Model.Utilisateur.PCentreEncourCL != null)
+        {
+            <div class="editor-label">@Html.Label("Code agrément centre CL")</div>
+            <div class="editor-field">
+                @Html.TextBoxFor(model => model.Utilisateur.PCentreEncourCL.CodAgremCl)
+                @Html.ValidationMessageFor(model => model.Utilisateur.PCentreEncourCL.CodAgremCl)
+            </div>
+        }
+        @if (Model.Utilisateur.RProfil.Id == 5)
+        {
+            <div class="editor-field">
+                @Html.Label("Réseau(x) d'appartenance :")
+                @Html.ValidationMessageFor(model => model.Utilisateur.RReseaux)
+                <ul>
+                    @foreach (rReseau r in Model.Utilisateur.RReseaux)
+                    {
+                        <li>
+                            @r.ReseauAvecLettreEtCategorie
+                            @if (Model.Utilisateur.RReseaux.Count != 1)
+                            {
+                                @Html.ActionLink("Supprimer", "RemoveAppartenance", new { id = Model.Utilisateur.Id, codeReseau = r.Id })
+
+                            }
+                        </li>
+                    }
+                </ul>
+                Réseau(x) d'appartenance disponible :
+                <ul>
+                    @foreach (rReseau r in Model.ListeReseau)
+                    {
+                        if (!Model.Utilisateur.RReseaux.Contains(r) && !"W".Equals(r.Id) && !"Z".Equals(r.Id))
+                        {
+                            <li>@r.ReseauAvecLettreEtCategorie @Html.ActionLink("Ajouter", "AddAppartenance", new { id = Model.Utilisateur.Id, codeReseau = r.Id })</li>
+                        }
+                    }
+                </ul>
+            </div>
+        }
+        <div class="row">
+            <div class="floatLeft first">
+                @Html.Label("Identifiant de création")
+                <div class="input">
+                    @Html.TextBoxFor(model => model.Utilisateur.CodUsrCrea, new { @readonly = "readonly", Value = Model.Utilisateur.CodUsrCrea })
+                </div>
+            </div>
+            <div class="floatLeft">
+                @Html.Label("date de création du compte")
+                <div class="input">
+                    @Html.TextBoxFor(model => model.Utilisateur.DateCrea, new { @readonly = "readonly", Value = String.Format("{0:g}", Model.Utilisateur.DateCrea) })
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="floatLeft first">
+                @Html.Label("Identifiant de modification")
+                <div class="input">
+                    @Html.TextBoxFor(model => model.Utilisateur.CodUsrMaj, new { @readonly = "readonly", Value = Model.Utilisateur.CodUsrMaj })
+                </div>
+            </div>
+            <div class="floatLeft">
+                @Html.Label("Date de modification du compte")
+                <div class="input">
+                    @Html.TextBoxFor(model => model.Utilisateur.DateMaj, new { @readonly = "readonly", Value = String.Format("{0:g}", Model.Utilisateur.DateMaj) })
+                </div>
+            </div>
+        </div>
+        <p>
+            <input type="submit" value="Enregistrer" class="btn primary" />
+            @Html.ActionLink("Envoi nouveau mot de passe", "SendNewPassword", new { id = Model.Utilisateur.Id })|
+            @Html.ActionLink("Supprimer l'utilisateur", "Delete", new { id = Model.Utilisateur.Id })|
+            @Html.ActionLink("Revenir à la liste", "Liste")
+        </p>
+    </fieldset>
+}
+

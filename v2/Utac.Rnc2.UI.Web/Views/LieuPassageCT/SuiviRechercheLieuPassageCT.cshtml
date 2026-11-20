@@ -1,0 +1,57 @@
+﻿@model IEnumerable<Utac.Rnc2.BusinessObjects.pTraceRechLieuVl>
+@using Utac.Rnc2.BusinessObjects
+
+@section TitleContent {
+    Suivi des recherches du dernier lieu de passage CT
+}
+@section StyleContent {
+    @Styles.Render("~/styles/jquery-ui")
+}
+<h2>Suivi des recherches du dernier lieu de passage CT</h2>
+<form action="@Url.Action("SuiviRechercheLieuPassageCT")" method="get">
+    <input type="text" name="deb" value="@ViewData["datedeb"]" class="datepicker" />
+    <input type="text" name="fin" value="@ViewData["datefin"]" class="datepicker" />
+    <input type="submit" value="Filtrer" class="btn primary" />
+</form>
+<table>
+    <tr>
+        <th>n° Demande</th>
+        <th>Date Recherche</th>
+        <th>Nom/prénom</th>
+        <th>n°Immat</th>
+        <th>Date Mise<br />en Circulation</th>
+        <th>n° Série</th>
+        <th>Résultat<br />recherche</th>
+    </tr>
+    @{ var i = 0; }
+    @foreach (var item in Model)
+    {
+        <tr class="@(i % 2 == 0 ? " row1" : "row2")">
+            <td>@item.Id</td>
+            <td>@String.Format("{0:g}", item.DateRecherche)</td>
+            <td>@item.Nom @item.Prenom</td>
+            <td>@item.ImmatVeh</td>
+            <td>@String.Format("{0:d}", item.DateCircu)</td>
+            <td>@item.NumSerie</td>
+            <td>
+                @if (item.CodResultat == (int)pTraceRechLieuVl.CodeResultatRechercheCT.AUCUN_CT)
+                {
+                    @:Aucun CT
+                }
+                @if (item.CodResultat == (int)pTraceRechLieuVl.CodeResultatRechercheCT.TROUVE_CT)
+                {
+                    <span>@item.CodAgremCentre</span>
+                }
+                @if (item.CodResultat == (int)pTraceRechLieuVl.CodeResultatRechercheCT.ERREUR_TECHNIQUE)
+                {
+                    @:Erreur
+                }
+            </td>
+        </tr>
+        i++;
+    }
+</table>
+@section JavaScriptContent {
+    <!-- DatePicker -->
+    @Scripts.Render("~/scripts/date-picker")
+}

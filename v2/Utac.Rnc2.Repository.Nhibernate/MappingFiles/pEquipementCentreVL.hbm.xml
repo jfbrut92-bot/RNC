@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!-- EG le 11/08/2011 -->
+<hibernate-mapping xmlns="urn:nhibernate-mapping-2.2" namespace="Utac.Rnc2.BusinessObjects" assembly="Utac.Rnc2.BusinessObjects">
+	<class name="Utac.Rnc2.BusinessObjects.pEquipementCentreVL, Utac.Rnc2.BusinessObjects" table="p_equipement_centre_vl" lazy="true">
+		<id name="Id" column="id_equipement">
+		 	<generator class="assigned" />
+		</id>
+		<property name="ControleVehiculeGaz" column="cntlr_veh_gaz" />
+		<property name="ControleVehiculeTransmissionSpecifique" column="cntlr_veh_trans_spec" />
+    <property name="EquipementRouleauFou" column="rouleau_fou" />
+    <property name="BancRotationInverse" column="banc_rotation_inv" />
+    <property name="Decelerometre" column="decelerometre" />
+    <property name="LieuStockagePV" column="lieu_stockage" />
+    <many-to-one name="PCentreEnCour" column="id_centre_encours" class="pCentreEncour" />
+    
+  </class>
+</hibernate-mapping>
+

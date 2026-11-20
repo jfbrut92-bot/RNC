@@ -1,0 +1,41 @@
+﻿@model Utac.Rnc2.UI.Web.Models.ActionAgrementControleurModel
+
+@section TitleContent {
+    Rejet de la demande d'agrément @Model.categorieVehicule.ToString() pour le @Model.controleur.Titre @Model.controleur.Nom @Model.controleur.Prenom
+}
+@section SousTitrePage {
+    Rejet de la demande d'agrément @Model.categorieVehicule.ToString() pour le @Model.controleur.Titre @Model.controleur.Nom @Model.controleur.Prenom
+}
+Attention, Vous êtes sur le point d'effectuer un rejet pour une demande d'agrément @Model.categorieVehicule.ToString()sur cette fiche.Cliquer sur le lien ci-dessous pour confirmer. Pour retourner à la fiche cliquez
+@Html.ActionLink("ici", "Fiche", new { id = Model.controleur.Id })
+@using (Html.BeginForm())
+{
+    @Html.ValidationSummary(true)
+    <fieldset>
+        <div class="editor-label">Commentaire  @Model.categorieVehicule.ToString() (optionnel)</div>
+        @switch (Model.categorieVehicule)
+        {
+            case Utac.Rnc2.BusinessObjects.rCategorieVehicule.CategorieEnum.VL:
+                <div class="editor-field">
+                    @Html.TextAreaFor(model => model.controleur.CommentaireAvisOtcVl, new { rows = 2, cols = 80, maxlength = "250" })
+                    @Html.ValidationMessageFor(model => model.controleur.CommentaireAvisOtcVl)
+                </div>
+                break;
+            case Utac.Rnc2.BusinessObjects.rCategorieVehicule.CategorieEnum.PL:
+                <div class="editor-field">
+                    @Html.TextAreaFor(model => model.controleur.CommentaireAvisOtcPl, new { rows = 2, cols = 80, maxlength = "250" })
+                    @Html.ValidationMessageFor(model => model.controleur.CommentaireAvisOtcPl)
+                </div>
+                break;
+            case Utac.Rnc2.BusinessObjects.rCategorieVehicule.CategorieEnum.CL:
+                <div class="editor-field">
+                    @Html.TextAreaFor(model => model.controleur.CommentaireAvisOtcCl, new { rows = 2, cols = 80, maxlength = "250" })
+                    @Html.ValidationMessageFor(model => model.controleur.CommentaireAvisOtcCl)
+                </div>
+                break;
+        }
+        <p>
+            <input type="submit" value="Confirmer" class="btn primary" />
+        </p>
+    </fieldset>
+}

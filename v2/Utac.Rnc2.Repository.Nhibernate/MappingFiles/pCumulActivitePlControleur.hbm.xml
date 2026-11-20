@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<hibernate-mapping xmlns="urn:nhibernate-mapping-2.2" namespace="Utac.Rnc2.BusinessObjects" assembly="Utac.Rnc2.BusinessObjects">
+	<class name="Utac.Rnc2.BusinessObjects.pCumulActivitePlControleur, Utac.Rnc2.BusinessObjects" table="p_cumul_activite_pl_controleur" lazy="true">
+		<composite-id>
+			<key-property name="CodAgrem" column="cod_agrem" /> 
+			<key-property name="MoisActivite" column="mois_activite" /> 
+		</composite-id>
+		<property name="CumulActiviteQ1" column="cumul_activite_q1" />
+		<property name="CumulActiviteQ2" column="cumul_activite_q2" />
+		<property name="CumulActiviteQ3" column="cumul_activite_q3" />
+		<many-to-one name="PContoleurEncour" column="id_controleur_encours" class="pContoleurEncour" />
+	</class>
+</hibernate-mapping>
+

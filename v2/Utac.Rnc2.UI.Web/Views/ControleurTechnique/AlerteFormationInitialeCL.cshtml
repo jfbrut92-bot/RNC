@@ -1,0 +1,51 @@
+﻿@model Utac.Rnc2.UI.Web.Models.ExtensionAgrementControleurCatLModel
+@using Utac.Rnc2.BusinessObjects
+@using Utac.Rnc2.MVC.Extensions
+
+@section TitleContent {
+    Alterte extension à la catégorie L
+}
+@section SousTitrePage {
+    Déclaration d'extension à la catégorie L de l'agrément  @Model.Categorie
+    @switch (@Model.Categorie)
+    {
+        case rCategorieVehicule.CategorieEnum.VL:
+            @:@Model.Controleur.CodAgremVl
+            break;
+        case rCategorieVehicule.CategorieEnum.PL:
+            @:@Model.Controleur.CodAgremPl
+            break;
+    }
+    <br />Contrôleur : @Model.Controleur.Nom @Model.Controleur.Prenom
+}
+
+<p class="avertissement">
+    Pour déclarer une extension d'agrément CL de l'agrément du contrôleur, vous devez <strong>préalablement</strong> déclarer sa "<strong>Formation Initiale CL</strong>"
+    <br /><br />Vous pouvez saisir la formation Initiale CL du contôleur en cliquant sur le lien suivant :
+    <strong>
+    @switch (@Model.Categorie)
+    {
+        case rCategorieVehicule.CategorieEnum.VL:
+            @Html.ActionLink("Saisir une Formation", "AjouterFormationVL", new { id = Model.Controleur.Id, ReturnLettreReseau = Model.ReturnLettreReseau, ReturnCodDep = Model.ReturnCodDep }, new { @class = "btn.success" })
+            break;
+        case rCategorieVehicule.CategorieEnum.PL:
+            @Html.ActionLink("Saisir une Formation", "AjouterFormationPL", new { id = Model.Controleur.Id, ReturnLettreReseau = Model.ReturnLettreReseau, ReturnCodDep = Model.ReturnCodDep }, new { @class = "btn.success" })
+            break;
+    }
+    </strong>
+</p>
+@using (Html.BeginForm())
+{
+<div class="rowAligne">
+    @if (String.IsNullOrEmpty(Model.ReturnLettreReseau))
+        {
+    @Html.ActionLink("Retour", "Fiche", new { id = Model.Controleur.Id }, new { @class = "btn cancel" })
+        }
+        else
+        {
+    @Html.ActionLink("Retour", "ReturnToListeControleurPourReseau", "Home", new { returnLettreReseau = Model.ReturnLettreReseau, returnCodDep = Model.ReturnCodDep }, new { @class = "btn cancel" })
+        }
+</div>
+    @Html.HiddenFor(m => m.Controleur.Id)
+}
+

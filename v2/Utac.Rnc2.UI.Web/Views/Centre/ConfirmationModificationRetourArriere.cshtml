@@ -1,0 +1,28 @@
+﻿@model Utac.Rnc2.UI.Web.Models.RetourArriereModel
+
+@section TitleContent {
+    Retour Arrière
+}
+@section SousTitrePage {
+    Confirmation du retour arrière
+}
+<h2>Installation: @Model.Centre.RaisonSociale - @Model.Centre.CodAgremVl @Model.Centre.CodAgremPl @Model.Centre.CodAgremCl</h2>
+<p class="avertissement">
+    Attention, Vous allez annuler la dernière modification effectuée sur cette fiche :
+    <b>@Model.Centre.RMotifModification.Libelle</b>
+    à la date du
+    <b>@Model.Centre.DateMiseaJour</b>
+    <br />
+    Cliquer sur le bouton "confirmer" pour continuer.
+</p>
+<form method="post" action="@Url.Action("ModificationRetourArriere")">
+    <input type="hidden" name="m.Centre.Id" value="@Model.Centre.Id" />
+    <!-- 01/10/2021 PLE correction MVC 5 transformation boolena en string -->
+    <!--<input type="hidden" name="m.deleteHisto" value="@Model.deleteHisto" />-->
+    <input type="hidden" name="m.deleteHisto" value="@Model.deleteHisto.ToString()" />
+    <br />
+    <div class="rowAligne">
+        <input type="submit" value="Confirmer" class="btn primary" />
+        <a class="btn success" href="@Url.Action("Fiche","Centre", new { id = Model.Centre.Id})">Retour à la fiche</a>
+    </div>
+</form>

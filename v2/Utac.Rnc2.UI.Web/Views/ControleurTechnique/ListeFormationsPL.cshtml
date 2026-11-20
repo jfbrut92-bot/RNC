@@ -1,0 +1,51 @@
+﻿@model Utac.Rnc2.BusinessObjects.pContoleurEncour
+@using Utac.Rnc2.BusinessObjects
+@using Utac.Rnc2.UI.Web.Helpers
+@using Utac.Rnc2.UI.Web.Utils
+
+
+@section TitleContent {
+    Liste des formations PL pour le @Model.Titre @Model.Nom @Model.Prenom
+}
+@section SousTitrePage {
+    Liste des formations PL pour le @Model.Titre @Model.Nom @Model.Prenom
+}
+<table>
+    <tr>
+        <th></th>
+        <th>Type de formation</th>
+        <th>Date début</th>
+        <th>Date fin</th>
+        <th>Résultat formation</th>
+    </tr>
+    @{ var i = 0; }
+    @foreach (var item in Model.PFormationControleurPLs)
+    {
+        <tr class="@(i % 2 == 0  ? "row1" : "row2")">
+            <td>
+                @if (GestionDroitsExecution.canModify(this.User, new BeanModifiable<pFormationControleurPL>(item)))
+                {
+                    @Html.ActionLink("Modifier", "ModifierFormationPL", new { id = item.Id })
+                    @:|
+                    @Html.ActionLink("Supprimer", "ConfirmationDeleteFormationPL", new { id = item.Id })
+                }
+            </td>
+            <td>@item.RTypeFormation.LibelleTypeFormation</td>
+            @if (!((short?)rTypeFormation.TypeFormationEnum.FORMATION_INIT_CL_PL).Equals(item.RTypeFormation.Id))
+            {
+                <td>@String.Format("{0:d}", item.DateDebut)</td>
+            }
+            else
+            {
+                <td></td>
+            }
+            <td>@String.Format("{0:d}", item.DateFin)</td>
+            <td>@(item.ResultatFormation ? "Favorable" : "Défavorable")</td>
+        </tr>
+        i++;
+    }
+</table>
+<div>
+    <br />
+    @Html.ActionLink("Retour à la fiche", "Fiche", new { id = Model.Id }, new { @class = "btn success" })
+</div>

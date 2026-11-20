@@ -1,0 +1,117 @@
+<?xml version="1.0" encoding="utf-8"?>
+<definitions xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:tns="http://intf.ws/" targetNamespace="http://intf.ws/" xmlns="http://schemas.xmlsoap.org/wsdl/">
+  <types>
+    <xsd:schema>
+      <xsd:import schemaLocation="http://195.101.61.161:8080/ctinfo/Rnc2?xsd=1" namespace="http://intf.ws/" />
+    </xsd:schema>
+    <xsd:schema>
+      <xsd:import schemaLocation="http://195.101.61.161:8080/ctinfo/Rnc2?xsd=2" namespace="ctvl" />
+    </xsd:schema>
+    <xsd:schema>
+      <xsd:import schemaLocation="http://195.101.61.161:8080/ctinfo/Rnc2?xsd=3" namespace="ctpl" />
+    </xsd:schema>
+  </types>
+  <message name="About">
+    <part name="parameters" element="tns:About" />
+  </message>
+  <message name="AboutResponse">
+    <part name="parameters" element="tns:AboutResponse" />
+  </message>
+  <message name="findVlByNumVisitOrigine">
+    <part name="parameters" element="tns:findVlByNumVisitOrigine" />
+  </message>
+  <message name="findVlByNumVisitOrigineResponse">
+    <part name="parameters" element="tns:findVlByNumVisitOrigineResponse" />
+  </message>
+  <message name="WSException">
+    <part name="fault" element="tns:WSException" />
+  </message>
+  <message name="findVlByNumPvCodAgrDateCtrl">
+    <part name="parameters" element="tns:findVlByNumPvCodAgrDateCtrl" />
+  </message>
+  <message name="findVlByNumPvCodAgrDateCtrlResponse">
+    <part name="parameters" element="tns:findVlByNumPvCodAgrDateCtrlResponse" />
+  </message>
+  <message name="findVlByImmatVehOrNumSerie">
+    <part name="parameters" element="tns:findVlByImmatVehOrNumSerie" />
+  </message>
+  <message name="findVlByImmatVehOrNumSerieResponse">
+    <part name="parameters" element="tns:findVlByImmatVehOrNumSerieResponse" />
+  </message>
+  <message name="findPlByNumVisitOrigine">
+    <part name="parameters" element="tns:findPlByNumVisitOrigine" />
+  </message>
+  <message name="findPlByNumVisitOrigineResponse">
+    <part name="parameters" element="tns:findPlByNumVisitOrigineResponse" />
+  </message>
+  <message name="findPlByNumPvCodAgrDateCtrl">
+    <part name="parameters" element="tns:findPlByNumPvCodAgrDateCtrl" />
+  </message>
+  <message name="findPlByNumPvCodAgrDateCtrlResponse">
+    <part name="parameters" element="tns:findPlByNumPvCodAgrDateCtrlResponse" />
+  </message>
+  <message name="findPlByImmatVehOrNumSerie">
+    <part name="parameters" element="tns:findPlByImmatVehOrNumSerie" />
+  </message>
+  <message name="findPlByImmatVehOrNumSerieResponse">
+    <part name="parameters" element="tns:findPlByImmatVehOrNumSerieResponse" />
+  </message>
+  <message name="findVlByCodAgrCentreControleur">
+    <part name="parameters" element="tns:findVlByCodAgrCentreControleur" />
+  </message>
+  <message name="findVlByCodAgrCentreControleurResponse">
+    <part name="parameters" element="tns:findVlByCodAgrCentreControleurResponse" />
+  </message>
+  <message name="findPlByCodAgrCentreControleur">
+    <part name="parameters" element="tns:findPlByCodAgrCentreControleur" />
+  </message>
+  <message name="findPlByCodAgrCentreControleurResponse">
+    <part name="parameters" element="tns:findPlByCodAgrCentreControleurResponse" />
+  </message>
+  <portType name="Rnc2">
+    <operation name="About">
+      <input xmlns:ns1="http://www.w3.org/2007/05/addressing/metadata" ns1:Action="http://intf.ws/Rnc2/AboutRequest" message="tns:About" />
+      <output xmlns:ns2="http://www.w3.org/2007/05/addressing/metadata" ns2:Action="http://intf.ws/Rnc2/AboutResponse" message="tns:AboutResponse" />
+    </operation>
+    <operation name="findVlByNumVisitOrigine">
+      <input xmlns:ns3="http://www.w3.org/2007/05/addressing/metadata" ns3:Action="http://intf.ws/Rnc2/findVlByNumVisitOrigineRequest" message="tns:findVlByNumVisitOrigine" />
+      <output xmlns:ns4="http://www.w3.org/2007/05/addressing/metadata" ns4:Action="http://intf.ws/Rnc2/findVlByNumVisitOrigineResponse" message="tns:findVlByNumVisitOrigineResponse" />
+      <fault xmlns:ns5="http://www.w3.org/2007/05/addressing/metadata" ns5:Action="http://intf.ws/Rnc2/findVlByNumVisitOrigine/Fault/WSException" name="WSException" message="tns:WSException" />
+    </operation>
+    <operation name="findVlByNumPvCodAgrDateCtrl">
+      <input xmlns:ns6="http://www.w3.org/2007/05/addressing/metadata" ns6:Action="http://intf.ws/Rnc2/findVlByNumPvCodAgrDateCtrlRequest" message="tns:findVlByNumPvCodAgrDateCtrl" />
+      <output xmlns:ns7="http://www.w3.org/2007/05/addressing/metadata" ns7:Action="http://intf.ws/Rnc2/findVlByNumPvCodAgrDateCtrlResponse" message="tns:findVlByNumPvCodAgrDateCtrlResponse" />
+      <fault xmlns:ns8="http://www.w3.org/2007/05/addressing/metadata" ns8:Action="http://intf.ws/Rnc2/findVlByNumPvCodAgrDateCtrl/Fault/WSException" name="WSException" message="tns:WSException" />
+    </operation>
+    <operation name="findVlByImmatVehOrNumSerie">
+      <input xmlns:ns9="http://www.w3.org/2007/05/addressing/metadata" ns9:Action="http://intf.ws/Rnc2/findVlByImmatVehOrNumSerieRequest" message="tns:findVlByImmatVehOrNumSerie" />
+      <output xmlns:ns10="http://www.w3.org/2007/05/addressing/metadata" ns10:Action="http://intf.ws/Rnc2/findVlByImmatVehOrNumSerieResponse" message="tns:findVlByImmatVehOrNumSerieResponse" />
+      <fault xmlns:ns11="http://www.w3.org/2007/05/addressing/metadata" ns11:Action="http://intf.ws/Rnc2/findVlByImmatVehOrNumSerie/Fault/WSException" name="WSException" message="tns:WSException" />
+    </operation>
+    <operation name="findPlByNumVisitOrigine">
+      <input xmlns:ns12="http://www.w3.org/2007/05/addressing/metadata" ns12:Action="http://intf.ws/Rnc2/findPlByNumVisitOrigineRequest" message="tns:findPlByNumVisitOrigine" />
+      <output xmlns:ns13="http://www.w3.org/2007/05/addressing/metadata" ns13:Action="http://intf.ws/Rnc2/findPlByNumVisitOrigineResponse" message="tns:findPlByNumVisitOrigineResponse" />
+      <fault xmlns:ns14="http://www.w3.org/2007/05/addressing/metadata" ns14:Action="http://intf.ws/Rnc2/findPlByNumVisitOrigine/Fault/WSException" name="WSException" message="tns:WSException" />
+    </operation>
+    <operation name="findPlByNumPvCodAgrDateCtrl">
+      <input xmlns:ns15="http://www.w3.org/2007/05/addressing/metadata" ns15:Action="http://intf.ws/Rnc2/findPlByNumPvCodAgrDateCtrlRequest" message="tns:findPlByNumPvCodAgrDateCtrl" />
+      <output xmlns:ns16="http://www.w3.org/2007/05/addressing/metadata" ns16:Action="http://intf.ws/Rnc2/findPlByNumPvCodAgrDateCtrlResponse" message="tns:findPlByNumPvCodAgrDateCtrlResponse" />
+      <fault xmlns:ns17="http://www.w3.org/2007/05/addressing/metadata" ns17:Action="http://intf.ws/Rnc2/findPlByNumPvCodAgrDateCtrl/Fault/WSException" name="WSException" message="tns:WSException" />
+    </operation>
+    <operation name="findPlByImmatVehOrNumSerie">
+      <input xmlns:ns18="http://www.w3.org/2007/05/addressing/metadata" ns18:Action="http://intf.ws/Rnc2/findPlByImmatVehOrNumSerieRequest" message="tns:findPlByImmatVehOrNumSerie" />
+      <output xmlns:ns19="http://www.w3.org/2007/05/addressing/metadata" ns19:Action="http://intf.ws/Rnc2/findPlByImmatVehOrNumSerieResponse" message="tns:findPlByImmatVehOrNumSerieResponse" />
+      <fault xmlns:ns20="http://www.w3.org/2007/05/addressing/metadata" ns20:Action="http://intf.ws/Rnc2/findPlByImmatVehOrNumSerie/Fault/WSException" name="WSException" message="tns:WSException" />
+    </operation>
+    <operation name="findVlByCodAgrCentreControleur">
+      <input xmlns:ns21="http://www.w3.org/2007/05/addressing/metadata" ns21:Action="http://intf.ws/Rnc2/findVlByCodAgrCentreControleurRequest" message="tns:findVlByCodAgrCentreControleur" />
+      <output xmlns:ns22="http://www.w3.org/2007/05/addressing/metadata" ns22:Action="http://intf.ws/Rnc2/findVlByCodAgrCentreControleurResponse" message="tns:findVlByCodAgrCentreControleurResponse" />
+      <fault xmlns:ns23="http://www.w3.org/2007/05/addressing/metadata" ns23:Action="http://intf.ws/Rnc2/findVlByCodAgrCentreControleur/Fault/WSException" name="WSException" message="tns:WSException" />
+    </operation>
+    <operation name="findPlByCodAgrCentreControleur">
+      <input xmlns:ns24="http://www.w3.org/2007/05/addressing/metadata" ns24:Action="http://intf.ws/Rnc2/findPlByCodAgrCentreControleurRequest" message="tns:findPlByCodAgrCentreControleur" />
+      <output xmlns:ns25="http://www.w3.org/2007/05/addressing/metadata" ns25:Action="http://intf.ws/Rnc2/findPlByCodAgrCentreControleurResponse" message="tns:findPlByCodAgrCentreControleurResponse" />
+      <fault xmlns:ns26="http://www.w3.org/2007/05/addressing/metadata" ns26:Action="http://intf.ws/Rnc2/findPlByCodAgrCentreControleur/Fault/WSException" name="WSException" message="tns:WSException" />
+    </operation>
+  </portType>
+</definitions>

@@ -1,0 +1,66 @@
+﻿@model Utac.Rnc2.UI.Web.Models.StatistiquesModel
+@using Utac.Rnc2.UI.Web.Helpers
+
+@section TitleContent {
+    Edition de statistiques et Extraction de listes Excel
+}
+@section SousTitrePage {
+    Edition de statistiques et Extraction de listes Excel
+}
+<table>
+    <tr>
+        <th>Etats</th>
+        <th>Critères</th>
+        <th>Télécharger</th>
+    </tr>
+    @{ var i = 0; }
+    @foreach (var item in Model.ListeEdition.OrderBy(e => e.Id))
+    {
+        if (item.RProfils.Contains(Model.Utilisateur.RProfil) && item.EstActif)
+        {
+            if (GestionDroitsExecution.isRightEditionEtatStatistique(User, item.Id))
+            {
+                <tr class="@(i % 2 == 0 ? "row1" : "row2")">
+                    @if (item.NomActionMvc.StartsWith("-"))
+                    {
+                        <td colspan="3" style="background-color:rgb(229, 236, 249)">
+                            <h2>@item.LibEdition</h2>
+                        </td>
+                    }
+                    else
+                    {
+                        <td style="padding:1em">@item.LibEdition</td>
+                    }
+                    @if (!item.NomActionMvc.StartsWith("-"))
+                    {
+                        using (Html.BeginForm(item.NomActionMvc, "Statistiques", FormMethod.Post))
+                        {
+                            <td style="padding:1em; white-space:nowrap">
+                                @if (item.Criteres != null && item.Criteres.Contains("region"))
+                                {
+                                    <label>Région :</label>
+                                    @Html.DropDownListFor(m => m.RegionSelected.Id, new SelectList(Model.ListeRegion, "Id", "LibelleRegion"))
+                                }
+                                @if (item.Criteres != null && item.Criteres.Contains("departement") && !item.Criteres.Contains("region"))
+                                {
+                                    <label>Département :</label>
+                                    @Html.DropDownListFor(m => m.PrefectureSelected.Id, new SelectList(Model.ListePrefecture, "Id", "CodDepartement"))
+                                }
+                                @if (item.Criteres != null && item.Criteres.Contains("departement") && item.Criteres.Contains("region"))
+                                {
+                                    <label>Département :</label>
+                                    @Html.DropDownListFor(m => m.PrefectureSelected.Id, new SelectList(Model.ListePrefecture, "Id", "CodDepartement"))
+                                }
+                            </td>
+                            <td>
+                                <input type="submit" value="OK" class="btn success" />
+                                @Html.HiddenFor(m => m.FormatEdition)
+                            </td>
+                        }
+                    }
+                </tr>
+                i++;
+            }
+        }
+    }
+</table>

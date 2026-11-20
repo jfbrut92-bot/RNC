@@ -1,0 +1,48 @@
+﻿@model Utac.Rnc2.UI.Web.Models.AjouterAmendeModel
+
+@section TitleContent {
+    AjouterAmende
+}
+@section SousTitrePage {
+    Ajouter une contravention
+}
+@section StyleContent {
+    @Styles.Render("~/styles/jquery-ui")
+}
+<h3>Installation: @Model.Centre.RaisonSociale - @Model.Centre.CodAgremVl @Model.Centre.CodAgremPl @Model.Centre.CodAgremCl</h3>
+<br />
+@using (Html.BeginForm())
+{
+    @Html.ValidationSummary(true)
+    <fieldset>
+        <div class="editor-label">
+            @Html.Label("Libelle de la contravention")
+        </div>
+        <div class="editor-field">
+            @Html.TextAreaFor(model => model.Amende.LibContravention, new { rows = 5, cols = 50, maxlength = "800" })
+            @Html.ValidationMessageFor(model => model.Amende.LibContravention)
+        </div>
+        <div class="editor-label">
+            @Html.Label("Date")
+        </div>
+        <div class="editor-field">
+            @Html.TextBoxFor(model => model.Amende.DateEmisAmende, new { @class = "datepicker" })
+            @Html.ValidationMessageFor(model => model.Amende.DateEmisAmende)
+        </div>
+        @* Propager le paramètre du formulaire précédent*@
+        @Html.HiddenFor(model => model.Centre.RaisonSociale)
+        @Html.HiddenFor(model => model.Centre.Id)
+        @Html.HiddenFor(model => model.Centre.CodAgremVl)
+        @Html.HiddenFor(model => model.Centre.CodAgremPl)
+        @Html.HiddenFor(model => model.Centre.CodAgremCl)
+        <br />
+        <div class="rowAligne">
+            <input type="submit" value="Enregistrer" class="btn primary" />
+            <a class="btn success" href="@Url.Action("Fiche","Centre", new { id = Model.Centre.Id})">Retour à la fiche</a>
+        </div>
+    </fieldset>
+}
+@section JavaScriptContent {
+    @* DatePicker *@
+    @Scripts.Render("~/scripts/date-picker")
+}

@@ -1,0 +1,67 @@
+﻿@model Utac.Rnc2.BusinessObjects.pCentreEncour
+@section TitleContent {
+    Modification des horaires d'ouverture pour le centre @Model.RaisonSociale
+}
+@section SousTitrePage {
+    Modification des horaires d'ouverture pour le centre @Model.RaisonSociale
+}
+@using (Html.BeginForm())
+{
+    @Html.ValidationSummary(true)
+    <fieldset>
+        <div class="editor-label">
+            <label>Lundi</label> du
+            @Html.TextBoxFor(m => m.PHoraireOuvertures[0].LundiMatin, new { Value = string.Format("{0:t}", Model.PHoraireOuvertures[0].LundiMatin) })
+            au
+            @Html.TextBoxFor(m => m.PHoraireOuvertures[0].LundiSoir, new { Value = string.Format("{0:t}", Model.PHoraireOuvertures[0].LundiSoir) })
+            @Html.ValidationMessageFor(m => m.PHoraireOuvertures[0].LundiMatin)
+            @Html.ValidationMessageFor(m => m.PHoraireOuvertures[0].LundiSoir)
+        </div>
+        <div class="editor-label">
+            <label>Mardi</label> du
+            @Html.TextBoxFor(m => m.PHoraireOuvertures[0].MardiMatin, new { Value = string.Format("{0:t}", Model.PHoraireOuvertures[0].MardiMatin) })
+            au
+            @Html.TextBoxFor(m => m.PHoraireOuvertures[0].MardiSoir, new { Value = string.Format("{0:t}", Model.PHoraireOuvertures[0].MardiSoir) })
+            @Html.ValidationMessageFor(m => m.PHoraireOuvertures[0].MardiMatin)
+            @Html.ValidationMessageFor(m => m.PHoraireOuvertures[0].MardiSoir)
+        </div>
+        <div class="editor-label">
+            <label>Mercredi</label> du
+            @Html.TextBoxFor(m => m.PHoraireOuvertures[0].MercrediMatin, new { Value = string.Format("{0:t}", Model.PHoraireOuvertures[0].MercrediMatin) })
+            au
+            @Html.TextBoxFor(m => m.PHoraireOuvertures[0].MercrediSoir, new { Value = string.Format("{0:t}", Model.PHoraireOuvertures[0].MercrediSoir) })
+            @Html.ValidationMessageFor(m => m.PHoraireOuvertures[0].MercrediMatin)
+            @Html.ValidationMessageFor(m => m.PHoraireOuvertures[0].MercrediSoir)
+        </div>
+        <div class="editor-label">
+            <label>Jeudi</label> du
+            @Html.TextBoxFor(m => m.PHoraireOuvertures[0].JeudiMatin, new { Value = string.Format("{0:t}", Model.PHoraireOuvertures[0].JeudiMatin) })
+            au
+            @Html.TextBoxFor(m => m.PHoraireOuvertures[0].JeudiSoir, new { Value = string.Format("{0:t}", Model.PHoraireOuvertures[0].JeudiSoir) })
+            @Html.ValidationMessageFor(m => m.PHoraireOuvertures[0].JeudiMatin)
+            @Html.ValidationMessageFor(m => m.PHoraireOuvertures[0].JeudiSoir)
+        </div>
+        <div class="editor-label">
+            <label>Vendredi</label> du
+            @Html.TextBoxFor(m => m.PHoraireOuvertures[0].VendrediMatin, new { Value = string.Format("{0:t}", Model.PHoraireOuvertures[0].VendrediMatin) })
+            au
+            @Html.TextBoxFor(m => m.PHoraireOuvertures[0].VendrediSoir, new { Value = string.Format("{0:t}", Model.PHoraireOuvertures[0].VendrediSoir) })
+            @Html.ValidationMessageFor(m => m.PHoraireOuvertures[0].VendrediMatin)
+            @Html.ValidationMessageFor(m => m.PHoraireOuvertures[0].VendrediSoir)
+        </div>
+        <div class="editor-label">
+            <label>Samedi</label> du
+            @Html.TextBoxFor(m => m.PHoraireOuvertures[0].SamediMatin, new { Value = string.Format("{0:t}", Model.PHoraireOuvertures[0].SamediMatin) })
+            au
+            @Html.TextBoxFor(m => m.PHoraireOuvertures[0].SamediSoir, new { Value = string.Format("{0:t}", Model.PHoraireOuvertures[0].SamediSoir) })
+            @Html.ValidationMessageFor(m => m.PHoraireOuvertures[0].SamediMatin)
+            @Html.ValidationMessageFor(m => m.PHoraireOuvertures[0].SamediSoir)
+        </div>
+        @Html.HiddenFor(model => model.Id)
+        <br />
+        <div class="rowAligne">
+            <input type="submit" value="Enregistrer" class="btn primary" />
+            <a class="btn success" href="@Url.Action("Fiche","Centre", new { id = Model.Id})">Retour à la fiche</a>
+        </div>
+    </fieldset>
+}

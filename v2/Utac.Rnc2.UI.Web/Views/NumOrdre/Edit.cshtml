@@ -1,0 +1,55 @@
+﻿@model Utac.Rnc2.BusinessObjects.rNumordreAgrement
+
+@section TitleContent {
+    Edition des compteurs de la préfecture
+}
+@section SousTitrePage {
+    Edition des compteurs de la préfecture @Model.RPrefecture.LibellePrefecture (@Model.RPrefecture.CodDepartement)
+}
+@if (ViewData["erreur"] != null)
+{
+    <span>Une erreur est survenue :@ViewData["erreur"]</span>
+}
+@using (Html.BeginForm())
+{
+    @Html.ValidationSummary(true)
+<fieldset>
+    <div class="editor-label">@Html.Label("N° ordre installation")</div>
+    <div class="editor-field">
+        @Html.TextBoxFor(model => model.NumOrdreCentre)
+        @Html.ValidationMessageFor(model => model.NumOrdreCentre)
+    </div>
+    <div class="editor-label">@Html.Label("N° ordre contrôleur VL")</div>
+    <div class="editor-field">
+        @Html.TextBoxFor(model => model.NumOrdreCntlrVl)
+        @Html.ValidationMessageFor(model => model.NumOrdreCntlrVl)
+    </div>
+    <div class="editor-label">@Html.Label("N° ordre contrôleur CL")</div>
+    <div class="editor-field">
+        @Html.TextBoxFor(model => model.NumOrdreCntlrCl)
+        @Html.ValidationMessageFor(model => model.NumOrdreCntlrCl)
+    </div>
+    <div class="editor-label">@Html.Label("N° ordre contrôleur PL")</div>
+    <div class="editor-field">
+        @Html.TextBoxFor(model => model.NumOrdreCntlrPl)
+        @Html.ValidationMessageFor(model => model.NumOrdreCntlrPl)
+    </div>
+    <div class="editor-label">@Html.Label("Préfixe nom préfecture")</div>
+    <div class="editor-field">
+        @Html.TextBoxFor(model => model.RPrefecture.Prefixe, new { maxlength = "10", size = "10" })
+        @Html.ValidationMessageFor(model => model.RPrefecture.Prefixe)
+    </div>
+    <div class="editor-label">@Html.Label("Tribunal adminitratif")</div>
+    <div class="editor-field">
+        @Html.TextBoxFor(model => model.RPrefecture.LibTribuAdmin, new { maxlength = "100", size = "50" })
+        @Html.ValidationMessageFor(model => model.RPrefecture.LibTribuAdmin)
+    </div>
+    <div class="editor-field">@Html.HiddenFor(model => model.Id)</div>
+    <p>
+        <input type="submit" value="Enregistrer" class="btn primary" />
+    </p>
+</fieldset>
+}
+<div>
+    @Html.ActionLink("Retour à la liste", "Index")
+</div>

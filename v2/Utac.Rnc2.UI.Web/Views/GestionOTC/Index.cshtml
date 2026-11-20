@@ -1,0 +1,56 @@
+﻿@model Utac.Rnc2.UI.Web.Models.GestionOTCModel
+@using Utac.Rnc2.BusinessObjects
+
+@section TitleContent {
+    Gestion OTC
+}
+@section SousTitrePage {
+    Gestion Administration OTC
+}
+<h2>Compteurs d'exception PL</h2>
+<ul>
+    <li>@Html.ActionLink("Rapports disponibles Réseaux", "ListeDispoAllReseau", "RapportCE")</li>
+    <li>@Html.ActionLink("Rapports disponibles Centres non-rattachés", "ListeDispoAllCNRPL", "RapportCE")</li>
+</ul>
+<h2>Compteurs d'exception VL</h2>
+<ul>
+    <li>@Html.ActionLink("Rapports disponibles Centres non-rattachés", "ListeDispoAllCTVL", "RapportCE")</li>
+</ul>
+<h2>Tables de référence</h2>
+<ul>
+    <li>@Html.ActionLink("Compteur des numéros d'ordre agrément", "Index", "NumOrdre")</li>
+</ul>
+<h2>Suivi</h2>
+<ul>
+    <li>@Html.ActionLink("Suivi des courriers envoyés", "Index", "SuiviCourrier")</li>
+    <li>@Html.ActionLink("Suivi des inscriptions en ligne", "Index", "SuiviInscription")</li>
+    <li>@Html.ActionLink("Liste des contrôleurs agréés sans centre de rattachement", "ListeControleurAgreeSansCentre", "ControleurTechnique")</li>
+    <li>@Html.ActionLink("Suivi des téléchargements de PV", "SuiviTelechargementPV", "SuiviTelechargementPv")</li>
+    <li>@Html.ActionLink("Suivi des recherches du dernier lieu de passage CT", "SuiviRechercheLieuPassageCT", "LieuPassageCT")</li>
+</ul>
+<h2>Certificats SSL</h2>
+<ul>
+    <li>@Html.ActionLink("Test connection serveur PKI", "TestServeurPKI", "PKI")</li>
+    <li></li>
+    <li>@Html.ActionLink("Liste des centres VL sans certificats", "ListeSansCertificat", "Centre", new { categorie = rCategorieVehicule.CategorieEnum.VL }, null)</li>
+    <li>@Html.ActionLink("Liste des centres PL sans certificats", "ListeSansCertificat", "Centre", new { categorie = rCategorieVehicule.CategorieEnum.PL }, null)</li>
+    <li>@Html.ActionLink("Liste des centres CL sans certificats", "ListeSansCertificat", "Centre", new { categorie = rCategorieVehicule.CategorieEnum.CL }, null)</li>
+    <li></li>
+    <li>@Html.ActionLink("Liste des centres VL certif. expiré/révoqué", "ListeAvecCertificatExpireOuRevoque", "Centre", new { categorie = rCategorieVehicule.CategorieEnum.VL }, null)</li>
+    <li>@Html.ActionLink("Liste des centres PL certif. expiré/révoqué", "ListeAvecCertificatExpireOuRevoque", "Centre", new { categorie = rCategorieVehicule.CategorieEnum.PL }, null)</li>
+    <li>@Html.ActionLink("Liste des centres CL certif. expiré/révoqué", "ListeAvecCertificatExpireOuRevoque", "Centre", new { categorie = rCategorieVehicule.CategorieEnum.CL }, null)</li>
+    <li></li>
+    @foreach (var r in Model.ListeReseau)
+    {
+        <li>@Html.ActionLink("Accès aux certificats SSL du réseau " + r.ReseauAvecLettreEtCategorieSeuls, "ListeOperationReseau", "PKI", new { id = r.Id }, new { })</li>
+    }
+    <li>Liste des centres VL en cours de renouvellement</li>
+</ul>
+<h2>Page d'Accueil</h2>
+<ul>
+    <li>@Html.ActionLink("Changer le message d'accueil", "Message", "Admin")</li>
+</ul>
+<h2>Gestion des templates de mails</h2>
+<ul>
+    <li>@Html.ActionLink("Gérer les templates mails", "Index", "Emails")</li>
+</ul>

@@ -1,0 +1,20 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<mvcSiteMap xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+            xmlns="http://mvcsitemap.codeplex.com/schemas/MvcSiteMap-File-4.0"
+            xsi:schemaLocation="http://mvcsitemap.codeplex.com/schemas/MvcSiteMap-File-4.0 MvcSiteMapSchema.xsd">
+
+    <mvcSiteMapNode title="Home" controller="Home" action="Index">
+        <mvcSiteMapNode title="Information profil utilisateur" controller="Information" action="Index"   />
+        <mvcSiteMapNode title="Contact" controller="Account" action="Contact"/>
+
+        <mvcSiteMapNode title="PV" controller="Home" action="Index" description="sous-menu" roles="OTC_Administration,PREFECTURE,DRIRE,DSCR,PIV">
+            <mvcSiteMapNode title="Vérification d'un PV VL" controller="TraceRechPvVl" action="TelechargerPvVl" description="menu" roles="OTC_Administration,PREFECTURE,DRIRE,DSCR,PIV"/>
+            <mvcSiteMapNode title="Vérification d'un PV CL" controller="TraceRechPvVl" action="TelechargerPvCl" description="menu" roles="OTC_Administration,PREFECTURE,DRIRE,DSCR,PIV"/>          
+            <mvcSiteMapNode title="Vérification d'un PV PL" controller="TraceRechPvVl" action="TelechargerPvPl" description="menu" roles="OTC_Administration,PREFECTURE,DRIRE,DSCR,PIV"/>
+            <mvcSiteMapNode title="Recherche des PV d'un véhicule" controller="TraceRechPvVl" action="RechercheImmatNumserie" description="menu" roles="OTC_Administration,PREFECTURE,DRIRE,DSCR,PIV"/>
+            <mvcSiteMapNode title="Recherche des PV installation/controleur" controller="TraceRechPvVl" action="RechercheCodeCentreControleur" description="menu" roles="OTC_Administration,PREFECTURE,DRIRE,DSCR,PIV"/>
+            <mvcSiteMapNode title="Téléchargement PV" controller="TraceRechPvVl" action="DownloadPV" roles="OTC_Administration,PREFECTURE,DRIRE,DSCR,PIV"/>
+            <mvcSiteMapNode title="Téléchargement PV SAS" controller="TraceRechPvVl" action="DownloadSasPV" roles="OTC_Administration,PREFECTURE,DRIRE,DSCR,PIV"/>
+        </mvcSiteMapNode>
+    </mvcSiteMapNode>
+</mvcSiteMap>

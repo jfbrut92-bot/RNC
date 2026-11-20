@@ -1,0 +1,78 @@
+﻿@model Utac.Rnc2.BusinessObjects.pCentreEncour
+@using Utac.Rnc2.UI.Web.Helpers
+
+@section TitleContent {
+    Liste des sanctions Installation: @Model.RaisonSociale - @Model.CodAgremVl @Model.CodAgremPl @Model.CodAgremCl
+}
+@section SousTitrePage {
+    Liste des sanctions
+}
+<h2>Installation: @Model.RaisonSociale - @Model.CodAgremVl @Model.CodAgremPl @Model.CodAgremCl </h2>
+<table>
+    <tr>
+        <th></th>
+        <th>Type Sanction / Motif</th>
+        <th>Organisme<br />demandeur</th>
+        <th>Date Evènement<br />origine</th>
+        <th>Date Début</th>
+        <th>Date Fin</th>
+        <th>Liste des agrément(s) affecté(s)</th>
+    </tr>
+    @{ var i = 0; }
+    @foreach (var item in Model.PSanctionCentres.OrderByDescending(s => s.Id))
+    {
+        <tr class="@(i % 2 == 0 ? "row1" : "row2")">
+            <td>
+                @if (GestionDroitsExecution.isRightActionForCentre(User, Model, GestionDroitsExecution.ActionsFicheCentre.SANCT))
+                {
+                    @Html.ActionLink("Modifier", "ModifierSanction", new { id = item.Id }) @:| @Html.ActionLink("Supprimer", "ConfirmationDeleteSanction", new { id = item.Id })
+                }
+            </td>
+            <td><b>
+                @if (item.RTypeSanctionCentre.Id != 5)
+{
+@item.RTypeSanctionCentre.Libelle
+}
+else
+{
+@item.TypeSanctionAutre
+}</b>
+                <br />
+                @item.MotifSanction
+            </td>
+            <td>@item.RTypeOrganismeDemandeur.Libelle</td>
+            <td>@String.Format("{0:d}", item.DateEvenementOrigine)</td>
+            <td>@String.Format("{0:d}", item.DateDebut)</td>
+            <td>@String.Format("{0:d}", item.DateFin)</td>
+            <td>
+                @if (item.IsAgrementAffecteVL)
+                {
+                    @:VL:@item.CodAgremVl;
+                }
+                @if (item.IsAgrementAffectePL)
+                {
+                    @:PL:@item.CodAgremPl;
+                }
+                @if (item.IsAgrementAffecteCL)
+                {
+                    @:CL:@item.CodAgremCl;
+                }
+            </td>
+        </tr>
+        i++;
+    }
+</table>
+@* Propager le paramètre du formulaire précédent*@
+@Html.HiddenFor(model => model.RaisonSociale)
+@Html.HiddenFor(model => model.Id)
+@Html.HiddenFor(model => model.CodAgremVl)
+@Html.HiddenFor(model => model.CodAgremPl)
+@Html.HiddenFor(model => model.CodAgremCl)
+<br />
+<div class="rowAligne">
+    @if (GestionDroitsExecution.isRightActionForCentre(User, Model, GestionDroitsExecution.ActionsFicheCentre.SANCT))
+    {
+        @Html.ActionLink("Ajouter une sanction", "AjouterSanction", new { id = Model.Id }, new { @class = "btn primary" })
+    }
+    @Html.ActionLink("Retour à la fiche", "Fiche", new { id = Model.Id }, new { @class = "btn success" })
+</div>

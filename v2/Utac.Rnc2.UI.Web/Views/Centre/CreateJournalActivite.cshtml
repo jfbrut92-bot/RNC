@@ -1,0 +1,26 @@
+﻿@model Utac.Rnc2.UI.Web.Models.JournalActiviteModel
+
+@section TitleContent {
+    Ajout d'une entrée de journal pour le centre @Model.Centre.RaisonSociale
+}
+@section SousTitrePage {
+    Ajout d'une entrée de journal pour le centre @Model.Centre.RaisonSociale
+}
+@using (Html.BeginForm())
+{
+    @Html.ValidationSummary(true)
+    <fieldset>
+        <div class="editor-label">
+            <label>Détail</label>
+        </div>
+        <div class="editor-field">
+            @Html.TextAreaFor(model => model.Journal.Detail, new { rows = 10, cols = 80, maxlength = "800" })
+            @Html.ValidationMessageFor(model => model.Journal.Detail)
+        </div>
+        <br />
+        <div class="rowAligne">
+            <input type="submit" value="Enregistrer" class="btn primary" />
+            <a class="btn success" href="@Url.Action("Fiche","Centre", new { id = Model.Centre.Id})">Retour à la fiche</a>
+        </div>
+    </fieldset>
+}

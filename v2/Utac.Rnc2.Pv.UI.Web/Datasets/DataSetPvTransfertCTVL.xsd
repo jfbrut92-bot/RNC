@@ -1,0 +1,310 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<xs:schema xmlns:tns="otc" elementFormDefault="qualified" targetNamespace="otc" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+  <xs:element name="BeanPvOut" nillable="true" type="tns:BeanPvOut" />
+  <xs:complexType name="BeanPvOut">
+    <xs:all>
+      <xs:element minOccurs="1" maxOccurs="1" name="listPcontrole" nillable="true" type="tns:ArrayOfPControle" />
+      <xs:element minOccurs="1" maxOccurs="1" name="resultatRecherche" nillable="true" type="xs:short" />
+    </xs:all>
+  </xs:complexType>
+  <xs:complexType name="ArrayOfPControle">
+    <xs:sequence>
+      <xs:element minOccurs="0" maxOccurs="unbounded" name="itemPControle" type="tns:PControle" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="PControle">
+    <xs:all>
+      <xs:element minOccurs="1" maxOccurs="1" name="PControleAdgRMat" nillable="true" type="tns:RMaterielStatut" />
+      <xs:element minOccurs="1" maxOccurs="1" name="PControleBsuRMat" nillable="true" type="tns:RMaterielStatut" />
+      <xs:element minOccurs="1" maxOccurs="1" name="PControleDecRMat" nillable="true" type="tns:RMaterielStatut" />
+      <xs:element minOccurs="1" maxOccurs="1" name="PControleFrlRMat" nillable="true" type="tns:RMaterielStatut" />
+      <xs:element minOccurs="1" maxOccurs="1" name="PControleObdRMat" nillable="true" type="tns:RMaterielStatut" />
+      <xs:element minOccurs="1" maxOccurs="1" name="PControleOpaRMat" nillable="true" type="tns:RMaterielStatut" />
+      <xs:element minOccurs="1" maxOccurs="1" name="PControlePK" nillable="true" type="tns:PControlePK" />
+      <xs:element minOccurs="1" maxOccurs="1" name="PControleRegRMat" nillable="true" type="tns:RMaterielStatut" />
+      <xs:element minOccurs="1" maxOccurs="1" name="PControleRipRMat" nillable="true" type="tns:RMaterielStatut" />
+      <xs:element minOccurs="1" maxOccurs="1" name="PMesures" nillable="true" type="tns:PMesures" />
+      <xs:element minOccurs="1" maxOccurs="1" name="PTransfert" nillable="true" type="tns:PTransfert" />
+      <xs:element minOccurs="1" maxOccurs="1" name="PVehiculePresente" nillable="true" type="tns:PVehiculePresente" />
+      <xs:element minOccurs="1" maxOccurs="1" name="RDocumentIdentification" nillable="true" type="tns:RDocumentIdentification" />
+      <xs:element minOccurs="1" maxOccurs="1" name="RModifMesureDefaut" nillable="true" type="tns:RModifMesureDefaut" />
+      <xs:element minOccurs="1" maxOccurs="1" name="RNatureControle" nillable="true" type="tns:RNatureControle" />
+      <xs:element minOccurs="1" maxOccurs="1" name="RResultCtrl" nillable="true" type="tns:RResultCtrl" />
+      <xs:element minOccurs="1" maxOccurs="1" name="codAgremCentre" nillable="true" type="xs:string" />
+      <xs:element minOccurs="1" maxOccurs="1" name="codAgremCentreVtDef" nillable="true" type="xs:string" />
+      <xs:element minOccurs="1" maxOccurs="1" name="codAgremCntlr" nillable="true" type="xs:string" />
+      <xs:element minOccurs="1" maxOccurs="1" name="codAgremCntlrVtDef" nillable="true" type="xs:string" />
+      <xs:element minOccurs="1" maxOccurs="1" name="codErreurSiv" nillable="true" type="xs:string" />
+      <xs:element minOccurs="1" maxOccurs="1" name="codNatureCtrlSuivant" nillable="true" type="xs:string" />
+      <xs:element minOccurs="1" maxOccurs="1" name="codResultDemande" nillable="true" type="xs:short" />
+      <xs:element minOccurs="1" maxOccurs="1" name="ctrlConsolide" type="xs:boolean" />
+      <xs:element minOccurs="1" maxOccurs="1" name="dateCtrl" nillable="true" type="xs:dateTime" />
+      <xs:element minOccurs="1" maxOccurs="1" name="dateFactu" nillable="true" type="xs:dateTime" />
+      <xs:element minOccurs="1" maxOccurs="1" name="dateImpPv" nillable="true" type="xs:dateTime" />
+      <xs:element minOccurs="1" maxOccurs="1" name="dateValidVisaCtcomp" nillable="true" type="xs:dateTime" />
+      <xs:element minOccurs="1" maxOccurs="1" name="dateValidVisaCtp" nillable="true" type="xs:dateTime" />
+      <xs:element minOccurs="1" maxOccurs="1" name="dateValidationPv" nillable="true" type="xs:dateTime" />
+      <xs:element minOccurs="1" maxOccurs="1" name="dateVtDef" nillable="true" type="xs:dateTime" />
+      <xs:element minOccurs="1" maxOccurs="1" name="heureDebCtrl" nillable="true" type="xs:dateTime" />
+      <xs:element minOccurs="1" maxOccurs="1" name="heureFinCtrl" nillable="true" type="xs:dateTime" />
+      <xs:element minOccurs="1" maxOccurs="1" name="heureImpPv" nillable="true" type="xs:dateTime" />
+      <xs:element minOccurs="1" maxOccurs="1" name="heureValidationPv" nillable="true" type="xs:dateTime" />
+      <xs:element minOccurs="1" maxOccurs="1" name="kmVeh" nillable="true" type="xs:int" />
+      <xs:element minOccurs="1" maxOccurs="1" name="moisVisit" nillable="true" type="xs:int" />
+      <xs:element minOccurs="1" maxOccurs="1" name="nbCommentaire" nillable="true" type="xs:int" />
+      <xs:element minOccurs="1" maxOccurs="1" name="nbDef" nillable="true" type="xs:int" />
+      <xs:element minOccurs="1" maxOccurs="1" name="numFrappe" nillable="true" type="xs:string" />
+      <xs:element minOccurs="1" maxOccurs="1" name="numLiasseCtrl" nillable="true" type="xs:string" />
+      <xs:element minOccurs="1" maxOccurs="1" name="numOrdreDemande" nillable="true" type="xs:string" />
+      <xs:element minOccurs="1" maxOccurs="1" name="numPlaque" nillable="true" type="xs:string" />
+      <xs:element minOccurs="1" maxOccurs="1" name="numPvCtrl" nillable="true" type="xs:string" />
+      <xs:element minOccurs="1" maxOccurs="1" name="numPvVtDef" nillable="true" type="xs:string" />
+      <xs:element minOccurs="1" maxOccurs="1" name="numVignette" nillable="true" type="xs:string" />
+      <xs:element minOccurs="1" maxOccurs="1" name="numVisit" nillable="true" type="xs:decimal" />
+      <xs:element minOccurs="1" maxOccurs="1" name="origine" type="xs:short" />
+      <xs:element minOccurs="1" maxOccurs="1" name="versionLogiciel" nillable="true" type="xs:string" />
+      <xs:element minOccurs="1" maxOccurs="1" name="pDocConstate" nillable="true" type="tns:ArrayOfPDocConstate" />
+      <xs:element minOccurs="1" maxOccurs="1" name="rAno" nillable="true" type="tns:ArrayOfRAno" />
+    </xs:all>
+  </xs:complexType>
+  <xs:complexType name="RMaterielStatut">
+    <xs:all>
+
+      <xs:element minOccurs="1" maxOccurs="1" name="codStatutMateriel" type="xs:byte" />
+      <xs:element minOccurs="1" maxOccurs="1" name="libStatutMateriel" nillable="true" type="xs:string" />
+    </xs:all>
+  </xs:complexType>
+
+  <xs:complexType name="PControlePK">
+    <xs:all>
+      <xs:element minOccurs="1" maxOccurs="1" name="numVisit" nillable="true" type="xs:decimal" />
+      <xs:element minOccurs="1" maxOccurs="1" name="origine" type="xs:short" />
+    </xs:all>
+  </xs:complexType>
+  <xs:complexType name="PMesures">
+    <xs:all>
+      <xs:element minOccurs="1" maxOccurs="1" name="mesContMasse" nillable="true" type="xs:double" />
+      <xs:element minOccurs="1" maxOccurs="1" name="mesDecelerationFreinSecours" nillable="true" type="xs:double" />
+      <xs:element minOccurs="1" maxOccurs="1" name="mesDecelerationFreinService" nillable="true" type="xs:double" />
+      <xs:element minOccurs="1" maxOccurs="1" name="mesEffRoueArd" nillable="true" type="xs:int" />
+      <xs:element minOccurs="1" maxOccurs="1" name="mesEffRoueArg" nillable="true" type="xs:int" />
+      <xs:element minOccurs="1" maxOccurs="1" name="mesEffRoueAvd" nillable="true" type="xs:int" />
+      <xs:element minOccurs="1" maxOccurs="1" name="mesEffRoueAvg" nillable="true" type="xs:int" />
+      <xs:element minOccurs="1" maxOccurs="1" name="mesForceVerticalEssieuAr" nillable="true" type="xs:int" />
+      <xs:element minOccurs="1" maxOccurs="1" name="mesForceVerticalEssieuAv" nillable="true" type="xs:int" />
+      <xs:element minOccurs="1" maxOccurs="1" name="mesFsDesAr" nillable="true" type="xs:int" />
+      <xs:element minOccurs="1" maxOccurs="1" name="mesFsDesAv" nillable="true" type="xs:int" />
+      <xs:element minOccurs="1" maxOccurs="1" name="mesFsForceMaxArd" nillable="true" type="xs:int" />
+      <xs:element minOccurs="1" maxOccurs="1" name="mesFsForceMaxArg" nillable="true" type="xs:int" />
+      <xs:element minOccurs="1" maxOccurs="1" name="mesFsForceMaxAvd" nillable="true" type="xs:int" />
+      <xs:element minOccurs="1" maxOccurs="1" name="mesFsForceMaxAvg" nillable="true" type="xs:int" />
+      <xs:element minOccurs="1" maxOccurs="1" name="mesFsRrForceMaxArd" nillable="true" type="xs:int" />
+      <xs:element minOccurs="1" maxOccurs="1" name="mesFsRrForceMaxArg" nillable="true" type="xs:int" />
+      <xs:element minOccurs="1" maxOccurs="1" name="mesFsRrForceMaxAvd" nillable="true" type="xs:int" />
+      <xs:element minOccurs="1" maxOccurs="1" name="mesFsRrForceMaxAvg" nillable="true" type="xs:int" />
+      <xs:element minOccurs="1" maxOccurs="1" name="mesFstForceMaxRoueD" nillable="true" type="xs:int" />
+      <xs:element minOccurs="1" maxOccurs="1" name="mesFstForceMaxRoueG" nillable="true" type="xs:int" />
+      <xs:element minOccurs="1" maxOccurs="1" name="mesFstRrForceMaxRoueD" nillable="true" type="xs:int" />
+      <xs:element minOccurs="1" maxOccurs="1" name="mesFstRrForceMaxRoueG" nillable="true" type="xs:int" />
+      <xs:element minOccurs="1" maxOccurs="1" name="mesPolluC1" nillable="true" type="xs:string" />
+      <xs:element minOccurs="1" maxOccurs="1" name="mesPolluC2" nillable="true" type="xs:string" />
+      <xs:element minOccurs="1" maxOccurs="1" name="mesPolluC3" nillable="true" type="xs:string" />
+      <xs:element minOccurs="1" maxOccurs="1" name="mesPolluC4" nillable="true" type="xs:string" />
+      <xs:element minOccurs="1" maxOccurs="1" name="mesPolluC5" nillable="true" type="xs:string" />
+      <xs:element minOccurs="1" maxOccurs="1" name="mesPolluCo2Ral" nillable="true" type="xs:double" />
+      <xs:element minOccurs="1" maxOccurs="1" name="mesPolluCoCorrRal" nillable="true" type="xs:double" />
+      <xs:element minOccurs="1" maxOccurs="1" name="mesPolluCoRal" nillable="true" type="xs:double" />
+      <xs:element minOccurs="1" maxOccurs="1" name="mesPolluCoRalAcc" nillable="true" type="xs:double" />
+      <xs:element minOccurs="1" maxOccurs="1" name="mesPolluHc" nillable="true" type="xs:int" />
+      <xs:element minOccurs="1" maxOccurs="1" name="mesPolluLambda" nillable="true" type="xs:double" />
+      <xs:element minOccurs="1" maxOccurs="1" name="mesPolluRegRal" nillable="true" type="xs:int" />
+      <xs:element minOccurs="1" maxOccurs="1" name="mesPolluRegRalAcc" nillable="true" type="xs:int" />
+      <xs:element minOccurs="1" maxOccurs="1" name="mesPolluVcalc" nillable="true" type="xs:string" />
+      <xs:element minOccurs="1" maxOccurs="1" name="mesRabattementFBrouilPla" nillable="true" type="xs:string" />
+      <xs:element minOccurs="1" maxOccurs="1" name="mesRabattementFeuBrouilD" nillable="true" type="xs:string" />
+      <xs:element minOccurs="1" maxOccurs="1" name="mesRabattementFeuBrouilG" nillable="true" type="xs:string" />
+      <xs:element minOccurs="1" maxOccurs="1" name="mesRabattementFeuCroismtD" nillable="true" type="xs:string" />
+      <xs:element minOccurs="1" maxOccurs="1" name="mesRabattementFeuCroismtG" nillable="true" type="xs:string" />
+      <xs:element minOccurs="1" maxOccurs="1" name="mesRabattementPlage" nillable="true" type="xs:string" />
+      <xs:element minOccurs="1" maxOccurs="1" name="mesRippageEssieu1" nillable="true" type="xs:string" />
+      <xs:element minOccurs="1" maxOccurs="1" name="mesSuspDesRoueAr" nillable="true" type="xs:int" />
+      <xs:element minOccurs="1" maxOccurs="1" name="mesSuspDesRoueAv" nillable="true" type="xs:int" />
+      <xs:element minOccurs="1" maxOccurs="1" name="txEffGlobFreinService" nillable="true" type="xs:int" />
+      <xs:element minOccurs="1" maxOccurs="1" name="txEffiGlobFreinSecours" nillable="true" type="xs:int" />
+      <xs:element minOccurs="1" maxOccurs="1" name="txEffiGlobFreinStationmt" nillable="true" type="xs:int" />
+    </xs:all>
+  </xs:complexType>
+  <xs:complexType name="PTransfert">
+    <xs:all>
+
+      <xs:element minOccurs="1" maxOccurs="1" name="RUtilisateur" nillable="true" type="tns:RUtilisateur" />
+      <xs:element minOccurs="1" maxOccurs="1" name="codeAgrementCentre" nillable="true" type="xs:string" />
+      <xs:element minOccurs="1" maxOccurs="1" name="dateReception" nillable="true" type="xs:dateTime" />
+      <xs:element minOccurs="1" maxOccurs="1" name="dateTransfert" nillable="true" type="xs:dateTime" />
+      <xs:element minOccurs="1" maxOccurs="1" name="estDoublon" type="xs:boolean" />
+      <xs:element minOccurs="1" maxOccurs="1" name="estTest" type="xs:boolean" />
+      <xs:element minOccurs="1" maxOccurs="1" name="ficXmlAssocie" nillable="true" type="xs:string" />
+      <xs:element minOccurs="1" maxOccurs="1" name="ficXmlRapport" nillable="true" type="xs:string" />
+      <xs:element minOccurs="1" maxOccurs="1" name="fluxValide" type="xs:boolean" />
+      <xs:element minOccurs="1" maxOccurs="1" name="hashCode" nillable="true" type="xs:string" />
+      <xs:element minOccurs="1" maxOccurs="1" name="heureTransfert" nillable="true" type="xs:dateTime" />
+      <xs:element minOccurs="1" maxOccurs="1" name="host" nillable="true" type="xs:string" />
+      <xs:element minOccurs="1" maxOccurs="1" name="numOrdre" nillable="true" type="xs:double" />
+      <xs:element minOccurs="1" maxOccurs="1" name="numTransfert" nillable="true" type="xs:decimal" />
+      <xs:element minOccurs="1" maxOccurs="1" name="origine" type="xs:short" />
+      <xs:element minOccurs="1" maxOccurs="1" name="transfertTraite" type="xs:boolean" />
+    </xs:all>
+  </xs:complexType>
+
+  <xs:complexType name="RUtilisateur">
+    <xs:all>
+
+      <xs:element minOccurs="1" maxOccurs="1" name="codReseau" nillable="true" type="xs:string" />
+      <xs:element minOccurs="1" maxOccurs="1" name="dateCreat" nillable="true" type="xs:dateTime" />
+      <xs:element minOccurs="1" maxOccurs="1" name="dateMaj" nillable="true" type="xs:dateTime" />
+      <xs:element minOccurs="1" maxOccurs="1" name="idLogin" nillable="true" type="xs:decimal" />
+      <xs:element minOccurs="1" maxOccurs="1" name="motPasse" nillable="true" type="xs:string" />
+      <xs:element minOccurs="1" maxOccurs="1" name="nomLogin" nillable="true" type="xs:string" />
+    </xs:all>
+  </xs:complexType>
+
+  <xs:complexType name="PVehiculePresente">
+    <xs:all>
+      <xs:element minOccurs="1" maxOccurs="1" name="codCarosVeh" nillable="true" type="xs:string" />
+      <xs:element minOccurs="1" maxOccurs="1" name="codCategVeh" nillable="true" type="xs:string" />
+      <xs:element minOccurs="1" maxOccurs="1" name="codEnergVeh" nillable="true" type="xs:string" />
+      <xs:element minOccurs="1" maxOccurs="1" name="codGenreInco" nillable="true" type="xs:string" />
+      <xs:element minOccurs="1" maxOccurs="1" name="codModVeh" nillable="true" type="xs:string" />
+      <xs:element minOccurs="1" maxOccurs="1" name="codMrqVeh" nillable="true" type="xs:string" />
+      <xs:element minOccurs="1" maxOccurs="1" name="codTypCtrlPollu" nillable="true" type="xs:string" />
+      <xs:element minOccurs="1" maxOccurs="1" name="codeGenreVeh" nillable="true" type="xs:string" />
+      <xs:element minOccurs="1" maxOccurs="1" name="dateCircu" nillable="true" type="xs:dateTime" />
+      <xs:element minOccurs="1" maxOccurs="1" name="dateCircuEval" nillable="true" type="xs:dateTime" />
+      <xs:element minOccurs="1" maxOccurs="1" name="dateCircuTrnsm" nillable="true" type="xs:string" />
+      <xs:element minOccurs="1" maxOccurs="1" name="dateGnc" nillable="true" type="xs:dateTime" />
+      <xs:element minOccurs="1" maxOccurs="1" name="dateImmat" nillable="true" type="xs:dateTime" />
+      <xs:element minOccurs="1" maxOccurs="1" name="dateImmatTrnsm" nillable="true" type="xs:string" />
+      <xs:element minOccurs="1" maxOccurs="1" name="depCertifImmat" nillable="true" type="xs:string" />
+      <xs:element minOccurs="1" maxOccurs="1" name="immatVeh" nillable="true" type="xs:string" />
+      <xs:element minOccurs="1" maxOccurs="1" name="libModVeh" nillable="true" type="xs:string" />
+      <xs:element minOccurs="1" maxOccurs="1" name="libMrqVeh" nillable="true" type="xs:string" />
+      <xs:element minOccurs="1" maxOccurs="1" name="nbPlaceAssis" nillable="true" type="xs:short" />
+      <xs:element minOccurs="1" maxOccurs="1" name="numFormule" nillable="true" type="xs:string" />
+      <xs:element minOccurs="1" maxOccurs="1" name="numSerie" nillable="true" type="xs:string" />
+      <xs:element minOccurs="1" maxOccurs="1" name="presenceObd" nillable="true" type="xs:string" />
+      <xs:element minOccurs="1" maxOccurs="1" name="ptac" nillable="true" type="xs:int" />
+      <xs:element minOccurs="1" maxOccurs="1" name="puissAdmin" nillable="true" type="xs:short" />
+      <xs:element minOccurs="1" maxOccurs="1" name="symbPays" nillable="true" type="xs:string" />
+      <xs:element minOccurs="1" maxOccurs="1" name="typMinCnit" nillable="true" type="xs:string" />
+    </xs:all>
+  </xs:complexType>
+  <xs:complexType name="RDocumentIdentification">
+    <xs:all>
+
+      <xs:element minOccurs="1" maxOccurs="1" name="codDocument" nillable="true" type="xs:string" />
+      <xs:element minOccurs="1" maxOccurs="1" name="libDocument" nillable="true" type="xs:string" />
+    </xs:all>
+  </xs:complexType>
+
+  <xs:complexType name="RModifMesureDefaut">
+    <xs:all>
+
+      <xs:element minOccurs="1" maxOccurs="1" name="codModifMesureDefaut" nillable="true" type="xs:string" />
+      <xs:element minOccurs="1" maxOccurs="1" name="libModifMesureDefaut" nillable="true" type="xs:string" />
+    </xs:all>
+  </xs:complexType>
+
+  <xs:complexType name="RNatureControle">
+    <xs:all>
+
+      <xs:element minOccurs="1" maxOccurs="1" name="codNatureCtrl" nillable="true" type="xs:string" />
+      <xs:element minOccurs="1" maxOccurs="1" name="libNatureCtrl" nillable="true" type="xs:string" />
+    </xs:all>
+  </xs:complexType>
+
+  <xs:complexType name="RResultCtrl">
+    <xs:all>
+
+      <xs:element minOccurs="1" maxOccurs="1" name="codResultCtrl" nillable="true" type="xs:string" />
+      <xs:element minOccurs="1" maxOccurs="1" name="contreVisite" type="xs:boolean" />
+      <xs:element minOccurs="1" maxOccurs="1" name="libResultCtrl" nillable="true" type="xs:string" />
+    </xs:all>
+  </xs:complexType>
+
+  <xs:complexType name="ArrayOfPDocConstate">
+    <xs:sequence>
+      <xs:element minOccurs="0" maxOccurs="unbounded" name="itemPDocConstate" type="tns:PDocConstate" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="PDocConstate">
+    <xs:all>
+
+      <xs:element minOccurs="1" maxOccurs="1" name="RDoc" nillable="true" type="tns:RDoc" />
+      <xs:element minOccurs="1" maxOccurs="1" name="RLocalisation" nillable="true" type="tns:ArrayOfRLocalisation" />
+      <xs:element minOccurs="1" maxOccurs="1" name="numeroDoc" type="xs:short" />
+    </xs:all>
+  </xs:complexType>
+
+  <xs:complexType name="RDoc">
+    <xs:all>
+ 
+      <xs:element minOccurs="1" maxOccurs="1" name="RFonctionDoc" nillable="true" type="tns:RFonctionDoc" />
+      <xs:element minOccurs="1" maxOccurs="1" name="RTypeDoc" nillable="true" type="tns:RTypeDoc" />
+      <xs:element minOccurs="1" maxOccurs="1" name="codDoc" nillable="true" type="xs:string" />
+      <xs:element minOccurs="1" maxOccurs="1" name="codDocCourt" nillable="true" type="xs:string" />
+      <xs:element minOccurs="1" maxOccurs="1" name="dateDebutEffet" nillable="true" type="xs:dateTime" />
+      <xs:element minOccurs="1" maxOccurs="1" name="dateFinEffet" nillable="true" type="xs:dateTime" />
+      <xs:element minOccurs="1" maxOccurs="1" name="libDocCourt" nillable="true" type="xs:string" />
+      <xs:element minOccurs="1" maxOccurs="1" name="libDocLong" nillable="true" type="xs:string" />
+      <xs:element minOccurs="1" maxOccurs="1" name="numDoc" type="xs:int" />
+      <xs:element minOccurs="1" maxOccurs="1" name="numDoc2" nillable="true" type="xs:int" />
+    </xs:all>
+  </xs:complexType>
+
+  <xs:complexType name="RFonctionDoc">
+    <xs:all>
+      <xs:element minOccurs="1" maxOccurs="1" name="codFonction" nillable="true" type="xs:string" />
+      <xs:element minOccurs="1" maxOccurs="1" name="libFonction" nillable="true" type="xs:string" />
+    </xs:all>
+  </xs:complexType>
+
+  <xs:complexType name="RTypeDoc">
+    <xs:all>
+
+      <xs:element minOccurs="1" maxOccurs="1" name="codTypeDoc" nillable="true" type="xs:string" />
+      <xs:element minOccurs="1" maxOccurs="1" name="libTypeDoc" nillable="true" type="xs:string" />
+    </xs:all>
+  </xs:complexType>
+
+  <xs:complexType name="ArrayOfRLocalisation">
+    <xs:sequence>
+      <xs:element minOccurs="0" maxOccurs="unbounded" name="itemRLocalisation" type="tns:RLocalisation" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="RLocalisation">
+    <xs:all>
+
+      <xs:element minOccurs="1" maxOccurs="1" name="codLoc" nillable="true" type="xs:string" />
+      <xs:element minOccurs="1" maxOccurs="1" name="libLoc" nillable="true" type="xs:string" />
+    </xs:all>
+  </xs:complexType>
+
+  <xs:complexType name="ArrayOfRAno">
+    <xs:sequence>
+      <xs:element minOccurs="0" maxOccurs="unbounded" name="itemRAno" type="tns:RAno" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="RAno">
+    <xs:all>
+
+      <xs:element minOccurs="1" maxOccurs="1" name="comptExcep" nillable="true" type="xs:string" />
+      <xs:element minOccurs="1" maxOccurs="1" name="dateDebutEffet" nillable="true" type="xs:dateTime" />
+      <xs:element minOccurs="1" maxOccurs="1" name="dateFinEffet" nillable="true" type="xs:dateTime" />
+      <xs:element minOccurs="1" maxOccurs="1" name="estActif" type="xs:boolean" />
+      <xs:element minOccurs="1" maxOccurs="1" name="libComptExcep" nillable="true" type="xs:string" />
+      <xs:element minOccurs="1" maxOccurs="1" name="libCourtCe" nillable="true" type="xs:string" />
+      <xs:element minOccurs="1" maxOccurs="1" name="nivAno" type="xs:short" />
+    </xs:all>
+  </xs:complexType>
+
+</xs:schema>

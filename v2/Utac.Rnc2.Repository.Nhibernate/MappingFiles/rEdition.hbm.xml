@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<hibernate-mapping xmlns="urn:nhibernate-mapping-2.2" namespace="Utac.Rnc2.BusinessObjects" assembly="Utac.Rnc2.BusinessObjects">
+	<class name="Utac.Rnc2.BusinessObjects.rEdition, Utac.Rnc2.BusinessObjects" table="r_edition" lazy="true">
+		<id name="Id" column="id_edition">
+		 	<generator class="assigned" />
+		</id>
+		<property name="LibEdition" column="lib_edition" />
+		<property name="NomActionMvc" column="nom_action_mvc" />
+    <property name="Criteres" column="criteres" />
+    <property name="EstActif" column="est_actif" />
+
+    <bag name="RProfils" table="r_autorise_edition" lazy="true" cascade="all" inverse="false" >
+			<key column="id_edition"></key>
+			<many-to-many column="id_profil" class="rProfil" />
+    	</bag>
+	</class>
+</hibernate-mapping>
+

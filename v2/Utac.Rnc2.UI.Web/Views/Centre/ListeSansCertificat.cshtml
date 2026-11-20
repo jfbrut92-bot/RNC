@@ -1,0 +1,37 @@
+﻿@model Utac.Rnc2.UI.Web.Models.ListeSansCertificatModel
+@using Utac.Rnc2.BusinessObjects
+
+@section TitleContent {
+    Liste des centres @Model.Categorie sans certificats
+}
+@section SousTitrePage {
+    Liste des centres @Model.Categorie sans certificats
+}
+<p>@(Model.Liste != null ? Model.Liste.Count : 0) centre(s)</p>
+<table>
+    <tr>
+        <th>Agrément</th>
+        <th>Date de notification</th>
+        <th>Raison sociale</th>
+        <th>Ville</th>
+        <th>Nom Représentant Légal</th>
+    </tr>
+    @{var i = 0; }
+    @foreach (var item in Model.Liste)
+    {
+        <tr class="@(i % 2 == 0 ? "row1" : "row2")">
+            <td>
+                @(rCategorieVehicule.CategorieEnum.VL.Equals(Model.Categorie) ? item.CodAgremVl :
+                    rCategorieVehicule.CategorieEnum.PL.Equals(Model.Categorie) ? item.CodAgremPl : item.CodAgremCl)
+            </td>
+            <td>
+                @String.Format("{0:d}", rCategorieVehicule.CategorieEnum.VL.Equals(Model.Categorie) ? item.DateEffetNotificationVl :
+                   rCategorieVehicule.CategorieEnum.PL.Equals(Model.Categorie) ? item.DateEffetNotificationPl : item.DateEffetNotificationCl)
+            </td>
+            <td>@item.RaisonSociale</td>
+            <td>@item.CpCentre @item.Ville</td>
+            <td>@item.NomRepresentantLegal</td>
+        </tr>
+        i++;
+    }
+</table>

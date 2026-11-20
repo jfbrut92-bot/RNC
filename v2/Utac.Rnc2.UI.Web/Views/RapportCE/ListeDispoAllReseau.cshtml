@@ -1,0 +1,35 @@
+﻿@model IEnumerable<Utac.Rnc2.BusinessObjects.rReseau>
+
+@section TitleContent {
+    Rapports d'exception Réseaux PL disponibles
+}
+@section SousTitrePage {
+    Rapports d'exception Réseaux PL disponibles
+}
+<table>
+    <tr>
+        <th>Réseau</th>
+        <th>Liste des fichiers disponibles / Date téléchargement</th>
+    </tr>
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>@Html.ActionLink(item.ReseauAvecLettre, "ListeDispoReseau", new { id = item.Id })</td>
+            <td>
+                @if (item.PRapportExceptions != null)
+                {
+                    <ul>
+                        @foreach (var rapp in item.PRapportExceptions.OrderByDescending(h => h.DateDebutTransmissionPv))
+                        {
+                            <li>@rapp.NomRapport  @rapp.DateTelechargementRapport</li>
+                        }
+                    </ul>
+                }
+                else
+                {
+                    @:Aucun rapport
+                }
+            </td>
+        </tr>
+    }
+</table>

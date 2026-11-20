@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<hibernate-mapping xmlns="urn:nhibernate-mapping-2.2" namespace="Utac.Rnc2.BusinessObjects" assembly="Utac.Rnc2.BusinessObjects">
+	<class name="Utac.Rnc2.BusinessObjects.pVersionMineure, Utac.Rnc2.BusinessObjects" table="p_version_mineure" lazy="true">
+		<composite-id>
+			<key-property name="IdConformiteLogiciel" column="id_conformite_logiciel" /> 
+			<key-property name="Version" column="version" /> 
+		</composite-id>
+		<property name="Date" column="date" />
+		<property name="Commentaire" column="commentaire" />
+	</class>
+</hibernate-mapping>
+

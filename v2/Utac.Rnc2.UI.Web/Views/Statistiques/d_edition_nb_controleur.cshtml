@@ -1,0 +1,7 @@
+﻿@model IEnumerable<Utac.Rnc2.BusinessObjects.statistiques.ItemNombreDeControleurs>
+@{ Layout = null; }
+Département;Préfecture;Région;Contrôleurs VL Rattachés;Contrôleurs VL Non Rattachés;Contrôleurs PL Rattachés;Contrôleurs PL Non Rattachés;Contrôleurs PL et VL Rattachés;Contrôleurs PL et VL Non Rattachés
+@foreach (var item in Model)
+{
+@:="@item.CodeDepartement";@item.Prefecture;@item.Region;@item.RattacheVl;@item.NonRattacheVl;@item.RattachePl;@item.NonRattachePl;@item.RattacheVlPl;@item.NonRattacheVlPl
+}

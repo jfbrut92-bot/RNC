@@ -1,0 +1,91 @@
+﻿@model Utac.Rnc2.UI.Web.Models.CertificatModel
+@using Utac.Rnc2.BusinessObjects
+
+@section TitleContent {
+    Certificats électoniques
+}
+@section SousTitrePage {
+    Certificats électoniques
+}
+<h3>Installation: @Model.Centre.RaisonSociale - @Model.Centre.CodAgremVl @Model.Centre.CodAgremPl @Model.Centre.CodAgremCl</h3>
+<br />
+<div class="bloc_main">
+    <!-- BLOC PRINCIPAL -->
+    <div class="bloc_principal">
+        Liste des opérations effectuées sur les certificats du Réseau de contrôle technique
+        <br />
+        @{ IList<pGestionCertificat> gestionCertificats = null; }
+        @switch (Model.CategeorieVehicule)
+        {
+            case rCategorieVehicule.CategorieEnum.VL:
+                gestionCertificats = Model.Centre.PGestionCertificatVLs;
+                @:Véhicules légers :
+                break;
+            case rCategorieVehicule.CategorieEnum.PL:
+                gestionCertificats = Model.Centre.PGestionCertificatPLs;
+                @:Poids lourds :
+                break;
+            case rCategorieVehicule.CategorieEnum.CL:
+                gestionCertificats = Model.Centre.PGestionCertificatCLs;
+                @:Cyclomoteur:
+                break;
+        }
+        @Html.HiddenFor(m => Model.Centre.Id)
+        @if (gestionCertificats.Count() > 0)
+        {
+            <table>
+                <tr>
+                    <th>Date</th>
+                    <th>Opération/Fichier Téléchargé</th>
+                    <th>Date début validité Date d'expiration</th>
+                    <th>Date révocation</th>
+                </tr>
+                @foreach (var item in gestionCertificats.OrderByDescending(a => a.DateMaj))
+                {
+                    <tr>
+                        <td>@item.DateMaj.ToShortDateString()</td>
+                        <td>@item.RActionCertificat.LibAction</td>
+                        <td>@item.PCertificat.DateEffet.ToShortDateString()/@item.PCertificat.DateExpiration.ToShortDateString()</td>
+                        <td>@item.PCertificat.DateRevocation</td>
+                    </tr>
+                }
+            </table>
+        }
+        else
+        {
+            @:Vous n'avez aucun certificat actuellement.
+        }
+    </div>
+</div>
+@Html.HiddenFor(model => model.Centre.Id)
+@Html.ActionLink("Retour à la fiche", "Fiche", new { id = Model.Centre.Id })
+<!-- FIN BLOC PRINCIPAL -->
+@section SideBarDroite {
+    <div class="sidebar-box inline-block">
+        <!-- BLOC DROITE -->
+        <ul class="sections">
+            <li class="section">
+                <h3>Actions</h3>
+                <div class="content-sidebar">
+                    <ul>
+                        @if ((Model.AUnCertificatVlValide && Model.CategeorieVehicule == rCategorieVehicule.CategorieEnum.VL) || (Model.AUnCertificatPlValide && Model.CategeorieVehicule == rCategorieVehicule.CategorieEnum.PL) || (Model.AUnCertificatClValide && Model.CategeorieVehicule == rCategorieVehicule.CategorieEnum.CL))
+                        {
+                            <li>@Html.ActionLink("Télécharger une copie du certificat électronique", "TelechargerCertificat", new { id = Model.Centre.Id, categorieVehicule = Model.CategeorieVehicule })</li>
+                            <li>@Html.ActionLink("Révoquer le certificat courant", "TelechargerCertificat", new { id = Model.Centre.Id, categorieVehicule = Model.CategeorieVehicule })</li>
+                        }
+                        @if (Model.DernierCertificat == null)
+                        {
+                            <li>@Html.ActionLink("Télécharger le 1er certificat électronique", "CreerCertificat", new { id = Model.Centre.Id, categorieVehicule = Model.CategeorieVehicule })</li>
+                        }
+                        @if (Model.DernierCertificat != null)
+                        {
+                            <li>@Html.ActionLink("Information certificat", "InformationCertificat", new { id = Model.Centre.Id, categorieVehicule = Model.CategeorieVehicule })</li>
+                        }
+
+                    </ul>
+                </div>
+                <span class="clear">&nbsp;</span>
+            </li>
+        </ul>
+    </div>
+}

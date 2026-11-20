@@ -1,0 +1,20 @@
+﻿@model dynamic
+
+@section TitleContent {
+    Mail
+}
+<h2>Test Mail</h2>
+@if (ViewData["message"] != null)
+{
+    <p>@ViewData["message"]</p>
+}
+<form method="post">
+    <p>
+        <label for="email">Saisir une adresse</label>
+        <input name="email" id="email" />
+    </p>
+    <p>
+        <textarea name="contenu" rows="20" cols="100">un test de message</textarea>
+    </p>
+    <input type="submit" value="envoyer mail !" />
+</form>

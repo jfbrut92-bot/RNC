@@ -1,0 +1,44 @@
+﻿@model Utac.Rnc2.UI.Web.Models.ModificationDenominationSocialeModel
+
+@section TitleContent {
+    Changement Dénomination
+}
+@section SousTitrePage {
+    Changement de dénomination sociale
+}
+@section StyleContent {
+    @Styles.Render("~/styles/jquery-ui")
+}
+<h2>Installation: @Model.Centre.RaisonSociale - @Model.Centre.CodAgremVl @Model.Centre.CodAgremPl @Model.Centre.CodAgremCl</h2>
+<p>Veuillez saisir la nouvelle dénomination sociale</p>
+@using (Html.BeginForm())
+{
+    @Html.ValidationSummary(true)
+    @* Propager le paramètre du formulaire précédent*@
+    @Html.HiddenFor(model => model.Centre.Id)
+    @Html.HiddenFor(model => model.Centre.CodAgremVl)
+    @Html.HiddenFor(model => model.Centre.CodAgremPl)
+    @Html.HiddenFor(model => model.Centre.CodAgremCl)
+    <fieldset>
+        <div class="editor-label">@Html.Label("Raison sociale")</div>
+        <div class="editor-field">
+            @Html.TextBoxFor(model => model.Centre.RaisonSociale, new { size = "100", maxlength = "100", style = "text-transform:uppercase" })
+            @Html.ValidationMessageFor(model => model.Centre.RaisonSociale)
+        </div>
+        <div class="editor-label">@Html.Label("Date d'effet de la modification")</div>
+        <div class="editor-field">
+            @Html.TextBoxFor(model => model.Centre.DateEffetModification, new { @class = "datepicker" })
+            @Html.ValidationMessageFor(model => model.Centre.DateEffetModification)
+        </div>
+        <br />
+        <p class="avertissement">ATTENTION ! Vérifiez que le numéro de SIREN du KBIS est identique à celui du dossier intial de l'agrément. Dans le cas contraire, la procédure à appliquer est celle relative à un changement d'exploitant</p>
+        <div class="rowAligne">
+            <input type="submit" value="Enregistrer" class="btn primary" />
+            <a class="btn success" href="@Url.Action("Fiche","Centre", new { id = Model.Centre.Id})">Retour à la fiche</a>
+        </div>
+    </fieldset>
+}
+@section JavaScriptContent {
+    <!-- DatePicker -->
+    @Scripts.Render("~/scripts/date-picker")
+}

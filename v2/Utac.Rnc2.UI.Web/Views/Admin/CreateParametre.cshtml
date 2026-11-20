@@ -1,0 +1,33 @@
+﻿@model Utac.Rnc2.BusinessObjects.Parametre
+
+@section TitleContent {
+    CreateParametre
+}
+<h2>CreateParametre</h2>
+@using (Html.BeginForm())
+{
+    @Html.ValidationSummary(true)
+    <fieldset>
+        <legend>Fields</legend>
+        <div class="editor-label">
+            @Html.LabelFor(model => model.Nom)
+        </div>
+        <div class="editor-field">
+            @Html.TextBoxFor(model => model.Nom)
+            @Html.ValidationMessageFor(model => model.Nom, null, new { @class = "alert-error" })
+        </div>
+        <div class="editor-label">
+            @Html.LabelFor(model => model.Valeur)
+        </div>
+        <div class="editor-field">
+            @Html.TextBoxFor(model => model.Valeur)
+            @Html.ValidationMessageFor(model => model.Valeur, null, new { @class = "alert-error" })
+        </div>
+        <p>
+            <input type="submit" value="Créer" class="btn primary" />
+        </p>
+    </fieldset>
+}
+<div>
+    @Html.ActionLink("Revenir à la liste", "ListeParametres")
+</div>

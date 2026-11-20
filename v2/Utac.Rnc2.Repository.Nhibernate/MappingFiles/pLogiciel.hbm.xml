@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<hibernate-mapping xmlns="urn:nhibernate-mapping-2.2" namespace="Utac.Rnc2.BusinessObjects" assembly="Utac.Rnc2.BusinessObjects">
+	<class name="Utac.Rnc2.BusinessObjects.pLogiciel, Utac.Rnc2.BusinessObjects" table="p_logiciel" lazy="true">
+		<id name="Id" column="id_logiciel">
+		 	<generator class="assigned" />
+		</id>
+		<property name="NomLogiciel" column="nom_logiciel" />
+		<property name="NomEditeur" column="nom_editeur" />
+		<bag name="PConformiteLogiciels" lazy="true" cascade="all-delete-orphan" inverse="true" >
+			<key column="id_logiciel"></key>
+			<one-to-many class="pConformiteLogiciel"></one-to-many>
+		</bag>
+	</class>
+</hibernate-mapping>
+

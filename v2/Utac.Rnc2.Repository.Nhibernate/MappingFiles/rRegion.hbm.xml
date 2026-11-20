@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<hibernate-mapping xmlns="urn:nhibernate-mapping-2.2" namespace="Utac.Rnc2.BusinessObjects" assembly="Utac.Rnc2.BusinessObjects">
+	<class name="Utac.Rnc2.BusinessObjects.rRegion, Utac.Rnc2.BusinessObjects" table="r_region" lazy="true">
+		<id name="Id" column="id_region">
+		 	<generator class="assigned" />
+		</id>
+		<property name="LibelleRegion" column="libelle_region" />
+		<bag name="RPrefectures" lazy="true" cascade="all" inverse="true" >
+			<key column="id_region"></key>
+			<one-to-many class="rPrefecture"></one-to-many>
+		</bag>
+		<bag name="RUtilisateurs" lazy="true" cascade="all" inverse="true" >
+			<key column="id_region"></key>
+			<one-to-many class="rUtilisateur"></one-to-many>
+		</bag>
+	</class>
+</hibernate-mapping>
+

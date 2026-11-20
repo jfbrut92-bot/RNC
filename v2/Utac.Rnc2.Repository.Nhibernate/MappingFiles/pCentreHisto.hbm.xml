@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<hibernate-mapping xmlns="urn:nhibernate-mapping-2.2" namespace="Utac.Rnc2.BusinessObjects" assembly="Utac.Rnc2.BusinessObjects">
+  <class name="Utac.Rnc2.BusinessObjects.pCentreHisto, Utac.Rnc2.BusinessObjects" table="p_centre_histo" lazy="true">
+    <composite-id>
+      <key-property name="DateHisto" column="date_histo" />
+      <key-property name="IdCentreHisto" column="id_centre_histo" />
+    </composite-id>
+    <property name="RaisonSociale" column="raison_sociale" />
+    <property name="NumSiren" column="num_siren" />
+    <property name="EnseigneCommerciale" column="enseigne_commerciale" />
+    <property name="L1Adresse" column="l1_adresse" />
+    <property name="L2Adresse" column="l2_adresse" />
+    <property name="CpCentre" column="cp_centre" />
+    <property name="Ville" column="ville" />
+    <property name="NumTel" column="num_tel" />
+    <property name="NomRepresentantLegal" column="nom_representant_legal" />
+    <property name="TypeCentre" column="type_centre" />
+    <property name="CodDepartement" column="cod_departement" />
+    <property name="NumOrdrePl" column="num_ordre_pl" />
+    <property name="NumOrdreVl" column="num_ordre_vl" />
+    <property name="CodAgremPl" column="cod_agrem_pl" />
+    <property name="CodAgremVl" column="cod_agrem_vl" />
+    <property name="AncienNumeroAgrementVl" column="ancien_numero_agrement_vl" />
+    <property name="AncienNumeroAgrementPl" column="ancien_numero_agrement_pl" />
+    <property name="DateEffetNotificationPl" column="date_effet_notification_pl" />
+    <property name="DateEffetNotificationVl" column="date_effet_notification_vl" />
+    <property name="DateFinAgrementPl" column="date_fin_agrement_pl" />
+    <property name="DateEcheanceAgrementPl" column="date_echeance_agrement_pl" />
+    <property name="DateFinAgrementVl" column="date_fin_agrement_vl" />
+    <property name="MotifFinAgrementPl" column="motif_fin_agrement_pl" />
+    <property name="MotifFinAgrementVl" column="motif_fin_agrement_vl" />
+    <property name="AvisOtcVl" column="avis_otc_vl" />
+    <property name="ReferenceAvisOtcVl" column="reference_avis_otc_vl" />
+    <property name="DateAvisOtcVl" column="date_avis_otc_vl" />
+    <property name="CommentaireAvisOtcVl" column="commentaire_avis_otc_vl" />
+    <property name="EtatAgrementVl" column="etat_agrement_vl" />
+    <property name="EtatAgrementPl" column="etat_agrement_pl" />
+    <property name="AvisOtcPl" column="avis_otc_pl" />
+    <property name="ReferenceAvisOtcPl" column="reference_avis_otc_pl" />
+    <property name="DateAvisOtcPl" column="date_avis_otc_pl" />
+    <property name="CommentaireAvisOtcPl" column="commentaire_avis_otc_pl" />
+    <property name="DateEffetModification" column="date_effet_modification" />
+    <property name="NumFax" column="num_fax" />
+    <many-to-one name="RMotifModification" column="cod_motif_modif" class="rMotifModification" />
+    <many-to-one name="RPrefecture" column="id_prefecture" class="rPrefecture" />
+    <!-- EG le 11/08/2011 suppression de la colonne <many-to-one name="RReseau" column="cod_reseau" class="rReseau" /> -->
+    <many-to-one name="RStatutJuridique" column="cod_statut_juridique" class="rStatutJuridique" />
+    <many-to-one name="RUtilisateur" column="cod_utilisateur" class="rUtilisateur" />
+    <many-to-one name="RRegroupementIndependant" column="id_regroupement_ind" class="rRegroupementIndependant" />
+    <!-- EG le 06/05/2011 prise en compte du CL -->
+    <property name="NumOrdreCl" column="num_ordre_cl" />
+    <property name="CodAgremCl" column="cod_agrem_cl" />
+    <property name="AncienNumeroAgrementCl" column="ancien_numero_agrement_cl" />
+    <property name="DateEffetNotificationCl" column="date_effet_notification_cl" />
+    <property name="DateFinAgrementCl" column="date_fin_agrement_cl" />
+    <property name="MotifFinAgrementCl" column="motif_fin_agrement_cl" />
+    <property name="EtatAgrementCl" column="etat_agrement_cl" />
+    <property name="CommentaireAvisOtcCl" column="commentaire_avis_otc_cl" />
+    <!-- EG le 11/08/2011 prise en compte code réseau rattachement VL,PL et CL -->
+    <many-to-one name="ReseauRattachementVL" column="cod_reseau_vl" class="rReseau" />
+    <many-to-one name="ReseauRattachementPL" column="cod_reseau_pl" class="rReseau" />
+    <many-to-one name="ReseauRattachementCL" column="cod_reseau_cl" class="rReseau" />
+    <property name="NumAccuseReceptionVL" column="num_accuse_reception_vl" />
+    <property name="NumAccuseReceptionPL" column="num_accuse_reception_pl" />
+    <property name="NumAccuseReceptionCL" column="num_accuse_reception_cl" />
+    <!-- EG le 06/12/2011 -->
+    <property name="AccesPublicVl" column="acces_public_vl" />
+    <property name="AccesPublicPl" column="acces_public_pl" />
+    <property name="AccesPublicCl" column="acces_public_cl" />
+    <!--PLE le 19/01/2024-->
+    <property name="ExtAgremClStatut" column="ext_agrem_cl_statut" />
+    <property name="ExtAgremClDateValid" column="ext_agrem_cl_date_valid" />
+    <property name="ExtAgremClDateDecla" column="ext_agrem_cl_date_decla" />
+    <property name="ExtAgremClCatVeh" column="ext_agrem_cl_cat_veh" />
+    <!-- PLE le 08/04/2025 -->
+    <property name="SvaVL" column="sva_vl" />
+    <property name="SvaPL" column="sva_pl" />
+    <property name="SvaCL" column="sva_cl" />
+  </class>
+</hibernate-mapping>
+

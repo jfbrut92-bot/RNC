@@ -1,0 +1,35 @@
+﻿@model Utac.Rnc2.BusinessObjects.rReseau
+
+@section TitleContent {
+    Options de facturation
+}
+@section SousTitrePage {
+    Options de facturation
+}
+@using (Html.BeginForm())
+{
+    @Html.ValidationSummary(true)
+    <fieldset>
+        Vous ne désirez plus recevoir vos factures au format papier
+        @Html.RadioButtonFor(m => Model.FacturePapier, false, !Model.FacturePapier ? new { @checked = "checked" } : null)
+        <br />
+        Vous voulez continuer à recevoir vos factures au format papier
+        @Html.RadioButtonFor(m => Model.FacturePapier, true, Model.FacturePapier ? new { @checked = "checked" } : null)
+        <br />
+        <br />
+        Si vous avez choisi de ne plus recevoir vos factures au format papier, veuillez nous indiquer votre adresse de messagerie
+        <br />
+        qui nous permettra de vous informer de la mise à disposition d'une nouvelle facture dans votre espace client.
+        <br />
+        <div class="editor-label">@Html.Label("Adresse mail à utiliser:")</div>
+        <div class="editor-field">
+            @Html.TextBoxFor(model => model.EmailFacturation, new { size = "100", maxlength = "80" })
+            @Html.ValidationMessageFor(model => model.EmailFacturation)
+        </div>
+        <br />
+        <p>
+            <input type="submit" value="Enregistrer" class="btn primary" />
+            <a class="btn success" href="@Url.Action("ListeFactureReseau","Facture", new { id = Model.Id})">Retour à la liste des factures</a>
+        </p>
+    </fieldset>
+}

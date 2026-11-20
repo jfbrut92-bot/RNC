@@ -1,0 +1,25 @@
+﻿@model dynamic
+
+@section TitleContent {
+    Une erreur est survenue lors de l'acc�s � une ressource
+}
+@section SousTitrePage {
+    Une erreur est survenue lors de l'acc�s � une ressource
+}
+@{ var statusCode = (int)ViewData["statusCode"];
+    switch (statusCode)
+    {
+        case 404:
+            @:La ressource demand�e n'existe pas.
+            break;
+        case 403:
+            @:Vous n'�tes pas autoris� � acc�der � cette resource. Causes possibles :
+            <ul>
+                <li> Si votre session a expir�, reconnectez-vous </li>
+                <li> Votre profil utilisateur ne permet pas d'acc�der � cette ressource</li>
+            </ul>
+            break;
+        default:
+            break;
+    }
+}

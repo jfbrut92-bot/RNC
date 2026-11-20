@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<hibernate-mapping xmlns="urn:nhibernate-mapping-2.2" namespace="Utac.Rnc2.BusinessObjects" assembly="Utac.Rnc2.BusinessObjects">
+	<class name="Utac.Rnc2.BusinessObjects.pGestionCertificat, Utac.Rnc2.BusinessObjects" table="p_gestion_certificat" lazy="true">
+		<id name="Id" column="id_gestion_certificat" unsaved-value="0">
+		 	<generator class="identity" />
+		</id>
+    
+		<property name="DateMaj" column="date_maj" />
+		<property name="LibCommentaire" column="lib_commentaire" />
+		<!-- EG le 14/11/2011
+    <property name="IdReq" column="id_req" />
+		<property name="NumSerie" column="num_serie" />
+    -->
+		<!-- EG le 14/10/2011
+    <property name="CodAction" column="cod_action" />
+		<property name="CodReseau" column="cod_reseau" />
+    -->
+    <!-- EG commenté le 14/11/2011
+		<property name="IdCentreEncoursVl" column="id_centre_encours_vl" />
+		<property name="IdCentreEncoursPl" column="id_centre_encours_pl" />
+    <property name="IdCentreEncoursCl" column="id_centre_encours_cl" />
+    -->
+    <!-- EG le 14/10/2011
+		<property name="CodUtilisateur" column="cod_utilisateur" />
+    -->
+		<many-to-one name="PCentreEncourVL" column="id_centre_encours_vl" class="pCentreEncour" />
+		<many-to-one name="PCentreEncourPL" column="id_centre_encours_pl" class="pCentreEncour" />
+    <many-to-one name="PCentreEncourCL" column="id_centre_encours_cl" class="pCentreEncour" />
+		<many-to-one name="RReseau" column="cod_reseau" class="rReseau" />
+		<many-to-one name="RUtilisateur" column="cod_utilisateur" class="rUtilisateur" />
+		<many-to-one name="RActionCertificat" column="cod_action" class="rActionCertificat" />
+    <many-to-one name="PCertificat" class="pCertificat">
+      <column name="id_req" />
+      <column name="num_serie" />
+    </many-to-one>
+
+  </class>
+</hibernate-mapping>
+

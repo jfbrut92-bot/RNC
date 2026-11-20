@@ -1,0 +1,15 @@
+﻿@model Utac.Rnc2.BusinessObjects.pAmendeControleur
+
+@section TitleContent {
+    Confirmation de la suppression d'une contravention du @Model.PContoleurEncour.Titre @Model.PContoleurEncour.Nom @Model.PContoleurEncour.Prenom
+}
+@section SousTitrePage {
+    Confirmation de la suppression d'une contravention du @Model.PContoleurEncour.Titre @Model.PContoleurEncour.Nom @Model.PContoleurEncour.Prenom
+}
+    Attention veuillez confirmer la suppression de la contravention
+@Model.LibContravention du : @String.Format("{0:d}", Model.DateEmisAmende) en cliquant sur le lien ci-dessous. Pour revenir à la liste des contraventions cliquez
+@Html.ActionLink("ici", "ListeAmendes", new { id = Model.PContoleurEncour.Id })
+<form method="post" action="@Url.Action("DeleteAmende")">
+    <input type="hidden" name="id" value="@Model.Id" />
+    <input type="submit" value="Confirmer" class="btn primary" />
+</form>

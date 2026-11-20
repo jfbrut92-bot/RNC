@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<hibernate-mapping xmlns="urn:nhibernate-mapping-2.2" namespace="Utac.Rnc2.BusinessObjects" assembly="Utac.Rnc2.BusinessObjects">
+	<class name="Utac.Rnc2.BusinessObjects.rUtilisateur, Utac.Rnc2.BusinessObjects" table="r_utilisateur" lazy="true">
+		<id name="Id" column="cod_utilisateur">
+		 	<generator class="assigned" />
+		</id>
+    <!-- EG le 11/04/2011 pour gestion des logins temporaires -->
+    <property name="MotDePasseTemporaire" column="mot_de_passe_tmp" />
+    <property name="MotDePasse" column="mot_de_passe" />
+		<property name="Nom" column="nom" />
+		<property name="Prenom" column="prenom" />
+		<property name="Actif" column="actif" />
+		<property name="Bloque" column="bloque" />
+		<property name="NumTentative" column="num_tentative" />
+		<property name="DateDerniereConnection" column="date_derniere_connection" />
+		<property name="NumTel" column="num_tel" />
+		<property name="Email" column="email" />
+    <property name="CodUsrCrea" column="cod_usr_crea" />
+		<property name="CodUsrMaj" column="cod_usr_maj" />
+		<property name="DateCrea" column="date_crea" />
+		<property name="DateMaj" column="date_maj" />
+    <property name="FacturePapier" column="facture_papier" />
+		<many-to-one name="RRegion" column="id_region" class="rRegion" />
+		<many-to-one name="PCentreEncourPL" column="id_centre_encours_pl" class="pCentreEncour" />
+		<!-- EG le 12/04/2011 <many-to-one name="RReseau1" column="cod_reseau" class="rReseau" /> -->
+		<many-to-one name="PCentreEncourVL" column="id_centre_encours_vl" class="pCentreEncour" />
+    <!-- EG le 12/04/2011 -->
+    <many-to-one name="PCentreEncourCL" column="id_centre_encours_cl" class="pCentreEncour" />
+		<many-to-one name="RPrefecture" column="id_prefecture" class="rPrefecture" />
+		<!-- EG le 12/04/2011 <many-to-one name="RReseau2" column="cod_reseau2" class="rReseau" /> -->
+		<many-to-one name="RProfil2" column="id_profil2" class="rProfil2" />
+		<many-to-one name="RProfil" column="id_profil" class="rProfil" lazy="false" />
+		<bag name="PAuditControleurs" lazy="true" cascade="all-delete-orphan" inverse="true" >
+			<key column="cod_utilisateur"></key>
+			<one-to-many class="pAuditControleur"></one-to-many>
+		</bag>
+		<bag name="PCentreEncours" lazy="true" cascade="none" inverse="true" >
+			<key column="cod_utilisateur"></key>
+			<one-to-many class="pCentreEncour"></one-to-many>
+		</bag>
+		<bag name="PCentreHistos" lazy="true" cascade="none" inverse="true" >
+			<key column="cod_utilisateur"></key>
+			<one-to-many class="pCentreHisto"></one-to-many>
+		</bag>
+		<bag name="PContoleurEncours" lazy="true" cascade="none" inverse="true" >
+			<key column="cod_utilisateur"></key>
+			<one-to-many class="pContoleurEncour"></one-to-many>
+		</bag>
+		<bag name="PControleurHistos" lazy="true" cascade="none" inverse="true" >
+			<key column="cod_utilisateur"></key>
+			<one-to-many class="pControleurHisto"></one-to-many>
+		</bag>
+		<bag name="PFormationControleurPLs" lazy="true" cascade="none" inverse="true" >
+			<key column="cod_utilisateur"></key>
+			<one-to-many class="pFormationControleurPL"></one-to-many>
+		</bag>
+		<bag name="PGestionCertificats" lazy="true" cascade="none" inverse="true" >
+			<key column="cod_utilisateur"></key>
+			<one-to-many class="pGestionCertificat"></one-to-many>
+		</bag>
+		<bag name="PSanctionControleurs" lazy="true" cascade="none" inverse="true" >
+			<key column="cod_utilisateur"></key>
+			<one-to-many class="pSanctionControleur"></one-to-many>
+		</bag>
+		<bag name="PSanctionCentres" lazy="true" cascade="none" inverse="true" >
+			<key column="cod_utilisateur"></key>
+			<one-to-many class="pSanctionCentre"></one-to-many>
+		</bag>
+    <!-- commenté le 01/06/2011
+    <bag name="RReseauAppartenances" lazy="true" cascade="all" inverse="true" >
+      <key column="cod_utilisateur"></key>
+      <one-to-many class="rReseauAppartenance"></one-to-many>
+    </bag>
+    -->
+    <!-- EG le 05/05/2011 mais on laisse quand même RReseauAppartenances -->
+    <!--20/08/2021 PLE passage lasy = true -->    
+    <bag name="RReseaux" table="r_reseau_appartenance" lazy="true" cascade="none" >
+      <key column="cod_utilisateur"></key>
+      <many-to-many class="rReseau" column="cod_reseau"></many-to-many>
+    </bag>
+
+  </class>
+</hibernate-mapping>
+

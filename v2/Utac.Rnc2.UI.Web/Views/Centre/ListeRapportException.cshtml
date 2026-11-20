@@ -1,0 +1,165 @@
+﻿@model Utac.Rnc2.UI.Web.Models.RapportExceptionModel
+@using Utac.Rnc2.BusinessObjects
+
+@section TitleContent {
+    Téléchargement Rapport
+}
+
+@section SousTitrePage {
+    Rapports d'exceptions
+}
+
+<h2>
+    installation: @Model.Centre.RaisonSociale -
+    @switch (Model.CategVehicule)
+    {
+        case rCategorieVehicule.CategorieEnum.VL:
+            @Model.Centre.CodAgremVl
+            break;
+        case rCategorieVehicule.CategorieEnum.PL:
+            @Model.Centre.CodAgremPl
+            break;
+        case rCategorieVehicule.CategorieEnum.CL:
+            @Model.Centre.CodAgremCl
+            break;
+    }
+</h2>
+@Html.HiddenFor(m => Model.Centre.Id)
+@switch (Model.CategVehicule)
+{
+    case rCategorieVehicule.CategorieEnum.VL:
+        <table width="100%" align="center">
+            <tr>
+                <td>
+                    <div style="font: 10pt Arial">
+                        Les rapports d'exception contiennent les compteurs d'exception générés après analyse du contenu de chaque contrôle technique et après acceptation du flux XML transmis. Le rapport est un fichier pdf contenant les compteurs d'exception classés selon 3 niveaux d'anomalies :
+                        <ul>
+                            <li>1 : cas prévu par le protocole fourni pour information ou anomalie mineure ou information destinée à la supervision des PV</li>
+                            <li>2 : anomalie par rapport aux exigences du protocole ou anomalie affectant les informations du contrôle ou information issue de l’analyse croisée de plusieurs données nécessitant une vérification.</li>
+                            <li>3 : anomalie importante affectant le résultat ou les informations du contrôle ou des exigences réglementaires ou information importante issue de l’analyse croisée de plusieurs données nécessitant une analyse.</li>
+                        </ul>
+                    </div>
+                </td>
+            </tr>
+        </table>
+        break;
+    case rCategorieVehicule.CategorieEnum.PL:
+        @:Les rapports d'exception contiennent les compteurs d'exception générés après analyse du contenu de chaque contrôle technique et après acceptation du flux XML transmis.Le rapport est un fichier Excel compressé(.zip) contenant les compteurs d'exception classés dans 3 onglets.
+        <br />
+        break;
+    case rCategorieVehicule.CategorieEnum.CL:
+        <table width="100%" align="center">
+            <tr>
+                <td>
+                    <div style="font: 10pt Arial">
+                        Les rapports d'exception contiennent les compteurs d'exception générés après analyse du contenu de chaque contrôle technique et après acceptation du flux XML transmis. Le rapport est un fichier pdf contenant les compteurs d'exception classés selon 3 niveaux d'anomalies :
+                        <ul>
+                            <li>1 : cas prévu par le protocole fourni pour information ou anomalie mineure ou information destinée à la supervision des PV</li>
+                            <li>2 : anomalie par rapport aux exigences du protocole ou anomalie affectant les informations du contrôle ou information issue de l’analyse croisée de plusieurs données nécessitant une vérification.</li>
+                            <li>3 : anomalie importante affectant le résultat ou les informations du contrôle ou des exigences réglementaires ou information importante issue de l’analyse croisée de plusieurs données nécessitant une analyse.</li>
+                        </ul>
+                    </div>
+                </td>
+            </tr>
+        </table>
+        break;
+}
+<a class="btn success" href="@Url.Action("Fiche", "Centre", new {id = Model.Centre.Id})">Retour à la fiche du centre</a>
+<table>
+    <tr>
+        <th>Liste des rapports d'exception disponibles en téléchargement</th>
+        <th>Catégorie Véhicule</th>
+        <th>Date téléchargement</th>
+        <th>Action</th>
+    </tr>
+    @{ var i = 0; }
+    @switch (Model.CategVehicule)
+    {
+        case rCategorieVehicule.CategorieEnum.VL:
+            foreach (var item in Model.ListeRapportVL.OrderByDescending(h => h.DateDebutTransmissionPv))
+            {
+                <tr class="@(i % 2 == 0 ? " row1" : "row2")">
+                    <td>
+                        Rapport sur les contrôles transmis entre le @String.Format("{0:d}", item.DateDebutTransmissionPv) et le @String.Format("{0:d}", item.DateFinTransmissionPv).
+                    </td>
+                    @if (item.NomRapport.Contains("CL"))
+                    {
+                        <td align="center">CL</td>
+                    }
+                    else
+                    {
+                        <td align="center">VL</td>
+                    }
+                    <td>
+                        @item.DateTelechargementRapport
+                    </td>
+                    <td>
+                        @Html.ActionLink("Télécharger le fichier", "Telecharge", "RapportCE", new { id = item.Id, CategVehicule = Model.CategVehicule }, new { })
+                    </td>
+                </tr>
+                i++;
+            }
+            break;
+        case rCategorieVehicule.CategorieEnum.PL:
+            if ("Z".Equals(Model.Centre.ReseauRattachementPL.Id))
+            {
+                foreach (var item in Model.ListeRapportPL.OrderByDescending(h => h.DateDebutTransmissionPv))
+                {
+                    <tr class="@(i % 2 == 0 ? " row1" : "row2")">
+                        <td>
+                            Rapport sur les contrôles transmis entre le @String.Format("{0:d}", item.DateDebutTransmissionPv) et le @String.Format("{0:d}", item.DateFinTransmissionPv).
+                        </td>
+                        <td align="center">
+                            PL
+                        </td>
+                        <td>
+                            @item.DateTelechargementRapport
+                        </td>
+                        <td>
+                            @Html.ActionLink("Télécharger le fichier", "Telecharge", "RapportCE", new { id = item.Id, CategVehicule = Model.CategVehicule }, new { })
+                        </td>
+                    </tr>
+                    i++;
+                }
+            }
+            else
+            {
+                foreach (var item in Model.ListeRapportPL.OrderByDescending(h => h.DateDebutTransmissionPv))
+                {
+                    <tr class="@(i % 2 == 0 ? " row1" : "row2")">
+                        <td>
+                            Rapport sur les contrôles transmis entre le @String.Format("{0:d}", item.DateDebutTransmissionPv) et le @String.Format("{0:d}", item.DateFinTransmissionPv).
+                        </td>
+                        <td>
+                            @item.DateTelechargementRapport
+                        </td>
+                        <td>
+                            @Html.ActionLink("Télécharger le fichier", "Telecharge", "RapportCE", new { id = item.Id, CategVehicule = Model.CategVehicule }, new { })
+                        </td>
+                    </tr>
+                    i++;
+                }
+            }
+            break;
+        case rCategorieVehicule.CategorieEnum.CL:
+            foreach (var item in Model.ListeRapportCL.OrderByDescending(h => h.DateDebutTransmissionPv))
+            {
+                <tr class="@(i % 2 == 0 ? " row1" : "row2")">
+                    <td>
+                        Rapport sur les contrôles transmis entre le @String.Format("{0:d}", item.DateDebutTransmissionPv) et le @String.Format("{0:d}", item.DateFinTransmissionPv).
+                    </td> 
+                    <td align="center">CL</td>
+                    <td>
+                        @item.DateTelechargementRapport
+                    </td>
+                    <td>
+                        @Html.ActionLink("Télécharger le fichier", "Telecharge", "RapportCE", new { id = item.Id, CategVehicule = Model.CategVehicule }, new { })
+                    </td>
+                </tr>
+                i++;
+            }
+           
+            break;
+    }
+</table>
+@Html.HiddenFor(m => Model.Centre.Id)

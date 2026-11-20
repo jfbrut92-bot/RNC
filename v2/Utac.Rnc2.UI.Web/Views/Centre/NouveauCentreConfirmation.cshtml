@@ -1,0 +1,65 @@
+﻿@model Utac.Rnc2.UI.Web.Models.NouveauCentreModel
+
+@section TitleContent {
+    Confirmation de la création d'un nouveau centre
+}
+@section SousTitrePage {
+    @switch (Model.TypeCentre)
+    {
+        case "S":
+            @:Création d'un nouveau Centre spécialisé @Model.CategorieVehicule.ToString()
+            break;
+        case "A":
+            @:Création d'une nouvelle Installation auxiliaire @Model.CategorieVehicule.ToString()
+            break;
+    }
+}
+@using (Html.BeginForm("NouveauCentre", "Centre", FormMethod.Post))
+{
+    @Html.ValidationSummary(true)
+    <h2>Etape 3 : Confirmation</h2>
+    <div>
+        <div id="Div3">
+            @if ("S".Equals(Model.TypeCentre))
+            {
+                <div class="avertissement">
+                    <b>ATTENTION, cette opération ne doit être réalisée que s'il s'agit d'une nouvelle installation jamais agréée</b>.
+                    <br />
+                    Dans le cas d'un nouvel agrément suite à un changement d'exploitant, de localisation ou de réseau, il faut :
+                    <ul>
+                        <li>repartir de la fiche du centre annulé et cliquer sur le lien "Nouvel agrément"</li>
+                        <li>mettre à jour les données de la fiche du centre</li>
+                    </ul>
+                </div>
+                <p>
+                    Appuyer sur le bouton "Confirmer" pour démarrer la création du nouveau centre spécialisé.
+                    <br />
+                    Appuyer sur le bouton "Retour" pour revenir à la page précédente.
+                </p>
+            }
+            else
+            {
+                <div class="avertissement">
+                    <b>ATTENTION, cette opération ne doit être réalisée que s'il s'agit d'une nouvelle installation jamais agréée</b>.
+                    <br />
+                    Dans le cas d’un nouvel agrément suite à un changement d’exploitant de l’établissement abritant l’installation auxiliaire, il faut :
+                    <ul>
+                        <li>repartir de la fiche du centre annulé et cliquer sur le lien "Nouvel agrément"</li>
+                        <li>mettre à jour les données de la fiche de l'installation</li>
+                    </ul>
+                </div>
+                <p>
+                    Appuyer sur le bouton "Confirmer" pour démarrer la création de la nouvelle installation auxiliaire.<br />
+                    Appuyer sur le bouton "Retour" pour revenir à la page précédante.
+                </p>
+            }
+            @Html.HiddenFor(m => m.TypeCentre)
+            @Html.HiddenFor(m => m.CategorieVehicule)
+            @Html.HiddenFor(m => m.EstCentreAdministration)
+            <div class="well">
+                <input type="submit" value="Confirmer" class="btn primary" />
+                <a class="btn success" href="@Url.Action("Recherche","Centre")">Retour</a>
+            </div>
+        </div>
+    </div>
+}

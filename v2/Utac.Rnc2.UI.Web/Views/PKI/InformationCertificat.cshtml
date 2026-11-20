@@ -1,0 +1,35 @@
+﻿@model Utac.Rnc2.UI.Web.Models.CertificatModel
+
+@section TitleContent {
+    InformationCertificat
+}
+@section SousTitrePage {
+    Information certificat
+}
+@if (Model.Centre != null)
+{
+    <p>Cliquer <a href="@Url.Action("ListeOperationCentreNonRattache", new { id = Model.Centre.Id, categorie = Model.CategeorieVehicule})">ici pour revenir sur la page des certificats.</a></p>
+}
+@if (Model.Reseau != null)
+{
+    <p>Cliquer <a href="@Url.Action("ListeOperationReseau", new { id = Model.Reseau.Id})">ici pour revenir sur la page des certificats.</a></p>
+}
+<fieldset>
+    Dernière opération effectuée le @String.Format("{0:g}", Model.DernierCertificat.PGestionCertificats[0].DateMaj) par l'utilisateur : @Model.DerniereTraceGestion.RUtilisateur.Id
+    <br />
+    Certificat Num Req : @Model.DernierCertificat.IdReq
+    <br />
+    Certificat Num Série : @Model.DernierCertificat.NumSerie
+    <br />
+    Nom certificat : @Model.DernierCertificat.NomCert
+    <br />
+    Nom commun : @Model.DernierCertificat.NomCommunCert
+    <br />
+    Nom du fichier téléchargé : @Model.DernierCertificat.NomFichier
+    <br />
+    Mot de passe d'installation du certificat : @Model.DernierCertificat.PasswordCert
+    <br />
+    Base de donnée CT identifiant accès :@Model.DernierCertificat.BddTechLogin
+    <br />
+    Base de donnée CT mot de passe accès :@Model.DernierCertificat.BddTechPassword
+</fieldset>

@@ -1,0 +1,66 @@
+﻿@model Utac.Rnc2.UI.Web.Models.HomeModel
+
+@foreach (var r in Model.utilisateur.RReseaux)
+{
+    if (Model.existeAccuseReception(r))
+    {
+        <h1 class="panel">
+            Liste des installations en attente de déclaration de réception
+            <br />
+            de la notification préfecture pour le réseau @($"{r.ReseauAvecLettreEtCategorie}")
+        </h1>
+        if (!this.ViewData.ModelState.IsValid)
+        {
+            <p class="error">@Html.ValidationSummary()</p>
+        }
+        <table>
+            <tr>
+                <th>Centre</th>
+                <th>Déclaration</th>
+            </tr>
+            @{ var i = 0; }
+            @foreach (var centre in Model.ListeCentreAccuseReception[r])
+            {
+                if (((centre.ReseauRattachementVL != null) && (centre.ReseauRattachementVL.Id == r.Id)) ||
+                      ((centre.ReseauRattachementPL != null) && (centre.ReseauRattachementPL.Id == r.Id)) ||
+                      ((centre.ReseauRattachementCL != null) && (centre.ReseauRattachementCL.Id == r.Id)))
+                {
+                    <tr class="@(i % 2 == 0 ? "row1" : "row2")">
+                        <td width="360px">@centre.RaisonSociale<br /> @centre.CpCentre @centre.Ville</td>
+                        <td style="white-space:nowrap">
+                            <form action="@Url.Action("AccuseReception")" method="post">
+                                <div class="row">
+                                    <div class="floatLeft first">
+                                        @Html.Label("Agrément :")
+                                        <div class="input">
+                                            <input type="text" name="CodAgrementCentre" size="16" maxlength="8" />
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="floatLeft first">
+                                        @Html.Label("N°accusé  réception :")
+                                        <div class="input">
+                                            <input type="text" name="NumAccuseReception" size="16" maxlength="8" />
+                                        </div>
+                                    </div>
+                                    <div class="floatLeft">
+                                        <input type="hidden" name="CentreId" value="@centre.Id" />
+                                        <input type="hidden" name="CategorieVehicule" value="@(r.TypeReseauVl ? " VL" : r.TypeReseauPl ? "PL" : "CL")" />
+                                        <input type="submit" value="Déclarer" class="btn primary" />
+                                    </div>
+                                </div>
+                            </form>
+                        </td>
+                    </tr>
+                    i++;
+                }
+            }
+        </table>
+        <p></p>
+    }
+    else
+    {
+        <p>Aucun accusé réception à saisir pour le réseau @($"{r.ReseauAvecLettreEtCategorie}")</p>
+    }
+}

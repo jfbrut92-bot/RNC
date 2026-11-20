@@ -1,0 +1,69 @@
+﻿@model Utac.Rnc2.UI.Web.Models.ExtensionAgrementCatLModel
+@using Utac.Rnc2.BusinessObjects
+@using Utac.Rnc2.MVC.Extensions
+
+@section TitleContent {
+    Déclaration d'extension à la catégorie L
+}
+@section SousTitrePage {
+    Déclaration d'extension à la catégorie L de l'agrément  @Model.Categorie
+    @switch (@Model.Categorie)
+    {
+        case rCategorieVehicule.CategorieEnum.VL:
+            @:@Model.Centre.CodAgremVl
+            break;
+        case rCategorieVehicule.CategorieEnum.PL:
+            @:@Model.Centre.CodAgremPl
+            break;
+    }
+}
+@section StyleContent {
+    @Styles.Render("~/styles/jquery-ui")
+}
+<p class="avertissement">
+    Attention, la saisie des informations relatives à <strong>l’extension d’agrément catégorie L</strong>, par le réseau de rattachement ou le titulaire de l'agrément du centre non rattaché, est réalisée en application de l'article 42 de l’Arrêté du 23 octobre 2023 relatif au contrôle technique des véhicules motorisés à deux ou trois roues et quadricycles à moteur.
+    <br /><br />
+    Pendant cette <strong>période transitoire</strong>, le titulaire de cet agrément ou le réseau auquel son centre est affilié dépose une demande d'agrément pour le contrôle des véhicules de catégorie L en vue de l'obtention de l'agrément avant la fin de validité de son extension d'agrément.
+    <br /><br />
+    Si la date de la déclaration d’extension est antérieure au 15 avril 2024, elle ne sera valide (date d’effet) qu’à compter du 15 avril 2024.
+    <br /><br />
+    Si la date de la déclaration d’extension est réalisée entre le 15 avril 2024 et le 14 avril 2025, elle sera valide le jour même de la déclaration.
+    <br /><br />
+    A compter du <strong>15 avril 2025</strong>, la déclaration d’extension n’est plus valide. Seule, la délivrance d’un agrément pour le centre et le contrôleur permettra de réaliser le contrôle des véhicules de catégorie L.
+</p>
+@using (Html.BeginForm())
+{
+    @Html.ValidationSummary(true)
+    <fieldset>
+        <div class="editor-label">@Html.Label("Extension d'agrément Catégorie L :")</div>
+        <div class="editor-field">
+            <select name="Centre.ExtAgremClStatut">
+                <option value="" @(Model.Centre.ExtAgremClStatut == null ? "selected" : "")>---</option>
+                <option value="1" @(((short?)1).Equals(Model.Centre.ExtAgremClStatut) ? "selected" : "")>oui</option>
+            </select>
+            @Html.ValidationMessageFor(model => model.Centre.ExtAgremClStatut)
+        </div>
+        <div class="editor-label">@Html.Label("Validitée à compter du :")</div>
+        <div class="editor-field">
+            @Html.TextBoxFor(model => model.Centre.ExtAgremClDateValid, new { Value = String.Format("{0:d}", Model.Centre.ExtAgremClDateValid), @class = "datepicker" })
+            @Html.ValidationMessageFor(model => model.Centre.ExtAgremClDateValid)
+        </div>
+    </fieldset>
+    <br />
+    <div class="rowAligne">
+        <input type="submit" value="Déclarer" class="btn primary" />
+        @if (String.IsNullOrEmpty(Model.ReturnLettreReseau))
+        {
+            @Html.ActionLink("Retour", "Fiche", new { id = Model.Centre.Id }, new { @class = "btn cancel" })
+        }
+        else
+        {
+            @Html.ActionLink("Retour", "ReturnToListeCentrePourReseau", "Home", new { returnLettreReseau = Model.ReturnLettreReseau, returnCodDep = Model.ReturnCodDep }, new { @class = "btn cancel" })
+        }
+    </div>
+    @Html.HiddenFor(m => m.Centre.Id)
+}
+@section JavaScriptContent {
+    <!-- DatePicker -->
+    @Scripts.Render("~/scripts/date-picker")
+}

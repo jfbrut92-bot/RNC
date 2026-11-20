@@ -1,0 +1,53 @@
+﻿@model Utac.Rnc2.UI.Web.Models.HomeModel
+@using Utac.Rnc2.BusinessObjects
+
+@section TitleContent {
+    Index
+}
+@section SousTitrePage {
+    Bienvenue sur l'application RNC2
+}
+<div class="bloc_main">
+    <!-- BLOC PRINCIPAL -->
+    <div class="bloc_principal">
+        @if (!User.Identity.IsAuthenticated)
+        {
+            if (Model != null)
+            {
+                @Html.Raw(Model.message.TxtMessageBienvenue)
+            }
+        }
+        else
+        {
+            if (User.IsInRole(rUtilisateur.Profil.CENTRE_INDEPENDANT.ToString()))
+            {
+                @Html.Partial("HomeUtilisateurCentreIndependant", Model.utilisateur)
+                @Html.Partial("HomeUtilisateurCentreIndependantListeControleur", Model)
+            }
+            if (User.IsInRole(rUtilisateur.Profil.RESEAU.ToString()))
+            {
+                @Html.Partial("HomeUtilisateurReseau", Model)
+            }
+            if (User.IsInRole(rUtilisateur.Profil.PREFECTURE.ToString()))
+            {
+                @Html.Partial("HomeMessageVerifPV")
+                @Html.Partial("HomeUtilisateurPrefecture", Model)
+            }
+            if (User.IsInRole(rUtilisateur.Profil.DRIRE.ToString()))
+            {
+                @Html.Partial("HomeMessageVerifPV")
+                @Html.Partial("HomeUtilisateurDrire", Model)
+            }
+            if (User.IsInRole(rUtilisateur.Profil.OTC_Administration.ToString()) || User.IsInRole(rUtilisateur.Profil.DSCR.ToString()) || User.IsInRole(rUtilisateur.Profil.PIV.ToString()))
+            {
+                @Html.Partial("HomeMessageVerifPV")
+            }
+        }
+    </div>
+</div>
+@section SideBarDroite {
+    @if (User.Identity.IsAuthenticated && User.IsInRole(rUtilisateur.Profil.RESEAU.ToString()))
+    {
+        @Html.Partial("FiltreUtilisateurReseau", Model)
+    }
+}

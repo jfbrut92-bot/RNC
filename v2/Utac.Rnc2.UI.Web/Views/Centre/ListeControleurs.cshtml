@@ -1,0 +1,81 @@
+﻿@model Utac.Rnc2.BusinessObjects.pCentreEncour
+@using MvcContrib.UI.Grid
+@using MvcContrib.UI.Pager
+@using MvcContrib
+
+@section TitleContent {
+    Liste des contrôleurs techniques du centre @Model.RaisonSociale
+}
+@section SousTitrePage {
+    Liste des contrôleurs techniques rattachés au centre @Model.RaisonSociale
+}
+<p>@Html.ActionLink("Retour à la fiche", "Fiche", new { id = Model.Id })</p>
+<h1 class="panel">Liste des contrôleurs techniques VL rattachés au centre @Model.CodAgremVl</h1>
+@if (Model.ControleurVLs.Count > 0)
+{
+    <div>
+        @(Html.Grid(Model.ControleurVLs.OrderBy(h => h.Nom)).Columns(column =>
+            {
+                column.For(num => num.Nom + " " + num.Prenom).Named("Nom / Prénom");
+                column.For(num => num.CodAgremVl).Named("Agrément");
+                column.For(num => num.EtatAgrementVlAsLibelle).Named("Etat");
+                column.For(num => Html.ActionLink("Ouvrir la fiche", "Fiche", "ControleurTechnique", new { id = num.Id }, new { })).Named("-").Encode(false);
+            }).RowAttributes(row => new Hash(@class => row.IsAlternate ?"row1":"row2")))
+        @if (Model is MvcContrib.Pagination.IPagination)
+        {
+            @Html.Pager((MvcContrib.Pagination.IPagination)Model).First("Prem.").Next("Suiv.").Last("Dernier").Previous("Prec.").Format("{0}-{1} sur {2}        ")
+        }
+    </div>
+}
+else
+{
+    <p>Aucun contrôleur VL</p>
+}
+<hr />
+<h1 class="panel">Liste des contrôleurs techniques CL rattachés au centre @Model.CodAgremCl</h1>
+@if (Model.ControleurCLs.Count > 0)
+{
+    <div>
+        @(Html.Grid(Model.ControleurCLs.OrderBy(h => h.Nom)).Columns(column =>
+            {
+                column.For(num => num.Nom + " " + num.Prenom).Named("Nom / Prénom");
+                column.For(num => num.CodAgremCl).Named("Agrément");
+                column.For(num => num.EtatAgrementClAsLibelle).Named("Etat");
+                column.For(num => Html.ActionLink("Ouvrir la fiche", "Fiche", "ControleurTechnique", new { id = num.Id }, new { })).Named("-").Encode(false);
+            }).RowAttributes(row => new Hash(@class => row.IsAlternate ?"row1":"row2")))
+        @if (Model is MvcContrib.Pagination.IPagination)
+        {
+            @Html.Pager((MvcContrib.Pagination.IPagination)Model).First("Prem.").Next("Suiv.").Last("Dernier").Previous("Prec.").Format("{0}-{1} sur {2}        ")
+        }
+    </div>
+}
+else
+{
+    <p>Aucun contrôleur CL</p>
+}
+<hr />
+<h1 class="panel">Liste des contrôleurs techniques PL rattachés au centre @Model.CodAgremPl</h1>
+@if (Model.ControleurPLs.Count > 0)
+{
+    <div>
+        @(Html.Grid(Model.ControleurPLs
+            .OrderBy(h => h.Nom))
+            .Columns(column =>
+            {
+                column.For(num => num.Nom + " " + num.Prenom).Named("Nom / Prénom");
+                column.For(num => num.CodAgremPl).Named("Agrément");
+                column.For(num => num.EtatAgrementPlAsLibelle).Named("Etat");
+                column.For(num => Html.ActionLink("Ouvrir la fiche", "Fiche", "ControleurTechnique", new { id = num.Id }, new { })).Named("-").Encode(false);
+            })
+            .RowAttributes(row => new Hash(@class => row.IsAlternate ?"row1":"row2")))
+        @if (Model is MvcContrib.Pagination.IPagination)
+        {
+            @Html.Pager((MvcContrib.Pagination.IPagination)Model).First("Prem.").Next("Suiv.").Last("Dernier").Previous("Prec.").Format("{0}-{1} sur {2}        ")
+        }
+    </div>
+}
+else
+{
+    <p>Aucun contrôleur PL</p>
+}
+<hr />

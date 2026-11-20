@@ -1,0 +1,40 @@
+﻿@model Utac.Rnc2.UI.Web.Models.ExtensionAgrementCatLModel
+@using Utac.Rnc2.BusinessObjects
+@using Utac.Rnc2.MVC.Extensions
+
+@section TitleContent {
+    Déclaration d'extension à la catégorie L
+}
+@section SousTitrePage {
+    Déclaration d'extension à la catégorie L de l'agrément  @Model.Categorie
+    @switch (@Model.Categorie)
+    {
+        case rCategorieVehicule.CategorieEnum.VL:
+            @:@Model.Centre.CodAgremVl
+            break;
+        case rCategorieVehicule.CategorieEnum.PL:
+            @:@Model.Centre.CodAgremPl
+            break;
+    }
+}
+
+<p class="avertissement">
+    Attention, en tant que centre non rattaché, vous devez d'abord télécharger votre certificat électronique initial de communication avec l'OTC<br />
+    avant de déclarer l'extension d'agrément de votre centre.
+</p>
+@using (Html.BeginForm())
+{
+ 
+    <div class="rowAligne">
+        @if (String.IsNullOrEmpty(Model.ReturnLettreReseau))
+        {
+            @Html.ActionLink("Retour", "Fiche", new { id = Model.Centre.Id }, new { @class = "btn cancel" })
+        }
+        else
+        {
+            @Html.ActionLink("Retour", "ReturnToListeCentrePourReseau", "Home", new { returnLettreReseau = Model.ReturnLettreReseau, returnCodDep = Model.ReturnCodDep }, new { @class = "btn cancel" })
+        }
+    </div>
+    @Html.HiddenFor(m => m.Centre.Id)
+}
+

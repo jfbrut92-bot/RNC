@@ -1,0 +1,19 @@
+﻿@model Utac.Rnc2.BusinessObjects.pContoleurEncour
+
+@section TitleContent {
+    ConfirmationDeleteAmende
+}
+<h2>Confirmation de suppression d'une fiche contrôleur</h2>
+<h3>Controleur: @Model.Nom @Model.Prenom - @Model.CodAgremVl @Model.CodAgremPl @Model.CodAgremCl</h3>
+<br />
+ATTENTION ! Vous allez supprimer définitivement la fiche du contrôleur @Model.Nom @Model.Prenom. Cliquer sur le bouton confirmer pour continuer la suppression
+<form method="post" action="@Url.Action("DeleteFiche")">
+    <div class="clearfix">
+        <input type="hidden" name="id" value="@Model.Id" />
+        <br />
+        <div class="input">
+            <button class="btn important" type="submit">Confirmer</button>
+            <a class="btn success" href="@Url.Action("Fiche","ControleurTechnique", new { id = Model.Id})">Retour à la fiche</a>
+        </div>
+    </div>
+</form>

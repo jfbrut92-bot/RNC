@@ -1,0 +1,67 @@
+﻿@model Utac.Rnc2.UI.Web.Models.AutreModificationModel
+
+@section TitleContent {
+    AutreModification
+}
+@section SousTitrePage {
+    Autre modification
+}
+<h3>Installation: @Model.Centre.RaisonSociale - @Model.Centre.CodAgremVl @Model.Centre.CodAgremPl @Model.Centre.CodAgremCl</h3>
+@using (Html.BeginForm())
+{
+    @Html.ValidationSummary(true)
+    <fieldset>
+        <div class="editor-label">
+            @Html.Label("Numéro SIREN")
+        </div>
+        <div class="editor-field">
+            @Html.TextBoxFor(model => model.Centre.NumSiren, new { maxlength = "9" })
+            @Html.ValidationMessageFor(model => model.Centre.NumSiren)
+        </div>
+        <div class="editor-label">
+            @Html.Label("Nom du représentant légal")
+        </div>
+        <div class="editor-field">
+            @Html.TextBoxFor(model => model.Centre.NomRepresentantLegal, new { size = "50", maxlength = "100" })
+            @Html.ValidationMessageFor(model => model.Centre.NomRepresentantLegal)
+        </div>
+        <div class="editor-label">
+            @Html.Label("Enseigne commerciale")
+        </div>
+        <div class="editor-field">
+            @Html.TextBoxFor(model => model.Centre.EnseigneCommerciale, new { size = "50", maxlength = "100" })
+            @Html.ValidationMessageFor(model => model.Centre.EnseigneCommerciale)
+        </div>
+        <div class="editor-label">
+            @Html.Label("Numéro de téléphone")
+        </div>
+        <div class="editor-field">
+            @Html.TextBoxFor(model => model.Centre.NumTel, new { maxlength = "10" })
+            @Html.ValidationMessageFor(model => model.Centre.NumTel)
+        </div>
+        <div class="editor-label">
+            @Html.Label("Statut juridique")
+        </div>
+        <div class="editor-field">
+            @Html.DropDownListFor(model => model.Centre.RStatutJuridique.Id, new SelectList(Model.ListeStatutJuridique, "Id", "Libelle", Model.Centre.RStatutJuridique != null ? Model.Centre.RStatutJuridique.Id : "-1"))
+            @Html.ValidationMessageFor(model => model.Centre.RStatutJuridique.Id)
+        </div>
+        <br />
+        <div class="avertissement">
+            <p>ATTENTION! Cette fonctionnalité permet de compléter des informations absentes du registre RNC2 ou de modifier des informations sous réserve de respecter les consignes suivantes :</p>
+            <ul>
+                <li>le numéro de SIREN : il doit impérativement correspondre à celui du dossier de demande d'agrément</li>
+                <li>le représentant légal: uniquement si l'information n'est pas disponible</li>
+                <li>l'enseigne commerciale ou le numéro de téléphone : pas de consigne particulière</li>
+                <li>le statut juridique : uniquement si le numéro de SIREN (N° RCS) correspond à celui du dossier de demande d'agrément</li>
+            </ul>
+            <p>POUR LES CHANGEMENTS D'ADRESSE EFFECTUES PAR LES COLLECTIVITES, TRANSMETTRE A L'OTC LE DOCUMENT ETABLI PAR LA COLLECTIVITE POUR MISE A JOUR DE RNC2. AUCUNE NOUVELLE DECISION D'AGREMENT N'EST EDITEE</p>
+        </div>
+        <div class="rowAligne">
+            <div class="editor-field">
+                <input type="submit" value="Enregistrer" class="btn primary" />
+                <a class="btn success" href="@Url.Action("Fiche","Centre", new { id = Model.Centre.Id})">Retour à la fiche</a>
+            </div>
+        </div>
+    </fieldset>
+}

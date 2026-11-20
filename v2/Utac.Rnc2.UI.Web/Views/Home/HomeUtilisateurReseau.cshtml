@@ -1,0 +1,201 @@
+﻿@model Utac.Rnc2.UI.Web.Models.HomeModel
+@using Utac.Rnc2.BusinessObjects
+
+<fieldset>
+    <h5>Vos coordonnées</h5>
+    Nom/prénom : @Model.utilisateur.Nom @Model.utilisateur.Prenom @* @Html.ActionLink("Obtenir un nouveau mot de passe", "RenewPassword0", "Information") *@
+    <div>
+        Courriel :
+        @if (Model.utilisateur.Email != null)
+        {
+            @Model.utilisateur.Email
+        }
+        else
+        {
+            <b>Aucune adresse n'est enregistrée! </b>
+        }
+        @*
+        <a href="@Url.Action("ModifierAdresseMail","Home",new { id=Model.utilisateur.Id })">Modifier adresse mail</a>
+        *@
+    </div>
+    <span class="display-label">Réseau(x) :</span>
+    @foreach (rReseau r in Model.utilisateur.RReseaux)
+    {
+        <span class="display-field">@r.ReseauAvecLettreEtCategorie&nbsp;|&nbsp;</span>
+    }
+</fieldset>
+<br />
+<h5>Accès directs</h5>
+@if (this.User.IsInRole(rUtilisateur.Profil.RESEAU.ToString()))
+{
+    if (!((Model.ListeControleurAgreeCentreFermeVL == null) || (Model.ListeControleurAgreeCentreFermeVL.Count == 0)))
+    {
+        <a href="#Liste1">Liste des contrôleurs agréés dont le centre de rattachement (VL) est fermé</a>
+        <br />
+    }
+    if (!((Model.ListeControleurAgreeCentreFermeCL == null) || (Model.ListeControleurAgreeCentreFermeCL.Count == 0)))
+    {
+        <a href="#Liste2">Liste des contrôleurs agréés dont le centre de rattachement (CL) est fermé</a>
+        <br />
+    }
+    if (!((Model.ListeControleurAgreeCentreFermePL == null) || (Model.ListeControleurAgreeCentreFermePL.Count == 0)))
+    {
+        <a href="#Liste3">Liste des contrôleurs agréés dont le centre de rattachement (PL) est fermé</a>
+        <br />
+    }
+    <br/>
+    <a href="#Liste4">Liste des utilisateurs du réseau</a>
+    <br />
+    <br />
+
+    foreach (var r in Model.utilisateur.RReseaux)
+    {
+        <!-- Afficher uniquement les rapports CE pour réseau PL -->
+        if (this.User.IsInRole(rUtilisateur.Profil.RESEAU_Gestionnaire.ToString()) || this.User.IsInRole(rUtilisateur.Profil.RESEAU_Administrateur.ToString()))
+        {
+            if (r.TypeReseauPl)
+            {
+                if (r.PInfoRdvs.Count == 0)
+                {
+                    <a href="@Url.Action("CreateInfoRDVPL", new { id= r.Id})">Renseigner les informations de prise de RDV du réseau @r.Nom (@r.Id)</a>
+                    <br />
+                }
+                else
+                {
+                    <a href="@Url.Action("VoirInfoRDVPL", new { id= r.Id})">Voir les informations de prise de RDV du réseau (@r.ReseauAvecLettreEtCategorieSeuls)</a>
+                    <br />
+                }
+                <a href="@Url.Action("ListeDispoReseau", "RapportCE", new { id= r.Id})">Accès direct à la liste des rapports d'exception du réseau @r.ReseauAvecLettreEtCategorieSeuls</a>
+                <br />
+            }
+            <a href="@Url.Action("ListeFactureReseau", "Facture", new { id= r.Id})">Accès à la liste des factures en téléchargement du réseau @r.ReseauAvecLettreEtCategorieSeuls</a>
+            <br />
+        }
+        if (this.User.IsInRole(rUtilisateur.Profil.RESEAU_Informatique.ToString()) || this.User.IsInRole(rUtilisateur.Profil.RESEAU_Administrateur.ToString()))
+        {
+            <a href="@Url.Action("ListeOperationReseau", "PKI", new { id= r.Id})">Accés direct au téléchargement des certificats SSL de communication avec l'OTC du réseau @r.ReseauAvecLettreEtCategorieSeuls</a>
+            <br />
+        }
+    }
+    if (this.User.IsInRole(rUtilisateur.Profil.RESEAU_Gestionnaire.ToString()) || this.User.IsInRole(rUtilisateur.Profil.RESEAU_Administrateur.ToString()))
+    {
+        <p>Pour modifier les informations du système de prises de rdv du réseau ou consulter les autres <br />informations sur un centre, ouvrir la fiche du centre.</p>
+        <p>Pour mettre à jour le niveau de qualification, déclarer les audits et formations effectués et<br /> éditer la fiche de suivi d'activité du contrôleur, ouvrir la fiche du contrôleur.</p>
+    }
+    if (this.User.IsInRole(rUtilisateur.Profil.RESEAU_Consultation.ToString()))
+    {
+        <p>Pour consulter les informations d'un centre ou contrôleur, ouvrir la fiche des installations et des contrôleurs </p>
+    }
+    if (this.User.IsInRole(rUtilisateur.Profil.RESEAU_Administrateur.ToString()) || this.User.IsInRole(rUtilisateur.Profil.RESEAU_Gestionnaire.ToString()))
+    {
+        @Html.Partial("ListeCentreAccuseReceptionUtilisateurReseau", Model)
+    }
+    <a name="Liste1"></a>
+    <h1 class="panel">Liste des contrôleurs agréés sur un centre de rattachement fermé</h1>
+    <h3>Contrôleurs VL (@(Model.ListeControleurAgreeCentreFermeVL != null ? Model.ListeControleurAgreeCentreFermeVL.Count : 0))</h3>
+    if (!((Model.ListeControleurAgreeCentreFermeVL == null) || (Model.ListeControleurAgreeCentreFermeVL.Count == 0)))
+    {
+        <table>
+            <tr>
+                <th>Nom</th>
+                <th>Prénom</th>
+                <th>Agrément</th>
+                <th>Centre rattachement</th>
+            </tr>
+            @{ var i = 0; }
+            @foreach (var item in Model.ListeControleurAgreeCentreFermeVL)
+            {
+                <tr class="@(i % 2 == 0 ? " row1" : "row2")">
+                    <td>@item.Nom</td>
+                    <td>@item.Prenom</td>
+                    <td>@Html.ActionLink(item.CodAgremVl, "Fiche", "ControleurTechnique", new { id = item.Id }, null)</td>
+                    <td>@Html.ActionLink(item.PCentreEncourVL.CodAgremVl, "Fiche", "Centre", new { id = item.PCentreEncourVL.Id }, null)</td>
+                </tr>
+                i++;
+            }
+        </table>
+        <a href="#HautPage">Retour en haut de la page</a>
+    }
+
+    <a name="Liste2"></a>
+    <h3>Contrôleurs CL (@(Model.ListeControleurAgreeCentreFermeCL != null ? Model.ListeControleurAgreeCentreFermeCL.Count : 0))</h3>
+    if (!((Model.ListeControleurAgreeCentreFermeCL == null) || (Model.ListeControleurAgreeCentreFermeCL.Count == 0)))
+    {
+        <table>
+            <tr>
+                <th>Nom</th>
+                <th>Prénom</th>
+                <th>Agrément</th>
+                <th>Centre rattachement</th>
+            </tr>
+            @{ var i = 0; }
+            @foreach (var item in Model.ListeControleurAgreeCentreFermeCL)
+            {
+                <tr class="@(i % 2 == 0 ? " row1" : "row2")">
+                    <td>@item.Nom</td>
+                    <td>@item.Prenom</td>
+                    <td>@Html.ActionLink(item.CodAgremCl, "Fiche", "ControleurTechnique", new { id = item.Id }, null)</td>
+                    <td>@Html.ActionLink(item.PCentreEncourCL.CodAgremCl, "Fiche", "Centre", new { id = item.PCentreEncourCL.Id }, null)</td>
+                </tr>
+                i++;
+            }
+        </table>
+        <a href="#HautPage">Retour en haut de la page</a>
+    }
+
+    <a name="Liste3"></a>
+    <h3>Contrôleurs PL (@(Model.ListeControleurAgreeCentreFermePL != null ? Model.ListeControleurAgreeCentreFermePL.Count : 0))</h3>
+    if (!((Model.ListeControleurAgreeCentreFermePL == null) || (Model.ListeControleurAgreeCentreFermePL.Count == 0)))
+    {
+        <table>
+            <tr>
+                <th>Nom</th>
+                <th>Prénom</th>
+                <th>Agrément</th>
+                <th>Centre rattachement</th>
+            </tr>
+            @{ var i = 0; }
+            @foreach (var item in Model.ListeControleurAgreeCentreFermePL)
+            {
+                <tr class="@(i % 2 == 0 ? " row1" : "row2")">
+                    <td>@item.Nom</td>
+                    <td>@item.Prenom</td>
+                    <td>@Html.ActionLink(item.CodAgremPl, "Fiche", "ControleurTechnique", new { id = item.Id }, null)</td>
+                    <td>@Html.ActionLink(item.PCentreEncourPL.CodAgremPl, "Fiche", "Centre", new { id = item.PCentreEncourPL.Id }, null)</td>
+                </tr>
+                i++;
+            }
+        </table>
+        <a href="#HautPage">Retour en haut de la page</a>
+    }
+    <a name="Liste4"></a>
+    <p></p>
+    <h1 class="panel">Liste des utilisateurs (actifs) du réseau</h1>
+    <table>
+        <tr>
+            <th>Nom</th>
+            <th>Prénom</th>
+            <th>NumTel</th>
+            <th>Email</th>
+        </tr>
+        @foreach (var r in Model.utilisateur.RReseaux)
+        {
+            <tr><td colspan="4"><b>@r.ReseauAvecLettreEtCategorie</b></td></tr>
+            var i = 0;
+            foreach (var item in r.RUtilisateurs)
+            {
+                if (item.Actif)
+                {
+                    <tr class="@(i % 2 == 0 ? " row1" : "row2")">
+                        <td>@item.Nom</td>
+                        <td>@item.Prenom</td>
+                        <td>@item.NumTel</td>
+                        <td>@item.Email</td>
+                    </tr>
+                    i++;
+                }
+            }
+        }
+    </table>
+    <a href="#HautPage">Retour en haut de la page</a>
+}

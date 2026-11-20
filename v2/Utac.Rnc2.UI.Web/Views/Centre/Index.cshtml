@@ -1,0 +1,101 @@
+﻿@model IEnumerable<Utac.Rnc2.BusinessObjects.pCentreEncour>
+
+@section TitleContent {
+    Index
+}
+<h2>Index</h2>
+<table>
+    <tr>
+        <th></th>
+        <th>RaisonSociale</th>
+        <th>NumSiren</th>
+        <th>EnseigneCommerciale</th>
+        <th>L1Adresse </th>
+        <th>L2Adresse</th>
+        <th>CpCentre</th>
+        <th>Ville</th>
+        <th>NumTel</th>
+        <th>NomRepresentantLegal</th>
+        <th>TypeCentre</th>
+        <th>CodDepartement</th>
+        <th>NumOrdrePl</th>
+        <th>NumOrdreVl</th>
+        <th>CodAgremPl</th>
+        <th>CodAgremVl</th>
+        <th>AncienNumeroAgrementVl</th>
+        <th>AncienNumeroAgrementPl</th>
+        <th>DateEffetNotificationPl</th>
+        <th> DateEffetNotificationVl</th>
+        <th>DateFinAgrementPl</th>
+        <th>DateEcheanceAgrementPl</th>
+        <th>DateFinAgrementVl</th>
+        <th>MotifFinAgrementPl</th>
+        <th>MotifFinAgrementVl</th>
+        <th>AvisOtcVl</th>
+        <th>ReferenceAvisOtcVl</th>
+        <th>DateAvisOtcVl</th>
+        <th>CommentaireAvisOtcVl</th>
+        <th>EtatAgrementVl</th>
+        <th>EtatAgrementPl</th>
+        <th>AvisOtcPl</th>
+        <th>ReferenceAvisOtcPl</th>
+        <th>DateAvisOtcPl</th>
+        <th>CommentaireAvisOtcPl</th>
+        <th>DateEffetModification</th>
+        <th>DateMiseaJour</th>
+        <th>NumFax</th>
+        <th>Id</th>
+    </tr>
+    @if (Model != null)
+    {
+        foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @Html.ActionLink("Edit", "Edit", new { /* id=item.PrimaryKey */ }) |
+                    @Html.ActionLink("Details", "Details", new { /* id=item.PrimaryKey */ }) |
+                    @Html.ActionLink("Delete", "Delete", new { /* id=item.PrimaryKey */ })
+                </td>
+                <td> @item.RaisonSociale</td>
+                <td>@item.NumSiren</td>
+                <td>@item.EnseigneCommerciale</td>
+                <td>@item.L1Adresse</td>
+                <td>@item.L2Adresse</td>
+                <td>@item.CpCentre</td>
+                <td>@item.Ville</td>
+                <td>@item.NumTel</td>
+                <td>@item.NomRepresentantLegal</td>
+                <td>@item.TypeCentre</td>
+                <td>@item.CodDepartement</td>
+                <td>@item.NumOrdrePl</td>
+                <td>@item.NumOrdreVl</td>
+                <td>@item.CodAgremPl</td>
+                <td>@item.CodAgremVl</td>
+                <td>@item.AncienNumeroAgrementVl</td>
+                <td>@item.AncienNumeroAgrementPl</td>
+                <td>@String.Format("{0:g}", item.DateEffetNotificationPl)</td>
+                <td>@String.Format("{0:g}", item.DateEffetNotificationVl)</td>
+                <td>@String.Format("{0:g}", item.DateFinAgrementPl)</td>
+                <td>@String.Format("{0:g}", item.DateEcheanceAgrementPl)</td>
+                <td>@String.Format("{0:g}", item.DateFinAgrementVl)</td>
+                <td>@item.MotifFinAgrementPl</td>
+                <td>@item.MotifFinAgrementVl</td>
+                <td>@item.AvisOtcVl</td>
+                <td>@item.ReferenceAvisOtcVl</td>
+                <td>@String.Format("{0:g}", item.DateAvisOtcVl)</td>
+                <td>@item.CommentaireAvisOtcVl</td>
+                <td>@item.EtatAgrementVl/td>
+                <td>@item.EtatAgrementPl</td>
+                <td>@item.AvisOtcPl</td>
+                <td>@item.ReferenceAvisOtcPl</td>
+                <td>@String.Format("{0:g}", item.DateAvisOtcPl)</td>
+                <td>@item.CommentaireAvisOtcPl</td>
+                <td>@String.Format("{0:g}", item.DateEffetModification)</td>
+                <td>@String.Format("{0:g}", item.DateMiseaJour)</td>
+                <td>@item.NumFax</td>
+                <td>@item.Id</td>
+            </tr>
+        }
+    }
+</table>
+<p>@Html.ActionLink("Create New", "Create")</p>

@@ -1,0 +1,50 @@
+﻿@model Utac.Rnc2.UI.Web.Models.NotificationAgrementModel
+@using Utac.Rnc2.BusinessObjects
+
+@section TitleContent {
+    Confirmation Date
+}
+@section SousTitrePage {
+    Confirmation de la date d'effet de notification
+}
+<h2>Installation: @Model.Centre.RaisonSociale</h2>
+<p class="avertissement">
+    Attention, veuillez confirmer l'effet de la notification à la date du :
+    <b>
+        @{ switch (Model.CategVehicule)
+            {
+                case rCategorieVehicule.CategorieEnum.VL:
+                    @String.Format("{0:d}", Model.Centre.DateEffetNotificationVl)
+                    break;
+                case rCategorieVehicule.CategorieEnum.PL:
+                    @String.Format("{0:d}", Model.Centre.DateEffetNotificationPl)
+                    break;
+                case rCategorieVehicule.CategorieEnum.CL:
+                    @String.Format("{0:d}", Model.Centre.DateEffetNotificationCl)
+                    break;
+            }
+        }
+    </b>
+    en cliquant sur le lien ci-dessous. Pour modifier la date cliquez
+    @Html.ActionLink("ici", "NotificationAgrement", new { id = Model.Centre.Id, categVehicule = Model.CategVehicule }).
+</p>
+@Html.HiddenFor(model => model.Centre.RaisonSociale)
+<form method="post" action="@Url.Action("NotificationAgrementSansVerification")">
+    <input type="hidden" name="id" value="@Model.Centre.Id" />
+    <input type="hidden" name="m.CategVehicule" value="@Model.CategVehicule" />
+    <input type="hidden" name="m.Centre.CodAgremVl" value="@Model.Centre.CodAgremVl" />
+    <input type="hidden" name="m.Centre.CodAgremPl" value="@Model.Centre.CodAgremPl" />
+    <input type="hidden" name="m.Centre.CodAgremCl" value="@Model.Centre.CodAgremCl" />
+    <input type="hidden" name="m.Centre.DateEffetNotificationVl" value="@Model.Centre.DateEffetNotificationVl" />
+    <input type="hidden" name="m.Centre.DateEffetNotificationPl" value="@Model.Centre.DateEffetNotificationPl" />
+    <input type="hidden" name="m.Centre.DateEffetNotificationCl" value="@Model.Centre.DateEffetNotificationCl" />
+    <input type="hidden" name="m.Centre.DateEcheanceAgrementPl" value="@Model.Centre.DateEcheanceAgrementPl" />
+    <!-- 08/04/2025 PLE Ajout SVA -->
+    @Html.Hidden("m.Centre.SvaVL", @Model.Centre.SvaVL)
+    @Html.Hidden("m.Centre.SvaPL", @Model.Centre.SvaPL)
+    @Html.Hidden("m.Centre.SvaCL", @Model.Centre.SvaCL)
+
+    <p>
+        <input type="submit" value="Confirmer" class="btn primary" />
+    </p>
+</form>

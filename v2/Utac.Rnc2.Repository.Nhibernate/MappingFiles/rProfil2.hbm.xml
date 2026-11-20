@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<hibernate-mapping xmlns="urn:nhibernate-mapping-2.2" namespace="Utac.Rnc2.BusinessObjects" assembly="Utac.Rnc2.BusinessObjects">
+	<class name="Utac.Rnc2.BusinessObjects.rProfil2, Utac.Rnc2.BusinessObjects" table="r_profil2" lazy="true">
+		<id name="Id" column="id_profil2">
+		 	<generator class="assigned" />
+		</id>
+		<property name="LibelleProfil" column="libelle_profil" />
+		<many-to-one name="RProfil" column="id_profil" class="rProfil" />
+		<bag name="RUtilisateurs" lazy="true" cascade="all" inverse="true" >
+			<key column="id_profil2"></key>
+			<one-to-many class="rUtilisateur"></one-to-many>
+		</bag>
+	</class>
+</hibernate-mapping>
+

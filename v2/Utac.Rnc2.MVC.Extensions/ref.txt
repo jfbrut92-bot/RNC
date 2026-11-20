@@ -1,0 +1,1 @@
+﻿http://www.ryanmwright.com/2010/04/25/dynamic-controlleraction-authorization-in-asp-net-mvc/

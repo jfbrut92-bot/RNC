@@ -1,0 +1,15 @@
+﻿@model Utac.Rnc2.BusinessObjects.pContoleurEncour
+
+@section TitleContent {
+    Auteur des modifications pour la fiche du @Model.Titre @Model.Nom @Model.Prenom
+}
+@section SousTitrePage {
+    Auteur des modifications pour la fiche du @Model.Titre @Model.Nom @Model.Prenom
+}
+<p>@Model.RUtilisateur.Nom @Model.RUtilisateur.Prenom ( Identifiant : @Model.RUtilisateur.Id )</p>
+<p> PROFIL : @Model.RUtilisateur.RProfil2.LibelleProfil </p>
+<p> Email : @Model.RUtilisateur.Email </p>
+<p> Dernière connexion le : @Model.RUtilisateur.DateDerniereConnection </p>
+<div>
+    @Html.ActionLink("Revenir à la fiche", "Fiche", new { id = Model.Id })
+</div>

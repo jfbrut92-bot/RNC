@@ -1,0 +1,311 @@
+<?xml version="1.0" encoding="utf-8"?>
+<xs:schema xmlns:tns="ctcl" elementFormDefault="qualified" targetNamespace="ctcl" version="1.0" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+  <xs:complexType name="ClPcontrole">
+    <xs:sequence>
+      <xs:element name="numVisit" type="xs:long" />
+      <xs:element name="origine" type="xs:short" />
+      <xs:element name="numTransfert" type="xs:long" />
+      <xs:element name="origineTransfert" type="xs:short" />
+      <xs:element minOccurs="0" name="dateCtrl" type="xs:dateTime" />
+      <xs:element minOccurs="0" name="heureDebCtrl" type="xs:dateTime" />
+      <xs:element minOccurs="0" name="heureFinCtrl" type="xs:dateTime" />
+      <xs:element minOccurs="0" name="dateImpPv" type="xs:dateTime" />
+      <xs:element minOccurs="0" name="heureImpPv" type="xs:dateTime" />
+      <xs:element minOccurs="0" name="dateValidationPv" type="xs:dateTime" />
+      <xs:element minOccurs="0" name="heureValidationPv" type="xs:dateTime" />
+      <xs:element minOccurs="0" name="numPvCtrl" type="xs:string" />
+      <xs:element minOccurs="0" name="numLiasseCtrl" type="xs:string" />
+      <xs:element minOccurs="0" name="numVignette" type="xs:string" />
+      <xs:element minOccurs="0" name="codNatureCtrlSuivant" type="xs:string" />
+      <xs:element minOccurs="0" name="dateValidVisaCtp" type="xs:dateTime" />
+      <xs:element minOccurs="0" name="versionLogiciel" type="xs:string" />
+      <xs:element minOccurs="0" name="kmVeh" type="xs:int" />
+      <xs:element minOccurs="0" name="codAgremCentre" type="xs:string" />
+      <xs:element minOccurs="0" name="codAgremCntlr" type="xs:string" />
+      <xs:element minOccurs="0" name="codAgremCentreVtDef" type="xs:string" />
+      <xs:element minOccurs="0" name="codAgremCntlrVtDef" type="xs:string" />
+      <xs:element minOccurs="0" name="dateVtDef" type="xs:dateTime" />
+      <xs:element minOccurs="0" name="numPvVtDef" type="xs:string" />
+      <xs:element minOccurs="0" name="nbDef" type="xs:int" />
+      <xs:element minOccurs="0" name="nbDefCrit" type="xs:short" />
+      <xs:element minOccurs="0" name="nbDefMaj" type="xs:short" />
+      <xs:element minOccurs="0" name="nbDefMin" type="xs:short" />
+      <xs:element minOccurs="0" name="nbCommentaire" type="xs:int" />
+      <xs:element minOccurs="0" name="numFrappe" type="xs:string" />
+      <xs:element minOccurs="0" name="numOrdreDemande" type="xs:string" />
+      <xs:element minOccurs="0" name="codResultDemande" type="xs:short" />
+      <xs:element minOccurs="0" name="codErreurSiv" type="xs:string" />
+      <xs:element minOccurs="0" name="moisVisit" type="xs:int" />
+      <xs:element minOccurs="0" name="dateFactu" type="xs:dateTime" />
+      <xs:element name="ctrlConsolide" type="xs:boolean" />
+      <xs:element name="codStatutOpa" type="xs:short" />
+      <xs:element name="codStatutAdg" type="xs:short" />
+      <xs:element minOccurs="0" name="codResultCtrl" type="xs:string" />
+      <xs:element minOccurs="0" name="codDocument" type="xs:string" />
+      <xs:element minOccurs="0" name="codModifMesureDefaut" type="xs:unsignedShort" />
+      <xs:element minOccurs="0" name="codNatureCtrl" type="xs:string" />
+      <xs:element minOccurs="0" name="PVehiculePresente" type="tns:ClPVehiculePresente" />
+      <xs:element minOccurs="0" name="PMesures" type="tns:ClPmesures" />
+      <xs:element minOccurs="0" name="PTransfert" type="tns:ClPtransfert" />
+      <xs:element minOccurs="0" name="RDocumentIdentification" type="tns:ClRDocumentIdentification" />
+      <xs:element minOccurs="0" name="RModifMesureDefaut" type="tns:ClRModifMesureDefaut" />
+      <xs:element minOccurs="0" name="RNatureControle" type="tns:ClRNatureControle" />
+      <xs:element minOccurs="0" name="RNatureCtrlSuivant" type="tns:ClRNatureControle" />
+      <xs:element minOccurs="0" name="RResultCtrl" type="tns:ClRResultCtrl" />
+      <xs:element minOccurs="0" name="RMaterielStatutOpa" type="tns:ClRMaterielStatut" />
+      <xs:element minOccurs="0" name="RMaterielStatutAdg" type="tns:ClRMaterielStatut" />
+      <xs:element minOccurs="0" maxOccurs="unbounded" name="pAnoes" nillable="true" type="tns:ClPano" />
+      <xs:element minOccurs="0" maxOccurs="unbounded" name="pHistoCtrls" nillable="true" type="tns:ClPHistoCtrl" />
+      <xs:element minOccurs="0" maxOccurs="unbounded" name="pDocConstates" nillable="true" type="tns:ClPDocConstate" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="ClPVehiculePresente">
+    <xs:sequence>
+      <xs:element name="numVisit" type="xs:long" />
+      <xs:element name="origine" type="xs:short" />
+      <xs:element minOccurs="0" name="immatVeh" type="xs:string" />
+      <xs:element minOccurs="0" name="dateImmat" type="xs:dateTime" />
+      <xs:element minOccurs="0" name="dateImmatTrnsm" type="xs:string" />
+      <xs:element minOccurs="0" name="dateCircu" type="xs:dateTime" />
+      <xs:element minOccurs="0" name="dateCircuTrnsm" type="xs:string" />
+      <xs:element minOccurs="0" name="dateCircuEval" type="xs:dateTime" />
+      <xs:element minOccurs="0" name="libMrqVeh" type="xs:string" />
+      <xs:element minOccurs="0" name="typMinCnit" type="xs:string" />
+      <xs:element minOccurs="0" name="libModVeh" type="xs:string" />
+      <xs:element minOccurs="0" name="numSerie" type="xs:string" />
+      <xs:element minOccurs="0" name="codeGenreVeh" type="xs:string" />
+      <xs:element minOccurs="0" name="codGenreInco" type="xs:string" />
+      <xs:element minOccurs="0" name="codCarosVeh" type="xs:string" />
+      <xs:element minOccurs="0" name="codEnergVeh" type="xs:string" />
+      <xs:element minOccurs="0" name="ptac" type="xs:int" />
+      <xs:element minOccurs="0" name="nbPlaceAssis" type="xs:short" />
+      <xs:element minOccurs="0" name="classeEnvironnement" type="xs:string" />
+      <xs:element minOccurs="0" name="poidsVide" type="xs:short" />
+      <xs:element minOccurs="0" name="niveauSonore" type="xs:short" />
+      <xs:element minOccurs="0" name="vitesseMoteur" type="xs:int" />
+      <xs:element minOccurs="0" name="numReception" type="xs:string" />
+      <xs:element minOccurs="0" name="categInternationale" type="xs:string" />
+      <xs:element minOccurs="0" name="codTypCtrlPollu" type="xs:string" />
+      <xs:element minOccurs="0" name="limiteOpa" type="xs:decimal" />
+      <xs:element minOccurs="0" name="codCategVeh" type="xs:string" />
+      <xs:element minOccurs="0" name="symbPays" type="xs:string" />
+      <xs:element minOccurs="0" name="numFormule" type="xs:string" />
+      <xs:element minOccurs="0" name="ptacStatut" type="tns:ClRStatutSaisie" />
+      <xs:element minOccurs="0" name="poidsVideStatut" type="tns:ClRStatutSaisie" />
+      <xs:element minOccurs="0" name="niveauSonoreStatut" type="tns:ClRStatutSaisie" />
+      <xs:element minOccurs="0" name="vitesseMoteurStatut" type="tns:ClRStatutSaisie" />
+      <xs:element minOccurs="0" name="codCarosVehStatut" type="tns:ClRStatutSaisie" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="ClRStatutSaisie">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="codStatutSaisie" type="xs:short" />
+      <xs:element minOccurs="0" name="libStatutSaisie" type="xs:string" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="ClPmesures">
+    <xs:sequence>
+      <xs:element name="numVisit" type="xs:long" />
+      <xs:element name="origine" type="xs:short" />
+      <xs:element minOccurs="0" name="mesPolluRegRalAcc" type="xs:int" />
+      <xs:element minOccurs="0" name="mesPolluCoRalAcc" type="xs:decimal" />
+      <xs:element minOccurs="0" name="mesPolluLambda" type="xs:decimal" />
+      <xs:element minOccurs="0" name="mesPolluRegRal" type="xs:int" />
+      <xs:element minOccurs="0" name="mesPolluCoRal" type="xs:decimal" />
+      <xs:element minOccurs="0" name="mesPolluCo2Ral" type="xs:decimal" />
+      <xs:element minOccurs="0" name="mesPolluHc" type="xs:int" />
+      <xs:element minOccurs="0" name="mesPolluCoCorrRal" type="xs:decimal" />
+      <xs:element minOccurs="0" name="mesContMasse" type="xs:decimal" />
+      <xs:element minOccurs="0" name="mesPollu2016C1" type="xs:string" />
+      <xs:element minOccurs="0" name="mesPollu2016C2" type="xs:string" />
+      <xs:element minOccurs="0" name="mesPollu2016C3" type="xs:string" />
+      <xs:element minOccurs="0" name="mesPollu2016C4" type="xs:string" />
+      <xs:element minOccurs="0" name="mesPollu2016C5" type="xs:string" />
+      <xs:element minOccurs="0" name="mesPollu2016C6" type="xs:string" />
+      <xs:element minOccurs="0" name="mesPollu2016C7" type="xs:string" />
+      <xs:element minOccurs="0" name="regimeRegul2016C1" type="xs:short" />
+      <xs:element minOccurs="0" name="regimeRegul2016C2" type="xs:short" />
+      <xs:element minOccurs="0" name="regimeRegul2016C3" type="xs:short" />
+      <xs:element minOccurs="0" name="regimeRegul2016C4" type="xs:short" />
+      <xs:element minOccurs="0" name="regimeRegul2016C5" type="xs:short" />
+      <xs:element minOccurs="0" name="regimeRegul2016C6" type="xs:short" />
+      <xs:element minOccurs="0" name="regimeRegul2016C7" type="xs:short" />
+      <xs:element minOccurs="0" name="mesPolluVcalc2016" type="xs:string" />
+      <xs:element minOccurs="0" name="dispersionOpa2016" type="xs:decimal" />
+      <xs:element minOccurs="0" name="valeurLimitOpa2016" type="xs:decimal" />
+      <xs:element minOccurs="0" name="tempMoteurOpa2016" type="xs:short" />
+      <xs:element minOccurs="0" name="tempGazC2Opa2016" type="xs:short" />
+      <xs:element minOccurs="0" name="codResultCtrlOpa2016" type="xs:short" />
+      <xs:element minOccurs="0" name="codProcAppliqueOpa2016" type="xs:short" />
+      <xs:element minOccurs="0" name="codSondePrelevOpa2016" type="xs:short" />
+      <xs:element minOccurs="0" name="crit1NonConformOpa2016" type="xs:short" />
+      <xs:element minOccurs="0" name="crit2NonConformOpa2016" type="xs:short" />
+      <xs:element minOccurs="0" name="crit3NonConformOpa2016" type="xs:short" />
+      <xs:element minOccurs="0" name="crit4NonConformOpa2016" type="xs:short" />
+      <xs:element minOccurs="0" name="mesPolluCo2RalAcc" type="xs:decimal" />
+      <xs:element minOccurs="0" name="mesPolluHcAcc" type="xs:int" />
+      <xs:element minOccurs="0" name="mesPolluO2Acc" type="xs:decimal" />
+      <xs:element minOccurs="0" name="mesPolluO2Ral" type="xs:decimal" />
+      <xs:element minOccurs="0" name="mesPolluLambdaRal" type="xs:decimal" />
+      <xs:element minOccurs="0" name="codValidTempMoteurOpa2016" type="tns:ClRTempMoteurOpa2016" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="ClRTempMoteurOpa2016">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="codValidTempMoteurOpa2016" type="xs:short" />
+      <xs:element minOccurs="0" name="libValidTempMoteurOpa2016" type="xs:string" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="ClPtransfert">
+    <xs:sequence>
+      <xs:element name="numTransfert" type="xs:long" />
+      <xs:element name="origine" type="xs:short" />
+      <xs:element name="idLogin" type="xs:int" />
+      <xs:element minOccurs="0" name="dateTransfert" type="xs:dateTime" />
+      <xs:element minOccurs="0" name="heureTransfert" type="xs:dateTime" />
+      <xs:element minOccurs="0" name="dateReception" type="xs:dateTime" />
+      <xs:element minOccurs="0" name="codeAgrementCentre" type="xs:string" />
+      <xs:element minOccurs="0" name="ficXmlAssocie" type="xs:string" />
+      <xs:element minOccurs="0" name="numOrdre" type="xs:integer" />
+      <xs:element name="fluxValide" type="xs:boolean" />
+      <xs:element name="transfertTraite" type="xs:boolean" />
+      <xs:element minOccurs="0" name="ficXmlRapport" type="xs:string" />
+      <xs:element name="estDoublon" type="xs:boolean" />
+      <xs:element minOccurs="0" name="hashCode" type="xs:string" />
+      <xs:element name="estTest" type="xs:boolean" />
+      <xs:element minOccurs="0" name="host" type="xs:string" />
+      <xs:element minOccurs="0" name="RUtilisateur" type="tns:ClRutilisateur" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="ClRutilisateur">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="idLogin" type="xs:int" />
+      <xs:element minOccurs="0" name="nomLogin" type="xs:string" />
+      <xs:element minOccurs="0" name="dateCreat" type="xs:dateTime" />
+      <xs:element minOccurs="0" name="dateMaj" type="xs:dateTime" />
+      <xs:element minOccurs="0" name="codReseau" type="xs:unsignedShort" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="ClRDocumentIdentification">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="codDocument" type="xs:string" />
+      <xs:element minOccurs="0" name="libDocument" type="xs:string" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="ClRModifMesureDefaut">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="codModifMesureDefaut" type="xs:string" />
+      <xs:element minOccurs="0" name="libModifMesureDefaut" type="xs:string" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="ClRNatureControle">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="codNatureCtrl" type="xs:string" />
+      <xs:element minOccurs="0" name="libNatureCtrl" type="xs:string" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="ClRResultCtrl">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="codResultCtrl" type="xs:string" />
+      <xs:element minOccurs="0" name="libResultCtrl" type="xs:string" />
+      <xs:element name="contreVisite" type="xs:boolean" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="ClRMaterielStatut">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="codStatutMateriel" type="xs:short" />
+      <xs:element minOccurs="0" name="libStatutMateriel" type="xs:string" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="ClPano">
+    <xs:sequence>
+      <xs:element name="numVisit" type="xs:long" />
+      <xs:element name="origine" type="xs:short" />
+      <xs:element minOccurs="0" name="comptExcep" type="xs:string" />
+      <xs:element minOccurs="0" name="RAno" type="tns:ClRano" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="ClRano">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="comptExcep" type="xs:string" />
+      <xs:element minOccurs="0" name="dateDebutEffet" type="xs:dateTime" />
+      <xs:element minOccurs="0" name="dateFinEffet" type="xs:dateTime" />
+      <xs:element minOccurs="0" name="libComptExcep" type="xs:string" />
+      <xs:element minOccurs="0" name="libCourtCe" type="xs:string" />
+      <xs:element minOccurs="0" name="nivAno" type="xs:short" />
+      <xs:element name="estActif" type="xs:boolean" />
+      <xs:element minOccurs="0" name="numTheme" type="tns:ClRAnoTheme" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="ClRAnoTheme">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="numTheme" type="xs:short" />
+      <xs:element minOccurs="0" name="codTheme" type="xs:string" />
+      <xs:element minOccurs="0" name="libTheme" type="xs:string" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="ClPHistoCtrl">
+    <xs:sequence>
+      <xs:element name="numVisit" type="xs:long" />
+      <xs:element name="origine" type="xs:short" />
+      <xs:element name="numChrono" type="xs:short" />
+      <xs:element minOccurs="0" name="kmPrecedentVeh" type="xs:int" />
+      <xs:element minOccurs="0" name="dateKmPrecedentVeh" type="xs:dateTime" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="ClPDocConstate">
+    <xs:sequence>
+      <xs:element name="numVisit" type="xs:long" />
+      <xs:element name="origine" type="xs:short" />
+      <xs:element minOccurs="0" name="codDoc" type="xs:string" />
+      <xs:element name="numeroDoc" type="xs:short" />
+      <xs:element minOccurs="0" maxOccurs="unbounded" name="PLocalisationDocs" nillable="true" type="tns:ClPLocalisationDoc" />
+      <xs:element minOccurs="0" name="RDoc" type="tns:ClRDoc" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="ClPLocalisationDoc">
+    <xs:sequence>
+      <xs:element name="numVisit" type="xs:long" />
+      <xs:element name="origine" type="xs:short" />
+      <xs:element minOccurs="0" name="codDoc" type="xs:string" />
+      <xs:element name="numeroDoc" type="xs:short" />
+      <xs:element minOccurs="0" name="codLoc" type="xs:string" />
+      <xs:element minOccurs="0" name="RLocalisation" type="tns:ClRlocalisation" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="ClRlocalisation">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="codLoc" type="xs:string" />
+      <xs:element minOccurs="0" name="libLoc" type="xs:string" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="ClRDoc">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="codDoc" type="xs:string" />
+      <xs:element minOccurs="0" name="dateDebutEffet" type="xs:dateTime" />
+      <xs:element minOccurs="0" name="codResultCtrlVtpCv" type="xs:string" />
+      <xs:element minOccurs="0" name="codTypeDoc" type="xs:string" />
+      <xs:element minOccurs="0" name="libDocLong" type="xs:string" />
+      <xs:element minOccurs="0" name="codFonction" type="xs:string" />
+      <xs:element minOccurs="0" name="dateFinEffet" type="xs:dateTime" />
+      <xs:element name="locAutorise" type="xs:boolean" />
+      <xs:element name="colSpecDoc" type="xs:boolean" />
+      <xs:element name="colNonAutoriseDoc" type="xs:boolean" />
+      <xs:element minOccurs="0" name="codPoint" type="xs:string" />
+      <xs:element minOccurs="0" name="RTypeDoc" type="tns:ClRTypeDoc" />
+      <xs:element minOccurs="0" name="RFonctionDoc" type="tns:ClRFonctionDoc" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="ClRTypeDoc">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="codTypeDoc" type="xs:string" />
+      <xs:element minOccurs="0" name="libTypeDoc" type="xs:string" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="ClRFonctionDoc">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="codFonction" type="xs:string" />
+      <xs:element minOccurs="0" name="libFonction" type="xs:string" />
+    </xs:sequence>
+  </xs:complexType>
+</xs:schema>

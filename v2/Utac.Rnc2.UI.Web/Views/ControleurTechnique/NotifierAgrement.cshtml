@@ -1,0 +1,140 @@
+﻿@model Utac.Rnc2.UI.Web.Models.ActionAgrementControleurModel
+@using Utac.Rnc2.BusinessObjects
+
+@section TitleContent {
+    Notification de l'agrément @Model.categorieVehicule.ToString() pour le contrôleur @Model.controleur.Nom @Model.controleur.Prenom
+}
+@section SousTitrePage {
+    Notification de l'agrément @Model.categorieVehicule.ToString() pour le contrôleur @Model.controleur.Nom @Model.controleur.Prenom
+}
+@section StyleContent {
+    @Styles.Render("~/styles/jquery-ui")
+}
+<p class="avertissement">
+    Attention, Vous êtes sur le point d'effectuer une notification d'agrément @Model.categorieVehicule.ToString() pour le controleur @Model.controleur.Nom @Model.controleur.Prenom
+    @{
+        var categorie = Model.categorieVehicule;
+        var centre = rCategorieVehicule.CategorieEnum.VL.Equals(categorie) ? Model.controleur.PCentreEncourVL : rCategorieVehicule.CategorieEnum.PL.Equals(categorie) ? Model.controleur.PCentreEncourPL : Model.controleur.PCentreEncourCL;
+    }
+    @if (centre != null)
+    {
+        <br />
+        @("Pour rappel, les informations de son centre de rattachement :")
+        @("Ville: ")<b>@centre.Ville</b>
+        @("Raison sociale : ")<b>@centre.RaisonSociale</b>
+    }
+    <br />
+    Cliquer sur le bouton "confirmer" pour continuer.
+</p>
+@using (Html.BeginForm())
+{
+    @Html.ValidationSummary(true)
+<fieldset>
+    <div class="editor-label">
+        <label>Centre de rattachement  @Model.categorieVehicule.ToString()</label>
+    </div>
+    @switch (Model.categorieVehicule)
+    {
+        case rCategorieVehicule.CategorieEnum.VL:
+            <div class="editor-field">
+                @Html.TextBoxFor(model => model.controleur.CodAgremRattachementVl, new { maxlength = "8" })
+                @Html.ValidationMessageFor(model => model.controleur.CodAgremRattachementVl)
+            </div>
+            break;
+        case rCategorieVehicule.CategorieEnum.PL:
+            <div class="editor-field">
+                @Html.TextBoxFor(model => model.controleur.CodAgremRattachementPl, new { maxlength = "8" })
+                @Html.ValidationMessageFor(model => model.controleur.CodAgremRattachementPl)
+            </div>
+            break;
+        case rCategorieVehicule.CategorieEnum.CL:
+            <div class="editor-field">
+                @Html.TextBoxFor(model => model.controleur.CodAgremRattachementCl, new { maxlength = "8" })
+                @Html.ValidationMessageFor(model => model.controleur.CodAgremRattachementCl)
+            </div>
+            break;
+    }
+    <div class="editor-label">
+        <label>Date effet notification @Model.categorieVehicule.ToString()</label>
+    </div>
+    @switch (Model.categorieVehicule)
+    {
+        case rCategorieVehicule.CategorieEnum.VL:
+            <div class="editor-field">
+                @Html.TextBoxFor(model => model.controleur.DateEffetNotificationVl, new { @class = "datepicker" })
+                @Html.ValidationMessageFor(model => model.controleur.DateEffetNotificationVl)
+            </div>
+            <div class="editor-label">@Html.Label("Application de la règle Silence Vaut Acceptation, (délai de 4 mois pour un contrôleur)")</div>
+            <div class="editor-field">
+                @Html.RadioButtonFor(model => model.controleur.SvaVL, true)
+                <label for="SvaVL">Oui</label>
+                @Html.RadioButtonFor(model => model.controleur.SvaVL, false)
+                <label for="SvaVL">Non</label>
+            </div>
+            break;
+        case rCategorieVehicule.CategorieEnum.PL:
+            <div class="editor-field">
+                @Html.TextBoxFor(model => model.controleur.DateEffetNotificationPl, new { @class = "datepicker" })
+                @Html.ValidationMessageFor(model => model.controleur.DateEffetNotificationPl)
+            </div>
+            <div class="editor-label">@Html.Label("Application de la règle Silence Vaut Acceptation, (délai de 4 mois pour un contrôleur)")</div>
+            <div class="editor-field">
+                @Html.RadioButtonFor(model => model.controleur.SvaPL, true)
+                <label for="SvaPL">Oui</label>
+                @Html.RadioButtonFor(model => model.controleur.SvaPL, false)
+                <label for="SvaPL">Non</label>
+            </div>
+            break;
+        case rCategorieVehicule.CategorieEnum.CL:
+            <div class="editor-field">
+                @Html.TextBoxFor(model => model.controleur.DateEffetNotificationCl, new { @class = "datepicker" })
+                @Html.ValidationMessageFor(model => model.controleur.DateEffetNotificationCl)
+            </div>
+            <div class="editor-label">@Html.Label("Application de la règle Silence Vaut Acceptation, (délai de 4 mois pour un contrôleur)")</div>
+            <div class="editor-field">
+                @Html.RadioButtonFor(model => model.controleur.SvaCL, true)
+                <label for="SvaCL">Oui</label>
+                @Html.RadioButtonFor(model => model.controleur.SvaCL, false)
+                <label for="SvaCL">Non</label>
+            </div>
+            break;
+    }
+    @if (User.IsInRole(rUtilisateur.Profil.OTC_Administration.ToString()))
+    {
+        <div class="editor-label">
+            <label>Numéro agrément (optionnel)</label>
+        </div>
+        switch (Model.categorieVehicule)
+        {
+            case rCategorieVehicule.CategorieEnum.VL:
+                <div class="editor-field">
+                    @Html.TextBoxFor(model => model.controleur.CodAgremVl)
+                    @Html.ValidationMessageFor(model => model.controleur.CodAgremVl)
+                </div>
+                break;
+            case rCategorieVehicule.CategorieEnum.PL:
+                <div class="editor-field">
+                    @Html.TextBoxFor(model => model.controleur.CodAgremPl)
+                    @Html.ValidationMessageFor(model => model.controleur.CodAgremPl)
+                </div>
+                break;
+            case rCategorieVehicule.CategorieEnum.CL:
+                <div class="editor-field">
+                    @Html.TextBoxFor(model => model.controleur.CodAgremCl)
+                    @Html.ValidationMessageFor(model => model.controleur.CodAgremCl)
+                </div>
+                break;
+        }
+    }
+    @Html.HiddenFor(m => m.controleur.Id)
+    <br />
+    <div class="rowAligne">
+        <input type="submit" value="Confirmer" class="btn primary" />
+        @Html.ActionLink("Retour à la fiche", "Fiche", new { id = Model.controleur.Id }, new { @class = "btn cancel" })
+    </div>
+</fieldset>
+}
+@section JavaScriptContent {
+    <!-- DatePicker -->
+    @Scripts.Render("~/scripts/date-picker")
+}

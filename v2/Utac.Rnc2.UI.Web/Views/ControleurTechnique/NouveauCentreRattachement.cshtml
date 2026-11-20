@@ -1,0 +1,73 @@
+﻿@model Utac.Rnc2.UI.Web.Models.ActionAgrementControleurModel
+
+@section TitleContent {
+    Changement de centre de rattachement @Model.categorieVehicule.ToString() pour le contrôleur @Model.controleur.Nom @Model.controleur.Prenom
+}
+@section SousTitrePage {
+    Changement de centre de rattachement @Model.categorieVehicule.ToString() pour le contrôleur @Model.controleur.Nom @Model.controleur.Prenom
+}
+@section StyleContent {
+    @Styles.Render("~/styles/jquery-ui")
+}
+<p class="avertissement">
+    Attention, Vous êtes sur le point d'effectuer une notification d'agrément @Model.categorieVehicule.ToString() pour le controleur @Model.controleur.Nom @Model.controleur.Prenom.
+    <br />Cliquer sur le bouton "confirmer" pour continuer
+</p>
+@using (Html.BeginForm())
+{
+    @Html.ValidationSummary(true)
+    <fieldset>
+        @Html.HiddenFor(m => m.categorieVehicule)
+        @if (Model.categorieVehicule.Equals(Utac.Rnc2.BusinessObjects.rCategorieVehicule.CategorieEnum.VL))
+        {
+            <div class="editor-label">@Html.Label("Agrément centre rattachement VL")</div>
+            <div class="editor-field">
+                @Html.TextBoxFor(model => model.controleur.CodAgremRattachementVl, new { Value = Model.NombreChargement > 0 ? Model.controleur.CodAgremRattachementVl : "", maxlength = "8" })
+                @Html.ValidationMessageFor(model => model.controleur.CodAgremRattachementVl)
+            </div>
+            <div class="editor-label">@Html.Label("Date effet notification VL")</div>
+            <div class="editor-field">
+                @(Html.TextBoxFor(model => model.controleur.DateEffetNotificationVl,
+                               new { Value = Model.NombreChargement > 0 ? string.Format("{0:d}",Model.controleur.DateEffetNotificationVl) : null , @class="datepicker" }
+                    ))
+                @Html.ValidationMessageFor(model => model.controleur.DateEffetNotificationVl)
+            </div>
+        }
+        @if (Model.categorieVehicule.Equals(Utac.Rnc2.BusinessObjects.rCategorieVehicule.CategorieEnum.PL))
+        {
+            <div class="editor-label">@Html.Label("Agrément centre rattachement PL")</div>
+            <div class="editor-field">
+                @Html.TextBoxFor(model => model.controleur.CodAgremRattachementPl, new { Value = Model.NombreChargement > 0 ? Model.controleur.CodAgremRattachementPl : "", maxlength = "8" })
+                @Html.ValidationMessageFor(model => model.controleur.CodAgremRattachementPl)
+            </div>
+            <div class="editor-label">@Html.Label("Date effet notification PL")</div>
+            <div class="editor-field">
+                @(Html.TextBoxFor(model => model.controleur.DateEffetNotificationPl,
+                                         new { Value = Model.NombreChargement > 0 ? string.Format("{0:d}", Model.controleur.DateEffetNotificationPl) : null, @class = "datepicker" }))
+                @Html.ValidationMessageFor(model => model.controleur.DateEffetNotificationPl)
+            </div>
+        }
+        @if (Model.categorieVehicule.Equals(Utac.Rnc2.BusinessObjects.rCategorieVehicule.CategorieEnum.CL))
+        {
+            <div class="editor-label">@Html.Label("Agrément centre rattachement CL")</div>
+            <div class="editor-field">
+                @Html.TextBoxFor(model => model.controleur.CodAgremRattachementCl, new { Value = Model.NombreChargement > 0 ? Model.controleur.CodAgremRattachementCl : "", maxlength = "8" })
+                @Html.ValidationMessageFor(model => model.controleur.CodAgremRattachementCl)
+            </div>
+            <div class="editor-label">@Html.Label("Date effet notification CL")</div>
+            <div class="editor-field">
+                @(Html.TextBoxFor(model => model.controleur.DateEffetNotificationCl,new { Value = Model.NombreChargement > 0 ? string.Format("{0:d}", Model.controleur.DateEffetNotificationCl) : null, @class = "datepicker" }))
+                @Html.ValidationMessageFor(model => model.controleur.DateEffetNotificationCl)
+            </div>
+        }
+        <br />
+        <div class="rowAligne">
+            <input type="submit" value="Confirmer" class="btn primary" />
+            <a class="btn cancel" href="@Url.Action("Fiche","ControleurTechnique", new { id = Model.controleur.Id})">Retour à la fiche</a>
+        </div>
+    </fieldset>
+}
+@section JavaScriptContent {
+    <!-- DatePicker -->
+    @Scripts.Render("~/scripts/date-picker")
+}

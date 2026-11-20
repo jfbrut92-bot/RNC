@@ -1,0 +1,203 @@
+﻿@model IEnumerable<Utac.Rnc2.BusinessObjects.pCentreEncour>
+@using Utac.Rnc2.BusinessObjects
+@using Utac.Rnc2.UI.Web.Utils
+
+@{ var otcIsMobileDevice = DeviceHelper.IsMobileDevice(Request.UserAgent); }
+
+@if (Model != null)
+{
+    <div class="col-12 table-responsive">
+        <table class="p-0 m-0 table @(otcIsMobileDevice ? "table-bordered table-striped text-dark table-active table-hover":"table-sm")">
+            <tr>
+                <th scope="col">Raison<br />sociale</th>
+                <th scope="col">Représentant<br />légal</th>
+                <th scope="col" class="d-none d-md-table-cell">Adresse Complete</th>
+                <th scope="col">
+                    <!-- Début désactivation CL -->
+                    @* Agrément <br />VL / PL / CL*@
+                    Agrément <br />VL / PL
+                    <!-- Fin désactivation CL -->
+                </th>
+            </tr>
+            @{ var i = 0; }
+            @foreach (var item in Model)
+            {
+                <tr class="@(i % 2 == 0 && !otcIsMobileDevice  ? "row1" : "row2")">
+                    <td class="raisonSociale">@Html.ActionLink(item.RaisonSociale, "Fiche", new { id = item.Id }, new { @class = otcIsMobileDevice ? "border-0" : "" })</td>
+                    <td>@item.NomRepresentantLegal</td>
+                    <td class="d-none d-md-table-cell">@item.AdresseComplete</td>
+                    <td style="white-space:nowrap">
+                        @("VL:")
+                        @if (item.EstAgrementEnCoursVL)
+                        {
+                            @("(")<span class="cours">en cours</span>@(")")
+                        }
+                        else
+                        {
+                            if (item.EstAgrementRejeteVL)
+                            {
+                                @("(")<span class="annule">rejeté</span>@(")")
+                            }
+                            else
+                            {
+                                if (item.CodAgremVl != null)
+                                {
+                                    if (item.EstAgrementValideVL)
+                                    {
+                                        if (!(!item.AccesPublicVl && (User.IsInRole(rUtilisateur.Profil.CENTRE_INDEPENDANT.ToString()) || User.IsInRole(rUtilisateur.Profil.RESEAU.ToString()))))
+                                        {
+                                            @item.CodAgremVl
+                                            if (item.ExisteSanctionEncours(rCategorieVehicule.CategorieEnum.VL))
+                                            {
+                                                @("(")<span class="annule">suspendu</span>@(")")
+                                            }
+                                            else
+                                            {
+                                                @("(")<span class="valide">valide</span>@(")")
+                                                if (!"".Equals(item.ExtAgremClStatutVLAsString))
+                                                {
+                                                    <br /> @("Ext.agrément CL:")@item.ExtAgremClStatutVLAsString
+                                                }
+                                            }
+                                        }
+                                        else
+                                        {
+                                            @("(en attente accusé )")
+                                        }
+                                    }
+                                    else
+                                    {
+                                        @item.CodAgremVl
+                                        if (item.EstAgrementAnnuleVL)
+                                        {
+                                            if (item.MotifFinAgrementVl == Convert.ToString((int)pCentreEncour.MotifAnnulerAgrementVL.RETRAIT_SANCTION))
+                                            {
+                                                @("(")<span class="annule">retiré</span>@(")")
+                                            }
+                                            else
+                                            {
+                                                @("(annulé)")
+                                            }
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                        <br />
+                        @("CL:")
+                        @if (item.EstAgrementEnCoursCL)
+                        {
+                            @("(")<span class="cours">en cours</span>@(")")
+                        }
+                        else
+                        {
+                            if (item.EstAgrementRejeteCL)
+                            {
+                                @("(")<span class="annule">rejeté</span>@(")")
+                            }
+                            else
+                            {
+                                if (item.CodAgremCl != null)
+                                {
+                                    if (item.EstAgrementValideCL)
+                                    {
+                                        if (!(!item.AccesPublicCl && (User.IsInRole(rUtilisateur.Profil.CENTRE_INDEPENDANT.ToString()) || User.IsInRole(rUtilisateur.Profil.RESEAU.ToString()))))
+                                        {
+                                            @item.CodAgremCl
+                                            if (item.ExisteSanctionEncours(rCategorieVehicule.CategorieEnum.CL))
+                                            {
+                                                @("(")<span class="annule">suspendu</span>@(")")
+                                            }
+                                            else
+                                            {
+                                                @("(")<span class="valide">valide</span>@(")")
+                                            }
+                                        }
+                                        else
+                                        {
+                                            @("(en attente accusé )")
+                                        }
+                                    }
+                                    else
+                                    {
+                                        @item.CodAgremCl
+                                        if (item.EstAgrementAnnuleCL)
+                                        {
+                                            if (item.MotifFinAgrementCl == Convert.ToString((int)pCentreEncour.MotifAnnulerAgrementCL.RETRAIT_SANCTION))
+                                            {
+                                                @("(")<span class="annule">retiré</span>@(")")
+                                            }
+                                            else
+                                            {
+                                                @("(annulé)")
+                                            }
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                        <br />
+                        @("PL: ")
+                        @if (item.EstAgrementEnCoursPL)
+                        {
+                            @("(")<span class="cours">en cours</span>@(")")
+                        }
+                        else
+                        {
+                            if (item.EstAgrementRejetePL)
+                            {
+                                @("(") <span class="annule">rejeté</span>@(")")
+                            }
+                            else
+                            {
+                                if (item.CodAgremPl != null)
+                                {
+                                    if (item.EstAgrementValidePL)
+                                    {
+                                        if (!(!item.AccesPublicPl && (User.IsInRole(rUtilisateur.Profil.CENTRE_INDEPENDANT.ToString()) || User.IsInRole(rUtilisateur.Profil.RESEAU.ToString()))))
+                                        {
+                                            @item.CodAgremPl
+                                            if (item.ExisteSanctionEncours(rCategorieVehicule.CategorieEnum.PL))
+                                            {
+                                                @("(") <span class="annule">suspendu</span>@(")")
+                                            }
+                                            else
+                                            {
+                                                @("(")<span class="valide">valide</span>@(")")
+                                                if (!"".Equals(item.ExtAgremClStatutPLAsString))
+                                                {
+                                                    <br /> @("Ext.agrément CL:")@item.ExtAgremClStatutPLAsString
+                                                }
+                                            }
+                                        }
+                                        else
+                                        {
+                                            @("(en attente accusé)")
+                                        }
+                                    }
+                                    else
+                                    {
+                                        @item.CodAgremPl
+                                        if (item.EstAgrementAnnulePL)
+                                        {
+                                            if (item.MotifFinAgrementPl == Convert.ToString((int)pCentreEncour.MotifAnnulerAgrementPL.RETRAIT_SANCTION))
+                                            {
+                                                @("(")<span class="annule">retiré </span>@(")")
+                                            }
+                                            else
+                                            {
+                                                @("(annulé)")
+                                            }
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    </td>
+                </tr>
+                i++;
+            }
+        </table>
+    </div>
+}
+

@@ -1,0 +1,88 @@
+﻿@model IEnumerable<Utac.Rnc2.BusinessObjects.pContoleurEncour>
+
+@section TitleContent {
+    Recherchetest
+}
+<h2>Recherchetest</h2>
+<table>
+    <tr>
+        <th></th>
+        <th>Nom</th>
+        <th>Prenom</th>
+        <th>DateNaissance</th>
+        <th>CodAgremRattachementVl</th>
+        <th>CodAgremRattachementPl</th>
+        <th>DateDebutRattachementVl</th>
+        <th>DateDebutRattachementPl</th>
+        <th>DateFinRattachementVl</th>
+        <th>DateFinRattachementPl</th>
+        <th>DateEffetNotificationVl</th>
+        <th>DateEffetNotificationPl</th>
+        <th>CodAgremVl</th>
+        <th>CodAgremPl</th>
+        <th>DateFinAgrementVl</th>
+        <th>DateFinAgrementPl</th>
+        <th>MotifFinAgrementVl</th>
+        <th>MotifFinAgrementPl</th>
+        <th>EtatAgrementVl</th>
+        <th>EtatAgrementPl</th>
+        <th>AvisOtcVl</th>
+        <th>AvisOtcPl</th>
+        <th>ReferenceAvisOtcVl</th>
+        <th>ReferenceAvisOtcPl</th>
+        <th>DateAvisOtcVl</th>
+        <th>DateAvisOtcPl</th>
+        <th>CommentaireAvisOtcVl</th>
+        <th>CommentaireAvisOtcPl</th>
+        <th>DateDebutHabilitationPl</th>
+        <th>CodDepartement</th>
+        <th>NumOrdrePl</th>
+        <th>NumOrdreVl</th>
+        <th>DateMiseaJour</th>
+        <th>Id</th>
+    </tr>
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>
+                @Html.ActionLink("Edit", "Edit", new { /* id=item.PrimaryKey */ }) |
+                @Html.ActionLink("Details", "Details", new { /* id=item.PrimaryKey */ }) |
+                @Html.ActionLink("Delete", "Delete", new { /* id=item.PrimaryKey */ })
+            </td>
+            <td>@item.Nom</td>
+            <td>@item.Prenom</td>
+            <td>@String.Format("{0:g}", item.DateNaissance)</td>
+            <td>@item.CodAgremRattachementVl</td>
+            <td>@item.CodAgremRattachementPl</td>
+            <td>@String.Format("{0:g}", item.DateDebutRattachementVl)</td>
+            <td>@String.Format("{0:g}", item.DateDebutRattachementPl)</td>
+            <td>@String.Format("{0:g}", item.DateFinRattachementVl)</td>
+            <td>@String.Format("{0:g}", item.DateFinRattachementPl)</td>
+            <td>@String.Format("{0:g}", item.DateEffetNotificationVl)</td>
+            <td>@String.Format("{0:g}", item.DateEffetNotificationPl)</td>
+            <td>@item.CodAgremVl</td>
+            <td>@item.CodAgremPl</td>
+            <td>@String.Format("{0:g}", item.DateFinAgrementVl)</td>
+            <td>@String.Format("{0:g}", item.DateFinAgrementPl)</td>
+            <td>@item.MotifFinAgrementVl</td>
+            <td>@item.MotifFinAgrementPl</td>
+            <td>@item.EtatAgrementVl</td>
+            <td>@item.EtatAgrementPl</td>
+            <td>@item.AvisOtcVl</td>
+            <td>@item.AvisOtcPl</td>
+            <td>@item.ReferenceAvisOtcVl</td>
+            <td>@item.ReferenceAvisOtcPl</td>
+            <td>@String.Format("{0:g}", item.DateAvisOtcVl)</td>
+            <td>@String.Format("{0:g}", item.DateAvisOtcPl)</td>
+            <td>@item.CommentaireAvisOtcVl</td>
+            <td>@item.CommentaireAvisOtcPl</td>
+            <td>@String.Format("{0:g}", item.DateDebutHabilitationPl)</td>
+            <td>@item.CodDepartement</td>
+            <td>@item.NumOrdrePl</td>
+            <td>@item.NumOrdreVl</td>
+            <td>@String.Format("{0:g}", item.DateMiseaJour)</td>
+            <td>@item.Id</td>
+        </tr>
+    }
+</table>
+<p>@Html.ActionLink("Create New", "Create")</p>

@@ -1,0 +1,103 @@
+﻿@model Utac.Rnc2.UI.Web.Models.HomeModel
+@using Utac.Rnc2.BusinessObjects
+@using Utac.Rnc2.MVC.Extensions
+@using Utac.Rnc2.BusinessObjects
+@using Utac.Rnc2.UI.Web.Helpers
+@using Utac.Rnc2.UI.Web.Utils
+
+@section TitleContent {
+    Liste des contrôleurs de mon réseau : @Model.RechercheProfilReseauModel.ReseauCourant.ReseauAvecLettreEtCategorie
+}
+@section SousTitrePage {
+    Liste des contrôleurs de mon réseau : @Model.RechercheProfilReseauModel.ReseauCourant.ReseauAvecLettreEtCategorie
+}
+<p>@Html.ActionLink("Retour à ma page d'accueil", "Index")</p>
+@if (Model.RechercheProfilReseauModel.ListeControleurs != null && Model.RechercheProfilReseauModel.ListeControleurs.Count > 0)
+{
+    <table>
+        <tr>
+            <th>Agrément/Date notification</th>
+            <th>Nom/Prénom/Date naissance</th>
+            <th>Actions</th>
+        </tr>
+        @{ var i = 0; }
+        @foreach (var item in Model.RechercheProfilReseauModel.ListeControleurs)
+        {
+            <tr class="@(i % 2 == 0 ? " row1" : "row2")">
+                <td>
+                    @if (item.EstAgrementValideVL && Model.RechercheProfilReseauModel.ReseauCourant.TypeReseauVl)
+                    {
+                        @:VL: @item.CodAgremVl @string.Format("{0:d}", item.DateEffetNotificationVl)
+                        if (!"".Equals(item.ExtAgremClStatutVLAsString))
+                        {
+                            <br /> @("Ext.agrément CL:")@item.ExtAgremClStatutVLAsString
+                        }
+                        else
+                        {
+                            if (GestionDroitsExecution.isRightActionForControleur(User, item, GestionDroitsExecution.ActionsFicheControleur.EXTDECLA_VL))
+                            {
+                                <br />@Html.SecuredActionLink("Déclarer ext. agrément Cat.L", "DeclarerExtensionAgrementCatL", "ControleurTechnique", new { id = item.Id, categorie = rCategorieVehicule.CategorieEnum.VL, returnLettreReseau = Model.RechercheProfilReseauModel.Filtre.CodeReseau, returnCodDep = Model.RechercheProfilReseauModel.Filtre.CodeDepartement })
+                            }
+                        }
+                        <br />
+
+                    }
+                    @if (item.EstAgrementValidePL && Model.RechercheProfilReseauModel.ReseauCourant.TypeReseauPl)
+                    {
+                        @:PL: @item.CodAgremPl @string.Format("{0:d}", item.DateEffetNotificationPl)
+                        if (!"".Equals(item.ExtAgremClStatutPLAsString))
+                        {
+                            <br /> @("Ext.agrément CL:")@item.ExtAgremClStatutPLAsString
+                        }
+                        else
+                        {
+                            if (GestionDroitsExecution.isRightActionForControleur(User, item, GestionDroitsExecution.ActionsFicheControleur.EXTDECLA_PL))
+                            {
+                                <br />@Html.SecuredActionLink("Déclarer ext. agrément Cat.L", "DeclarerExtensionAgrementCatL", "ControleurTechnique", new { id = item.Id, categorie = rCategorieVehicule.CategorieEnum.PL, returnLettreReseau = Model.RechercheProfilReseauModel.Filtre.CodeReseau, returnCodDep = Model.RechercheProfilReseauModel.Filtre.CodeDepartement })
+                            }
+                        }
+                        <br />
+
+                    }
+                    @if (item.EstAgrementValideCL && Model.RechercheProfilReseauModel.ReseauCourant.TypeReseauCl)
+                    {
+                        @:CL: @item.CodAgremCl @string.Format("{0:d}", item.DateEffetNotificationCl)
+                        <br />
+
+                    }
+                </td>
+                <td>
+                    @item.Nom @item.Prenom né(e) le @string.Format("{0:d}", item.DateNaissance)<br />
+                    Centre de rattachement :
+                    @if (item.EstAgrementValideVL && Model.RechercheProfilReseauModel.ReseauCourant.TypeReseauVl)
+                    {
+                        @item.PCentreEncourVL.CodAgremVl
+                        <br />
+                    }
+                    @if (item.EstAgrementValidePL && Model.RechercheProfilReseauModel.ReseauCourant.TypeReseauPl)
+                    {
+                        @item.PCentreEncourPL.CodAgremPl
+                        <br />
+                    }
+                    @if (item.EstAgrementValideCL && Model.RechercheProfilReseauModel.ReseauCourant.TypeReseauCl)
+                    {
+                        @item.PCentreEncourCL.CodAgremCl
+                        <br />
+                    }
+                </td>
+                <td>@Html.ActionLink("Ouvrir fiche", "Fiche", "ControleurTechnique", new { id = item.Id }, new { })</td>
+            </tr>
+            i++;
+        }
+    </table>
+}
+else
+{
+    <p>Aucun résultat pour le filtre sélectionné !</p>
+}
+@section SideBarDroite {
+    @if (User.IsInRole(rUtilisateur.Profil.RESEAU.ToString()))
+    {
+        @Html.Partial("FiltreUtilisateurReseau", Model)
+    }
+}

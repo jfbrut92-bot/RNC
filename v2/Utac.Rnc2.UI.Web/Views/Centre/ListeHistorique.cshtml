@@ -1,0 +1,61 @@
+﻿@model Utac.Rnc2.BusinessObjects.pCentreEncour
+
+@section TitleContent {
+    ListeHistorique
+}
+@section SousTitrePage {
+    @switch (Model.TypeCentre)
+    {
+        case "S":
+            @:Historique fiche centre spécialisé : @Model.CodAgremVl @Model.CodAgremPl @Model.CodAgremCl
+            break;
+        case "A":
+            @:Historique fiche installation auxiliaire : @Model.CodAgremVl @Model.CodAgremPl @Model.CodAgremCl
+            break;
+    }
+}
+<h1>@Model.RaisonSociale</h1>
+@Html.HiddenFor(m => Model.Id)
+<table>
+    <tr>
+        <th>Date</th>
+        <th>Motif</th>
+        <th>Agrément VL</th>
+        <th>Agrément CL</th>
+        <th>Agrément PL</th>
+    </tr>
+    @{ var i = 0; }
+    @foreach (var item in Model.PCentreHisto.OrderByDescending(h => h.DateHisto))
+    {
+        <tr class="@(i % 2 == 0 ? " row1" : "row2")">
+            <td>
+                @Html.ActionLink(String.Format("{0:g}", item.DateHisto), "FicheHistorique", new { id = Model.Id, dateHisto = item.DateHisto })
+            </td>
+            <td>@item.RMotifModification.Libelle</td>
+            <td>
+                @item.CodAgremVl
+                @if (item.ReseauRattachementVL != null)
+                {
+                    @item.ReseauRattachementVL.Nom
+                }
+            </td>
+            <td>
+                @item.CodAgremCl
+                @if (item.ReseauRattachementCL != null)
+                {
+                    @item.ReseauRattachementCL.Nom
+                }
+            </td>
+            <td>
+                @item.CodAgremPl
+                @if (item.ReseauRattachementPL != null)
+                {
+                    @item.ReseauRattachementPL.Nom
+                }
+            </td>
+        </tr>
+        i++;
+    }
+</table>
+<br />
+@Html.ActionLink("Retour à la fiche", "Fiche", new { id = Model.Id })

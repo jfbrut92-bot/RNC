@@ -1,0 +1,7 @@
+﻿@model IEnumerable<Utac.Rnc2.BusinessObjects.statistiques.ItemNombreInstallations>
+@{ Layout = null; }
+Département;Préfecture;Région;Centres Spécialisés Vl Rattachés;Centres Specialisés Vl Non Rattachés;Centres Auxiliaires Vl Rattachés;Centres Auxiliaires Vl Non Rattachés
+@foreach (var item in Model)
+{
+@:="@item.CodeDepartement";@item.Prefecture;@item.Region;@item.SpecialiseRattache;@item.SpecialiseNonRattache;@item.AuxiliaireRattache;@item.AuxiliaireNonRattache
+}

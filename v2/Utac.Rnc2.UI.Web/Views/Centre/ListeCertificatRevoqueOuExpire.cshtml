@@ -1,0 +1,47 @@
+﻿@model IEnumerable<Utac.Rnc2.BusinessObjects.pCertificat>
+
+@section TitleContent {
+    ListeCertificatRevoqueOuExpire
+}
+<h2>ListeCertificatRevoqueOuExpire</h2>
+<table>
+    <tr>
+        <th>
+            Agrément
+            <a href="@Url.Action("ListeCertificatRevoqueOuExpire", new { orderBy = "cod_agrem_vl", ascending = "true" })">
+                <img src="../../Content/images/arrow_up.png" alt="Tri sur Agrément ascendant" title="Tri sur Agrément ascendant" />
+            </a>
+            <a href="@Url.Action("ListeCertificatRevoqueOuExpire", new { orderBy = "cod_agrem_vl", ascending = "false" })">
+                <img src="../../Content/images/arrow_down.png" alt="Tri sur Agrément descendant" title="Tri sur Agrément descendant" />
+            </a>
+        </th>
+        <th>
+            Date Notification
+            <a href="@Url.Action("ListeCertificatRevoqueOuExpire", new { orderBy = "date_effet_notification_vl", ascending = "true" })">
+                <img src="../../Content/images/arrow_up.png" alt="Tri sur Date notification ascendant" title="Tri surDate notification ascendant" />
+            </a>
+            <a href="@Url.Action("ListeCertificatRevoqueOuExpire", new { orderBy = "date_effet_notification_vl", ascending = "false" })">
+                <img src="../../Content/images/arrow_down.png" alt="Tri sur Date notification descendant" title="Tri sur Date notification descendant" />
+            </a>
+        </th>
+        <th>Raison sociale/th>
+        <th>Ville</th>
+        <th>Nom représentant légal</th>
+        <th>Nom Fichier</th>
+        <th>Id Certificat</th>
+        <th>Numéro serie Certificat</th>
+    </tr>
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>@item.PCentreEncour.CodAgremVl</td>
+            <td>@String.Format("{0:g}", item.PCentreEncour.DateEffetNotificationVl)</td>
+            <td>@item.PCentreEncour.RaisonSociale</td>
+            <td>@item.PCentreEncour.CpCentre  @item.PCentreEncour.Ville</td>
+            <td>@item.PCentreEncour.NomRepresentantLegal</td>
+            <td>@item.NomFichier</td>
+            <td>@item.IdReq</td>
+            <td>@item.NumSerie</td>
+        </tr>
+    }
+</table>

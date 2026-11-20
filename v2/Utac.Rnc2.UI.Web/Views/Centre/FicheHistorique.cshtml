@@ -1,0 +1,319 @@
+﻿@model Utac.Rnc2.BusinessObjects.pCentreHisto
+@using Utac.Rnc2.BusinessObjects
+
+@section TitleContent {
+    Historique fiche
+}
+@section SousTitrePage {
+    @switch (Model.TypeCentre)
+    {
+        case "S":
+            @:Historique fiche centre spécialisé
+            break;
+        case "A":
+            @:Historique fiche installation auxiliaire
+            break;
+    }
+}
+<div class="bloc_main">
+    <!-- BLOC PRINCIPAL -->
+    <div class="bloc_principal">
+        <div class="row">
+            <div class="span9">
+                <div class="static-msg"> @Model.DateHisto  @Model.RMotifModification.Libelle</div>
+            </div>
+            <div class="span6">
+                <a class="btn success" href="@Url.Action("ListeHistorique","Centre", new { id = Model.IdCentreHisto})">Retour à l'historique</a>
+                <a class="btn success" href="@Url.Action("Fiche","Centre", new { id = Model.IdCentreHisto})">Retour à la fiche</a>
+            </div>
+        </div>
+        <fieldset>
+            <h1 class="panel">Informations société</h1>
+
+            <div class="row">
+                <div class="span4">
+                    <span class="display-label">Raison Sociale:</span>
+                </div>
+                <div class="span9">
+                    <span class="display-field">@Model.RaisonSociale</span>
+                </div>
+            </div>
+
+
+
+            <div class="row">
+                <div class="span4">
+                    <span class="display-label">Numéro de SIREN:</span>
+                    <span class="display-field">@Model.NumSiren</span>
+                </div>
+                <div class="span7">
+                    <span class="display-label">Statut juridique:</span>
+                    @if (Model.RStatutJuridique != null)
+                    {
+                        <span class="display-field">@Model.RStatutJuridique.Libelle</span>
+                    }
+                </div>
+            </div>
+            <div class="row">
+                <div class="span4">
+                    <span class="display-label">Nom/prénom du représentant légal:</span>
+                </div>
+                <div class="span7">
+                    <span class="display-field">@Model.NomRepresentantLegal</span>
+                </div>
+            </div>
+            @switch (Model.TypeCentre)
+            {
+                case "S":
+                    <div class="row">
+                        <div class="span4">
+                            <div class="display-label">
+                                Enseigne commerciale:
+                            </div>
+                        </div>
+                        <div class="span7">
+                            <div class="display-field">
+                                @Model.EnseigneCommerciale
+                            </div>
+                        </div>
+                    </div>
+                    break;
+            }
+            <div class="row">
+                <div class="span4">
+                    <div class="display-label">Adresse:</div>
+                </div>
+                <div class="span7">
+                    <div class="display-field">@Model.L1Adresse</div>
+                    <div class="display-field">@Model.L2Adresse</div>
+                    <span class="display-field"> @Model.CpCentre</span>
+                    <span class="display-field">@Model.Ville</span>
+                </div>
+            </div>
+            <div>
+                <span class="display-label">Numéro téléphone:</span>
+                <span class="display-field">@Model.NumTel</span>
+            </div>
+            <div>
+                <span class="display-label">Préfecture :</span>
+                <span class="display-field">@Model.RPrefecture.LibellePrefecture (@Model.CodDepartement)</span>
+            </div>
+            <div>
+                <span class="display-label">Date effet dernier changement dénomination sociale:</span>
+                <span class="display-field">@String.Format("{0:d}", Model.DateEffetModification)</span>
+            </div>
+            <h1 class="panel">
+                Agrément VL : @(!Model.AccesPublicVl && Model.EstAgrementValideVL && (User.IsInRole(rUtilisateur.Profil.CENTRE_INDEPENDANT.ToString()) || User.IsInRole(rUtilisateur.Profil.RESEAU.ToString()))
+                    ? "En attente accusé" : Model.CodAgremVl) @Model.EtatAgrementVlAsLibelle
+                </h1>
+                @if (User.IsInRole(rUtilisateur.Profil.OTC_Administration.ToString()))
+                {
+                    if (Model.EstAgrementValideVL && !Model.AccesPublicVl)
+                    {
+                        <p>Numéro accusé réception : @Model.NumAccuseReceptionVL</p>
+                    }
+                }
+                <div>
+                    <span class="display-label">
+                        @switch (Model.TypeCentre)
+                        {
+                            case "S":
+                                @:Réseau VL de rattachement:
+                                break;
+                            case "A":
+                                @:RéseauVL exploitant:
+                                break;
+                        }
+                    </span>
+                    <span class="display-field">
+                        @if (Model.ReseauRattachementVL != null)
+                        {
+                            @Model.ReseauRattachementVL.ReseauAvecLettre
+
+                        }
+                        else
+                        {
+                            @:Aucun
+                        }
+                    </span>
+                </div>
+                <div class="row">
+                    <div class="span8">
+                        <span class="display-label">Date d'effet notification:</span>
+                        <span class="display-field">@String.Format("{0:d}", Model.DateEffetNotificationVl)</span>
+                    </div>
+                    <div class="span4">
+                        <span class="display-label">Agrément précédent:</span>
+                        <span class="display-field">@Model.AncienNumeroAgrementVl</span>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="span8">
+                        <span class="display-label">Date fin agrément:</span>
+                        <span class="display-field">@String.Format("{0:d}", Model.DateFinAgrementVl)</span>
+                    </div>
+                    <div class="span4">
+                        <span class="display-label">Motif fin agrément:</span>
+                        <span class="display-field">@Model.MotifFinAgrementVlAsLibelle</span>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="span8">
+                        <span>Extension agrément CL:</span>
+                        <span class="font-weight-bold">@Model.ExtAgremClStatutVLAsString</span>
+                        <span>(<i>Déclarée le:</i></span>
+                        <span><i>@Model.ExtAgremClDateDeclaVLAsDate</i>)</span>
+                    </div>
+                    <div class="span4">
+                        <span>Validée à compter du:</span>
+                        <span class="font-weight-bold">@String.Format("{0:d}", @Model.ExtAgremClDateValidVLAsDate)</span>
+                    </div>
+                </div>
+                <div class="row">
+                    <span class="span11">
+                        <span class="display-label">Commentaires:</span>
+                        <span class="display-field"> @Model.CommentaireAvisOtcVl</span>
+                    </span>
+                </div>
+
+
+                <h1 class="panel">
+                    Agrément CL : @(!Model.AccesPublicCl && Model.EstAgrementValideCL && (User.IsInRole(rUtilisateur.Profil.CENTRE_INDEPENDANT.ToString()) || User.IsInRole(rUtilisateur.Profil.RESEAU.ToString()))
+                    ? "En attente accusé" : Model.CodAgremCl) @Model.EtatAgrementClAsLibelle
+                </h1>
+                @if (User.IsInRole(rUtilisateur.Profil.OTC_Administration.ToString()))
+                {
+                    if (Model.EstAgrementValideCL && !Model.AccesPublicCl)
+                    {
+                        <p>Numéro accusé réception : @Model.NumAccuseReceptionCL</p>
+                    }
+                }
+                <div>
+                    <span class="display-label">
+                        @switch (Model.TypeCentre)
+                        {
+                            case "S":
+                                @:Réseau CL de rattachement:
+                                break;
+                            case "A":
+                                @:RéseauCL exploitant:
+                                break;
+                        }
+                    </span>
+                    <span class="display-field">
+                        @if (Model.ReseauRattachementCL != null)
+                        {
+                            @Model.ReseauRattachementCL.ReseauAvecLettre
+
+                        }
+                        else
+                        {
+                            @:Aucun
+                        }
+                    </span>
+                </div>
+                <div class="row">
+                    <div class="span8">
+                        <span class="display-label">Date d'effet notification:</span>
+                        <span class="display-field">@String.Format("{0:d}", Model.DateEffetNotificationCl)</span>
+                    </div>
+                    <div class="span4">
+                        <span class="display-label">Agrément précédent:</span>
+                        <span class="display-field">@Model.AncienNumeroAgrementCl</span>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="span8">
+                        <span class="display-label">Date fin agrément:</span>
+                        <span class="display-field">@String.Format("{0:d}", Model.DateFinAgrementCl)</span>
+                    </div>
+                    <div class="span4">
+                        <span class="display-label">Motif fin agrément:</span>
+                        <span class="display-field">@Model.MotifFinAgrementClAsLibelle</span>
+                    </div>
+                </div>
+                <div class="row">
+                    <span class="span11">
+                        <span class="display-label">Commentaires:</span>
+                        <span class="display-field"> @Model.CommentaireAvisOtcCl</span>
+                    </span>
+                </div>
+
+                <h1 class="panel">
+                    Agrément PL : @(!Model.AccesPublicPl && Model.EstAgrementValidePL && (User.IsInRole(rUtilisateur.Profil.CENTRE_INDEPENDANT.ToString()) || User.IsInRole(rUtilisateur.Profil.RESEAU.ToString())) ?
+                    "En attente accusé" : Model.CodAgremPl) @Model.EtatAgrementPlAsLibelle
+                </h1>
+                @if (User.IsInRole(rUtilisateur.Profil.OTC_Administration.ToString()))
+                {
+                    if (Model.EstAgrementValidePL && !Model.AccesPublicPl)
+                    {
+                        <p>Numéro accusé réception : @Model.NumAccuseReceptionPL</p>
+                    }
+                }
+                <div>
+                    <span class="display-label">
+                        @switch (Model.TypeCentre)
+                        {
+                            case "S":
+                                @:Réseau PL de rattachement:
+                                break;
+                            case "A":
+                                @:Réseau PL exploitant:
+                                break;
+                        }
+                        @if (Model.ReseauRattachementPL != null)
+                        {
+                            @Model.ReseauRattachementPL.ReseauAvecLettre
+                        }
+                        else
+                        {
+                            @:Aucun
+                        }
+                    </span>
+                </div>
+                <div class="row">
+                    <div class="span8">
+                        <span class="display-label">Date d'effet notification:</span>
+                        <span class="display-field">@String.Format("{0:d}", Model.DateEffetNotificationPl)</span>
+                    </div>
+                    <div class="span4">
+                        <span class="display-label">Date échéance agrément:</span>
+                        <span class="display-field">@String.Format("{0:d}", Model.DateEcheanceAgrementPl)</span>
+                    </div>
+                </div>
+                <div>
+                    <span class="display-label">Agrément précédent:</span>
+                    <span class="display-field">@Model.AncienNumeroAgrementPl</span>
+                </div>
+                <div class="row">
+                    <div class="span8">
+                        <span class="display-label">Date fin agrément:</span>
+                        <span class="display-field">@String.Format("{0:d}", Model.DateFinAgrementPl)</span>
+                    </div>
+                    <div class="span4">
+                        <span class="display-label">Motif fin agrément:</span>
+                        <span class="display-field">@Model.MotifFinAgrementPlAsLibelle</span>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="span8">
+                        <span>Extension agrément CL:</span>
+                        <span class="font-weight-bold">@Model.ExtAgremClStatutPLAsString</span>
+                        <span>(<i>Déclarée le:</i></span>
+                        <span><i>@Model.ExtAgremClDateDeclaPLAsDate</i>)</span>
+                    </div>
+                    <div class="span4">
+                        <span>Validée à compter du:</span>
+                        <span class="font-weight-bold">@String.Format("{0:d}", @Model.ExtAgremClDateValidPLAsDate)</span>
+                    </div>
+                </div>
+                <div class="row">
+                    <span class="span11">
+                        <span class="display-label">Commentaires:</span>
+                        <span class="display-field">@Model.CommentaireAvisOtcPl</span>
+                    </span>
+                </div>
+            </fieldset>
+        </div>
+        <!-- FIN BLOC PRINCIPAL -->
+    </div>

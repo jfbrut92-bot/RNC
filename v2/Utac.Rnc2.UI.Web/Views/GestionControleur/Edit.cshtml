@@ -1,0 +1,186 @@
+﻿@model Utac.Rnc2.BusinessObjects.pContoleurEncour
+
+@section TitleContent {
+    Edit
+}
+<h2>Edit</h2>
+@using (Html.BeginForm())
+{
+    @Html.ValidationSummary(true)
+    <fieldset>
+        <legend>Fields</legend>
+        <div class="editor-label">@Html.LabelFor(model => model.Nom)</div>
+        <div class="editor-field">
+            @Html.TextBoxFor(model => model.Nom)
+            @Html.ValidationMessageFor(model => model.Nom)
+        </div>
+        <div class="editor-label">@Html.LabelFor(model => model.Prenom)</div>
+        <div class="editor-field">
+            @Html.TextBoxFor(model => model.Prenom)
+            @Html.ValidationMessageFor(model => model.Prenom)
+        </div>
+        <div class="editor-label">@Html.LabelFor(model => model.DateNaissance)</div>
+        <div class="editor-field">
+            @Html.TextBoxFor(model => model.DateNaissance, String.Format("{0:g}", Model.DateNaissance))
+            @Html.ValidationMessageFor(model => model.DateNaissance)
+        </div>
+        <div class="editor-label">@Html.LabelFor(model => model.CodAgremRattachementVl)</div>
+        <div class="editor-field">
+            @Html.TextBoxFor(model => model.CodAgremRattachementVl)
+            @Html.ValidationMessageFor(model => model.CodAgremRattachementVl)
+        </div>
+        <div class="editor-label">@Html.LabelFor(model => model.CodAgremRattachementPl)</div>
+        <div class="editor-field">
+            @Html.TextBoxFor(model => model.CodAgremRattachementPl)
+            @Html.ValidationMessageFor(model => model.CodAgremRattachementPl)
+        </div>
+        <div class="editor-label">@Html.LabelFor(model => model.DateDebutRattachementVl)</div>
+        <div class="editor-field">
+            @Html.TextBoxFor(model => model.DateDebutRattachementVl, String.Format("{0:g}", Model.DateDebutRattachementVl))
+            @Html.ValidationMessageFor(model => model.DateDebutRattachementVl)
+        </div>
+        <div class="editor-label">@Html.LabelFor(model => model.DateDebutRattachementPl)</div>
+        <div class="editor-field">
+            @Html.TextBoxFor(model => model.DateDebutRattachementPl, String.Format("{0:g}", Model.DateDebutRattachementPl))
+            @Html.ValidationMessageFor(model => model.DateDebutRattachementPl)
+        </div>
+        <div class="editor-label">@Html.LabelFor(model => model.DateFinRattachementVl)</div>
+        <div class="editor-field">
+            @Html.TextBoxFor(model => model.DateFinRattachementVl, String.Format("{0:g}", Model.DateFinRattachementVl))
+            @Html.ValidationMessageFor(model => model.DateFinRattachementVl)
+        </div>
+        <div class="editor-label">@Html.LabelFor(model => model.DateFinRattachementPl)</div>
+        <div class="editor-field">
+            @Html.TextBoxFor(model => model.DateFinRattachementPl, String.Format("{0:g}", Model.DateFinRattachementPl))
+            @Html.ValidationMessageFor(model => model.DateFinRattachementPl)
+        </div>
+        <div class="editor-label">@Html.LabelFor(model => model.DateEffetNotificationVl)</div>
+        <div class="editor-field">
+            @Html.TextBoxFor(model => model.DateEffetNotificationVl, String.Format("{0:g}", Model.DateEffetNotificationVl))
+            @Html.ValidationMessageFor(model => model.DateEffetNotificationVl)
+        </div>
+        <div class="editor-label">@Html.LabelFor(model => model.DateEffetNotificationPl)</div>
+        <div class="editor-field">
+            @Html.TextBoxFor(model => model.DateEffetNotificationPl, String.Format("{0:g}", Model.DateEffetNotificationPl))
+            @Html.ValidationMessageFor(model => model.DateEffetNotificationPl)
+        </div>
+        <div class="editor-label">@Html.LabelFor(model => model.CodAgremVl)</div>
+        <div class="editor-field">
+            @Html.TextBoxFor(model => model.CodAgremVl)
+            @Html.ValidationMessageFor(model => model.CodAgremVl)
+        </div>
+        <div class="editor-label">@Html.LabelFor(model => model.CodAgremPl)</div>
+        <div class="editor-field">
+            @Html.TextBoxFor(model => model.CodAgremPl)
+            @Html.ValidationMessageFor(model => model.CodAgremPl)
+        </div>
+        <div class="editor-label">@Html.LabelFor(model => model.DateFinAgrementVl)</div>
+        <div class="editor-field">
+            @Html.TextBoxFor(model => model.DateFinAgrementVl, String.Format("{0:g}", Model.DateFinAgrementVl))
+            @Html.ValidationMessageFor(model => model.DateFinAgrementVl)
+        </div>
+        <div class="editor-label">@Html.LabelFor(model => model.DateFinAgrementPl)</div>
+        <div class="editor-field">
+            @Html.TextBoxFor(model => model.DateFinAgrementPl, String.Format("{0:g}", Model.DateFinAgrementPl))
+            @Html.ValidationMessageFor(model => model.DateFinAgrementPl)
+        </div>
+        <div class="editor-label">@Html.LabelFor(model => model.MotifFinAgrementVl)</div>
+        <div class="editor-field">
+            @Html.TextBoxFor(model => model.MotifFinAgrementVl)
+            @Html.ValidationMessageFor(model => model.MotifFinAgrementVl)
+        </div>
+        <div class="editor-label">@Html.LabelFor(model => model.MotifFinAgrementPl)</div>
+        <div class="editor-field">
+            @Html.TextBoxFor(model => model.MotifFinAgrementPl)
+            @Html.ValidationMessageFor(model => model.MotifFinAgrementPl)
+        </div>
+        <div class="editor-label">@Html.LabelFor(model => model.EtatAgrementVl)</div>
+        <div class="editor-field">
+            @Html.TextBoxFor(model => model.EtatAgrementVl)
+            @Html.ValidationMessageFor(model => model.EtatAgrementVl)
+        </div>
+        <div class="editor-label">@Html.LabelFor(model => model.EtatAgrementPl)</div>
+        <div class="editor-field">
+            @Html.TextBoxFor(model => model.EtatAgrementPl)
+            @Html.ValidationMessageFor(model => model.EtatAgrementPl)
+        </div>
+        <div class="editor-label">@Html.LabelFor(model => model.AvisOtcVl)</div>
+        <div class="editor-field">
+            @Html.TextBoxFor(model => model.AvisOtcVl)
+            @Html.ValidationMessageFor(model => model.AvisOtcVl)
+        </div>
+        <div class="editor-label">
+            @Html.LabelFor(model => model.AvisOtcPl)
+        </div>
+        <div class="editor-field">
+            @Html.TextBoxFor(model => model.AvisOtcPl)
+            @Html.ValidationMessageFor(model => model.AvisOtcPl)
+        </div>
+        <div class="editor-label">@Html.LabelFor(model => model.ReferenceAvisOtcVl)</div>
+        <div class="editor-field">
+            @Html.TextBoxFor(model => model.ReferenceAvisOtcVl)
+            @Html.ValidationMessageFor(model => model.ReferenceAvisOtcVl)
+        </div>
+        <div class="editor-label">@Html.LabelFor(model => model.ReferenceAvisOtcPl)</div>
+        <div class="editor-field">
+            @Html.TextBoxFor(model => model.ReferenceAvisOtcPl)
+            @Html.ValidationMessageFor(model => model.ReferenceAvisOtcPl)
+        </div>
+        <div class="editor-label">@Html.LabelFor(model => model.DateAvisOtcVl)</div>
+        <div class="editor-field">
+            @Html.TextBoxFor(model => model.DateAvisOtcVl, String.Format("{0:g}", Model.DateAvisOtcVl))
+            @Html.ValidationMessageFor(model => model.DateAvisOtcVl)
+        </div>
+        <div class="editor-label">@Html.LabelFor(model => model.DateAvisOtcPl)</div>
+        <div class="editor-field">
+            @Html.TextBoxFor(model => model.DateAvisOtcPl, String.Format("{0:g}", Model.DateAvisOtcPl))
+            @Html.ValidationMessageFor(model => model.DateAvisOtcPl)
+        </div>
+        <div class="editor-label">@Html.LabelFor(model => model.CommentaireAvisOtcVl)</div>
+        <div class="editor-field">
+            @Html.TextBoxFor(model => model.CommentaireAvisOtcVl)
+            @Html.ValidationMessageFor(model => model.CommentaireAvisOtcVl)
+        </div>
+        <div class="editor-label">@Html.LabelFor(model => model.CommentaireAvisOtcPl)</div>
+        <div class="editor-field">
+            @Html.TextBoxFor(model => model.CommentaireAvisOtcPl)
+            @Html.ValidationMessageFor(model => model.CommentaireAvisOtcPl)
+        </div>
+        <div class="editor-label">@Html.LabelFor(model => model.DateDebutHabilitationPl)</div>
+        <div class="editor-field">
+            @Html.TextBoxFor(model => model.DateDebutHabilitationPl, String.Format("{0:g}", Model.DateDebutHabilitationPl))
+            @Html.ValidationMessageFor(model => model.DateDebutHabilitationPl)
+        </div>
+        <div class="editor-label">@Html.LabelFor(model => model.CodDepartement)</div>
+        <div class="editor-field">
+            @Html.TextBoxFor(model => model.CodDepartement)
+            @Html.ValidationMessageFor(model => model.CodDepartement)
+        </div>
+        <div class="editor-label">@Html.LabelFor(model => model.NumOrdrePl)</div>
+        <div class="editor-field">
+            @Html.TextBoxFor(model => model.NumOrdrePl)
+            @Html.ValidationMessageFor(model => model.NumOrdrePl)
+        </div>
+        <div class="editor-label">@Html.LabelFor(model => model.NumOrdreVl)</div>
+        <div class="editor-field">
+            @Html.TextBoxFor(model => model.NumOrdreVl)
+            @Html.ValidationMessageFor(model => model.NumOrdreVl)
+        </div>
+        <div class="editor-label">@Html.LabelFor(model => model.DateMiseaJour)</div>
+        <div class="editor-field">
+            @Html.TextBoxFor(model => model.DateMiseaJour, String.Format("{0:g}", Model.DateMiseaJour))
+            @Html.ValidationMessageFor(model => model.DateMiseaJour)
+        </div>
+        <div class="editor-label">@Html.LabelFor(model => model.Id)</div>
+        <div class="editor-field">
+            @Html.TextBoxFor(model => model.Id)
+            @Html.ValidationMessageFor(model => model.Id)
+        </div>
+        <p>
+            <input type="submit" value="Save" />
+        </p>
+    </fieldset>
+}
+<div>
+    @Html.ActionLink("Back to List", "Index")
+</div>

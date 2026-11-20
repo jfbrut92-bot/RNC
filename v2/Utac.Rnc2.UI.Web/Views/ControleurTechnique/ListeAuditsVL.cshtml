@@ -1,0 +1,36 @@
+﻿@model Utac.Rnc2.BusinessObjects.pContoleurEncour
+@using Utac.Rnc2.BusinessObjects
+@using Utac.Rnc2.UI.Web.Helpers
+
+@section TitleContent {
+    Liste des audits VL pour le  @Model.Titre @Model.Nom @Model.Prenom
+}
+@section SousTitrePage {
+    Liste des audits VL pour le  @Model.Titre @Model.Nom @Model.Prenom
+}
+<table>
+    <tr>
+        <th></th>
+        <th>Date audit</th>
+        <th>Résultat</th>
+    </tr>
+    @foreach (var item in Model.PAuditControleurVLs)
+    {
+        <tr>
+            <td>
+                @if (GestionDroitsExecution.canModify(this.User, new BeanModifiable<pAuditControleurVL>(item)))
+                {
+                    @Html.ActionLink("Modifier", "ModifierAuditVL", new { id = item.Id })
+                    @:|
+                    @Html.ActionLink("Supprimer", "ConfirmationDeleteAuditVL", new { id = item.Id })
+                }
+            </td>
+            <td>@String.Format("{0:d}", item.DateAudit)</td>
+            <td>@(item.ResultatAudit ? "Favorable" : "Défavorable")</td>
+        </tr>
+    }
+</table>
+<div>
+    <br />
+    @Html.ActionLink("Retour à la fiche", "Fiche", new { id = Model.Id }, new { @class = "btn success" })
+</div>

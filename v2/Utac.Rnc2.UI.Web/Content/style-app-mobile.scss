@@ -1,0 +1,71 @@
+﻿@import './variables';
+@import '../lib/bootstrap/scss/bootstrap.scss';
+
+.body-content {
+    @include responsive-font-size(1.2rem,true);
+    font-family: Arial, Helvetica, sans-serif;
+}
+
+.title {
+    @include responsive-font-size(1.8rem,true);
+}
+label {
+    @include font-size(1.6rem);
+}
+
+input {
+    @include font-size(1.2rem);
+}
+
+span {
+    @include font-size(1.2rem);
+}
+
+.user {
+    @include font-size(2rem);
+}
+
+#navbar {
+    @include font-size(1.2rem);
+}
+
+search-btn {
+    @include font-size(1.4rem);
+}
+
+.table th {
+    background-color: $primary-color;
+}
+
+td {
+    @include font-size(0.9rem);
+}
+
+.table tbody > tr > td > a{
+    color: $primary-color;
+}
+
+h1 > span {
+    @include font-size(2.64rem);
+}
+
+div.static-msg {
+    background: linear-gradient(to top, #E5ECF9,transparent);
+    border: $primary-color 1px solid;
+    border-radius: 10px;
+    color: $primary-color;
+    padding: 1.5rem;
+}
+
+.nav-index {
+    z-index:99;
+}
+
+.nav-link {
+    @include font-size(1.8rem);
+}
+
+.icon {
+    @include font-size(1.8rem);
+}
+

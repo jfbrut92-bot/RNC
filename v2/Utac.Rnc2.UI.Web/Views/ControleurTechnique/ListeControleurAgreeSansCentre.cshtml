@@ -1,0 +1,38 @@
+﻿@model Utac.Rnc2.UI.Web.Models.HomeModel
+
+@section TitleContent {
+    Liste contrôleurs agréés sans centre de rattachement
+}
+@{ int nbControleursAgreesSansCentreRattachement = Model.ListeControleurAgreeSansCentreRattachementVL.Count + Model.ListeControleurAgreeSansCentreRattachementPL.Count;
+    @*Désactivation CL + Model.ListeControleurAgreeSansCentreRattachementCL.Count;*@
+}
+<h2>Liste contrôleurs agréés sans centre de rattachement (@nbControleursAgreesSansCentreRattachement)</h2>
+@if (nbControleursAgreesSansCentreRattachement > 0)
+{
+    <table>
+        <tr>
+            <th>Nom</th>
+            <th>Prénom</th>
+            <th>Agrément</th>
+        </tr>
+        @{ var i = 0; }
+        @foreach (var item in Model.ListeControleurAgreeSansCentreRattachementVL)
+        {
+            <tr class="@(i % 2 == 0 ? "row1" : "row2")">
+                <td>@Html.ActionLink(item.Nom, "Fiche", "ControleurTechnique", new { id = item.Id }, new { })</td>
+                <td>@item.Prenom</td>
+                <td>@item.CodAgremVl</td>
+            </tr>
+            i++;
+        }
+        @foreach (var item in Model.ListeControleurAgreeSansCentreRattachementPL)
+        {
+            <tr class="@(i % 2 == 0 ? "row1" : "row2")">
+                <td>@Html.ActionLink(item.Nom, "Fiche", "ControleurTechnique", new { id = item.Id }, new { })</td>
+                <td>@item.Prenom</td>
+                <td>@item.CodAgremPl</td>
+            </tr>
+            i++;
+        }
+    </table>
+}

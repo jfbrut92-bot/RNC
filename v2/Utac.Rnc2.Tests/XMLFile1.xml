@@ -1,0 +1,29 @@
+﻿<d_cntlr_edition_annexe_2b>
+  <type_agrement_vl>type_agrement_vl</type_agrement_vl>
+  <type_agrement_pl>type_agrement_pl</type_agrement_pl>
+  <type_agrement_cl>type_agrement_cl</type_agrement_cl>
+  <n_agrement_centr_type_centre>n_agrement_centr_type_centre</n_agrement_centr_type_centre>
+  <n_agrement_centr_code_dep_1>n_agrement_centr_code_dep_1</n_agrement_centr_code_dep_1>
+  <n_agrement_centr_code_dep_2>n_agrement_centr_code_dep_2</n_agrement_centr_code_dep_2>
+  <n_agrement_centr_code_dep_3>n_agrement_centr_code_dep_3</n_agrement_centr_code_dep_3>
+  <n_agrement_centr_code_reseau>n_agrement_centr_code_reseau</n_agrement_centr_code_reseau>
+  <n_agrement_centre_num_ordr_1>n_agrement_centre_num_ordr_1</n_agrement_centre_num_ordr_1>
+  <n_agrement_centre_num_ordr_2>n_agrement_centre_num_ordr_2</n_agrement_centre_num_ordr_2>
+  <n_agrement_centre_num_ordr_3>n_agrement_centre_num_ordr_3</n_agrement_centre_num_ordr_3>
+  <denomination>denomination</denomination>
+  <adresse1>adresse1</adresse1>
+  <adresse2>adresse2</adresse2>
+  <cp>cp</cp>
+  <ville>ville</ville>
+  <telephone>telephone</telephone>
+  <type_modif_a>type_modif_a</type_modif_a>
+  <type_modif_b>type_modif_b</type_modif_b>
+  <type_modif_c>type_modif_c</type_modif_c>
+  <type_modif_d>type_modif_d</type_modif_d>
+  <type_modif_e>type_modif_e</type_modif_e>
+  <agrement_annule>agrement_annule</agrement_annule>
+  <agrement_conserve>agrement_conserve</agrement_conserve>
+  <date_notification_agrement>date_notification_agrement</date_notification_agrement>
+  <denomination_nouvelle>denomination_nouvelle</denomination_nouvelle>
+  <titre_departement>titre_departement</titre_departement>
+</d_cntlr_edition_annexe_2b>

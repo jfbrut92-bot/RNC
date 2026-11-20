@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<hibernate-mapping xmlns="urn:nhibernate-mapping-2.2" namespace="Utac.Rnc2.BusinessObjects" assembly="Utac.Rnc2.BusinessObjects">
+	<class name="Utac.Rnc2.BusinessObjects.UtilisateurWebServiceVL, Utac.Rnc2.BusinessObjects" table="r_utilisateur" lazy="true" schema="dbo" catalog="ctvlsiv2011_prod">
+		<id name="Id" column="id_login">
+		 	<generator class="native" />
+		</id>
+    <property name="Login" column="nom_login" />
+    <property name="DateCreation" column="date_creat" />
+    <property name="DateMaj" column="date_maj" />
+    <property name="Password" column="mot_passe" />
+    <property name="CodReseau" column="cod_reseau" />
+		
+  </class>
+</hibernate-mapping>
+

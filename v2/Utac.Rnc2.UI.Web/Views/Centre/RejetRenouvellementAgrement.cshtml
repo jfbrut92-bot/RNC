@@ -1,0 +1,61 @@
+﻿@model Utac.Rnc2.UI.Web.Models.RejetAgrementModel
+@using Utac.Rnc2.BusinessObjects
+
+@section TitleContent {
+    Rejet renouvellement
+}
+@section SousTitrePage {
+    Rejet renouvellement agrément PL
+}
+@section StyleContent {
+    @Styles.Render("~/styles/jquery-ui")
+}
+<h2>Installation: @Model.Centre.RaisonSociale - @Model.Centre.CodAgremVl @Model.Centre.CodAgremPl @Model.Centre.CodAgremCl</h2>
+<p class="avertissement">
+    Attention, Vous êtes sur le point de rejeter le renouvellement de l'agrément PL de cette installation auxiliaire.
+    <br />
+    Cliquer sur le bouton "confirmer" pour continuer.
+</p>
+@using (Html.BeginForm())
+{
+    @Html.ValidationSummary(true)
+    @Html.HiddenFor(model => model.Centre.RaisonSociale)
+    @Html.HiddenFor(model => model.Centre.Id)
+    @Html.HiddenFor(model => model.Centre.TypeCentre)
+    switch (Model.CategVehicule)
+    {
+        case rCategorieVehicule.CategorieEnum.VL:
+            @Html.HiddenFor(model => model.Centre.CodAgremPl)
+            @Html.HiddenFor(model => model.Centre.CodAgremCl)
+            break;
+        case rCategorieVehicule.CategorieEnum.PL:
+            @Html.HiddenFor(model => model.Centre.CodAgremVl)
+            @Html.HiddenFor(model => model.Centre.CodAgremCl)
+            break;
+        case rCategorieVehicule.CategorieEnum.CL:
+            @Html.HiddenFor(model => model.Centre.CodAgremVl)
+            @Html.HiddenFor(model => model.Centre.CodAgremPl)
+            break;
+    }
+    <fieldset>
+        <div class="editor-label"> @Html.Label("Date de fin de l'agrément PL") : @String.Format("{0:d}", Model.Centre.DateEcheanceAgrementPl)</div>
+        @Html.ValidationSummary()
+        @Html.HiddenFor(model => model.Centre.DateFinAgrementPl, new { value = Model.Centre.DateEcheanceAgrementPl })
+        <div class="editor-label">
+            @Html.Label("Commentaires (optionnel)")
+        </div>
+        <div class="editor-field">
+            @Html.TextAreaFor(model => model.Centre.CommentaireAvisOtcPl, new { rows = 5, cols = 50, maxlength = "250" })
+            @Html.ValidationMessageFor(model => model.Centre.CommentaireAvisOtcPl)
+            <p class="static-msg">Dans vos commentaires, vous pouvez préciser la date à laquelle la décison de rejet a été prise.</p>
+        </div>
+        <br />
+        <div class="rowAligne">
+            <input type="submit" value="Confirmer" class="btn primary" />
+            <a class="btn success" href="@Url.Action("Fiche","Centre", new { id = Model.Centre.Id})">Retour à la fiche</a>
+        </div>
+    </fieldset>
+}
+@section JavaScriptContent {
+    @Scripts.Render("~/scripts/date-picker")
+}

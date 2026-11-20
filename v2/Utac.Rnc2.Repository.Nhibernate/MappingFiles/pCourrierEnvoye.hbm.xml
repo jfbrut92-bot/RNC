@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<hibernate-mapping xmlns="urn:nhibernate-mapping-2.2" namespace="Utac.Rnc2.BusinessObjects" assembly="Utac.Rnc2.BusinessObjects">
+	<class name="Utac.Rnc2.BusinessObjects.pCourrierEnvoye, Utac.Rnc2.BusinessObjects" table="p_courrier_envoye" lazy="true">
+		<id name="Id" column="id" unsaved-value="0">
+		 	<generator class="native" />
+		</id>
+		<property name="Date" column="date" />
+		<property name="EmailDest" column="email_dest" />
+		<property name="CodUtilisateurDest" column="cod_utilisateur_dest" />
+		<property name="NomDest" column="nom_dest" />
+		<property name="PrenomDest" column="prenom_dest" />
+		<property name="CodUtilisateur" column="cod_utilisateur" />
+		<property name="Nom" column="nom" />
+		<property name="Prenom" column="prenom" />
+		<property name="IdProfil2" column="id_profil2" />
+		<property name="Resultat" column="resultat" />
+	</class>
+</hibernate-mapping>
+

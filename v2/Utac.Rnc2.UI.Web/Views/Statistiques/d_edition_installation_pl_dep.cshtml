@@ -1,0 +1,11 @@
+﻿@model IEnumerable<Utac.Rnc2.BusinessObjects.statistiques.ItemListeDesInstallations>
+@{ Layout = null; }
+Departement;Raison sociale;Agrement;Reseau;Date agrement;Date echeance;CP/Ville;Controle Gaz;Decelerometre;Reouleaux fous;Banc retation inversee
+@foreach (var item in Model.Where(i => i.TypeCentre.Equals("S")).OrderBy(i => i.TypeCentre))
+{
+@:"@item.CodeDepartement";@item.RaisonSociale;@item.Agrement;@item.Reseau;@(item.DateAgrement != null ? string.Format("{0:d}", item.DateAgrement) : "-");@(item.DateEcheance.Year != 0001 ? string.Format("{0:d}", item.DateEcheance) : "");@item.CodePostale @item.Ville;@item.ControlGaz;@item.Decelerometre;@item.RouleauFou;@item.BancRotationInversee
+}
+@foreach (var item in Model.Where(i => i.TypeCentre.Equals("A")).OrderBy(i => i.TypeCentre))
+{
+@:="@item.CodeDepartement";@item.RaisonSociale;@item.Agrement;@item.Reseau;@(item.DateAgrement != null ? string.Format("{0:d}", item.DateAgrement) : "-");@(item.DateEcheance.Year != 0001 ? string.Format("{0:d}", item.DateEcheance) : "");@item.CodePostale @item.Ville;@item.ControlGaz;@item.Decelerometre;@item.RouleauFou;@item.BancRotationInversee
+}

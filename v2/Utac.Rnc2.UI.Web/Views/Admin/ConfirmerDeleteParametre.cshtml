@@ -1,0 +1,17 @@
+﻿@model Utac.Rnc2.BusinessObjects.Parametre
+
+@section TitleContent {
+    EditParametre
+}
+<h2>Confirmation de suppression d'un paramètre</h2>
+ ATTENTION! Vous allez supprimer le paramètre suivant :
+<p>Nom : @Model.Nom</p>
+<p>Valeur : @Model.Valeur</p>
+ Cliquer sur le bouton "confirmer" pour continuer sa suppression
+<form method="post" action="@Url.Action("DeleteParametre")">
+    <input type="hidden" name="id" value="@Model.Id" />
+    <input type="submit" value="Confirmer" class="btn primary" />
+</form>
+<div>
+    @Html.ActionLink("Revenir à la liste", "ListeParametres")
+</div>

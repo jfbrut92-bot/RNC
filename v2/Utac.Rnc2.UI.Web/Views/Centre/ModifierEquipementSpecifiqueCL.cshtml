@@ -1,0 +1,37 @@
+﻿@model Utac.Rnc2.BusinessObjects.pCentreEncour
+
+@section TitleContent {
+    Modification des équipements spécifiques CL pour le centre @Model.RaisonSociale
+}
+@section SousTitrePage {
+    Modification des équipements spécifiques CL pour le centre @Model.RaisonSociale
+}
+@using (Html.BeginForm())
+{
+    @Html.ValidationSummary(true)
+    <fieldset>
+        <div class="editor-label">Contrôle des tricycles</div>
+        <div class="editor-field">
+            @Html.CheckBoxFor(model => model.EquipementCentreCLs[0].ControleTricyles)
+            @Html.ValidationMessageFor(model => model.EquipementCentreCLs[0].ControleTricyles)
+        </div>
+        @if ("A".Equals(Model.TypeCentre))
+        {
+            <div class="editor-label">Lieu de stockage</div>
+            <div class="editor-field">
+                @Html.TextAreaFor(model => model.EquipementCentreCLs[0].LieuStockagePV)
+                @Html.ValidationMessageFor(model => model.EquipementCentreCLs[0].LieuStockagePV)
+            </div>
+        }
+        <br />
+        <div class="rowAligne">
+            <input type="submit" value="Confirmer" class="btn primary" />
+            <a class="btn success" href="@Url.Action("Fiche","Centre", new { id = Model.Id})">Retour à la fiche</a>
+        </div>
+    </fieldset>
+    <div class="avertissement">
+        Si les informations saisies sont conformes, cliquer sur "<b>Retour à la fiche</b>".
+        <br />
+        Si les informations présentes nécessitent une mise à jour, réaliser cette mise à jour et valider les évolutions en cliquant sur "<b>Confirmer</b>".
+    </div>
+}

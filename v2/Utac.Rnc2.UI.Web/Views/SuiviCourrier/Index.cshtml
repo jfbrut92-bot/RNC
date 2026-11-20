@@ -1,0 +1,51 @@
+﻿@model IEnumerable<Utac.Rnc2.BusinessObjects.pCourrierEnvoye>
+
+@section TitleContent {
+    Suivi des envois de courrier
+}
+@section SousTitrePage {
+    Suivi des envois de courrier
+}
+@section StyleContent {
+    @Styles.Render("~/styles/jquery-ui")
+}
+<form action="@Url.Action("Index")" method="get">
+    <input type="text" name="deb" class="datepicker" />
+    <input type="text" name="fin" class="datepicker" />
+    <input type="submit" value="Filtrer" />
+</form>
+<table>
+    <tr>
+        <th>Date</th>
+        <th>Info destinataire</th>
+        <th>Info déclencheur</th>
+        <th>Resultat</th>
+        <th>Id</th>
+    </tr>
+    @{ var i = 0; }
+    @foreach (var item in Model.OrderByDescending(m => m.Date))
+    {
+        <tr class="@(i % 2 == 0 ? "row1" : "row2")">
+            <td>@String.Format("{0:g}", item.Date)</td>
+            <td>
+                @item.EmailDest<br />
+                (@item.CodUtilisateurDest) @item.NomDest @item.PrenomDest
+            </td>
+            <td>
+                (@item.CodUtilisateur)<br />
+                @item.Nom  @item.Prenom  @item.IdProfil2
+            </td>
+            <td>
+                <span class="@("OK".Equals(item.Resultat) ? "valide" : "annule")">@item.Resultat</span>
+            </td>
+            <td>@item.Id</td>
+        </tr>
+        i++;
+    }
+</table>
+@section JavaScriptContent {
+    <!-- DatePicker -->
+    @Scripts.Render("~/scripts/date-picker")
+    <!-- autocomplete pour codepostal/ville -->
+    @Scripts.Render("~/scripts/creation-centre")
+}

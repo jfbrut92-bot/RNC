@@ -1,0 +1,27 @@
+﻿@model Utac.Rnc2.UI.Web.Models.CertificatModel
+
+@section TitleContent {
+    Révocation du certificat @Model.CategeorieVehicule du centre de contrôle technique @Model.Centre.RaisonSociale @Model.Centre.Ville
+}
+@section SousTitrePage {
+    Révocation du certificat @Model.CategeorieVehicule du centre de contrôle technique @Model.Centre.RaisonSociale @Model.Centre.Ville
+}
+<p class="avertissement">
+    Attention, vous allez révoquer le certificat électronique @Model.CategeorieVehicule du centre de contrôle technique @Model.Centre.RaisonSociale @Model.Centre.Ville <br />
+    Choisissez le type de révocation et cliquer sur le bouton "Révoquer" pour révoquer le certificat.
+</p>
+@using (Html.BeginForm())
+{
+    <input type="hidden" name="id" value="@Model.Centre.Id" />
+    <input type="hidden" name="CategeorieVehicule" value="@Model.CategeorieVehicule" />
+    @:Avec autorisation de renouvellement :
+    <input type="radio" name="AutorisationRenew" value="true" checked="checked" />
+    <br />
+    @:Sans autorisation de renouvellement :
+    <input type="radio" name="AutorisationRenew" value="false" />
+    <br />
+    <p>
+        <input type="submit" value="Révoquer" class="btn primary" />
+        <a class="btn cancel" href="@Url.Action("ListeOperationCentreNonRattache", new { id = Model.Centre.Id, categorie = Model.CategeorieVehicule })">Retour</a>
+    </p>
+}

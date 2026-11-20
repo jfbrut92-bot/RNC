@@ -1,0 +1,16 @@
+﻿@model Utac.Rnc2.BusinessObjects.rUtilisateur
+
+@section TitleContent {
+    Suppression d'un utilisateur
+}
+@section SousTitrePage {
+    Confirmer la suppression d'un utilisateur
+}
+Vous allez supprimer définitivement l'utilisateur<b> @Model.Nom @Model.Prenom</b> de profil <b>@Model.RProfil.LibelleProfil </b> de la base de données.
+@using (Html.BeginForm("Delete", "Utilisateurs", new { id = Model.Id }, FormMethod.Post))
+{
+    <p>
+        <input type="submit" value="Confirmer la suppression" class="btn primary" />
+        @Html.ActionLink("Revenir à la fiche", "Edit", new { id = Model.Id })
+    </p>
+}

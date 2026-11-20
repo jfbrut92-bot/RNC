@@ -1,0 +1,19 @@
+﻿@model Utac.Rnc2.UI.Web.Models.CertificatModel
+
+@section TitleContent {
+    Autorisation de renouvellement du certificat du Réseau de contrôle technique @($"{Model.Reseau.Nom}({Model.Reseau.Id})")
+}
+@section SousTitrePage {
+    Autorisation de renouvellement du certificat du Réseau de contrôle technique @($"{Model.Reseau.Nom}({Model.Reseau.Id})")
+}
+<p class="avertissement">
+    Attention, vous allez autoriser le renouvellement du certificat électronique du réseau de contrôle technique @($"{Model.Reseau.Nom}({Model.Reseau.Id})")
+</p>
+@using (Html.BeginForm())
+{
+    <input type="hidden" name="id" value="@Model.Reseau.Id" />
+    <p>
+        <input type="submit" value="Autoriser" class="btn primary" />
+        <a class="btn cancel" href="@Url.Action("ListeOperationReseau", new { id = Model.Reseau.Id })">Retour</a>
+    </p>
+}

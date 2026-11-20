@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<hibernate-mapping xmlns="urn:nhibernate-mapping-2.2" namespace="Utac.Rnc2.BusinessObjects" assembly="Utac.Rnc2.BusinessObjects">
+	<class name="Utac.Rnc2.BusinessObjects.rReseauAppartenance, Utac.Rnc2.BusinessObjects" table="r_reseau_appartenance" lazy="true">
+    <composite-id>
+      <key-property name="CodUtilisateur" column="cod_utilisateur" />
+      <key-property name="CodReseau" column="cod_reseau" />
+    </composite-id>
+   <!-- 
+    <many-to-one name="RRUtilisateur" column="cod_utilisateur" class="rUtilisateur" />
+    <many-to-one name="RReseau" column="cod_reseau" class="rReseau" />
+   -->
+	</class>
+</hibernate-mapping>
+

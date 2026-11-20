@@ -1,0 +1,25 @@
+﻿@model Utac.Rnc2.BusinessObjects.pAmendeCentre
+
+@section TitleContent {
+    ConfirmationDeleteAmende
+}
+@section SousTitrePage {
+    Confirmation de suppression d'une contravention
+}
+<h3>Installation: @Model.PCentreEncour.RaisonSociale - @Model.PCentreEncour.CodAgremVl @Model.PCentreEncour.CodAgremPl @Model.PCentreEncour.CodAgremCl </h3>
+<br />
+Attention veuillez confirmer la suppression de la contravention @Model.LibContravention du :@String.Format("{0:d}", Model.DateEmisAmende) en cliquant sur le lien ci-dessous.
+@* Propager le paramètre du formulaire précédent*@
+@Html.HiddenFor(model => model.PCentreEncour.RaisonSociale)
+@Html.HiddenFor(model => model.PCentreEncour.CodAgremVl)
+@Html.HiddenFor(model => model.PCentreEncour.CodAgremPl)
+@Html.HiddenFor(model => model.PCentreEncour.CodAgremCl)
+<form method="post" action="@Url.Action("DeleteAmende")">
+    <input type="hidden" name="id" value="@Model.Id"/>
+    <br />
+    <div class="row">
+        <input type="submit" value="Confirmer" class="btn primary"/>
+        <a class="btn success" href="@Url.Action("ListeAmendes","Centre", new { id = Model.PCentreEncour.Id})">Retour à la liste des contraventions</a>
+        <a class="btn success" href="@Url.Action("Fiche","Centre", new { id = Model.PCentreEncour.Id})">Retour à la fiche</a>
+    </div>
+</form>

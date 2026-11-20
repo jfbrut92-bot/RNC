@@ -1,0 +1,99 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<mvcSiteMap xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+            xmlns="http://mvcsitemap.codeplex.com/schemas/MvcSiteMap-File-4.0"
+            xsi:schemaLocation="http://mvcsitemap.codeplex.com/schemas/MvcSiteMap-File-4.0 MvcSiteMapSchema.xsd">
+
+  <mvcSiteMapNode title="RNC2" controller="Home" action="Index" >
+
+    <mvcSiteMapNode title="Information profil utilisateur" controller="Information" action="Index" />
+    <mvcSiteMapNode title="Contact" controller="Account" action="Contact"/>
+
+    <mvcSiteMapNode title="Installation" controller="Centre" action="Recherche" description="menu">
+      <mvcSiteMapNode title="Fiche centre" controller="Centre" action="Fiche" >
+        <mvcSiteMapNode title="Dénomination sociale" controller="Centre" action="ModificationDenominationSociale" />
+        <mvcSiteMapNode title="Représentant légal" controller="Centre" action="ModificationRepresentantLegal" />
+        <mvcSiteMapNode title="Autre modification ou correction" controller="Centre" action="AutreModification" />
+        <mvcSiteMapNode title="Retour arrière" controller="Centre" action="ConfirmationModificationRetourArriere" />
+        <mvcSiteMapNode title="Demande agrément" controller="Centre" action="DemandeAgrement" />
+        <mvcSiteMapNode title="Dérogation" controller="Centre" action="AjouterDerogation" />
+        <mvcSiteMapNode title="Sanctions" controller="Centre" action="AjouterSanction" />
+        <mvcSiteMapNode title="Amendes" controller="Centre" action="AjouterAmende" />
+        <mvcSiteMapNode title="Modification fiche" controller="Centre" action="ModifierFiche" />
+        <mvcSiteMapNode title="Notification agrément" controller="Centre" action="NotificationAgrement" />
+        <mvcSiteMapNode title="Confirmation notification" controller="Centre" action="ConfirmationDateNotification" />
+        <mvcSiteMapNode title="Rejet agrément" controller="Centre" action="RejetAgrement" />
+        <mvcSiteMapNode title="Rejet renouvellement" controller="Centre" action="RejetRenouvellementAgrement" />
+        <mvcSiteMapNode title="Annulation agrément" controller="Centre" action="AnnulerAgrement" />
+        <mvcSiteMapNode title="Confirmation renouvellement" controller="Centre" action="ConfirmationRenouvellementAgrementPl" />
+        <mvcSiteMapNode title="Confirmation suppression fiche" controller="Centre" action="ConfirmationDeleteFiche" />
+        <mvcSiteMapNode title="Liste des certificats" controller="Centre" action="ListeCertificat" />
+        <mvcSiteMapNode title="Information certificat" controller="Centre" action="InformationCertificat" />
+        <mvcSiteMapNode title="Rapports exceptions" controller="Centre" action="ListeRapportException" />
+        <mvcSiteMapNode title="Liste sanctions" controller="Centre" action="ListeSanctions" >
+          <mvcSiteMapNode title="Modification sanction" controller="Centre" action="ModifierSanction" />
+          <mvcSiteMapNode title="Confirmation suppression sanction" controller="Centre" action="ConfirmationDeleteSanction" />
+        </mvcSiteMapNode>
+
+        <mvcSiteMapNode title="Liste amendes" controller="Centre" action="ListeAmendes" >
+          <mvcSiteMapNode title="Modification amende" controller="Centre" action="ModifierAmende" />
+          <mvcSiteMapNode title="Confirmation suppression amende" controller="Centre" action="ConfirmationDeleteAmende" />
+        </mvcSiteMapNode>
+
+        <mvcSiteMapNode title="Liste dérogations" controller="Centre" action="ListeDerogations" >
+          <mvcSiteMapNode title="Modification dérogation" controller="Centre" action="ModifierDerogation" />
+          <mvcSiteMapNode title="Confirmation suppression dérogation" controller="Centre" action="ConfirmationDeleteDerogation" />
+        </mvcSiteMapNode>
+
+        <mvcSiteMapNode title="Liste historique" controller="Centre" action="ListeHistorique" >
+          <mvcSiteMapNode title="Historique fiche" controller="Centre" action="FicheHistorique" />
+        </mvcSiteMapNode>
+
+      </mvcSiteMapNode>
+
+      <mvcSiteMapNode title="Nouveau Centre étape0" controller="Centre" action="NouveauCentreEtape0" />
+      <mvcSiteMapNode title="Nouveau Centre étape1" controller="Centre" action="NouveauCentreEtape1" />
+      <mvcSiteMapNode title="Nouveau Centre étape2" controller="Centre" action="NouveauCentreEtape2" />
+      <mvcSiteMapNode title="Confirmation" controller="Centre" action="ConfirmationNouveauCentre" />
+      <mvcSiteMapNode title="Nouveau Centre" controller="Centre" action="NouveauCentre" />
+
+    </mvcSiteMapNode>
+
+    <mvcSiteMapNode title="Controleur" controller="ControleurTechnique" action="Recherche" description="menu">
+      <mvcSiteMapNode title="Fiche" controller="ControleurTechnique" action="Fiche"/>
+    </mvcSiteMapNode>
+
+    <mvcSiteMapNode title="Gestion OTC" controller="GestionOTC" action="Index" changeFrequency="Always" updatePriority="Normal" lastModifiedDate="2002-05-30T09:00:00" description="menu" roles="OTC_Administration">
+      <mvcSiteMapNode title="Numéro Ordre agrément" controller="NumOrdre" action="Index" >
+        <mvcSiteMapNode title="Edition" controller="NumOrdre" action="Edit" />
+      </mvcSiteMapNode>
+      <mvcSiteMapNode title="Test serveur PKI" controller="PKI" action="TestServeurPKI" />
+      <mvcSiteMapNode title="Liste des rapports CE réseaux" controller="RapportCE" action="ListeDispoAllReseau" roles="OTC_Administration">
+        <mvcSiteMapNode title="Liste des rapports pour un réseau" controller="RapportCE" action="ListeDispoReseau" />
+      </mvcSiteMapNode>
+      <mvcSiteMapNode title="Liste des rapports CE CNR " controller="RapportCE" action="ListeDispoAllCNR">
+        <mvcSiteMapNode title="Liste des rapports pour un CNR" controller="RapportCE" action="ListeDispoCNR" />
+      </mvcSiteMapNode>
+      <mvcSiteMapNode title="Liste des rapports CE CTVL " controller="RapportCE" action="ListeDispoAllCTVL">
+        <mvcSiteMapNode title="Liste des rapports pour un CTVL" controller="RapportCE" action="ListeDispoCTVL" />
+      </mvcSiteMapNode>
+      <mvcSiteMapNode title="Suivi des inscriptions en ligne" controller="SuiviInscription" action="Index" />
+
+      <mvcSiteMapNode title="Changer le message d'accueil" controller="Admin" action="Message"/>
+      <mvcSiteMapNode title="Liste des centres sans certificats" controller="Centre" action="ListeSansCertificat"/>
+      <mvcSiteMapNode title="Liste des centres avec certificat expiré ou révoqué" controller="Centre" action="ListeAvecCertificatExpireOuRevoque"/>
+    </mvcSiteMapNode>
+    <mvcSiteMapNode title="Utilisateurs" controller="Utilisateurs" action="Liste" description="menu" roles="OTC_Administration,Reseau_Administrateur">
+      <mvcSiteMapNode title="Détails" controller="Utilisateurs" action="Edit" />
+      <mvcSiteMapNode title="Ajout utilisateur" controller="Utilisateurs" action="Ajouter" />
+    </mvcSiteMapNode>
+
+    <mvcSiteMapNode title="Statistiques" controller="Statistiques" action="Index" description="menu" roles="OTC_Administration,OTC_Informatique,OTC_Consultation,PREFECTURE,DRIRE,RESEAU_Gestionnaire,Reseau_Administrateur,DSCR,PIV">
+    </mvcSiteMapNode>
+      
+    <mvcSiteMapNode title="Aide" controller="Information" action="Support" description="menu" >
+    </mvcSiteMapNode>
+    <!-- Pour les profils RESEAU -->
+    <mvcSiteMapNode title="Liste des rapports pour un réseau" controller="RapportCE" action="ListeDispoReseau" />
+  </mvcSiteMapNode>
+
+</mvcSiteMap>

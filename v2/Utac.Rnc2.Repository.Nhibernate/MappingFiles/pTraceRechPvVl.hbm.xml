@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<hibernate-mapping xmlns="urn:nhibernate-mapping-2.2" namespace="Utac.Rnc2.BusinessObjects" assembly="Utac.Rnc2.BusinessObjects">
+	<class name="Utac.Rnc2.BusinessObjects.pTraceRechPvVl, Utac.Rnc2.BusinessObjects" table="p_trace_rech_pv_vl" lazy="true">
+    <id name="Id" column="id_trace">
+      <generator class="native" />
+    </id>
+		<property name="DateRecherche" column="date_recherche" />
+		<property name="NumPvCtrl" column="num_pv_ctrl" />
+		<property name="CodAgremCentre" column="cod_agrem_centre" />
+		<property name="DateCtrl" column="date_ctrl" />
+		<property name="TypeRecherche" column="type_recherche" />
+    <property name="CodResultat" column="cod_resultat" />
+		<many-to-one name="RUtilisateur" column="cod_utilisateur" class="rUtilisateur" />
+	</class>
+</hibernate-mapping>
+

@@ -1,0 +1,18 @@
+﻿@import '../lib/bootstrap/scss/_functions';
+@import '../lib/bootstrap/scss/_variables';
+
+$font-size-base: 0.8rem;
+$rfs-base-font-size: 0.5rem;
+$font-size-lg: 1.8rem;
+$font-size-sm: 1.5rem;
+$input-font-size: 1.2rem;
+$input-font-size-lg: 2.1rem;
+$input-font-size-sm: 1.5rem;
+$input-btn-font-size: 1rem;
+$h1-font-size: $font-size-base * 3.3;
+$h2-font-size: $font-size-base * 1.7;
+$enable-responsive-font-sizes: true;
+$theme-colors: ( 'primary': #1e5082, 'secondary': #cccfd3, 'success': #99BC21, 'warning': #ffcc33, 'danger': #d11645, 'info': #17a2b8 );
+$primary-color: #1e5082;
+$green-logo-color: #99BC21;
+$blue-color: #326491;

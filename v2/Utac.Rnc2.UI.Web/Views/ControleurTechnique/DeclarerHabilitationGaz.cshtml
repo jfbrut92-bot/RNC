@@ -1,0 +1,51 @@
+﻿@model Utac.Rnc2.UI.Web.Models.ActionAgrementControleurModel
+
+@section TitleContent {
+    Déclaration d'habilitation GAZ VL pour le  @Model.controleur.Titre @Model.controleur.Nom @Model.controleur.Prenom
+}
+@section SousTitrePage {
+    Déclaration d'habilitation GAZ VL pour le  @Model.controleur.Titre @Model.controleur.Nom @Model.controleur.Prenom
+}
+@section StyleContent {
+    @Styles.Render("~/styles/jquery-ui")
+}
+<p class="avertissement">
+    Attention, la saisie des informations relatives à l'habilitation GAZ, correspond à la notification, par le réseau ou le centre non rattaché, de cette habilitation à l'OTC,
+    en application de l'article 12-1 de l'arrêté du 18 juin 1991 modifié
+</p>
+@using (Html.BeginForm())
+{
+    @Html.ValidationSummary(true)
+    <fieldset>
+        <div class="editor-label">
+            <label>Habilitation GAZ (oui/non)</label>
+        </div>
+        <div class="editor-field">
+            <select name="controleur.HabilitationGazVL">
+                <option value="" @(Model.NombreChargement > 0 ? (Model.controleur.HabilitationGazVL == null ? "selected" : "") : "selected")>---</option>
+                <option value="1" @(Model.NombreChargement > 0 ? (Model.controleur.HabilitationGazVL == 1 ? "selected" : "") : "")>oui</option>
+                <option value="0" @(Model.NombreChargement > 0 ? (Model.controleur.HabilitationGazVL == 0 ? "selected" : "") : "")>non</option>
+            </select>
+            @Html.ValidationMessageFor(model => model.controleur.HabilitationGazVL)
+        </div>
+        <div class="editor-label">
+            <label>Depuis le</label>
+        </div>
+        <div class="editor-field">
+            @Html.TextBoxFor(model => model.controleur.DateDebutFinHabilitationGazVL, new { Value = Model.NombreChargement > 0 ? String.Format("{0:d}", Model.controleur.DateDebutFinHabilitationGazVL) : null, @class = "datepicker" })
+            @Html.ValidationMessageFor(model => model.controleur.DateDebutFinHabilitationGazVL)
+        </div>
+        <!-- Pour la comparaison dans le controller -->
+        @Html.HiddenFor(model => model.controleur.DateDebutRattachementVl)
+    </fieldset>
+    <br />
+    <div class="rowAligne">
+        <input type="submit" value="Enregistrer" class="btn primary" />
+        @Html.ActionLink("Retour", "Fiche", new { id = Model.controleur.Id }, new { @class = "btn cancel" })
+    </div>
+    @Html.HiddenFor(m => m.controleur.Id)
+}
+@section JavaScriptContent {
+    <!-- DatePicker -->
+    @Scripts.Render("~/scripts/date-picker")
+}

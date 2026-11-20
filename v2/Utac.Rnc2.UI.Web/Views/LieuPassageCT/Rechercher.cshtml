@@ -1,0 +1,151 @@
+﻿@model Utac.Rnc2.UI.Web.Models.LieuPassageCTModel
+
+
+@{ Layout = "~/Views/Shared/_SiteExterneLayout.cshtml"; }
+@section TitleContent {
+    Recherche du centre de passage
+}
+@{ Html.EnableClientValidation(); }
+@{ using (Html.BeginForm(null, null, FormMethod.Post, new { id = "form1", onsubmit = "DisplayWait()" }))
+    {
+        <div style="margin-bottom:10px">
+            Pour obtenir les coordonnées de l'installation de contrôle technique du dernier passage de votre véhicule, munissez-vous de votre certificat d'immatriculation
+            et remplissez le formulaire suivant :
+        </div>
+        @Html.ValidationSummary(true)
+        if (@ViewData["message"] != null)
+        {
+            <div id="MessageErreur" class="avertissement" style="font-size: 120%"> @ViewData["message"]</div>
+        }
+        <fieldset style="margin-left:0px">
+            <div class="row">
+                <div class="floatLeft first">
+                    <div class="floatLeft">
+                        @Html.Label("Sélectionner le type d'immatriculation")
+                        <div class="input">
+                            @Html.RadioButtonFor(model => model.FormatImmat, "1", new { id = "r1" })
+                            <label for="r1">AA<span style="font-size:large">-</span>111<span style="font-size:large">-</span>AA</label>
+                            @Html.RadioButtonFor(model => model.FormatImmat, "2", new { id = "r2" })
+                            <label for="r2">1111 AAA 111</label>
+                            @Html.RadioButtonFor(model => model.FormatImmat, "3", new { id = "r3" })
+                            <label for="r3">Autre</label>
+                            <br />
+                            @Html.ValidationMessageFor(model => model.FormatImmat, null, new { @class = "alert-message error" })
+                        </div>
+                    </div>
+                    <div class="floatLeft" id="divImmatSIV" style="@(Model.FormatImmat == "1" ? "" : "display:none")">
+                        @Html.Label("N° immatriculation du véhicule (A)")
+                        <div class="input">
+                            @Html.TextBoxFor(model => model.NumImmatSIV, new { @class = "input-medium", style = "text-transform:uppercase; width:130px;", @maxlength = "9", @placeholder = "AA-111-AA" })
+                            <span style="font-size: 11px; color: #990000;">(*)</span>
+                            @Html.ValidationMessageFor(model => model.NumImmatSIV, null, new { @class = "alert-message error", @style = "white-space:nowrap" })
+                        </div>
+                    </div>
+                    <div class="floatLeft" id="divImmatFNI" style="@(Model.FormatImmat == "2" ? "" : "display:none")">
+                        @Html.Label("N° immatriculation du véhicule (A)")
+                        <div class="input">
+                            @Html.TextBoxFor(model => model.NumImmatFNI, new { @class = "input-medium", style = "text-transform:uppercase; width:130px;", @maxlength = "11", @placeholder = "000 AAA 000" })
+                            <span style="font-size: 11px; color: #990000;">(*)</span>
+                            @Html.ValidationMessageFor(model => model.NumImmatFNI, null, new { @class = "alert-message error", @style = "white-space:nowrap" })
+                        </div>
+                    </div>
+                    <div class="floatLeft" id="divImmatAUTRE" style="@(Model.FormatImmat == "3" ? "" : "display:none")">
+                        @Html.Label("N° immatriculation du véhicule (A)")
+                        <div class="input">
+                            @Html.TextBoxFor(model => model.NumImmatAUTRE, new { @class = "input-medium", style = "text-transform:uppercase; width:130px;", @maxlength = "11", @placeholder = "autre format ..." })
+                            <span style="font-size: 11px; color: #990000;">(*)</span>
+                            @Html.ValidationMessageFor(model => model.NumImmatAUTRE, null, new { @class = "alert-message error", @style = "white-space:nowrap" })
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="floatLeft first">
+                    <div class="floatLeft">
+                        @Html.Label("Date de première immatriculation (B)")
+                        <div class="input">
+                            @Html.TextBoxFor(model => model.DatePremImmat, new {  @type="date", @class = "input-medium", @maxlength = "10", @placeholder = "JJ/MM/AAAA" })
+                            <span style="font-size: 11px; color: #990000;">(*)</span>
+                            @Html.ValidationMessageFor(model => model.DatePremImmat, null, new { @class = "alert-message error", @style = "white-space:nowrap" })
+                        </div>
+                    </div>
+                    <div class="floatLeft">
+                        @Html.Label("N° de série du véhicule (E)")
+                        <div class="input">
+                            @Html.TextBoxFor(model => model.NumSerie, new { @class = "input-medium", style = "text-transform:uppercase", @maxlength = "17", @placeholder = "17 caractères ..." })
+                            <span style="font-size: 11px; color: #990000;">(*)</span>
+                            @Html.ValidationMessageFor(model => model.NumSerie, null, new { @class = "alert-message error", @style = "white-space:nowrap" })
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="floatLeft first">
+                    <div class="floatLeft">
+                        @Html.Label("Saisir les caractères suivants :")
+                        <div class="input">
+                            @Html.TextBoxFor(model => model.Captcha, new { @class = "input-medium", style = "text-transform:uppercase", @maxlength = "6" })
+                            <span style="font-size: 11px; color: #990000;">(*) <img style="vertical-align:middle" src="/LieuPassageCT/ShowCaptchaImage" /></span>
+                            @Html.ValidationMessageFor(model => model.Captcha, null, new { @class = "alert-message error", @style = "white-space:nowrap" })
+                        </div>
+                    </div>
+                    <div class="floatLeft" style="margin-top:20px">
+                        <input type="submit" id="Submit1" value="Rechercher" class="btn primary" /><img id="divProcessing" style="display:none;margin-left:3px" src="/Content/images/loading16.gif">
+                    </div>
+                </div>
+            </div>
+            <span style="font-size: 11px; color: #990000;">(*) champs obligatoires</span>
+        </fieldset>
+    }
+}
+@section JavaScriptContent {
+    @Scripts.Render("~/scripts/jquery-validate")
+    <script type="text/javascript">
+        $(function () {
+            $('input:radio[name="FormatImmat"]').change(function () {
+                switch ($(this).val()) {
+                    case '1':
+                        document.getElementById("divImmatSIV").style.display = "inline";
+                        document.getElementById("divImmatFNI").style.display = "none";
+                        document.getElementById("divImmatAUTRE").style.display = "none";
+                        document.getElementById("NumImmatFNI").value = "";
+                        document.getElementById("NumImmatAUTRE").value = "";
+                        break;
+                    case '2':
+                        document.getElementById("divImmatSIV").style.display = "none";
+                        document.getElementById("divImmatFNI").style.display = "inline";
+                        document.getElementById("divImmatAUTRE").style.display = "none";
+                        document.getElementById("NumImmatSIV").value = "";
+                        document.getElementById("NumImmatAUTRE").value = "";
+                        break;
+                    case '3':
+                        document.getElementById("divImmatSIV").style.display = "none";
+                        document.getElementById("divImmatFNI").style.display = "none";
+                        document.getElementById("divImmatAUTRE").style.display = "inline";
+                        document.getElementById("NumImmatSIV").value = "";
+                        document.getElementById("NumImmatFNI").value = "";
+                        break;
+                }
+            }
+            )
+        });
+        function DisplayWait() {
+            $('#divProcessing').show();
+            $('#Submit1').css('cursor', 'wait');
+            window.setTimeout(HideWait, 1000);
+        }
+        function HideWait() {
+            var mvar = "";
+            $("span[id]").each(function () {
+                mvar += $(this).html();
+            });
+            var all = $("span[id]").map(function () {
+                return $(this).attr("id");
+            }).get();
+            if (mvar != "") {
+                $('#divProcessing').hide();
+                $('#Submit1').css('cursor', 'pointer');
+            }
+        }
+    </script>
+}

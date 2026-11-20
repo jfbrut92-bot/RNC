@@ -1,0 +1,61 @@
+﻿@model Utac.Rnc2.Infrastructure.Search.UtilisateurFiltre
+
+@using (Html.BeginForm("AppliquerFiltre", "Utilisateurs", FormMethod.Post))
+{
+    @Html.ValidationSummary(true)
+    <fieldset>
+        <legend>Filtre</legend>
+        <div class="editor-label">
+            @Html.LabelFor(model => model.CodeDepartement)
+        </div>
+        <div class="editor-field">
+            @Html.TextBoxFor(model => model.CodeDepartement)
+            @Html.ValidationMessageFor(model => model.CodeDepartement)
+        </div>
+        <div class="editor-label">
+            @Html.LabelFor(model => model.RegionId)
+        </div>
+        <div class="editor-field">
+            @Html.TextBoxFor(model => model.RegionId)
+            @Html.ValidationMessageFor(model => model.RegionId)
+        </div>
+        <div class="editor-label">
+            @Html.LabelFor(model => model.CodeReseauVL)
+        </div>
+        <div class="editor-field">
+            @Html.TextBoxFor(model => model.CodeReseauVL)
+            @Html.ValidationMessageFor(model => model.CodeReseauVL)
+        </div>
+        <div class="editor-label">
+            @Html.LabelFor(model => model.CodeReseauPL)
+        </div>
+        <div class="editor-field">
+            @Html.TextBoxFor(model => model.CodeReseauPL)
+            @Html.ValidationMessageFor(model => model.CodeReseauPL)
+        </div>
+        <div class="editor-label">
+            @Html.LabelFor(model => model.CodeReseauCL)
+        </div>
+        <div class="editor-field">
+            @Html.TextBoxFor(model => model.CodeReseauCL)
+            @Html.ValidationMessageFor(model => model.CodeReseauCL)
+        </div>
+        <div class="editor-label">
+            @Html.LabelFor(model => model.Nom)
+        </div>
+        <div class="editor-field">
+            @Html.TextBoxFor(model => model.Nom)
+            @Html.ValidationMessageFor(model => model.Nom)
+        </div>
+        <div class="editor-label">
+            @Html.LabelFor(model => model.LoginProvisoire)
+        </div>
+        <div class="editor-field">
+            @Html.TextBoxFor(model => model.LoginProvisoire)
+            @Html.ValidationMessageFor(model => model.LoginProvisoire)
+        </div>
+        <p>
+            <input type="submit" value="Save" />
+        </p>
+    </fieldset>
+}

@@ -1,0 +1,50 @@
+﻿@model Utac.Rnc2.UI.Web.Models.ActionAgrementControleurModel
+@using Utac.Rnc2.BusinessObjects
+
+@section TitleContent {
+    Demande d'agrément @Model.categorieVehicule.ToString() pour le controleur @Model.controleur.Nom @Model.controleur.Prenom
+}
+@section SousTitrePage {
+    Demande d'agrément @Model.categorieVehicule.ToString() pour le controleur @Model.controleur.Nom @Model.controleur.Prenom
+}
+<p class="avertissement">
+    Attention, Vous êtes sur le point d'effectuer une demande d'agrément @Model.categorieVehicule.ToString() sur cette fiche.
+    <br />
+    Cliquer sur le bouton "confirmer" pour continuer.
+</p>
+@using (Html.BeginForm())
+{
+    @Html.ValidationSummary(true)
+    <fieldset>
+        <div class="editor-label">
+            <label>Centre de rattachement @Model.categorieVehicule.ToString() (optionnel)</label>
+        </div>
+        @switch (Model.categorieVehicule)
+        {
+            case rCategorieVehicule.CategorieEnum.VL:
+                <div class="editor-field">
+                    @Html.TextBoxFor(model => model.controleur.CodAgremRattachementVl, new { Value = Model.NombreChargement > 0 ? Model.controleur.CodAgremRattachementVl : "",  maxlength = "8" })
+                    @Html.ValidationMessageFor(model => model.controleur.CodAgremRattachementVl)
+                </div>
+                break;
+            case rCategorieVehicule.CategorieEnum.PL:
+                <div class="editor-field">
+                    @Html.TextBoxFor(model => model.controleur.CodAgremRattachementPl, new { Value = Model.NombreChargement > 0 ? Model.controleur.CodAgremRattachementPl : "", maxlength = "8" })
+                    @Html.ValidationMessageFor(model => model.controleur.CodAgremRattachementPl)
+                </div>
+                break;
+            case rCategorieVehicule.CategorieEnum.CL:
+                <div class="editor-field">
+                    @Html.TextBoxFor(model => model.controleur.CodAgremRattachementCl, new { Value = Model.NombreChargement > 0 ? Model.controleur.CodAgremRattachementCl : "", maxlength = "8" })
+                    @Html.ValidationMessageFor(model => model.controleur.CodAgremRattachementCl)
+                </div>
+                break;
+        }
+        @Html.HiddenFor(model => model.controleur.Id)
+        <br />
+        <div class="rowAligne">
+            <input type="submit" value="Confirmer" class="btn primary" />
+            <a class="btn cancel" href="@Url.Action("Fiche","ControleurTechnique", new { id = Model.controleur.Id})">Retour à la fiche</a>
+        </div>
+    </fieldset>
+}

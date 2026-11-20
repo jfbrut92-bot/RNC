@@ -1,0 +1,28 @@
+﻿@model Utac.Rnc2.BusinessObjects.rMessageUtilisateur
+
+@section TitleContent {
+    Message d'accueil des utilisateurs non connectés
+}
+@section SousTitrePage {
+    Message d'accueil des utilisateurs non connectés
+}
+@using (Html.BeginForm())
+{
+    @Html.ValidationSummary(true)
+    <fieldset>
+        <div class="editor-field">
+            @Html.TextAreaFor(model => model.TxtMessageBienvenue)
+            @Html.ValidationMessageFor(model => model.TxtMessageBienvenue)
+        </div>
+        @Html.HiddenFor(model => model.Id)
+        <p>
+            <input type="submit" value="Enregistrer" class="btn primary" />
+        </p>
+    </fieldset>
+}
+@section JavaScriptContent {
+    @Scripts.Render("~/scripts/ckeditor/editor")
+    <script>
+        CKEDITOR.replace('TxtMessageBienvenue', { removePlugins: 'exportpdf' });
+    </script>
+}

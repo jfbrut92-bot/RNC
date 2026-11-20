@@ -1,0 +1,44 @@
+﻿@model Utac.Rnc2.BusinessObjects.pContoleurEncour
+@using Utac.Rnc2.BusinessObjects
+@using Utac.Rnc2.UI.Web.Helpers
+
+@section TitleContent {
+    Liste des audits PL pour le  @Model.Titre @Model.Nom @Model.Prenom
+}
+@section SousTitrePage {
+    Liste des audits PL pour le  @Model.Titre @Model.Nom @Model.Prenom
+}
+<table>
+    <tr>
+        <th></th>
+        <th>Habilitation / Catégorie de véhicule contrôlée</th>
+        <th>Date audit</th>
+        <th>N°agrément installation</th>
+        <th>Immat. véhicule</th>
+        <th>N° Procès verbal</th>
+        <th>Résultat</th>
+    </tr>
+    @foreach (var item in Model.PAuditControleurs.OrderByDescending(a => a.Id))
+    {
+        <tr>
+            <td>
+                @if (GestionDroitsExecution.canModify(this.User, new BeanModifiable<pAuditControleur>(item)))
+                {
+                    @Html.ActionLink("Modifier", "ModifierAuditPL", new { id = item.Id })
+                    @:|
+                    @Html.ActionLink("Supprimer", "ConfirmationDeleteAuditPL", new { id = item.Id })
+                }
+            </td>
+            <td>@item.RCategorieVehicule.LibelleCategorie</td>
+            <td>@String.Format("{0:d}", item.DateAudit)</td>
+            <td>@item.CodAgremCntr</td>
+            <td>@item.ImmatVehicule</td>
+            <td>@item.NumPv</td>
+            <td>@(item.ResultatAudit ? "Favorable" : "Défavorable")</td>
+        </tr>
+    }
+</table>
+<div>
+    <br />
+    @Html.ActionLink("Retour à la fiche", "Fiche", new { id = Model.Id }, new { @class = "btn success" })
+</div>

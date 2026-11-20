@@ -1,0 +1,31 @@
+﻿@model IEnumerable<Utac.Rnc2.BusinessObjects.rNumordreAgrement>
+@using MvcContrib.UI.Grid
+@using MvcContrib.UI.Pager
+@using MvcContrib
+
+@section TitleContent {
+    Liste des numéros d'ordre
+}
+@section SousTitrePage {
+    Liste des prochains numéros d'ordre utilisés
+}
+@if (Model != null)
+{
+    <div>
+        @(Html.Grid(Model).Columns(column =>
+    {
+        column.For(num => Html.ActionLink("Modifier", "Edit", new { id = num.Id })).Named("Action(s)").Encode(false);
+        column.For(num => num.RPrefecture.CodDepartement+" "+num.RPrefecture.LibellePrefecture).Named("Préfecture");
+        column.For(num => num.RPrefecture.Prefixe).Named("Préfixe");
+        column.For(num => num.NumOrdreCentre).Attributes(style => "text-align:center").Named("N° ordre installation");
+        column.For(num => num.NumOrdreCntlrVl).Attributes(style => "text-align:center").Named("N° ordre contrôleur VL");
+        column.For(num => num.NumOrdreCntlrCl).Attributes(style => "text-align:center").Named("N° ordre contrôleur CL");        
+        column.For(num => num.NumOrdreCntlrPl).Attributes(style => "text-align:center").Named("N° ordre contrôleur PL");
+        column.For(num => num.RPrefecture.LibTribuAdmin).Named("Tribunal Administratif");
+    }).RowAttributes(row => new Hash(@class => row.IsAlternate ?"row1":"row2") ))
+        @if (Model is MvcContrib.Pagination.IPagination)
+        {
+            @Html.Pager((MvcContrib.Pagination.IPagination)Model).First("Prem.").Next("Suiv.").Last("Dernier").Previous("Prec.").Format("{0}-{1} sur {2}        ")
+        }
+    </div>
+}

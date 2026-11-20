@@ -1,0 +1,66 @@
+﻿@model Utac.Rnc2.UI.Web.Models.InformationPersonelle
+@using Utac.Rnc2.BusinessObjects
+
+@section TitleContent {
+    Information
+}
+@section SousTitrePage {
+    Information Utilisateur connecté
+}
+<div id="boiteDialogue">
+    <h2>Information Personnel / Information pratique</h2>
+    <fieldset id="utilisateur">
+        <div>
+            <span class="display-label">Nom:</span>
+            <span class="display-field">@Model.Nom</span>
+            <span class="display-label">Prénom:</span>
+            <span class="display-field">@Model.Prenom</span>
+            <span class="display-label">Profil d'utilisation:</span>
+            <span class="display-field">@Model.Profil</span>
+            @if (Model.Profil.Equals(rUtilisateur.Profil.PREFECTURE.ToString()))
+            {
+                <span class="display-field">
+                    @Model.Utilisateur.RPrefecture.LibellePrefecture (@Model.Utilisateur.RPrefecture.CodDepartement)
+                </span>
+            }
+            @if (Model.Profil.StartsWith(rUtilisateur.Profil.RESEAU.ToString()) && Model.Utilisateur.RReseaux != null)
+            {
+                <span class="display-label">sur le(s) réseau(x) suivant(s) :</span>
+                foreach (rReseau r in Model.Utilisateur.RReseaux)
+                {
+                    <span class="display-field">@r.Id,</span>
+                }
+            }
+        </div>
+        <div>
+            <span class="display-label">Email:</span>
+            <span class="display-field">@Model.Email</span>
+            <span class="display-label">Téléphone:</span>
+            <span class="display-field">@Model.Telephone</span>
+            <span class="display-label">Dernière connection ou tentative:</span>
+            <span class="display-field">@Model.DateDerniereConnexion</span>
+        </div>
+        <ul>
+            <li>
+                Pour renouveler votre mot de passe, cliquer
+                @Html.ActionLink("ici", "RenewPassword0").
+            </li>
+        </ul>
+    </fieldset>
+    <table border="0">
+        <tr>
+            <td width="50%">
+                <h2>Application VERIFPV</h2>
+                <fieldset id="application">
+                    <legend></legend>
+                    VERIFPV - Vérification des Procès-verbaux des contrôles techniques.
+                    <br />
+                    OTC - Organisme Technique Central.
+                </fieldset>
+            </td>
+            <td width="50%" align="center">
+               <img  style="max-width: 100%;max-height: 100%;display: block;" src="/Content/images/Logo_OTC_Blue_RGB.png" />
+            </td>
+        </tr>
+    </table>
+</div>

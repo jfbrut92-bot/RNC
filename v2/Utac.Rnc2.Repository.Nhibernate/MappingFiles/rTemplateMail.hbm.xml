@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<hibernate-mapping xmlns="urn:nhibernate-mapping-2.2" namespace="Utac.Rnc2.BusinessObjects" assembly="Utac.Rnc2.BusinessObjects">
+	<class name="Utac.Rnc2.BusinessObjects.rTemplateMail, Utac.Rnc2.BusinessObjects" table="r_template_mail" lazy="true">
+		<id name="Id" column="id_template_mail">
+		 	<generator class="native" />
+		</id>
+		<property name="NomTemplate" column="nom_template" />
+		<property name="BodyTemplate" column="body" />
+    <property name="SujetTemplate" column="sujet" />
+    
+ </class>
+</hibernate-mapping>
+

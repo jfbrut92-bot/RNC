@@ -1,0 +1,40 @@
+﻿@model Utac.Rnc2.UI.Web.Models.NouveauControleurTechniqueModel
+
+@section TitleContent {
+    Confirmation création d'un nouvel agrément prestataire
+}
+@section SousTitrePage {
+    Création d'un nouveau prestataire - Confirmation
+}
+<h2>Confirmation de la création d'un nouveau prestataire @Model.categorie.ToString()</h2>
+<fieldset>
+    <div class="avertissement">
+        VOUS AVEZ SELECTIONNE LE STATUT DE PRESTATAIRE EUROPEEN AU LIEU DE CELUI DE CONTROLEUR TECHNIQUE.
+        <br />
+        Vous n’allez pas délivrer un n° d’agrément mais un n° de récépissé. Confirmez le statut que vous voulez attribuer au demandeur :
+        <br />
+        Une commande « prestataire » et une commande « Contrôleur technique »
+        <br />
+        Rappel : Le statut de prestataire européen permet à un contrôleur exerçant dans un autre pays membre de l’UE d’intervenir ponctuellement en France.
+        <br />
+        Merci de vous référer aux Articles 26-6 de l’arrêté du 18 juin 1991 modifié (CT VL) et 35-4 de l’arrêté du 27 juillet 2004 modifié (CT PL)
+    </div>
+    <form method="post" action="@Url.Action("Create")">
+        <input type="hidden" name="model.controleur.Nom" value="@Model.controleur.Nom" />
+        <input type="hidden" name="model.controleur.Prenom" value="@Model.controleur.Prenom" />
+        <input type="hidden" name="model.controleur.DateNaissance" value="@Model.controleur.DateNaissance" />
+        <input type="hidden" name="model.controleur.CodAgremRattachementVl" value="@Model.controleur.CodAgremRattachementVl" />
+        <input type="hidden" name="model.controleur.CodAgremRattachementPl" value="@Model.controleur.CodAgremRattachementPl" />
+        <input type="hidden" name="model.controleur.CodAgremRattachementCl" value="@Model.controleur.CodAgremRattachementCl" />
+        <input type="hidden" name="model.categorie" value="@Model.categorie" />
+        <input type="hidden" name="model.NombreChargement" value="@Model.NombreChargement" />
+        <input type="hidden" name="model.EstPrestataire" value="@Model.EstPrestataire" />
+        <input type="hidden" name="model.Token" value="@Model.Token" />
+        <input type="hidden" name="model.ConfirmPrestataire" value="oui" />
+        <br />
+        <div class="row">
+            <input type="submit" value="Confirmer" class="btn primary" />
+            <a class="btn cancel" href="@Url.Action("New","ControleurTechnique", new { nom = Model.controleur.Nom, prenom = Model.controleur.Prenom, dateNaissance = Model.controleur.DateNaissance, agremVL = Model.controleur.CodAgremRattachementVl, agremPL = Model.controleur.CodAgremRattachementPl, agremCL = Model.controleur.CodAgremRattachementCl, categorie = Model.categorie, nombreChargement = Model.NombreChargement, estPrestataire = Model.EstPrestataire,  token = Model.Token,  confirmPrestataire = "non" })">Retour à la saisie</a>
+        </div>
+    </form>
+</fieldset>

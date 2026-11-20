@@ -1,0 +1,75 @@
+label, input, textarea, input, a { position:relative; cursor:pointer; }
+#middle .content .content-box hr,
+#middle .content .reference-box hr,
+hr { border:#9AB5C9 1px solid!important; outline:none!important; height:0!important; line-height:0!important; font-size:0!important; background:none!important; margin:10px 0 25px; }
+
+#header .nav { margin-top:-3px; }
+#header .nav li a { background-image:url('/Content/img/navigation-ie6.gif'); }
+
+#header .search { background-image: url('/Content/img/bg-form-search-ie6.png') }
+#header .search #kwo-search-query-input { width:245px; }
+#middle { height:530px; }
+#middle .content { position:relative; zoom:1; }
+
+/*2011-11-01 Suppresion de la taille limite 600 */
+/*#middle .content .content-box { width:600px; }*/
+/*#middle .content .reference-list .img-client { width:335px; margin-right:0; }*/
+
+#middle .sous-nav { height:5px; line-height:0; font-size:0; border-bottom:none; }
+#middle .sous-nav li { height:26px; line-height:26px; display:inline-block; width:auto; }
+#middle .sous-nav li.clear { height:0; line-height:0; display:none; }
+#middle .sous-nav li a { line-height:26px; height:26px; display:inline-block; width:auto; }
+
+.sidebar-box ul.sections li.section h3,
+.sidebar-box ul.sections li.section ul,
+.sidebar-box ul.sections li.section div.content-sidebar  { zoom:1; float:left; display:inline; }
+
+.sidebar-box ul.sections li.section h3 { width:225px; }
+.sidebar-box ul.sections li.section ul,
+.sidebar-box ul.sections li.section div.content-sidebar  { width:203px; }
+.sidebar-box ul.sections li.section div.content-sidebar  form .inputs input.text { width:165px; }
+
+.sidebar-box ul.sections li.section ul li { list-style-position:outside; }
+.sidebar-box { position:relative; zoom:1; }
+/*.sidebar-box * { position:static; }*/
+
+.kwo-form input.text { height:24px; width:255px; background-attachment:fixed; }
+.kwo-form textarea   { height:184px; background-attachment:fixed; }
+.kwo-form .action .button { padding:0; }
+/*
+.pagination-box .pagination,
+.pagination-box .pagination-before,
+.pagination-box .pagination-after,
+.pagination-box .pagination-first,
+.pagination-box .pagination-prev,
+.pagination-box .pagination-next,
+.pagination-box .pagination-last,
+.pagination-box .pagination-sep,
+.pagination-box .pagination-page { vertical-align:top; }
+.pagination-box .pagination-after { position:relative; }
+*/
+
+#middle .content .reference-box .img-client .new_item { background-image:url('/app/kernix/pix/picto-new-event-ie6.png')!important; }
+
+#middle .content .content-box hr,
+#middle .content .reference-box hr { border-top: thin solid #95A0A9; margin:15px 0 15px 0; border-bottom:0; border-right:0; border-left:0; height:1px; }
+
+#footer .plan_site .contact_box { zoom:1; }
+
+#footer .plan_site div.contact_box p.tel_picto { background-image:url('/app/kernix/pix/picto_contact.gif'); }
+
+.pagination-box .pagination-content {
+  padding-top:0px!important;
+  padding-bottom:0px!important;
+  line-height:22px;
+}
+.pagination-box .pagination-content .pagination-page {
+  display:inline-block;
+  line-height:22px;
+}
+
+/* surcharge de bootstrap.css */
+.row {
+  zoom: 1;
+  margin-left: 0;
+}

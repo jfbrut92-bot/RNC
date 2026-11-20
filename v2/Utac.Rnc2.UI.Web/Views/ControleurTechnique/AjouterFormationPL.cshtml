@@ -1,0 +1,63 @@
+﻿@model Utac.Rnc2.UI.Web.Models.AjoutFormationControleurPLModel
+
+@section TitleContent {
+    Ajout d'une formation PL pour le  @Model.Controleur.Titre @Model.Controleur.Nom @Model.Controleur.Prenom
+}
+@section SousTitrePage {
+    Ajout d'une formation PL pour le  @Model.Controleur.Titre @Model.Controleur.Nom @Model.Controleur.Prenom
+}
+@section StyleContent {
+    @Styles.Render("~/styles/jquery-ui")
+}
+@using (Html.BeginForm())
+{
+    @Html.ValidationSummary(true)
+    <fieldset>
+        <div class="clearfix">
+            Type de formation
+            <div class="input">
+                @Html.DropDownListFor(model => model.Formation.RTypeFormation.Id, new SelectList(Model.ListeFormation, "Id", "LibelleTypeFormation"), new { @class = "input-xxlarge" })
+                @Html.ValidationMessageFor(model => model.Formation.RTypeFormation.Id)
+            </div>
+        </div>
+        <div id="bloc_date_debut">
+            <div class="editor-label">Date début</div>
+            <div class="editor-field">
+                @Html.TextBoxFor(model => model.Formation.DateDebut, new { Value = Model.Formation.DateDebut.Equals(System.DateTime.MinValue) ? "" : String.Format("{0:g}", Model.Formation.DateDebut), @class = "datepicker" })
+                @Html.ValidationMessageFor(model => model.Formation.DateDebut, null, new { @class = "alert-message error" })
+            </div>
+        </div>
+        <div class="editor-label">Date fin</div>
+        <div class="editor-field">
+            @Html.TextBoxFor(model => model.Formation.DateFin, new { Value = Model.Formation.DateFin.Equals(System.DateTime.MinValue) ? "" : String.Format("{0:g}", Model.Formation.DateFin), @class = "datepicker" })
+            @Html.ValidationMessageFor(model => model.Formation.DateFin, null, new { @class = "alert-message error" })
+        </div>
+        <div class="editor-label">Résultat</div>
+        <div class="editor-field">
+            Favorable @Html.RadioButtonFor(model => model.Formation.ResultatFormation, true, Model.Formation.ResultatFormation ? new { @checked = "checked" } : null)
+            &nbsp;&nbsp;Défavorable @Html.RadioButtonFor(model => model.Formation.ResultatFormation, false, !Model.Formation.ResultatFormation ? new { @checked = "checked" } : null)
+            @Html.ValidationMessageFor(model => model.Formation.ResultatFormation)
+        </div>
+        <br />
+        <div class="rowAligne">
+            <div class="editor-field">
+                <input type="submit" value="Confirmer" class="btn primary" />
+                @if (String.IsNullOrEmpty(Model.ReturnLettreReseau))
+                {
+                    @Html.ActionLink("Retour", "Fiche", new { id = Model.Controleur.Id }, new { @class = "btn cancel" })
+                }
+                else
+                {
+                    @Html.ActionLink("Retour", "ReturnToListeControleurPourReseau", "Home", new { returnLettreReseau = Model.ReturnLettreReseau, returnCodDep = Model.ReturnCodDep }, new { @class = "btn cancel" })
+                }
+            </div>
+        </div>
+    </fieldset>
+}
+@section JavaScriptContent {
+    <!-- DatePicker -->
+    @Scripts.Render("~/scripts/date-picker")
+    <!-- Suppression de la date de début de formation pour les formations CL-->
+    @Scripts.Render("~/scripts/ajout-formation-controleur")
+
+}

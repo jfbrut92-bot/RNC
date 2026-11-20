@@ -1,0 +1,350 @@
+﻿@model Utac.Rnc2.UI.Web.Models.HomeModel
+
+<fieldset>
+    <h4>Votre préfecture : (@Model.utilisateur.RPrefecture.CodDepartement) @Model.utilisateur.RPrefecture.LibellePrefecture</h4>
+
+    <div class="">
+        Courriel :
+        @if (Model.utilisateur.Email != null)
+        {
+            @Model.utilisateur.Email
+        }
+        else
+        {
+            <b>Aucune adresse n'est enregistrée! </b>
+        }
+        @*
+        <a class="btn success" href="@Url.Action("ModifierAdresseMail","Home",new { id=Model.utilisateur.Id })">Modifier</a>
+        *@
+    </div>
+    @*
+    @Html.ActionLink("Obtenir un nouveau mot de passe", "RenewPassword0", "Information")
+    *@
+    <br /><a href="#Liste1">Personnes de votre région disposant d'un accès actif à RNC2</a>
+    <br /><a href="#Liste2">Liste des contrôleurs agréés dont le centre de rattachement (VL) est fermé</a>
+    <br /><a href="#Liste11">Liste des contrôleurs agréés dont le centre de rattachement (CL) est fermé</a>
+    <br /><a href="#Liste3">Liste des contrôleurs agréés dont le centre de rattachement (PL) est fermé</a>
+    <br /><a href="#Liste5">Liste des contrôleurs en attente d'agrément</a>
+    <br /><a href="#Liste6">Liste des centres en attente d'agrément</a>
+    <br /><a href="#Liste7">Liste des derniers contrôleurs agréés</a>
+    <br /><a href="#Liste9">Liste des contrôleurs agrées sans centre de rattachement</a>
+    <br /><a href="#Liste8">Liste des derniers centres agréés</a>
+    <br /><a href="#Liste10">Liste des prestataires Européens</a>
+    <br />
+</fieldset>
+<a name="Liste1"></a>
+<h4>Personnes de votre département disposant d'un accès actif à RNC2</h4>
+@if (Model.ListeAutresUtilisateurs != null)
+{
+    <table>
+        <tr>
+            <th>Nom</th>
+            <th>Prénom</th>
+            <th>Identifiant</th>
+        </tr>
+        @{ var i = 0; }
+        @foreach (var item in Model.ListeAutresUtilisateurs)
+        {
+            if (item.Actif == true)
+            {
+                <tr class="@(i % 2 == 0 ? "row1" : "row2")">
+                    <td>@item.Nom</td>
+                    <td>@item.Prenom</td>
+                    <td>@item.Id</td>
+                </tr>
+                i++;
+            }
+        }
+        <tfoot><tr><td colspan="4"><a href="#HautPage">Retour en haut de la page</a></td></tr></tfoot>
+    </table>
+
+}
+<a name="Liste2"></a>
+<h4>Liste des contrôleurs agréés dont le centre de rattachement est fermé</h4>
+<h3>Contrôleurs VL (@(Model.ListeControleurAgreeCentreFermeVL != null ? Model.ListeControleurAgreeCentreFermeVL.Count : 0))</h3>
+@if (Model.ListeControleurAgreeCentreFermeVL != null && Model.ListeControleurAgreeCentreFermeVL.Count>0)
+{
+    <table>
+        <tr>
+            <th>Nom</th>
+            <th>Prénom</th>
+            <th>Agrément</th>
+            <th>Centre rattachement</th>
+        </tr>
+        @{ var i = 0; }
+        @foreach (var item in Model.ListeControleurAgreeCentreFermeVL)
+        {
+            <tr class="@(i % 2 == 0 ? "row1" : "row2")">
+                <td>@item.Nom</td>
+                <td>@item.Prenom</td>
+                <td>@Html.ActionLink(item.CodAgremVl, "Fiche", "ControleurTechnique", new { id = item.Id }, null)</td>
+                <td>@Html.ActionLink(item.CodAgremRattachementVl, "Fiche", "Centre", new { id = item.PCentreEncourVL.Id }, null)</td>
+            </tr>
+            i++;
+        }
+        <tfoot><tr><td colspan="4"><a href="#HautPage">Retour en haut de la page</a></td></tr></tfoot>
+    </table>
+}
+<a name="Liste11"></a>
+<h3>Contrôleurs CL (@(Model.ListeControleurAgreeCentreFermeCL != null ? Model.ListeControleurAgreeCentreFermeCL.Count : 0))</h3>
+@if (Model.ListeControleurAgreeCentreFermeCL != null && Model.ListeControleurAgreeCentreFermeCL.Count>0)
+{
+    <table>
+        <tr>
+            <th>Nom</th>
+            <th>Prénom</th>
+            <th>Agrément</th>
+            <th>Centre rattachement</th>
+        </tr>
+        @{ var i = 0; }
+        @foreach (var item in Model.ListeControleurAgreeCentreFermeCL)
+        {
+            <tr class="@(i % 2 == 0 ? "row1" : "row2")">
+                <td>@item.Nom</td>
+                <td>@item.Prenom</td>
+                <td>@Html.ActionLink(item.CodAgremCl, "Fiche", "ControleurTechnique", new { id = item.Id }, null)</td>
+                <td>@Html.ActionLink(item.CodAgremRattachementCl, "Fiche", "Centre", new { id = item.PCentreEncourCL.Id }, null)</td>
+            </tr>
+            i++;
+        }
+        <tfoot><tr><td colspan="4"><a href="#HautPage">Retour en haut de la page</a></td></tr></tfoot>
+    </table>
+}
+<a name="Liste3"></a>
+<h3>Contrôleurs PL (@(Model.ListeControleurAgreeCentreFermePL != null ? Model.ListeControleurAgreeCentreFermePL.Count : 0))</h3>
+@if (Model.ListeControleurAgreeCentreFermePL != null && Model.ListeControleurAgreeCentreFermePL.Count>0)
+{
+    <table>
+        <tr>
+            <th>Nom</th>
+            <th>Prénom</th>
+            <th>Agrément</th>
+            <th>Centre rattachement</th>
+        </tr>
+        @{ var i = 0; }
+        @foreach (var item in Model.ListeControleurAgreeCentreFermePL)
+        {
+            <tr class="@(i % 2 == 0 ? "row1" : "row2")">
+                <td>@item.Nom</td>
+                <td>@item.Prenom</td>
+                <td>@Html.ActionLink(item.CodAgremPl, "Fiche", "ControleurTechnique", new { id = item.Id }, null)</td>
+                <td>@Html.ActionLink(item.CodAgremRattachementPl, "Fiche", "Centre", new { id = item.PCentreEncourPL.Id }, null)</td>
+            </tr>
+            i++;
+        }
+        <tfoot><tr><td colspan="4"><a href="#HautPage">Retour en haut de la page</a></td></tr></tfoot>
+    </table>
+
+}
+<a name="Liste5"></a>
+<h4>Liste des contrôleurs en attente d'agrément (@(Model.ListeControleurAttenteAgrement != null ? Model.ListeControleurAttenteAgrement.Count() : 0))</h4>
+@if (Model.ListeControleurAttenteAgrement != null && Model.ListeControleurAttenteAgrement.Count()>0)
+{
+    <table>
+        <tr>
+            <th>Nom</th>
+            <th>Prénom</th>
+            <th>Centre rattachement</th>
+        </tr>
+        @{ var i = 0; }
+        @foreach (var item in Model.ListeControleurAttenteAgrement)
+        {
+            <tr class="@(i% 2 == 0 ? "row1" : "row2")">
+                <td>@Html.ActionLink(item.Nom, "Fiche", "ControleurTechnique", new { id = item.Id }, new { })</td>
+                <td>@item.Prenom</td>
+                <td>
+                    @(item.EstAgrementVLEnCours ? item.PCentreEncourVL != null ? "VL : " + item.CodAgremRattachementVl : "" : "")
+                    @(item.EstAgrementPLEnCours ? item.PCentreEncourPL != null ? "PL : " + item.CodAgremRattachementPl : "" : "")
+                    @(item.EstAgrementCLEnCours ? item.PCentreEncourCL != null ? "CL : " + item.CodAgremRattachementCl : "" : "")
+                </td>
+            </tr>
+            i++;
+        }
+        <tfoot><tr><td colspan="4"><a href="#HautPage">Retour en haut de la page</a></td></tr></tfoot>
+    </table>
+}
+<a name="Liste6"></a>
+<h4>Liste des centres en attente d'agrément (@(Model.ListeCentreAttenteAgrement != null ? Model.ListeCentreAttenteAgrement.Count() : 0))</h4>
+@if (Model.ListeCentreAttenteAgrement != null && Model.ListeCentreAttenteAgrement.Count()>0)
+{
+    <table>
+        <tr>
+            <th>Raison sociale</th>
+            <th>Code postale / Ville</th>
+        </tr>
+        @{ var i = 0; }
+        @foreach (var item in Model.ListeCentreAttenteAgrement)
+        {
+            <tr class="@(i % 2 == 0 ? "row1" : "row2")">
+                <td>@Html.ActionLink(item.RaisonSociale, "Fiche", "Centre", new { id = item.Id }, new { })</td>
+                <td>@item.CpCentre  @item.Ville</td>
+            </tr>
+            i++;
+        }
+        <tfoot><tr><td colspan="4"><a href="#HautPage">Retour en haut de la page</a></td></tr></tfoot>
+    </table>
+
+}
+<a name="Liste7"></a>
+<h4>Liste des derniers contrôleurs agréés  (@(Model.ListeControleurNouvellementAgree != null ? Model.ListeControleurNouvellementAgree.Count() : 0))</h4>
+@if (Model.ListeControleurNouvellementAgree != null && Model.ListeControleurNouvellementAgree.Count()>0)
+{
+    <table>
+        <tr>
+            <th>Nom</th>
+            <th>Prénom</th>
+            <th>Centre rattachement</th>
+        </tr>
+        @{ var i = 0; }
+        @foreach (var item in Model.ListeControleurNouvellementAgree)
+        {
+            <tr class="@(i % 2 == 0 ? "row1" : "row2")">
+                <td>@Html.ActionLink(item.Nom, "Fiche", "ControleurTechnique", new { id = item.Id }, new { })</td>
+                <td>@item.Prenom</td>
+                <td>
+                    @(item.EstAgrementValideVL ? item.PCentreEncourVL != null ? "VL : " + item.CodAgremRattachementVl : "" : "")
+                    @(item.EstAgrementValidePL ? item.PCentreEncourPL != null ? "PL : " + item.CodAgremRattachementPl : "" : "")
+                    @(item.EstAgrementValideCL ? item.PCentreEncourCL != null ? "CL : " + item.CodAgremRattachementCl : "" : "")
+                </td>
+            </tr>
+            i++;
+        }
+        <tfoot><tr><td colspan="4"><a href="#HautPage">Retour en haut de la page</a></td></tr></tfoot>
+    </table>
+
+}
+<a name="Liste9"></a>
+@{ int nbControleursAgreesSansCentreRattachement = Model.ListeControleurAgreeSansCentreRattachementVL.Count + Model.ListeControleurAgreeSansCentreRattachementCL.Count + Model.ListeControleurAgreeSansCentreRattachementPL.Count; }
+@* Désactivation CL + Model.ListeControleurAgreeSansCentreRattachementCL.Count;*@
+<h4>Liste contrôleurs agréés sans centre de rattachement  (@nbControleursAgreesSansCentreRattachement)</h4>
+@if (nbControleursAgreesSansCentreRattachement > 0)
+{
+<table>
+    <tr>
+        <th>Nom</th>
+        <th>Prénom</th>
+        <th>Agrément</th>
+    </tr>
+    @{ var i = 0; }
+    @foreach (var item in Model.ListeControleurAgreeSansCentreRattachementVL)
+    {
+        <tr class=" @(i % 2 == 0 ? "row1" : "row2")">
+            <td>@Html.ActionLink(item.Nom, "Fiche", "ControleurTechnique", new { id = item.Id }, new { })</td>
+            <td>@item.Prenom</td>
+            <td>
+                @item.CodAgremVl
+            </td>
+        </tr>
+        i++;
+    }
+    @foreach (var item in Model.ListeControleurAgreeSansCentreRattachementCL)
+    {
+        <tr class=" @(i % 2 == 0 ? "row1" : "row2")">
+            <td>@Html.ActionLink(item.Nom, "Fiche", "ControleurTechnique", new { id = item.Id }, new { })</td>
+            <td>@item.Prenom</td>
+            <td>
+                @item.CodAgremCl
+            </td>
+        </tr>
+        i++;
+    }
+    @foreach (var item in Model.ListeControleurAgreeSansCentreRattachementPL)
+    {
+        <tr class=" @(i % 2 == 0 ? "row1" : "row2")">
+            <td>@Html.ActionLink(item.Nom, "Fiche", "ControleurTechnique", new { id = item.Id }, new { })</td>
+            <td>@item.Prenom</td>
+            <td>
+                @item.CodAgremPl
+            </td>
+        </tr>
+        i++;
+    }
+    <tfoot><tr><td colspan="4"><a href="#HautPage">Retour en haut de la page</a></td></tr></tfoot>
+</table>
+
+}
+<a name="Liste8"></a>
+<h4>Liste des derniers centres agréés (@(Model.ListeCentreNouvellementAgree != null ? Model.ListeCentreNouvellementAgree.Count() : 0))</h4>
+@if (Model.ListeCentreNouvellementAgree != null)
+{
+    <table>
+        <tr>
+            <th>Raison sociale</th>
+            <th>Code postale / Ville</th>
+            <th colspan="3">Agrément(s) / Date(s) notification </th>
+        </tr>
+        @{ var i = 0; }
+        @foreach (var item in Model.ListeCentreNouvellementAgree)
+        {
+            <tr class=" @(i % 2 == 0 ? "row1" : "row2")">
+                <td>@Html.ActionLink(item.RaisonSociale, "Fiche", "Centre", new { id = item.Id }, new { })</td>
+                <td>@item.CpCentre  @item.Ville</td>
+
+                @if (item.EstAgrementValideVL)
+                {
+                    <td>
+                        VL: @item.CodAgremVl @string.Format("{0:d}", item.DateEffetNotificationVl)
+                        <br />
+                    </td>
+                }
+                else
+                {
+                    <td></td>
+                }
+                @if (item.EstAgrementValidePL)
+                {
+                    <td>
+                        PL: @item.CodAgremPl @string.Format("{0:d}", item.DateEffetNotificationPl)
+                        <br />
+                    </td>
+                }
+                else
+                {
+                    <td></td>
+                }
+                @if (item.EstAgrementValideCL)
+                {
+                    <td>CL: @item.CodAgremCl @string.Format("{0:d}", item.DateEffetNotificationCl)</td>
+                }
+                else
+                {
+                    <td></td>
+                }
+            </tr>
+            i++;
+        }
+        <tfoot><tr><td colspan="4"><a href="#HautPage">Retour en haut de la page</a></td></tr></tfoot>
+    </table>
+
+}
+<a name="Liste10"></a>
+<h4>Liste des prestataires Européens</h4>
+@if (Model.ListePrestatairesEuropeensVL != null)
+{
+    <table>
+        <tr>
+            <th>Nom</th>
+            <th>Prénom</th>
+        </tr>
+        @{ var i = 0; }
+        @foreach (var item in Model.ListePrestatairesEuropeensVL)
+        {
+            <tr class=" @(i % 2 == 0 ? "row1" : "row2")">
+                <td>@Html.ActionLink(item.Nom, "Fiche", "ControleurTechnique", new { id = item.Id }, new { })</td>
+                <td>@item.Prenom</td>
+            </tr>
+            i++;
+        }
+        @{ i = 0; }
+        @foreach (var item in Model.ListePrestatairesEuropeensPL)
+        {
+            <tr class=" @(i % 2 == 0 ? "row1" : "row2")">
+                <td>@Html.ActionLink(item.Nom, "Fiche", "ControleurTechnique", new { id = item.Id }, new { })</td>
+                <td>@item.Prenom</td>
+            </tr>
+            i++;
+        }
+        <tfoot><tr><td colspan="4"><a href="#HautPage">Retour en haut de la page</a></td></tr></tfoot>
+    </table>
+
+}

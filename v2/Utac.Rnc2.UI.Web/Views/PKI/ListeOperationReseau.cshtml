@@ -1,0 +1,135 @@
+﻿@model Utac.Rnc2.UI.Web.Models.CertificatModel
+@using Utac.Rnc2.BusinessObjects
+
+@section TitleContent {
+    Liste des opérations effectuées sur les certificats du Réseau de contrôle technique @($"{@Model.Reseau.ReseauAvecLettreEtCategorie}")
+}
+
+@section SousTitrePage {
+    Liste des opérations effectuées sur les certificats
+    <br />du Réseau de contrôle technique
+    <br />
+    @($"{@Model.Reseau.ReseauAvecLettreEtCategorie}")
+}
+
+<div class="bloc_main">
+    <!-- BLOC PRINCIPAL -->
+    <div class="bloc_principal">
+        @if (this.User.IsInRole(rUtilisateur.Profil.RESEAU.ToString()))
+        {
+            <p>@Html.ActionLink("Retour à la page d'accueil", "Index", "Home", null, new { })</p>
+        }
+        @{ IList<pGestionCertificat> gestionCertificats = Model.Reseau.PGestionCertificats; }
+        @if (gestionCertificats.Any())
+        {
+            <table>
+                <tr>
+                    <th>Date</th>
+                    <th>Opération / Fichier Téléchargé</th>
+                    <th>Date début validité<br />Date d'expiration</th>
+                    <th>Date révocation</th>
+                </tr>
+                @{ var i = 0; }
+                @foreach (var item in gestionCertificats.OrderByDescending(a => a.DateMaj))
+                {
+                    <tr class="@(i % 2 == 0 ? "row1" : "row2")">
+                        <td>@item.DateMaj.ToShortDateString() @item.DateMaj.ToShortTimeString()</td>
+                        <td>
+                            @item.RActionCertificat.LibAction
+                            <br />
+                            @item.PCertificat.NomFichier
+                        </td>
+                        <td>
+                            du: @item.PCertificat.DateEffet.ToShortDateString() @item.PCertificat.DateEffet.ToShortTimeString()
+                            <br />
+                            au: @item.PCertificat.DateExpiration.ToShortDateString() @item.PCertificat.DateExpiration.ToShortTimeString()
+                        </td>
+                        <td>@item.PCertificat.DateRevocation</td>
+                    </tr>
+                    i++;
+                }
+            </table>
+        }
+        else
+        {
+            @:Vous n'avez aucun certificat actuellement.
+        }
+    </div>
+</div>
+<!-- FIN BLOC PRINCIPAL -->
+
+@section SideBarDroite {
+    <div class="sidebar-box inline-block">
+        <!-- BLOC DROITE -->
+        <ul class="sections">
+            <li class="section">
+                <h3>Actions</h3>
+                <div class="content-sidebar">
+                    @if (Model.DerniereTraceGestion != null && Model.DerniereTraceGestion.CertificatRevoque)
+                    {
+                        <p class="avertissement">Certificat révoqué</p>
+                    }
+                    <ul>
+                        @if (Model.AUnCertificatValide && Model.DerniereTraceGestion != null)
+                        {
+                            if (!Model.DerniereTraceGestion.CertificatRevoque)
+                            {
+                                if (Model.DerniereTraceGestion.CertificatAutorisationRenouvellement)
+                                {
+                                    <li>@Html.ActionLink("Télécharger un certificat électronique renouvelé", "CreerCertificatReseau", new { id = Model.Reseau.Id, renew = true, first = false })</li>
+                                }
+                                else
+                                {
+                                    @*EG le 01/06/2012 TEST SI RESTE MOINS DE N JOURS DE VALIDITE*@
+                                    if (Model.MustRenew)
+                                    {
+                                        <li>@Html.ActionLink("Télécharger un certificat électronique renouvelé", "CreerCertificatReseau", new { id = Model.Reseau.Id, renew = true, first = false })</li>
+                                    }
+                                    else
+                                    {
+                                        <li>@Html.ActionLink("Télécharger une copie du certificat électronique", "TelechargerCertificatReseau", new { id = Model.Reseau.Id, renew = false, first = false })</li>
+                                    }
+                                }
+                            }
+                            else
+                            {
+                                if (Model.DerniereTraceGestion.CertificatRevoqueAvecRenouvellement)
+                                {
+                                    <li>@Html.ActionLink("Télécharger un certificat électronique renouvelé", "CreerCertificatReseau", new { id = Model.Reseau.Id, renew = true, first = false })</li>
+                                }
+                                else
+                                {
+                                    if (User.IsInRole(rUtilisateur.Profil.OTC_Administration.ToString()))
+                                    {
+                                        <li>@Html.ActionLink("Autoriser le renouvellement", "AutoriserRenouvellementCertificatReseau", new { id = Model.Reseau.Id })</li>
+                                    }
+                                }
+                            }
+                            if (User.IsInRole(rUtilisateur.Profil.OTC_Administration.ToString()) && !Model.DerniereTraceGestion.CertificatRevoque)
+                            {
+                                <li>@Html.ActionLink("Révoquer le certificat", "RevoquerCertificatReseau", new { id = Model.Reseau.Id })</li>
+                            }
+                        }
+
+                        @if (Model.DernierCertificat == null)
+                        {
+                            <li>@Html.ActionLink("Télécharger le 1er certificat électronique", "CreerCertificatReseau", new { id = Model.Reseau.Id, renew = false, first = true })</li>
+                        }
+                        @if (Model.DernierCertificat != null)
+                        {
+                            if (User.IsInRole(rUtilisateur.Profil.OTC_Administration.ToString()))
+                            {
+                                <li>@Html.ActionLink("Information certificat", "InformationCertificat", new { idReq = Model.DernierCertificat.IdReq, NumSerie = Model.DernierCertificat.NumSerie })</li>
+                            }
+                            if (!Model.AUnCertificatValide && !Model.DerniereTraceGestion.CertificatRevoqueSansRenouvellement)
+                            {
+                                <li>@Html.ActionLink("Télécharger un certificat électronique renouvelé", "CreerCertificatReseau", new { id = Model.Reseau.Id, renew = true, first = false })</li>
+                            }
+                        }
+                    </ul>
+                </div>
+                <span class="clear">&nbsp;</span>
+            </li>
+        </ul>
+    </div>
+}

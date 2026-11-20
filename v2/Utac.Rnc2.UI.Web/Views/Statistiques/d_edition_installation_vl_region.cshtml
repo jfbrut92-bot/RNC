@@ -1,0 +1,7 @@
+﻿@model IEnumerable<Utac.Rnc2.BusinessObjects.statistiques.ItemListeDesInstallationsVehiculesLegersSelonRegion>
+@{ Layout = null; }
+Libelle Région;Departement;Prefecture;Type Centre;Raison Sociale;Reseau;Date Notification Vl;Agrement Vl;Code Postal;Ville;téléphone
+@foreach (var item in Model)
+{
+@:@item.LibelleRegion;="@item.CodDepartement";@item.LibellePrefecture;@item.TypeCentre;@item.RaisonSociale;@item.CodeReseau;@item.DateEffetNotification;@item.CodAgrement;= "@item.CpCentre";@item.Ville;@item.numtel
+}

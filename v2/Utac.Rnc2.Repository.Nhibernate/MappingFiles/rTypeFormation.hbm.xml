@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<hibernate-mapping xmlns="urn:nhibernate-mapping-2.2" namespace="Utac.Rnc2.BusinessObjects" assembly="Utac.Rnc2.BusinessObjects">
+	<class name="Utac.Rnc2.BusinessObjects.rTypeFormation, Utac.Rnc2.BusinessObjects" table="r_type_formation" lazy="true">
+		<id name="Id" column="id_type_formation">
+		 	<generator class="assigned" />
+		</id>
+		<property name="LibelleTypeFormation" column="libelle_type_formation" />
+		<many-to-one name="RHabilitation" column="cod_habilitation" class="rHabilitation" />
+		<bag name="PFormationControleurs" lazy="true" cascade="all-delete-orphan" inverse="true" >
+			<key column="id_type_formation"></key>
+			<one-to-many class="pFormationControleurPL"></one-to-many>
+		</bag>
+    <property name="CodCategorieVeh" column="cod_categorie_veh" />
+	</class>
+</hibernate-mapping>
+

@@ -1,0 +1,64 @@
+﻿@model IEnumerable<Utac.Rnc2.BusinessObjects.pRapportException>
+@using Utac.Rnc2.MVC.Extensions
+@using Utac.Rnc2.BusinessObjects
+
+@section TitleContent {
+    Rapports d'exception PL disponibles en téléchargement
+}
+@section SousTitrePage {
+    Rapports d'exception PL disponibles en téléchargement
+}
+<table>
+    <tr>
+        <th>Installation/Agrément</th>
+        <th>Liste des fichiers disponibles</th>
+    </tr>
+    @{ var codAgrem = ""; }
+    @{ var i = 1; }
+    @foreach (var item in Model.OrderByDescending(r => r.DateDebutTransmissionPv).OrderBy(r => r.CodAgremPl))
+    {
+        if (!codAgrem.Equals(item.CodAgremPl))
+        {
+            if (i > 0)
+            {
+                <tr class="@(i % 2 == 0 ? "row1" : "row2")">
+                    <td>
+                        @if (item.PCentreEncour != null)
+                        {<b>
+                                @item.PCentreEncour.RaisonSociale
+                                <br />
+                                @item.CodAgremPl @item.PCentreEncour.EtatAgrementPlAsLibelle
+                                <br />
+                                @item.PCentreEncour.CpCentre - @item.PCentreEncour.Ville
+                                <br />
+                            </b>
+                            @Html.SecuredActionLink("Télécharger les rapports d'exceptions", "ListeRapportException", "Centre", new { id = item.PCentreEncour.Id, categorie = rCategorieVehicule.CategorieEnum.PL })
+                            <br />
+                            @Html.ActionLink("Ouvrir la fiche Centre", "Fiche", new { id = item.PCentreEncour.Id })
+                        }
+                        else
+                        {
+                            @:Impossible de récupérer les informations du centre!!!
+                        }
+                    </td>
+                    <td>
+                        @if (item.DateTelechargementRapport == null)
+                        {
+                            <font color="red">
+                                Rapport sur les contrôles transmis entre le @string.Format("{0:d}", item.DateDebutTransmissionPv) et le @string.Format("{0:d}", item.DateFinTransmissionPv)
+                                <br />
+                            </font>
+                        }
+                        else
+                        { <font>
+                                Rapport sur les contrôles transmis entre le @string.Format("{0:d}", item.DateDebutTransmissionPv) et le @string.Format("{0:d}", item.DateFinTransmissionPv)
+                                <br />
+                            </font>
+                        }
+                        @{codAgrem = item.CodAgremPl == null ? Convert.ToString(i) : item.CodAgremPl; i++; }
+                    </td>
+                </tr>
+            }
+        }
+    }
+</table>

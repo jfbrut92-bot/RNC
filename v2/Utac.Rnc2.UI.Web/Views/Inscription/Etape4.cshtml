@@ -1,0 +1,12 @@
+﻿@model Utac.Rnc2.BusinessObjects.rUtilisateur
+
+@section TitleContent {
+    Inscription
+}
+@section SousTitrePage {
+    Inscription sur RNC2 - Etape 4/4
+}
+ Votre inscription s'est correctement terminée.
+<br />
+ Veuillez cliquer @Html.ActionLink("ici", "LogOff", "Account") pour vous déconnecter, puis vous reconnecter à rnc2  avec votre mot de  passe définitif que vous allez recevoir à l'adresse suivante :
+<b>@Model.Email</b>

@@ -1,0 +1,275 @@
+﻿@model Utac.Rnc2.BusinessObjects.pCentreEncour
+@using Utac.Rnc2.BusinessObjects
+
+@section TitleContent {
+    ConfirmationDeleteFiche
+}
+@section SousTitrePage {
+    Confirmation de suppression d'une fiche
+}
+<h3>Installation: @Model.RaisonSociale - @Model.CodAgremVl @Model.CodAgremPl @Model.CodAgremCl </h3>
+<br />
+@using (Html.BeginForm())
+{
+    <fieldset>
+        <h1 class="panel">Informations société</h1>
+        <div class="row">
+            <div class="span4">
+                <span class="display-label">Numéro de SIREN:</span>
+                <span class="display-field">@Model.NumSiren</span>
+            </div>
+            <div class="span7">
+                <span class="display-label">Statut juridique:</span>
+                @if (Model.RStatutJuridique != null)
+                {
+                    <span class="display-field">@Model.RStatutJuridique.Libelle</span>
+                }
+            </div>
+        </div>
+        <div class="row">
+            <div class="span4">
+                <span class="display-label">Nom/prénom du représentant légal:</span>
+            </div>
+            <div class="span7">
+                <span class="display-field">@Model.NomRepresentantLegal</span>
+            </div>
+        </div>
+        @switch (Model.TypeCentre)
+        {
+            case "S":
+                <div class="row">
+                    <div class="span4">
+                        <div class="display-label">Enseigne commerciale:</div>
+                    </div>
+                    <div class="span7">
+                        <div class="display-field">@Model.EnseigneCommerciale</div>
+                    </div>
+                </div>
+                break;
+        }
+        <div class="row">
+            <div class="span4">
+                <div class="display-label">Adresse:</div>
+            </div>
+            <div class="span7">
+                <div class="display-field">@Model.L1Adresse</div>
+                <div class="display-field"> @Model.L2Adresse</div>
+                <span class="display-field"> @Model.CpCentre</span>
+                <span class="display-field"> @Model.Ville</span>
+            </div>
+        </div>
+        <div>
+            <span class="display-label">Numéro téléphone:</span>
+            <span class="display-field">@Model.NumTel</span>
+        </div>
+        <div>
+            <span class="display-label">Préfecture :</span>
+            <span class="display-field">@Model.RPrefecture.LibellePrefecture (@Model.CodDepartement)</span>
+        </div>
+        <div>
+            <span class="display-label">Dernière modification fiche :</span>
+            <span class="display-field">@Model.DateMiseaJour - @Model.RMotifModification.Libelle</span>
+        </div>
+        <div>
+            <span class="display-label">Date effet dernier changement dénomination sociale:</span>
+            <span class="display-field">@String.Format("{0:d}", Model.DateEffetModification)</span>
+        </div>
+        <h1 class="panel">
+            Agrément VL : @(!Model.AccesPublicVl && Model.EstAgrementValideVL && (User.IsInRole(rUtilisateur.Profil.CENTRE_INDEPENDANT.ToString()) || User.IsInRole(rUtilisateur.Profil.RESEAU.ToString()))
+                ? "En attente accusé" : Model.CodAgremVl) @Model.EtatAgrementVlAsLibelle
+            </h1>
+            @if (User.IsInRole(rUtilisateur.Profil.OTC_Administration.ToString()))
+            {
+                if (Model.EstAgrementValideVL && !Model.AccesPublicVl)
+                {
+                    <p>Numéro accusé réception : @Model.NumAccuseReceptionVL</p>
+                }
+            }
+            <div>
+                @switch (Model.TypeCentre)
+                {
+                    case "S":
+                        <span class="display-label">Réseau VL de rattachement:</span>
+                        break;
+                    case "A":
+                        <span class="display-label">Réseau VL exploitant</span>
+                        break;
+                }
+                @if (Model.ReseauRattachementVL != null)
+                {
+                    <span class="display-field">@Model.ReseauRattachementVL.ReseauAvecLettre</span>
+                }
+                else
+                {
+                    <span class="display-field">Aucun</span>
+                }
+            </div>
+            <div class="row">
+                <div class="span4">
+                    <span class="display-label">Date d'effet notification:</span>
+                    <span class="display-field">@String.Format("{0:d}", Model.DateEffetNotificationVl)</span>
+                </div>
+                <div class="span7">
+                    <span class="display-label">Agrément précédant:</span>
+                    <span class="display-field"> @Model.AncienNumeroAgrementVl</span>
+                </div>
+            </div>
+            <div class="row">
+                <div class="span4">
+                    <span class="display-label">Date fin agrément:</span>
+                    <span class="display-field"> @String.Format("{0:d}", Model.DateFinAgrementVl)</span>
+                </div>
+                <div class="span7">
+                    <span class="display-label">Motif fin agrément:</span>
+                    <span class="display-field">@Model.MotifFinAgrementVlAsLibelle</span>
+                </div>
+            </div>
+            <div class="row">
+                <span class="span11">
+                    <span class="display-label">Commentaires:</span>
+                    <span class="display-field"> @Model.CommentaireAvisOtcVl</span>
+                </span>
+            </div>
+            <h1 class="panel">
+                Agrément PL : @(!Model.AccesPublicPl && Model.EstAgrementValidePL && (User.IsInRole(rUtilisateur.Profil.CENTRE_INDEPENDANT.ToString()) || User.IsInRole(rUtilisateur.Profil.RESEAU.ToString()))
+            ? "En attente accusé" : Model.CodAgremPl) @Model.EtatAgrementPlAsLibelle
+        </h1>
+        @if (User.IsInRole(rUtilisateur.Profil.OTC_Administration.ToString()))
+        {
+            if (Model.EstAgrementValidePL && !Model.AccesPublicPl)
+            {
+                <p>Numéro accusé réception : @Model.NumAccuseReceptionPL</p>
+            }
+        }
+        <div>
+            @switch (Model.TypeCentre)
+            {
+                case "S":
+                    <span class="display-label"> Réseau PL de rattachement:</span>
+                    break;
+                case "A":
+                    <span class="display-label"> Réseau PL exploitant:</span>
+                    break;
+            }
+            @if (Model.ReseauRattachementPL != null)
+            {
+                <span class="display-field">@Model.ReseauRattachementPL.ReseauAvecLettre</span>
+            }
+            else
+            {
+                <span class="display-field">Aucun</span>
+            }
+        </div>
+        <div class="row">
+            <div class="span4">
+                <span class="display-label">Date d'effet notification:</span>
+                <span class="display-field">@String.Format("{0:d}", Model.DateEffetNotificationPl)</span>
+            </div>
+            <div class="span7">
+                <span class="display-label">Date échéance agrément:</span>
+                <span class="display-field"> @String.Format("{0:d}", Model.DateEcheanceAgrementPl)</span>
+            </div>
+        </div>
+        <div>
+            <span class="display-label">Agrément précédant:</span>
+            <span class="display-field"> @Model.AncienNumeroAgrementPl</span>
+        </div>
+        <div class="row">
+            <div class="span4">
+                <span class="display-label">Date fin agrément:</span>
+                <span class="display-field">@String.Format("{0:d}", Model.DateFinAgrementPl)</span>
+            </div>
+            <div class="span7">
+                <span class="display-label">Motif fin agrément:</span>
+                <span class="display-field">@Model.MotifFinAgrementPlAsLibelle</span>
+            </div>
+        </div>
+        <div class="row">
+            <span class="span11">
+                <span class="display-label">Commentaires:</span>
+                <span class="display-field">@Model.CommentaireAvisOtcPl</span>
+            </span>
+        </div>
+    </fieldset>
+    <input type="hidden" name="id" value="@Model.Id" />
+    <br />
+    <div class="row">
+        @if (Model.ControleurVLs.Count > 0)
+        {
+            <table>
+                <caption>Contrôleurs VL rattachés</caption>
+                <tr>
+                    <th>Nom</th>
+                    <th>Prenom</th>
+                    <th>Agrément</th>
+                    <th></th>
+                </tr>
+                @foreach (var item in Model.ControleurVLs)
+                {
+                    <tr>
+                        <td>@item.Nom</td>
+                        <td>@item.Prenom</td>
+                        <td>@item.CodAgremVl</td>
+                        <td>@Html.ActionLink("Fiche", "Fiche", "ControleurTechnique", new { id = item.Id }, new { })</td>
+                    </tr>
+                }
+            </table>
+        }
+        @if (Model.ControleurPLs.Count > 0)
+        {
+            <table>
+                <caption>Contrôleurs PL rattachés</caption>
+                <tr>
+                    <th>Nom</th>
+                    <th>Prenom</th>
+                    <th>Agrément</th>
+                    <th></th>
+                </tr>
+                @foreach (var item in Model.ControleurPLs)
+                {
+                    <tr>
+                        <td>@item.Nom</td>
+                        <td>@item.Prenom</td>
+                        <td>@item.CodAgremPl</td>
+                        <td>@Html.ActionLink("Fiche", "Fiche", "ControleurTechnique", new { id = item.Id }, new { })</td>
+                    </tr>
+                }
+            </table>
+        }
+        @if (Model.ControleurCLs.Count > 0)
+        {
+            <table>
+                <caption>Contrôleurs CL rattachés</caption>
+                <tr>
+                    <th>Nom</th>
+                    <th>Prenom</th>
+                    <th>Agrément</th>
+                    <th></th>
+                </tr>
+                @foreach (var item in Model.ControleurCLs)
+                {
+                    <tr>
+                        <td>@item.Nom</td>
+                        <td>@item.Prenom</td>
+                        <td>@item.CodAgremCl</td>
+                        <td>@Html.ActionLink("Fiche", "Fiche", "ControleurTechnique", new { id = item.Id }, new { })</td>
+                    </tr>
+                }
+            </table>
+        }
+        @{ bool confirm = Model.ControleurVLs.Count > 0 || Model.ControleurPLs.Count > 0 || Model.ControleurCLs.Count > 0; }
+        @if (confirm)
+        {
+            <br />
+            <input type="checkbox" id="continuecheck" />
+            <span>Continuer malgré tout. (Ne pas oublier de rattacher les contrôleurs ci - dessus)</span>
+        }
+        <br />
+        <input type="submit" id="confirmerButton" value="Confirmer la suppression" class="btn primary" @(confirm ? "style='display:none;'" : "") />
+        <a class="btn success" href="@Url.Action("Fiche","Centre", new { id = Model.Id})">Retour à la fiche</a>
+    </div>
+}
+@section JavaScriptContent {
+    <!-- validation continuer malgré tout -->
+    @Scripts.Render("~/scripts/delete-centre")
+}

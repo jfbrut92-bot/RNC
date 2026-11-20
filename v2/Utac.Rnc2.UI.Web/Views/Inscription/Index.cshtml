@@ -1,0 +1,14 @@
+﻿@model dynamic
+
+@section TitleContent {
+    Inscription
+}
+@section SousTitrePage {
+    Inscription sur RNC2 - Etape 0/4
+}
+Vous allez effectuer votre inscription sur le site rnc2 pour obtenir un mot de passe définitif.
+<br />Ce mot de passe sera envoyé par courriel lorsque toutes les étapes de l'inscription seront terminées.
+<br />
+<p>
+    @Html.ActionLink("Continuer", "Etape1", null, new { @class = "button-fd-bleu" })
+</p>

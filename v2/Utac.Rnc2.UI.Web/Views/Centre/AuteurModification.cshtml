@@ -1,0 +1,27 @@
+﻿@model Utac.Rnc2.BusinessObjects.pCentreEncour
+
+@section TitleContent {
+    AuteurModification
+}
+@section SousTitrePage {
+    Auteur modification
+}
+<h3>Installation: @Model.RaisonSociale - @Model.CodAgremVl @Model.CodAgremPl @Model.CodAgremCl </h3>
+<h3>Installation: @Model.RaisonSociale - @Model.CodAgremVl @Model.CodAgremPl @Model.CodAgremCl </h3>
+<br />
+<fieldset>
+    <div class="display-label">Modification</div>
+    <div class="display-field">@(Model.RMotifModification != null ? Model.RMotifModification.Libelle : "")</div>
+    <div class="display-label">Nom</div>
+    <div class="display-field">@Model.RUtilisateur.Nom @Model.RUtilisateur.Prenom (Identifiant: @Model.RUtilisateur.Id )</div>
+    <div class="display-label">Profil</div>
+    <div class="display-field">@Model.RUtilisateur.RProfil.LibelleProfil</div>
+    <div class="display-label">Courriel</div>
+    <div class="display-field">@Model.RUtilisateur.Email</div>
+    <div class="display-label">Dernière connection</div>
+    <div class="display-field">@Model.RUtilisateur.DateDerniereConnection</div>
+</fieldset>
+<p>
+    <a class="btn success" href="@Url.Action("Fiche","Centre", new { id = Model.Id})">Retour à la fiche</a>
+</p>
+

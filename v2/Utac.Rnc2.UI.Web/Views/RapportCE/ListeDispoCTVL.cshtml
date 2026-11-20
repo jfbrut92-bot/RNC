@@ -1,0 +1,20 @@
+﻿@model Utac.Rnc2.BusinessObjects.pCentreEncour
+
+@section TitleContent {
+    Liste des rapports CE VL disponibles pour le centre @Model.RaisonSociale @Model.CodAgremVl
+}
+@section SousTitrePage {
+    Liste des rapports CE VL disponibles pour le centre @Model.RaisonSociale @Model.CodAgremVl
+}
+<p>@Html.ActionLink("Retour à la fiche", "Fiche", "Centre", new { id = Model.Id }, new object { })</p>
+<p>@Html.ActionLink("Retour à la fiche", "Fiche", "Centre", new { id = Model.Id }, new object { })</p>
+<ul>
+    @foreach (var item in Model.PRapportExceptionVLs)
+    {
+        <li>@Html.ActionLink(item.NomRapport, "Telecharge", new { id = item.Id, isVL = true })</li>
+    }
+</ul>
+@if (Model.PRapportExceptionVLs.Count() == 0)
+{
+    @:Aucun rapport disponible
+}

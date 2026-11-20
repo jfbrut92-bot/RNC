@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<hibernate-mapping xmlns="urn:nhibernate-mapping-2.2" namespace="Utac.Rnc2.BusinessObjects" assembly="Utac.Rnc2.BusinessObjects">
+	<class name="Utac.Rnc2.BusinessObjects.pAuditControleur, Utac.Rnc2.BusinessObjects" table="p_audit_controleur" lazy="true">
+		<!-- EG le 30/09/2011 
+    <composite-id>
+			<key-property name="IdControleurEncours" column="id_controleur_encours" /> 
+			<key-property name="DateMiseaJour" column="date_mise_a_jour" /> 
+		</composite-id>
+    -->
+    <id name="Id" column="id_audit" unsaved-value="0">
+      <generator class="identity">
+
+      </generator>
+    </id>
+		<property name="DateAudit" column="date_audit" />
+		<property name="CodAgremCntr" column="cod_agrem_cntr" />
+		<property name="ImmatVehicule" column="immat_vehicule" />
+		<property name="NumPv" column="num_pv" />
+		<property name="ResultatAudit" column="resultat_audit" />
+    <many-to-one name="RCategorieVehicule" column="id_categorie" class="rCategorieVehicule" />
+		<many-to-one name="RUtilisateur" column="cod_utilisateur" class="rUtilisateur" />
+    <!-- EG le 30/09/2011 -->
+    <many-to-one name="Controleur" column="id_controleur_encours" class="pContoleurEncour" />
+    <property name="DateMiseaJour" column="date_mise_a_jour" />
+    
+	</class>
+</hibernate-mapping>
+

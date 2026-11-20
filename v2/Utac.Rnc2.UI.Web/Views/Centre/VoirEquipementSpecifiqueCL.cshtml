@@ -1,0 +1,20 @@
+﻿@model Utac.Rnc2.BusinessObjects.pCentreEncour
+@using Utac.Rnc2.UI.Web.Helpers
+
+@section TitleContent {
+    Visualisation des équipements spécifiques CL pour le centre @Model.RaisonSociale
+}
+@section SousTitrePage {
+    Visualisation des équipements spécifiques CL pour le centre @Model.RaisonSociale
+}
+<div class="editor-label">Contrôle des véhicules TCP : @(Model.EquipementCentreCLs[0].ControleTricyles ? "oui" : "non")</div>
+@if ("A".Equals(Model.TypeCentre))
+{
+    <div class="editor-label"> Lieu de stockage : @Model.EquipementCentreCLs[0].LieuStockagePV</div>
+}
+<br />
+@if (GestionDroitsExecution.isRightActionForCentre(User, Model, GestionDroitsExecution.ActionsFicheCentre.EQUIPCL))
+{
+    <a class="btn primary" href="@Url.Action("ModifierEquipementSpecifiqueCL","Centre", new { id = Model.Id})">Modifier équipements spécifiques</a>
+}
+<a class="btn success" href="@Url.Action("Fiche","Centre", new { id = Model.Id})">Retour à la fiche</a>

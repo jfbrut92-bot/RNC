@@ -1,0 +1,68 @@
+﻿@model Utac.Rnc2.UI.Web.Models.DemandeAgrementModel
+@using Utac.Rnc2.BusinessObjects
+
+@section TitleContent {
+    Confirmation Date
+}
+@section SousTitrePage {
+    Confirmation de la date d'effet de notification
+}
+<h2>Installation: @Model.Centre.RaisonSociale</h2>
+<p class="avertissement">
+    Attention, veuillez confirmer l'effet de la notification à la date du :
+    <b>
+        @{ switch (Model.CategorieVehicule)
+            {
+                case rCategorieVehicule.CategorieEnum.VL:
+                    @String.Format("{0:d}", Model.Centre.DateEffetNotificationVl)
+                    break;
+                case rCategorieVehicule.CategorieEnum.PL:
+                    @String.Format("{0:d}", Model.Centre.DateEffetNotificationPl)
+                    break;
+                case rCategorieVehicule.CategorieEnum.CL:
+                    @String.Format("{0:d}", Model.Centre.DateEffetNotificationCl)
+                    break;
+            }
+        }
+    </b>
+    en cliquant sur le lien ci-dessous. Pour modifier la date cliquez
+    @Html.ActionLink("ici", "NouvelAgrement", new { id = Model.Centre.Id, categVehicule = Model.CategorieVehicule }).
+</p>
+@Html.HiddenFor(model => model.Centre.RaisonSociale)
+<form method="post" action="@Url.Action("NouvelAgrementSansVerification" , new{id = Model.Centre.Id})">
+    @Html.HiddenFor(model => model.Centre.RaisonSociale)
+    @Html.HiddenFor(model => model.Centre.NumSiren)
+    @Html.HiddenFor(model => model.Centre.RStatutJuridique.Id)
+    @Html.HiddenFor(model => model.Centre.NomRepresentantLegal)
+    @{ switch (Model.CategorieVehicule)
+        {
+            case rCategorieVehicule.CategorieEnum.VL:
+                @Html.HiddenFor(model => model.Centre.ReseauRattachementVL.Id)
+                @Html.HiddenFor(model => model.Centre.DateEffetNotificationVl)
+                break;
+            case rCategorieVehicule.CategorieEnum.PL:
+                @Html.HiddenFor(model => model.Centre.ReseauRattachementPL.Id)
+                @Html.HiddenFor(model => model.Centre.DateEffetNotificationPl)
+                @Html.HiddenFor(model => model.Centre.DateEcheanceAgrementPl)
+                break;
+            case rCategorieVehicule.CategorieEnum.CL:
+                @Html.HiddenFor(model => model.Centre.ReseauRattachementCL.Id)
+                @Html.HiddenFor(model => model.Centre.DateEffetNotificationCl)
+                break;
+        }
+    }
+    @Html.HiddenFor(model => model.CategorieVehicule)
+    @Html.HiddenFor(model => model.Centre.CodAgremVl)
+    @Html.HiddenFor(model => model.Centre.CodAgremPl)
+    @Html.HiddenFor(model => model.Centre.CodAgremCl)
+    @Html.HiddenFor(model => model.Centre.EnseigneCommerciale)
+    @Html.HiddenFor(model => model.Centre.L1Adresse)
+    @Html.HiddenFor(model => model.Centre.L2Adresse)
+    @Html.HiddenFor(model => model.Centre.CpCentre)
+    @Html.HiddenFor(model => model.Centre.Ville)
+    @Html.HiddenFor(model => model.Centre.NumTel)
+    @Html.HiddenFor(m => m.Centre.CodDepartement)
+    <p>
+        <input type="submit" value="Confirmer" class="btn primary" />
+    </p>
+</form>

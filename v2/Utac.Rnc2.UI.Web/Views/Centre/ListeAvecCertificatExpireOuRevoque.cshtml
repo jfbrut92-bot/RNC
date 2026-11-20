@@ -1,0 +1,42 @@
+﻿@model Utac.Rnc2.UI.Web.Models.ListeDesInfosCertificatsExpireOuRevoqueModel
+
+@section TitleContent {
+    Liste des centres @Model.Categorie avec certificat expiré ou révoqué
+}
+@section SousTitrePage {
+    Liste des centres @Model.Categorie avec certificat expiré ou révoqué
+}
+@(Model.Liste != null ? Model.Liste.Count : 0) centre(s)
+<table>
+    <tr>
+        <th>Agrément</th>
+        <th>Date notification</th>
+        <th>Raison sociale</th>
+        <th>Ville</th>
+        <th>Nom représentant légal</th>
+        <th>
+            Fichier
+            <br />
+            IdReq
+            <br />
+            NumSerie
+        </th>
+    </tr>
+    @{ var i = 0; }
+    @foreach (var item in Model.Liste)
+    {
+        <tr class="@(i % 2 == 0 ? "row1" : "row2")">
+            <td>@item.CodAgrement</td>
+            <td>@string.Format("{0:d}", item.DateEffetNotification)</td>
+            <td>@item.RaisonSociale</td>
+            <td>@item.CodePostale @item.Ville</td>
+            <td> @item.NomRepresentantLegal</td>
+            <td>
+                @item.NomFichier<br />
+                @item.IdReq<br />
+                @item.NumSerie
+            </td>
+        </tr>
+        i++;
+    }
+</table>

@@ -1,0 +1,154 @@
+﻿@model Utac.Rnc2.UI.Web.Models.DemandeAgrementModel
+@using Utac.Rnc2.BusinessObjects
+
+@section TitleContent {
+    Demande d'agrément
+}
+@section SousTitrePage {
+    @switch (Model.CategorieVehicule)
+    {
+        case rCategorieVehicule.CategorieEnum.VL:
+            @:Demande d'agrément VL
+            break;
+        case rCategorieVehicule.CategorieEnum.PL:
+            @:Demande d'agrément PL
+            break;
+        case rCategorieVehicule.CategorieEnum.CL:
+            @:Demande d'agrément CL
+            break;
+    }
+}
+<h2>
+    @switch (Model.Centre.TypeCentre)
+    {
+        case "S":
+            @:Centre spécialisé :
+            break;
+        case "A":
+            @:Installation auxiliaire :
+            break;
+    }
+</h2>
+@Model.Centre.RaisonSociale
+<p class="avertissement">
+    Attention, Vous êtes sur le point d'effectuer une demande d'agrément sur cette fiche.
+    <br />
+    Cliquer sur le bouton "confirmer" pour continuer.
+</p>
+@using (Html.BeginForm())
+{
+    @Html.ValidationSummary(true)
+    <fieldset>
+        <div class="editor-label">
+            @if ("S".Equals(Model.Centre.TypeCentre))
+            {
+                @Html.Label("Raison Sociale (ou nom et prénom de la personne physique)")
+            }
+            else
+            {
+                @Html.Label("Raison Sociale (ou nom et prénom de la personne physique abritant l'installation)")
+            }
+        </div>
+        <div class="editor-field">
+            @Html.TextBoxFor(model => model.Centre.RaisonSociale, new { size = "100", maxlength = "100", style = "text-transform:uppercase" })
+            @Html.ValidationMessageFor(model => model.Centre.RaisonSociale)
+        </div>
+        <div class="row">
+            <div class="floatLeft first">
+                @Html.Label("Numéro de Siren")
+                <div class="input">
+                    @Html.TextBoxFor(model => model.Centre.NumSiren, new { maxlength = "9" })
+                    @Html.ValidationMessageFor(model => model.Centre.NumSiren)
+                </div>
+            </div>
+            <div class="floatLeft">
+                @Html.Label("Statut juridique")
+                <div class="input">
+                    @Html.DropDownListFor(model => model.Centre.RStatutJuridique.Id, new SelectList(Model.ListeStatut, "Id", "Libelle", Model.Centre.RStatutJuridique != null ? Model.Centre.RStatutJuridique.Id : "AUTRE"))
+                </div>
+            </div>
+        </div>
+        <div class="editor-label">
+            @Html.Label("Nom et Prénom du représentant légal")
+        </div>
+        <div class="editor-field">
+            @Html.TextBoxFor(model => model.Centre.NomRepresentantLegal, new { size = "100", maxlength = "100", style = "text-transform:uppercase" })
+            @Html.ValidationMessageFor(model => model.Centre.NomRepresentantLegal)
+        </div>
+        <div class="editor-label">
+            @if (Model.Centre.TypeCentre == "S")
+            {
+                @Html.Label("Réseau de rattachement")
+            }
+            else
+            {
+                @Html.Label("Réseau exploitant")
+            }
+        </div>
+        <div class="editor-field">
+            @switch (Model.CategorieVehicule)
+            {
+                case rCategorieVehicule.CategorieEnum.VL:
+                    @Html.DropDownListFor(model => model.Centre.ReseauRattachementVL.Id, new SelectList(Model.ListeReseau, "Id", "ReseauAvecLettre"))
+                    @Html.ValidationMessageFor(model => model.Centre.ReseauRattachementVL.Id)
+                    break;
+                case rCategorieVehicule.CategorieEnum.PL:
+                    @Html.DropDownListFor(model => model.Centre.ReseauRattachementPL.Id, new SelectList(Model.ListeReseau, "Id", "ReseauAvecLettre"))
+                    @Html.ValidationMessageFor(model => model.Centre.ReseauRattachementPL.Id)
+                    break;
+                case rCategorieVehicule.CategorieEnum.CL:
+                    @Html.DropDownListFor(model => model.Centre.ReseauRattachementCL.Id, new SelectList(Model.ListeReseau, "Id", "ReseauAvecLettre"))
+                    @Html.ValidationMessageFor(model => model.Centre.ReseauRattachementCL.Id)
+                    break;
+            }
+        </div>
+        @if ("S".Equals(Model.Centre.TypeCentre))
+        {
+            <div class="editor-label">@Html.Label("Enseigne commerciale")</div>
+            <div class="editor-field">
+                @Html.TextBoxFor(model => model.Centre.EnseigneCommerciale, new { size = "100", maxlength = "100" })
+                @Html.ValidationMessageFor(model => model.Centre.EnseigneCommerciale)
+            </div>
+        }
+        <div class="editor-label"> @Html.Label("Adresse ligne 1")</div>
+        <div class="editor-field">
+            @Html.TextBoxFor(model => model.Centre.L1Adresse, new { size = "80", maxlength = "80" })
+            @Html.ValidationMessageFor(model => model.Centre.L1Adresse)
+        </div>
+        <div class="editor-label">@Html.Label("Adresse ligne 2")</div>
+        <div class="editor-field">
+            @Html.TextBoxFor(model => model.Centre.L2Adresse, new { size = "80", maxlength = "80" })
+            @Html.ValidationMessageFor(model => model.Centre.L2Adresse)
+        </div>
+        <div class="row">
+            <div class="floatLeft first">
+                @Html.Label("Code postal")
+                <div class="input">
+                    @Html.TextBoxFor(model => model.Centre.CpCentre, new { maxlength = "5" })
+                    @Html.ValidationMessageFor(model => model.Centre.CpCentre)
+                </div>
+            </div>
+            <div class="floatleft"> @Html.Label("Ville")</div>
+            <div class="input">
+                @Html.TextBoxFor(model => model.Centre.Ville, new { size = "50", maxlength = "50" })
+                @Html.ValidationMessageFor(model => model.Centre.Ville)
+            </div>
+        </div>
+        <div class="editor-label">
+            @Html.Label("Numéro de téléphone")
+        </div>
+        <div class="editor-field">
+            @Html.TextBoxFor(model => model.Centre.NumTel, new { maxlength = "10" })
+            @Html.ValidationMessageFor(model => model.Centre.NumTel)
+        </div>
+        @Html.HiddenFor(m => m.Centre.CodDepartement)
+        @Html.HiddenFor(m => m.CategorieVehicule)
+        @Html.HiddenFor(m => m.Centre.Id)
+        @Html.HiddenFor(m => m.Centre.TypeCentre)
+        <br />
+        <div class="rowAligne">
+            <input type="submit" value="Confirmer" class="btn primary" />
+            <a class="btn success" href="@Url.Action("Fiche","Centre", new { id = Model.Centre.Id})">Retour à la fiche</a>
+        </div>
+    </fieldset>
+}

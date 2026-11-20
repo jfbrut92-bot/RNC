@@ -1,0 +1,7 @@
+﻿@model IEnumerable<Utac.Rnc2.BusinessObjects.statistiques.ItemListeDesControleursRattachesAuxCentresDuReseau>
+@{ Layout = null; }
+Nom;Prénom;Date Naissance;Agrement Controleur;Qualification PL;Date Qualification Pl;Habilitation Gaz Vl;Date Declaration Habilitation Gaz Vl;Date Notification;Agrement Centre Rattachement;Reseau;Departement;Categorie;Statut/Ext agrem cat L;Valide depuis le / Ext agrem cat L
+@foreach (var item in Model)
+{
+    @:@item.Nom;@item.Prenom;@item.DateNaissance;@item.AgrementControleur;@item.QualificationPL;@item.DateQualificationPl;@item.Controleur.HabilitationGazVLAsString;@item.DateDeclarationHabilGazVl;@item.DateEffetNotification;@item.AgrementCentreRattachement;@item.CodeReseau;="@item.CodeDepartement";@item.CategorieVehicule;@item.ExtAgremClStatut;@item.ExtAgremClDateValid
+}

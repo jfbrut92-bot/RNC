@@ -1,0 +1,22 @@
+﻿@model Utac.Rnc2.UI.Web.Models.HomeModel
+@using Utac.Rnc2.BusinessObjects
+@using Utac.Rnc2.MVC.Extensions
+@using Utac.Rnc2.BusinessObjects
+@using Utac.Rnc2.UI.Web.Helpers
+@using Utac.Rnc2.UI.Web.Utils
+
+@section TitleContent {
+    Liste des centres de mon réseau : @Model.RechercheProfilReseauModel.Filtre.CodeReseau
+}
+@section SousTitrePage {
+    Liste des centres de mon réseau : @Model.RechercheProfilReseauModel.Filtre.CodeReseau
+}
+
+@Html.Partial("ListeCentrePourReseau", Model)
+
+@section SideBarDroite {
+    @if (User.IsInRole(rUtilisateur.Profil.RESEAU.ToString()))
+    {
+    @Html.Partial("FiltreUtilisateurReseau", Model)
+    }
+}

@@ -1,0 +1,131 @@
+<?xml version="1.0" encoding="utf-8"?>
+<xs:schema xmlns:ns1="ctvl" xmlns:tns="http://intf.ws/" xmlns:ns2="ctpl" targetNamespace="http://intf.ws/" version="1.0" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+  <xs:import schemaLocation="http://195.101.61.161:8080/ctinfo/Rnc2?xsd=2" namespace="ctvl" />
+  <xs:import schemaLocation="http://195.101.61.161:8080/ctinfo/Rnc2?xsd=3" namespace="ctpl" />
+  <xs:element name="About" type="tns:About" />
+  <xs:element name="AboutResponse" type="tns:AboutResponse" />
+  <xs:element name="WSException" nillable="true" type="tns:wsExceptionBean" />
+  <xs:element name="findPlByCodAgrCentreControleur" type="tns:findPlByCodAgrCentreControleur" />
+  <xs:element name="findPlByCodAgrCentreControleurResponse" type="tns:findPlByCodAgrCentreControleurResponse" />
+  <xs:element name="findPlByImmatVehOrNumSerie" type="tns:findPlByImmatVehOrNumSerie" />
+  <xs:element name="findPlByImmatVehOrNumSerieResponse" type="tns:findPlByImmatVehOrNumSerieResponse" />
+  <xs:element name="findPlByNumPvCodAgrDateCtrl" type="tns:findPlByNumPvCodAgrDateCtrl" />
+  <xs:element name="findPlByNumPvCodAgrDateCtrlResponse" type="tns:findPlByNumPvCodAgrDateCtrlResponse" />
+  <xs:element name="findPlByNumVisitOrigine" type="tns:findPlByNumVisitOrigine" />
+  <xs:element name="findPlByNumVisitOrigineResponse" type="tns:findPlByNumVisitOrigineResponse" />
+  <xs:element name="findVlByCodAgrCentreControleur" type="tns:findVlByCodAgrCentreControleur" />
+  <xs:element name="findVlByCodAgrCentreControleurResponse" type="tns:findVlByCodAgrCentreControleurResponse" />
+  <xs:element name="findVlByImmatVehOrNumSerie" type="tns:findVlByImmatVehOrNumSerie" />
+  <xs:element name="findVlByImmatVehOrNumSerieResponse" type="tns:findVlByImmatVehOrNumSerieResponse" />
+  <xs:element name="findVlByNumPvCodAgrDateCtrl" type="tns:findVlByNumPvCodAgrDateCtrl" />
+  <xs:element name="findVlByNumPvCodAgrDateCtrlResponse" type="tns:findVlByNumPvCodAgrDateCtrlResponse" />
+  <xs:element name="findVlByNumVisitOrigine" type="tns:findVlByNumVisitOrigine" />
+  <xs:element name="findVlByNumVisitOrigineResponse" type="tns:findVlByNumVisitOrigineResponse" />
+  <xs:complexType name="findVlByNumPvCodAgrDateCtrl">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="numPvCtrl" type="xs:string" />
+      <xs:element minOccurs="0" name="codAgremCentre" type="xs:string" />
+      <xs:element minOccurs="0" name="dateCtrl" type="xs:dateTime" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="findVlByNumPvCodAgrDateCtrlResponse">
+    <xs:sequence>
+      <xs:element minOccurs="0" maxOccurs="unbounded" name="return" type="ns1:VlPControle" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="wsExceptionBean">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="message" type="xs:string" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="findVlByNumVisitOrigine">
+    <xs:sequence>
+      <xs:element name="numVisit" type="xs:long" />
+      <xs:element name="origine" type="xs:int" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="findVlByNumVisitOrigineResponse">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="return" type="ns1:VlPControle" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="findVlByImmatVehOrNumSerie">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="immatVeh" type="xs:string" />
+      <xs:element minOccurs="0" name="numSerie" type="xs:string" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="findVlByImmatVehOrNumSerieResponse">
+    <xs:sequence>
+      <xs:element minOccurs="0" maxOccurs="unbounded" name="return" type="ns1:VlPControle" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="findPlByCodAgrCentreControleur">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="codAgremCentre" type="xs:string" />
+      <xs:element minOccurs="0" name="codAgremCntlr" type="xs:string" />
+      <xs:element minOccurs="0" name="dateVisiteDebut" type="xs:dateTime" />
+      <xs:element minOccurs="0" name="dateVisiteFin" type="xs:dateTime" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="findPlByCodAgrCentreControleurResponse">
+    <xs:sequence>
+      <xs:element minOccurs="0" maxOccurs="unbounded" name="return" type="ns2:PlPControle" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="findPlByNumPvCodAgrDateCtrl">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="numPvCtrl" type="xs:string" />
+      <xs:element minOccurs="0" name="codAgremCentre" type="xs:string" />
+      <xs:element minOccurs="0" name="dateCtrl" type="xs:dateTime" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="findPlByNumPvCodAgrDateCtrlResponse">
+    <xs:sequence>
+      <xs:element minOccurs="0" maxOccurs="unbounded" name="return" type="ns2:PlPControle" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="findVlByCodAgrCentreControleur">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="codAgremCentre" type="xs:string" />
+      <xs:element minOccurs="0" name="codAgremCntlr" type="xs:string" />
+      <xs:element minOccurs="0" name="dateVisiteDebut" type="xs:dateTime" />
+      <xs:element minOccurs="0" name="dateVisiteFin" type="xs:dateTime" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="findVlByCodAgrCentreControleurResponse">
+    <xs:sequence>
+      <xs:element minOccurs="0" maxOccurs="unbounded" name="return" type="ns1:VlPControle" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="About">
+    <xs:sequence />
+  </xs:complexType>
+  <xs:complexType name="AboutResponse">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="return" type="xs:string" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="findPlByImmatVehOrNumSerie">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="immatVeh" type="xs:string" />
+      <xs:element minOccurs="0" name="numSerie" type="xs:string" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="findPlByImmatVehOrNumSerieResponse">
+    <xs:sequence>
+      <xs:element minOccurs="0" maxOccurs="unbounded" name="return" type="ns2:PlPControle" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="findPlByNumVisitOrigine">
+    <xs:sequence>
+      <xs:element name="numVisit" type="xs:long" />
+      <xs:element name="origine" type="xs:int" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="findPlByNumVisitOrigineResponse">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="return" type="ns2:PlPControle" />
+    </xs:sequence>
+  </xs:complexType>
+</xs:schema>

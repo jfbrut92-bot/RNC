@@ -1,0 +1,35 @@
+﻿@model Utac.Rnc2.BusinessObjects.pContoleurEncour
+
+@section TitleContent {
+    Modification de l'état civil @(Model.EstPrestataire ? "prestataire" : "contrôleur") @Model.Nom @Model.Prenom
+}
+@section SousTitrePage {
+    Modification de l'état civil @(Model.EstPrestataire ? "prestataire" : "contrôleur") @Model.Nom @Model.Prenom
+}
+@using (Html.BeginForm())
+{
+    @Html.ValidationSummary(true)
+    <fieldset>
+        <div class="editor-label">@Html.LabelFor(model => model.Nom)</div>
+        <div class="editor-field">
+            @Html.TextBoxFor(model => model.Nom)
+            @Html.ValidationMessageFor(model => model.Nom, null, new { @class = "alert-message error" })
+        </div>
+        <div class="editor-label">@Html.LabelFor(model => model.Prenom)</div>
+        <div class="editor-field">
+            @Html.TextBoxFor(model => model.Prenom)
+            @Html.ValidationMessageFor(model => model.Prenom, null, new { @class = "alert-message error" })
+        </div>
+        <div class="editor-label">@Html.LabelFor(model => model.DateNaissance)</div>
+        <div class="editor-field">
+            @Html.TextBoxFor(model => model.DateNaissance, new { Value = String.Format("{0:d}", Model.DateNaissance) })
+            @Html.ValidationMessageFor(model => model.DateNaissance, null, new { @class = "alert-message error" })
+        </div>
+        <p>
+            <input type="submit" value="Enregistrer" , class="btn primary" />
+        </p>
+    </fieldset>
+}
+<div>
+    @Html.ActionLink("Revenir à la fiche", "Fiche", new { id = Model.Id })
+</div>

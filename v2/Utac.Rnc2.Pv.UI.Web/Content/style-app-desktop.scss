@@ -1,0 +1,97 @@
+﻿@import './variables';
+@import '../lib/bootstrap/scss/bootstrap.scss';
+
+.body-content {
+    @include responsive-font-size(0.8rem,true);
+    font-family: Arial, Helvetica, sans-serif;
+    color: $blue-color;
+}
+
+a {
+    @include font-size(0.8rem);
+}
+
+input {
+    @include font-size(0.8rem);
+}
+
+label {
+    @include font-size(0.8rem);
+}
+
+select {
+    @include font-size(0.875rem);
+    line-height: inherit;
+}
+
+span {
+    @include font-size(0.8rem);
+}
+
+h1, h1 > span {
+    @include font-size(1.8rem);
+}
+
+h2 {
+    @include font-size(1.2rem);
+}
+
+h3 {
+    @include font-size(1rem);
+}
+
+.btn, #btInput, #btCancel {
+    @include font-size(0.9rem);
+}
+
+.baseline span {
+    @include font-size(1.5rem);
+}
+
+.path {
+    @include font-size(0.9rem);
+}
+
+#header .nav li a {
+    @include font-size(1rem);
+}
+
+@media (min-width:768px) {
+    #header .guillemet {
+        @include font-size(1.2rem);
+    }
+
+    #header .baseline {
+        @include font-size(1.2rem);
+    }
+}
+
+@media (max-width: 768px) {
+    #header .guillemet {
+        @include font-size(1.2rem);
+    }
+
+    #header .baseline {
+        @include font-size(0.8rem);
+    }
+}
+
+#header .actions {
+    @include font-size(0.6rem);
+}
+
+@include media-breakpoint-down(lg) {
+    .liens a, .liens a span {
+        @include font-size(0.6rem);
+    }
+}
+
+@include media-breakpoint-up(lg) {
+    .liens a, .liens a span {
+        @include font-size(0.8rem);
+    }
+}
+
+.table {
+    color: $blue-color;
+}

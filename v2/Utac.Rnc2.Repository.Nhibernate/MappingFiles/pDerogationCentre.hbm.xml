@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<hibernate-mapping xmlns="urn:nhibernate-mapping-2.2" namespace="Utac.Rnc2.BusinessObjects" assembly="Utac.Rnc2.BusinessObjects">
+	<class name="Utac.Rnc2.BusinessObjects.pDerogationCentre, Utac.Rnc2.BusinessObjects" table="p_derogation_centre" lazy="true">
+		<id name="Id" column="id_derogation_centre">
+		 	<generator class="native" />
+		</id>
+		<property name="DateDebut" column="date_debut" />
+    <property name="DateFin" column="date_fin" />
+    <property name="Commentaire" column="commentaire" />
+<!-- EG le 28/02/2012 : supprimé
+    <property name="IsAgrementAffecteVL" column="agrement_affecte_vl" />
+    <property name="IsAgrementAffectePL" column="agrement_affecte_pl" />
+    <property name="IsAgrementAffecteCL" column="agrement_affecte_cl" />
+-->
+    <property name="CategorieVehicule" column="categorie_vehicule" type="Utac.Rnc2.BusinessObjects.CategorieEnumType, Utac.Rnc2.BusinessObjects" />
+    <many-to-one name="RUtilisateur" column="cod_utilisateur" class="rUtilisateur" />
+		<many-to-one name="PCentreEncour" column="id_centre_encours" class="pCentreEncour" />
+	
+	</class>
+</hibernate-mapping>
+

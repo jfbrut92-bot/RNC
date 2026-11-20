@@ -1,0 +1,15 @@
+﻿@model Utac.Rnc2.BusinessObjects.pAuditControleur
+
+@section TitleContent {
+    ConfirmationDeleteAudit
+}
+@section SousTitrePage {
+    Confirmation de la suppression d'un audit du @Model.Controleur.Titre  @Model.Controleur.Nom @Model.Controleur.Prenom @Model.Controleur.CodAgremVl @Model.Controleur.CodAgremPl @Model.Controleur.CodAgremCl
+}
+<br />
+Attention veuillez confirmer la suppression de l'audit @Model.RCategorieVehicule.LibelleCategorie du :@String.Format("{0:d}", Model.DateAudit)en cliquant sur le lien ci-dessous. Pour revenir à la liste des audits PL cliquez
+@Html.ActionLink("ici", "ListeAudits", new { id = Model.Controleur.Id })
+<form method="post" action="@Url.Action("DeleteAuditPL")">
+    <input type="hidden" name="id" value="@Model.Id" />
+    <input type="submit" value="Confirmer" class="btn primary" />
+</form>

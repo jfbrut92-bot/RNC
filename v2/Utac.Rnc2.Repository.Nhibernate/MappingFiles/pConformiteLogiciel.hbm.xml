@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<hibernate-mapping xmlns="urn:nhibernate-mapping-2.2" namespace="Utac.Rnc2.BusinessObjects" assembly="Utac.Rnc2.BusinessObjects">
+	<class name="Utac.Rnc2.BusinessObjects.pConformiteLogiciel, Utac.Rnc2.BusinessObjects" table="p_conformite_logiciel" lazy="true">
+		<id name="Id" column="id_conformite_logiciel">
+		 	<generator class="native" />
+		</id>
+		<property name="VersionMajeureLogiciel" column="version_majeure_logiciel" />
+		<property name="NomRaisonSocialeDemandeur" column="nom_raison_sociale_demandeur" />
+		<property name="NomEtQualiteDuRepresentant" column="nom_et_qualite_du_representant" />
+		<property name="Adresse" column="adresse" />
+		<property name="ResultatConformite" column="resultat_conformite" />
+		<property name="DateLeveeReserve" column="date_levee_reserve" />
+		<property name="Commentaire" column="commentaire" />
+		<property name="RefAttestationConformite" column="ref_attestation_conformite" />
+		<property name="DateAttestation" column="date_attestation" />
+		<property name="DateFinReserve" column="date_fin_reserve" />
+		<many-to-one name="PCentreEncour" column="id_centre_encours" class="pCentreEncour" />
+		<many-to-one name="RReseau" column="cod_reseau" class="rReseau" />
+		<many-to-one name="PLogiciel" column="id_logiciel" class="pLogiciel" />
+	</class>
+</hibernate-mapping>
+

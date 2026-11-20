@@ -1,0 +1,37 @@
+﻿@model Utac.Rnc2.BusinessObjects.pCentreEncour
+
+@section TitleContent {
+    Renseignement des équipements spécifiques PL pour le centre @Model.RaisonSociale
+}
+@section SousTitrePage {
+    Renseignement des équipements spécifiques PL pour le centre @Model.RaisonSociale
+}
+@Html.ActionLink("Retour à la fiche", "Fiche", new { id = Model.Id })
+@using (Html.BeginForm())
+{
+    @Html.ValidationSummary(true)
+    <fieldset>
+        <div class="editor-label">Contrôle des véhicules TCP : @(Model.EquipementCentrePLs[0].ControleTCP ? "oui" : "non")</div>
+        <div class="editor-label">Contrôle des véhicules TMD : @(Model.EquipementCentrePLs[0].ControleTMD ? "oui" : "non")</div>
+        <div class="editor-label"> @Html.LabelFor(model => model.EquipementCentrePLs[0].Decelerometre)</div>
+        <div class="editor-field">
+            @Html.CheckBoxFor(model => model.EquipementCentrePLs[0].Decelerometre)
+            @Html.ValidationMessageFor(model => model.EquipementCentrePLs[0].Decelerometre)
+        </div>
+        @if ("A".Equals(Model.TypeCentre))
+        {
+            <div class="editor-label">Lieu de stockage</div>
+            <div class="editor-field">
+                @Html.TextAreaFor(model => model.EquipementCentrePLs[0].LieuStockagePV)
+                @Html.ValidationMessageFor(model => model.EquipementCentrePLs[0].LieuStockagePV)
+            </div>
+        }
+        @Html.HiddenFor(model => model.EquipementCentrePLs[0].ControleTCP)
+        @Html.HiddenFor(model => model.EquipementCentrePLs[0].ControleTMD)
+        <br />
+        <div class="rowAligne">
+            <input type="submit" value="Enregistrer" class="btn primary" />
+            <a class="btn success" href="@Url.Action("Fiche","Centre", new { id = Model.Id})">Retour à la fiche</a>
+        </div>
+    </fieldset>
+}

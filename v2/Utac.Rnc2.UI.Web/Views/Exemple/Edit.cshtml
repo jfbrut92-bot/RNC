@@ -1,0 +1,90 @@
+﻿@model Utac.Rnc2.BusinessObjects.rUtilisateur
+
+@section TitleContent {
+    Edit
+}
+<h2>Edit</h2>
+@using (Html.BeginForm())
+{
+    @Html.ValidationSummary(true)
+    <fieldset>
+        <legend>Fields</legend>
+        <div class="editor-label">
+            @Html.LabelFor(model => model.MotDePasse)div>
+            <div class="editor-field">
+                @Html.TextBoxFor(model => model.MotDePasse)
+                @Html.ValidationMessageFor(model => model.MotDePasse)
+            </div>
+            <div class="editor-label">@Html.LabelFor(model => model.Nom)</div>
+            <div class="editor-field">
+                @Html.TextBoxFor(model => model.Nom)
+                @Html.ValidationMessageFor(model => model.Nom)
+            </div>
+            <div class="editor-label">@Html.LabelFor(model => model.Prenom)</div>
+            <div class="editor-field">
+                @Html.TextBoxFor(model => model.Prenom)
+                @Html.ValidationMessageFor(model => model.Prenom)
+            </div>
+            <div class="editor-label">@Html.LabelFor(model => model.Actif)</div>
+            <div class="editor-field">
+                @Html.TextBoxFor(model => model.Actif)
+                @Html.ValidationMessageFor(model => model.Actif)
+            </div>
+            <div class="editor-label"> @Html.LabelFor(model => model.Bloque)</div>
+            <div class="editor-field">
+                @Html.TextBoxFor(model => model.Bloque)
+                @Html.ValidationMessageFor(model => model.Bloque)
+            </div>
+            <div class="editor-label">@Html.LabelFor(model => model.NumTentative)</div>
+            <div class="editor-field">
+                @Html.TextBoxFor(model => model.NumTentative)
+                @Html.ValidationMessageFor(model => model.NumTentative)
+            </div>
+            <div class="editor-label">@Html.LabelFor(model => model.DateDerniereConnection)</div>
+            <div class="editor-field">
+                @Html.TextBoxFor(model => model.DateDerniereConnection, String.Format("{0:g}", Model.DateDerniereConnection))
+                @Html.ValidationMessageFor(model => model.DateDerniereConnection)
+            </div>
+            <div class="editor-label"> @Html.LabelFor(model => model.NumTel)</div>
+            <div class="editor-field">
+                @Html.TextBoxFor(model => model.NumTel)
+                @Html.ValidationMessageFor(model => model.NumTel)
+            </div>
+            <div class="editor-label">@Html.LabelFor(model => model.Email)</div>
+            <div class="editor-field">
+                @Html.TextBoxFor(model => model.Email)
+                @Html.ValidationMessageFor(model => model.Email)
+            </div>
+            <div class="editor-label">@Html.LabelFor(model => model.CodUsrCrea)</div>
+            <div class="editor-field">
+                @Html.TextBoxFor(model => model.CodUsrCrea)
+                @Html.ValidationMessageFor(model => model.CodUsrCrea)
+            </div>
+            <div class="editor-label">@Html.LabelFor(model => model.CodUsrMaj)</div>
+            <div class="editor-field">
+                @Html.TextBoxFor(model => model.CodUsrMaj)
+                @Html.ValidationMessageFor(model => model.CodUsrMaj)
+            </div>
+            <div class="editor-label">@Html.LabelFor(model => model.DateCrea)</div>
+            <div class="editor-field">
+                @Html.TextBoxFor(model => model.DateCrea, String.Format("{0:g}", Model.DateCrea))
+                @Html.ValidationMessageFor(model => model.DateCrea)
+            </div>
+            <div class="editor-label">@Html.LabelFor(model => model.DateMaj)</div>
+            <div class="editor-field">
+                @Html.TextBoxFor(model => model.DateMaj, String.Format("{0:g}", Model.DateMaj))
+                @Html.ValidationMessageFor(model => model.DateMaj)
+            </div>
+            <div class="editor-label">@Html.LabelFor(model => model.Id)</div>
+            <div class="editor-field">
+                @Html.TextBoxFor(model => model.Id)
+                @Html.ValidationMessageFor(model => model.Id)
+            </div>
+            <p>
+                <input type="submit" value="Save" />
+            </p>
+    </fieldset>
+}
+<div>
+    @Html.ActionLink("Back to List", "Index")
+</div>

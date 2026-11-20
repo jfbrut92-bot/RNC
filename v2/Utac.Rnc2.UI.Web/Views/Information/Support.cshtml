@@ -1,0 +1,68 @@
+﻿@model Utac.Rnc2.UI.Web.Models.InformationPersonelle
+@using Utac.Rnc2.BusinessObjects
+
+@section TitleContent {
+    Support
+}
+
+<h2>Procédure RNC2 :  Déclaration extension agréments Catégorie L</h2>
+<fieldset id="manuel">
+    <ul>
+        <li>
+            Télécharger la procédure :
+            <a target="_blank"
+               href="../../Content/ressources/Procédure RNC2 - déclaration extension agréments catégorie L V2.pdf"
+               title="Cliquez sur le fichier avec le bouton droit de la souris et choisissez l'option Enregistrer Sous ...">
+                Procédure RNC2 - déclaration extension agréments catégorie L V2.pdf
+            </a>
+        </li>
+    </ul>
+</fieldset>
+@if (User.IsInRole(rUtilisateur.Profil.PREFECTURE.ToString()) || User.IsInRole(rUtilisateur.Profil.DRIRE.ToString()) || User.IsInRole(rUtilisateur.Profil.DSCR.ToString()) || User.IsInRole(rUtilisateur.Profil.OTC.ToString()))
+{
+    <h2>Manuel d'utilisation du RNC2 - Préfectures et organismes chargés de la surveillance - Version du 19/01/2017</h2>
+    <fieldset id="manuel">
+        <ul>
+            <li>
+                Télécharger le manuel d'utilisation au format PDF :
+                <a target="_blank"
+                   href="../../Content/ressources/RNC2_manuel_prefecture.pdf"
+                   title="Cliquez sur le fichier avec le bouton droit de la souris et choisissez l'option Enregistrer Sous ...">
+                    RNC2_manuel_prefecture.pdf
+                </a>
+            </li>
+        </ul>
+    </fieldset>
+}
+@if (User.IsInRole(rUtilisateur.Profil.CENTRE_INDEPENDANT.ToString()) || User.IsInRole(rUtilisateur.Profil.OTC.ToString()))
+{
+    <h2>Manuel d'utilisation du RNC2 - Centre non-rattaché - Version du 23/01/2017</h2>
+    <fieldset id="manuelcnr">
+        <ul>
+            <li>
+                Télécharger le manuel d'aide au format PDF :
+                <a target="_blank"
+                   href="../../Content/ressources/RNC2_manuel_cnr.pdf"
+                   title="Cliquez sur le fichier avec le bouton droit de la souris et choisissez l'option Enregistrer Sous ...">
+                    RNC2_manuel_cnr.pdf
+                </a>
+            </li>
+        </ul>
+    </fieldset>
+}
+@if (User.IsInRole(rUtilisateur.Profil.RESEAU.ToString()) || User.IsInRole(rUtilisateur.Profil.OTC.ToString()))
+{
+    <h2>Manuel d'utilisation du RNC2 - Réseau - Version du 12/03/2012</h2>
+    <fieldset id="manuelreseau">
+        <ul>
+            <li>
+                Télécharger le manuel d'aide au format PDF :
+                <a target="_blank"
+                   href="../../Content/ressources/RNC2_manuel_reseau.pdf"
+                   title="Cliquez sur le fichier avec le bouton droit de la souris et choisissez l'option Enregistrer Sous ...">
+                    RNC2_manuel_reseau.pdf
+                </a>
+            </li>
+        </ul>
+    </fieldset>
+}

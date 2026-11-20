@@ -1,0 +1,193 @@
+﻿@model Utac.Rnc2.UI.Web.Models.AnnulerAgrementModel
+@using Utac.Rnc2.BusinessObjects
+
+@section TitleContent {
+    Annuler Agrément
+}
+@section SousTitrePage {
+    Annuler l'agrément
+    @{ switch (Model.CategVehicule)
+        {
+            case rCategorieVehicule.CategorieEnum.VL:
+                @Model.Centre.CodAgremVl
+                break;
+            case rCategorieVehicule.CategorieEnum.PL:
+                @Model.Centre.CodAgremPl
+                break;
+            case rCategorieVehicule.CategorieEnum.CL:
+                @Model.Centre.CodAgremCl
+                break;
+        }
+    }
+}
+@section StyleContent {
+    @Styles.Render("~/styles/jquery-ui")
+}
+
+<h2>Installation: @Model.Centre.RaisonSociale</h2>
+@if ((Model.Centre.ControleurVLs.Count > 0) || (Model.Centre.ControleurPLs.Count > 0) || (Model.Centre.ControleurCLs.Count > 0))
+{
+    <div class="static-msg">
+        ATTENTION, il existe des contrôleurs rattachés à ce centre !
+    </div>
+}
+Vous êtes sur le point d'annuler l'agrément
+<b>
+    @Model.CategVehicule
+    @{ switch (Model.CategVehicule)
+        {
+            case rCategorieVehicule.CategorieEnum.VL:
+                @Model.Centre.CodAgremVl
+                break;
+            case rCategorieVehicule.CategorieEnum.PL:
+                @Model.Centre.CodAgremPl
+                break;
+            case rCategorieVehicule.CategorieEnum.CL:
+                @Model.Centre.CodAgremCl
+                break;
+        }
+    }
+</b>
+de cette installation. Cliquer sur le lien ci - dessous pour confirmer.
+<br />
+@using (Html.BeginForm("AnnulerAgrement", "Centre", new
+{
+    id = Model.Centre.Id,
+    categVehicule = Model.CategVehicule
+}, FormMethod.Post, new { @class = "verif_date" }))
+{
+    @Html.ValidationSummary(true)
+    <fieldset>
+        @switch (Model.CategVehicule)
+        {
+            case rCategorieVehicule.CategorieEnum.VL:
+                <div class="editor-label">
+                    @Html.Label("Date de fin de l'agrément VL")
+                </div>
+                <div class="editor-field">
+                    @Html.TextBoxFor(model => model.Centre.DateFinAgrementVl, new { @class = "datepicker verif_date" })
+                    @Html.ValidationMessageFor(model => model.Centre.DateFinAgrementVl)
+                </div>
+                <div class="editor-label">
+                    @Html.Label("Motif de fin d'agrément VL")
+                </div>
+                <div class="editor-field">
+                    <select name="Centre.MotifFinAgrementVl">
+                        @foreach (var cle in Model.ListeModification.Keys)
+                        {
+                            <option @(Model.Centre.MotifFinAgrementVl != null ? (cle == Convert.ToInt16(Model.Centre.MotifFinAgrementVl) ? "selected" : "") : (cle == 0 ? "selected" : "")) value="@cle">
+                                @Model.ListeModification[cle]
+                            </option>
+                        }
+                    </select>
+                    @Html.ValidationMessageFor(model => model.Centre.MotifFinAgrementVl)
+                </div>
+                if (Model.MsgControlMotif == true)
+                {
+                    <div class="avertissement">
+                        <p>Attention, l'annulation de l'agrément VL pour ce motif entraine automatiquement l'annulation de l'agrément CL et/ou PL pour le même motif.</p>
+                    </div>
+                    <input name="MsgControlMotif" type="hidden" value="true" />
+                }
+                break;
+            case rCategorieVehicule.CategorieEnum.PL:
+                <div class="editor-label">
+                    @Html.Label("Date de fin de l'agrément PL")
+                </div>
+                <div class="editor-field">
+                    @Html.TextBoxFor(model => model.Centre.DateFinAgrementPl, new { @class = "datepicker verif_date" })
+                    @Html.ValidationMessageFor(model => model.Centre.DateFinAgrementPl)
+                </div>
+                <div class="editor-label">
+                    @Html.Label("Motif de fin d'agrément PL")
+                </div>
+                <div class="editor-field">
+                    <select name="Centre.MotifFinAgrementPl">
+                        @foreach (var cle in Model.ListeModification.Keys)
+                        {
+                            <option @(Model.Centre.MotifFinAgrementPl != null ? (cle == Convert.ToInt16(Model.Centre.MotifFinAgrementPl) ? "selected" : "") : (cle == 0 ? "selected" : "")) value="@cle">
+                                @Model.ListeModification[cle]
+                            </option>
+                        }
+                    </select>
+                    @Html.ValidationMessageFor(model => model.Centre.MotifFinAgrementPl)
+                </div>
+                if (Model.MsgControlMotif == true)
+                {
+                    <div class="avertissement">
+                        <p>Attention, l'annulation de l'agrément PL pour ce motif entraine automatiquement l'annulation de l'agrément VL et/ou CL pour le même motif.</p>
+                    </div>
+                    <input name="MsgControlMotif" type="hidden" value="true" />
+                }
+                break;
+            case rCategorieVehicule.CategorieEnum.CL:
+                <div class="editor-label">
+                    @Html.Label("Date de fin de l'agrément CL")
+                </div>
+                <div class="editor-field">
+                    @Html.TextBoxFor(model => model.Centre.DateFinAgrementCl, new { @class = "datepicker verif_date" })
+                    @Html.ValidationMessageFor(model => model.Centre.DateFinAgrementCl)
+                </div>
+                <div class="editor-label">
+                    @Html.Label("Motif de fin d'agrément CL")
+                </div>
+                <div class="editor-field">
+                    <select name="Centre.MotifFinAgrementCl">
+                        @foreach (var cle in Model.ListeModification.Keys)
+                        {
+                            <option @(Model.Centre.MotifFinAgrementCl != null ? (cle == Convert.ToInt16(Model.Centre.MotifFinAgrementCl) ? "selected" : "") : (cle == 0 ? "selected" : "")) value="@cle">
+                                @Model.ListeModification[cle]
+                            </option>
+                        }
+                    </select>
+                    @Html.ValidationMessageFor(model => model.Centre.MotifFinAgrementCl)
+                </div>
+                if (Model.MsgControlMotif == true)
+                {
+                    <div class="avertissement">
+                        <p>Attention, l'annulation de l'agrément CL pour ce motif entraine automatiquement l'annulation des agréments VL et/ou PL pour le même motif.</p>
+                    </div>
+                    <input name="MsgControlMotif" type="hidden" value="true" />
+                }
+                break;
+        }
+        @* Propager le paramètre du formulaire précédent*@
+        @Html.HiddenFor(m => Model.Centre.RaisonSociale)
+        @Html.HiddenFor(m => Model.Centre.Id)
+        @Html.HiddenFor(m => Model.Centre.EtatAgrementVl)
+        @Html.HiddenFor(m => Model.Centre.EtatAgrementPl)
+        @Html.HiddenFor(m => Model.Centre.EtatAgrementCl)
+        @Html.HiddenFor(model => model.Centre.CodAgremVl)
+        @Html.HiddenFor(model => model.Centre.CodAgremPl)
+        @Html.HiddenFor(model => model.Centre.CodAgremCl)
+        <input type="hidden" name="id" value="@Model.Centre.Id" />
+        <br />
+        <br />
+        <div class="rowAligne">
+            <input type="submit" value="Confirmer" class="btn danger" />
+            <a class="btn success" href="@Url.Action("Fiche","Centre", new { id = Model.Centre.Id})">Retour à la fiche</a>
+        </div>
+    </fieldset>
+}
+<div class="avertissement">
+    <b>ATTENTION A LA DATE D'EFFET DE L'ANNULATION DU N° D'AGREMENT.</b>
+    <br />
+    Si vous saisissez une <b>date d'effet inférieure à la date du jour</b>, vérifiez que des contrôles n'ont pas été transmis à l'OTC après cette date.
+    <br />
+    <br />
+    Si vous saisissez <b>une date d'effet, égale à la date du jour</b>, assurez-vous que le centre en soit informé à temps.
+    <br />
+    <br />
+    <i>Ces précautions sont utiles pour éviter que des contrôles soient réalisés et transmis par un centre dont le n° d'agrément est annulé (la prise en compte des délais d'information des centres de rattachement et réseaux éventuels est importante).</i>
+    <br />
+    <br />
+    <b>Date d'effet: Vous pouvez saisir une date postérieure à la date du jour.</b>
+    <br />
+    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Exemple: Date du jour 05/01/2012
+    <br />
+    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Date d'effet pour la prise d'effet de l'annulation 15/01/2012.
+</div>
+@section JavaScriptContent {
+    <!-- DatePicker -->
+    @Scripts.Render("~/scripts/date-picker")
+}

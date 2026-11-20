@@ -1,0 +1,20 @@
+﻿@model Utac.Rnc2.BusinessObjects.pDerogationCentre
+
+@section TitleContent {
+    ConfirmationDeleteDerogation
+}
+@section SousTitrePage {
+    Confirmation de suppression d'une dérogation
+}
+<h3>Installation: @Model.PCentreEncour.RaisonSociale - @Model.PCentreEncour.CodAgremVl @Model.PCentreEncour.CodAgremPl @Model.PCentreEncour.CodAgremCl </h3>
+<br />
+Attention veuillez confirmer la suppression de la dérogation @Model.Commentaire du : @String.Format("{0:d}", Model.DateDebut) en cliquant sur le lien ci-dessous.
+<form method="post" action="@Url.Action("DeleteDerogation")">
+    <input type="hidden" name="id" value="@Model.Id" />
+    <br />
+    <div class="row">
+        <input type="submit" value="Confirmer" class="btn primary" />
+        <a class="btn success" href="@Url.Action("ListeDerogations","Centre", new { id = Model.PCentreEncour.Id})">Retour à la liste des dérogations</a>
+        <a class="btn cancel" href="@Url.Action("Fiche","Centre", new { id = Model.PCentreEncour.Id})">Retour à la fiche</a>
+    </div>
+</form>

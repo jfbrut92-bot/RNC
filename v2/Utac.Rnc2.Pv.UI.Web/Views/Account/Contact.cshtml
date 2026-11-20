@@ -1,0 +1,20 @@
+﻿@model dynamic
+@using Utac.Rnc2.BusinessObjects
+
+@section TitleContent {
+    Contact
+}
+Pour tout renseignement, posez vos questions &agrave; :
+<br />
+<br />Email :
+<b>rnc2@utac.com</b>
+<br />
+@if (User.Identity.IsAuthenticated && (User.IsInRole(rUtilisateur.Profil.PREFECTURE.ToString()) || User.IsInRole(rUtilisateur.Profil.DRIRE.ToString()) || User.IsInRole(rUtilisateur.Profil.DSCR.ToString()) || User.IsInRole(rUtilisateur.Profil.OTC.ToString())))
+{
+    @:t&eacute;l : 01.69.80.53.03
+    <br />
+}
+<br />
+@section SousTitrePage {
+    Contact
+}

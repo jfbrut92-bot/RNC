@@ -1,0 +1,85 @@
+﻿@model IEnumerable<Utac.Rnc2.BusinessObjects.pTraceRechPvVl>
+@using Utac.Rnc2.BusinessObjects
+
+@section TitleContent {
+    Suivi des téléchargements PV VL
+}
+
+@section StyleContent {
+    @Styles.Render("~/styles/jquery-ui")
+}
+
+<h2>Suivi téléchargement PV VL</h2>
+<form action="@Url.Action("SuiviTelechargementPV")" method="get">
+    <input type="text" name="deb" class="datepicker"/>
+    <input type="text" name="fin" class="datepicker"/>
+    <input type="submit" value="Filtrer"/>
+</form>
+<table>
+    <tr>
+        <th>Date recherche</th>
+        <th>Num PV<br/>Immat<br/>Contrôleur</th>
+        <th>Centre<br/>Num série<br/></th>
+        <th>Date contrôle</th>
+        <th>Type<br/>recherche</th>
+        <th>Résultat</th>
+        <th>Id</th>
+        <th>Nom/Prénom utilisateur</th>
+        <th>Profil</th>
+    </tr>
+    @{ var i = 0; }
+    @foreach (var item in Model.OrderByDescending(m => m.DateRecherche))
+    {
+        <tr class="@(i % 2 == 0 ? "row1" : "row2")">
+            <td>@String.Format("{0:g}", item.DateRecherche)</td>
+            <td>@item.NumPvCtrl</td>
+            <td>@item.CodAgremCentre</td>
+            <td>@String.Format("{0:d}", item.DateCtrl)</td>
+            <td>
+                @if (item.TypeRecherche == (int) pTraceRechPvVl.CodeTypeRechercheCT.REDUIT)
+                {
+                    <span>Reduit</span>
+                }
+                @if (item.TypeRecherche == (int) pTraceRechPvVl.CodeTypeRechercheCT.TOUT)
+                {
+                    <span>Tout </span>
+                }
+            </td>
+            <td>
+                @if (item.CodResultat == (int) pTraceRechPvVl.CodeResultatRechercheCT.AUCUN_CT)
+                {
+                    <span>Aucun CT VL</span>
+                }
+                @if (item.CodResultat == (int) pTraceRechPvVl.CodeResultatRechercheCT.TROUVE_CT)
+                {
+                    <span>CT VL Trouvé</span>
+                }
+                @if (item.CodResultat == (int) pTraceRechPvVl.CodeResultatRechercheCT.ERREUR_TECHNIQUE)
+                {
+                    <span>Erreur(VL)</span>
+                }
+                @if (item.CodResultat == (int) pTraceRechPvVl.CodeResultatRechercheCT.AUCUN_CT_PL)
+                {
+                    <span>Aucun CT PL</span>
+                }
+                @if (item.CodResultat == (int) pTraceRechPvVl.CodeResultatRechercheCT.TROUVE_CT_PL)
+                {
+                    <span>CT PL Trouvé</span>
+                }
+                @if (item.CodResultat == (int) pTraceRechPvVl.CodeResultatRechercheCT.ERREUR_TECHNIQUE_PL)
+                {
+                    <span>Erreur(PL)</span>
+                }
+            </td>
+            <td>@item.Id</td>
+            <td>@Html.ActionLink(item.RUtilisateur.Nom + ' ' + item.RUtilisateur.Prenom, "Edit", "Utilisateurs", new {id = item.RUtilisateur.Id}, null)</td>
+            <td>@item.RUtilisateur.RProfil.LibelleProfil</td>
+        </tr>
+        i++;
+    }
+</table>
+
+@section JavaScriptContent {
+    <!-- DatePicker -->
+    @Scripts.Render("~/scripts/date-picker")
+}

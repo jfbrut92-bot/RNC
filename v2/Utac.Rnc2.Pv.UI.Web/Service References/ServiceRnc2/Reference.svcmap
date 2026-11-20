@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ReferenceGroup xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" ID="a9f932da-e23a-4df4-90d8-56853ce20b5b" xmlns="urn:schemas-microsoft-com:xml-wcfservicemap">
+  <ClientOptions>
+    <GenerateAsynchronousMethods>false</GenerateAsynchronousMethods>
+    <GenerateTaskBasedAsynchronousMethod>true</GenerateTaskBasedAsynchronousMethod>
+    <EnableDataBinding>true</EnableDataBinding>
+    <ExcludedTypes />
+    <ImportXmlTypes>false</ImportXmlTypes>
+    <GenerateInternalTypes>false</GenerateInternalTypes>
+    <GenerateMessageContracts>false</GenerateMessageContracts>
+    <NamespaceMappings />
+    <CollectionMappings />
+    <GenerateSerializableTypes>true</GenerateSerializableTypes>
+    <Serializer>Auto</Serializer>
+    <UseSerializerForFaults>true</UseSerializerForFaults>
+    <ReferenceAllAssemblies>true</ReferenceAllAssemblies>
+    <ReferencedAssemblies />
+    <ReferencedDataContractTypes />
+    <ServiceContractMappings />
+  </ClientOptions>
+  <MetadataSources>
+    <MetadataSource Address="http://webservices-dev-ctinfo.otc.lan:8080/ctinfo/Rnc2?wsdl" Protocol="http" SourceId="1" />
+  </MetadataSources>
+  <Metadata>
+    <MetadataFile FileName="Rnc2.xsd" MetadataType="Schema" ID="f4b266d8-8fa8-4b76-b0b9-fb2ee07425c5" SourceId="1" SourceUrl="http://webservices-dev-ctinfo.otc.lan:8080/ctinfo/Rnc2?xsd=2" />
+    <MetadataFile FileName="Rnc2.wsdl" MetadataType="Wsdl" ID="0c3edb59-ce8e-4153-84cd-dfe9a47a28d5" SourceId="1" SourceUrl="http://webservices-dev-ctinfo.otc.lan:8080/ctinfo/Rnc2?wsdl" />
+    <MetadataFile FileName="Rnc21.wsdl" MetadataType="Wsdl" ID="c9161726-b22c-4608-94f7-477c38f7824f" SourceId="1" SourceUrl="http://webservices-dev-ctinfo.otc.lan:8080/ctinfo/Rnc2?wsdl=1" />
+    <MetadataFile FileName="Rnc21.xsd" MetadataType="Schema" ID="20f93a61-84c4-4a70-b1aa-6e935ce4a742" SourceId="1" SourceUrl="http://webservices-dev-ctinfo.otc.lan:8080/ctinfo/Rnc2?xsd=3" />
+    <MetadataFile FileName="Rnc22.xsd" MetadataType="Schema" ID="d73a2d25-f1f2-4932-a078-ff60d7cac073" SourceId="1" SourceUrl="http://webservices-dev-ctinfo.otc.lan:8080/ctinfo/Rnc2?xsd=4" />
+    <MetadataFile FileName="Rnc23.xsd" MetadataType="Schema" ID="db026822-4e98-4434-b663-9c98c4c526a1" SourceId="1" SourceUrl="http://webservices-dev-ctinfo.otc.lan:8080/ctinfo/Rnc2?xsd=1" />
+  </Metadata>
+  <Extensions>
+    <ExtensionFile FileName="configuration91.svcinfo" Name="configuration91.svcinfo" />
+    <ExtensionFile FileName="configuration.svcinfo" Name="configuration.svcinfo" />
+  </Extensions>
+</ReferenceGroup>

@@ -1,0 +1,22 @@
+﻿@model Utac.Rnc2.BusinessObjects.pContoleurEncour
+
+@section TitleContent {
+    Confirmation du retour arrière sur la fiche @(Model.EstPrestataire ? "prestataire" : "contrôleur") @Model.Nom @Model.Prenom
+}
+@section SousTitrePage {
+    Confirmation du retour arrière sur la fiche @(Model.EstPrestataire ? "prestataire" : "contrôleur") @Model.Nom @Model.Prenom
+}
+<p class="avertissement">
+    Attention, Vous allez annuler la dernière modification effectuée sur cette fiche :
+    <b>@Model.RTypeDemandeControleur.Libelle à la date du @Model.DateMiseaJour</b>
+    <br />
+    Cliquer sur le bouton "confirmer" pour continuer.
+</p>
+<form method="post" action="@Url.Action("ModificationRetourArriere")">
+    <input type="hidden" name="id" value="@Model.Id" />
+    <br />
+    <div class="rowAligne">
+        <input type="submit" value="Confirmer" class="btn primary" />
+        <a class="btn cancel" href="@Url.Action("Fiche","ControleurTechnique", new { id = Model.Id})">Retour à la fiche</a>
+    </div>
+</form>

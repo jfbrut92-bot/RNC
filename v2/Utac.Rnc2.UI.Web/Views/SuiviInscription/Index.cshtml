@@ -1,0 +1,46 @@
+﻿@model IEnumerable<Utac.Rnc2.BusinessObjects.rUtilisateur>
+
+@section TitleContent {
+    Suivi des inscriptions
+}
+@section SousTitrePage {
+    Suivi des inscriptions en lignes des Centres non-rattachés
+}
+<table>
+    <tr>
+        <th>Identifiant<br />utilisateur</th>
+        <th>Categorie</th>
+        <th>Date notification<br />Etat Agrément</th>
+        <th>Raison sociale<br />Nom</th>
+        <th>Centre</th>
+        <th></th>
+    </tr>
+    @{ var i = 0; }
+    @foreach (var item in Model.OrderByDescending(h => h.DateCrea))
+    {
+        var centre = item.MonCentre;
+        <tr class="@(i % 2 == 0 ? "row1" : "row2")">
+            <td>
+                @item.Id @Html.ActionLink("Voir", "Edit", "Utilisateurs", new { id = item.Id }, null)
+            </td>
+            <td>
+                @(item.MonCentreEstVL ? "VL" : item.MonCentreEstPL ? "PL" : "CL")
+            </td>
+            <td>
+                @(item.MonCentreEstVL ? string.Format("{0:d}",centre.DateEffetNotificationVl) : item.MonCentreEstPL ?  string.Format("{0:d}",centre.DateEffetNotificationPl) :  string.Format("{0:d}",centre.DateEffetNotificationCl))
+                <br />
+                @(item.MonCentreEstVL ? centre.EtatAgrementVlAsLibelle : item.MonCentreEstPL ? centre.EtatAgrementPlAsLibelle : centre.EtatAgrementClAsLibelle)
+            </td>
+            <td>
+                @centre.RaisonSociale<br />@centre.NomRepresentantLegal
+            </td>
+            <td>
+                <pre>@centre.AdresseComplete</pre>
+            </td>
+            <td>
+                @Html.ActionLink("Ouvrir Fiche", "Fiche", "Centre", new { id = centre.Id }, null)
+            </td>
+        </tr>
+        i++;
+    }
+</table>

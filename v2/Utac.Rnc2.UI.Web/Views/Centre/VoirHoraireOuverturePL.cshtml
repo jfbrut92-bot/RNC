@@ -1,0 +1,57 @@
+﻿@model Utac.Rnc2.BusinessObjects.pCentreEncour
+@using Utac.Rnc2.UI.Web.Helpers
+
+@section TitleContent {
+    Horaires d'ouverture pour le centre @Model.RaisonSociale
+}
+@section SousTitrePage {
+    Horaires d'ouverture pour le centre @Model.RaisonSociale
+}
+@using (Html.BeginForm())
+{
+    @Html.ValidationSummary(true)
+    <fieldset>
+        <div class="editor-label">
+            <label>Lundi</label> du
+            @string.Format("{0:t}", Model.PHoraireOuvertures[0].LundiMatin)
+            au
+            @string.Format("{0:t}", Model.PHoraireOuvertures[0].LundiSoir)
+        </div>
+        <div class="editor-label">
+            <label>Mardi</label> du
+            @string.Format("{0:t}", Model.PHoraireOuvertures[0].MardiMatin)
+            au
+            @string.Format("{0:t}", Model.PHoraireOuvertures[0].MardiSoir)
+        </div>
+        <div class="editor-label">
+            <label>Mercredi</label>
+            du @string.Format("{0:t}", Model.PHoraireOuvertures[0].MercrediMatin) au @string.Format("{0:t}", Model.PHoraireOuvertures[0].MercrediSoir)
+        </div>
+        <div class="editor-label">
+            <label>Jeudi</label>
+            du @string.Format("{0:t}", Model.PHoraireOuvertures[0].JeudiMatin) au @string.Format("{0:t}", Model.PHoraireOuvertures[0].JeudiSoir)
+        </div>
+        <div class="editor-label">
+            <label>Vendredi</label>
+            du @string.Format("{0:t}", Model.PHoraireOuvertures[0].VendrediMatin) au @string.Format("{0:t}", Model.PHoraireOuvertures[0].VendrediSoir)
+        </div>
+        <div class="editor-label">
+            <label>Samedi</label> du
+            @string.Format("{0:t}", Model.PHoraireOuvertures[0].SamediMatin) au @string.Format("{0:t}", Model.PHoraireOuvertures[0].SamediSoir)
+        </div>
+        <br />
+        @if (Model.PHoraireOuvertures.Count > 0 && GestionDroitsExecution.isRightActionForCentre(User, Model, GestionDroitsExecution.ActionsFicheCentre.CHHORAI))
+        {
+            <div class="rowAligne">
+                <a class="btn primary" href="@Url.Action("ModifierHoraireOuverturePL","Centre", new { id = Model.Id})">Modifier les horaires d'ouverture</a>
+                <a class="btn success" href="@Url.Action("Fiche","Centre", new { id = Model.Id})">Retour à la fiche</a>
+            </div>
+        }
+        else
+        {
+            <div class="rowAligne">
+                <a class="btn success" href="@Url.Action("Fiche","Centre", new { id = Model.Id})">Retour à la fiche</a>
+            </div>
+        }
+    </fieldset>
+}

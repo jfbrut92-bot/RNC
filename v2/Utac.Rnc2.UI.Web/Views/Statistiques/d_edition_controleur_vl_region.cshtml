@@ -1,0 +1,7 @@
+﻿@model IEnumerable<Utac.Rnc2.BusinessObjects.statistiques.ItemListeDesControleurs>
+@{ Layout = null; }
+Nom Contrôleur;Agrement Vl;Date Notification Vl;Date Naissance;Etat Agrément Vl;Habilitation Gaz;Date Habilitation;Département;Préfecture;Région;Agrément Centre Rattachement;Raison Sociale;Adresse 1;Adresse 2;Code Postal;Ville
+@foreach (var item in Model)
+{
+@:@($"{item.Nom} {item.Prenom}");@item.AgrementControleur;@item.DateEffetNotification;@item.DateNaissance;@item.EtatAgrementCntlr;@item.Controleur.HabilitationGazVLAsString;@item.DateDeclarationHabilGazVl;="@item.CodeDepartement";@item.Prefecture;@item.Region;@item.AgrementCentreRattachement;@item.RaisonSociale;@item.Adresse1;@item.Adresse2;@item.CodePostal;@item.Ville
+}

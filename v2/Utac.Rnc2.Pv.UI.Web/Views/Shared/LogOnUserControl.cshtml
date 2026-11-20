@@ -1,0 +1,19 @@
+﻿@if (Request.IsAuthenticated)
+{
+    <form action="@Url.Action("LogOff" , "Account")" class="pull-right" method="get">
+        <span class="alert-message notice">
+            Vous êtes :
+            <a href="@Url.Action("Index" , "Information")">@User.Identity.Name</a>
+        </span>
+        <button class="btn" type="submit">Se déconnecter</button>
+    </form>
+}
+else
+{
+    <form action="@Url.Action("LogOn" , "Account")" class="rnc2-form" method="post">
+        <input class="input-small" type="text" name="UserName" />
+        <input class="input-small" type="password" name="Password" />
+        <input class="input-small" type="checkbox" name="RememberMe" value="true" />
+        <button class="button" type="submit">Connexion</button>
+    </form>
+}

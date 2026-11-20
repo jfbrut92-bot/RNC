@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<hibernate-mapping xmlns="urn:nhibernate-mapping-2.2" namespace="Utac.Rnc2.BusinessObjects" assembly="Utac.Rnc2.BusinessObjects">
+	<class name="Utac.Rnc2.BusinessObjects.pHoraireOuverture, Utac.Rnc2.BusinessObjects" table="p_horaire_ouverture" lazy="true">
+		<id name="Id" column="id_centre_encours">
+		 	<generator class="assigned" />
+		</id>
+		<property name="LundiMatin" column="lundi_matin" />
+		<property name="LundiSoir" column="lundi_soir" />
+		<property name="MardiMatin" column="mardi_matin" />
+		<property name="MardiSoir" column="mardi_soir" />
+		<property name="MercrediMatin" column="mercredi_matin" />
+		<property name="MercrediSoir" column="mercredi_soir" />
+		<property name="JeudiMatin" column="jeudi_matin" />
+		<property name="JeudiSoir" column="jeudi_soir" />
+		<property name="VendrediMatin" column="vendredi_matin" />
+		<property name="VendrediSoir" column="vendredi_soir" />
+		<property name="SamediMatin" column="samedi_matin" />
+		<property name="SamediSoir" column="samedi_soir" />
+	</class>
+</hibernate-mapping>
+

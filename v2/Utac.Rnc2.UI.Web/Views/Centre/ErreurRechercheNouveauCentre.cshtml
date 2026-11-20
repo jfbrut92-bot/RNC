@@ -1,0 +1,13 @@
+﻿@model Utac.Rnc2.UI.Web.Models.NotificationAgrementModel
+
+@section TitleContent {
+    Erreur choix PDF
+}
+@section SousTitrePage {
+    Erreur choix PDF
+}
+<div class="avertissement">
+    <b>L'historique des actions effectuées sur la fiche de ce centre ne nous permet pas de déterminer le type de notification à télécharger. Toutefois vous pouvez retourner sur le centre en cliquant sur le lien ci dessous.</b>
+    <br />
+    @Html.ActionLink("Retourner à la fiche du centre", "Fiche", new { id = Model.Centre.Id })
+</div>

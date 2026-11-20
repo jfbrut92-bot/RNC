@@ -1,0 +1,245 @@
+﻿@using Utac.Rnc2.UI.Web.Utils
+
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" />
+    <meta http-equiv="expires" content="0" />
+    <meta http-equiv="pragma" content="no-cache" />
+    <meta http-equiv="cache-control" content="no-cache, must-revalidate" />
+    <title>@RenderSection("TitleContent", required: false)</title>
+    <link rel="shortcut icon" type="image/x-icon" href='@Url.Content("~/Content/images/favicon.ico")'>
+    <link rel="icon" type="image/x-icon" href='@Url.Content("~/Content/images/favicon.ico")'>
+    <link rel="apple-touch-icon" type="image/x-icon" href='@Url.Content("~/Content/images/favicon.ico")'>
+    <!-- Styles -->
+    @if (DeviceHelper.IsMobileDevice(Request.UserAgent))
+    {
+        @Styles.Render("~/styles/main-mobile")
+    }
+    else
+    {
+        @Styles.Render("~/styles/main-desktop")
+
+    }
+    @Styles.Render("~/styles/icon")
+    @RenderSection("StyleContent", required: false)
+    <link href="/Content/jquery.ui.autocomplete.css" rel="stylesheet" type="text/css" />
+</head>
+<body class="position-fixed body-content container-fluid m-0 p-0">
+    <a name="HautPage"></a>
+    <div id="site">
+        <div id="header" class="px-4 d-none d-sm-none d-md-block row no-gutters">
+            <div class="col-md-12 row no-gutters">
+                <div class="logo col-md-3 p-0 row no-gutters align-content-md-start">
+                    <!--<a class="col-md-12 row no-gutters align-content-md-start" title="Accueil" href="/"></a>-->
+                    <a style="display:block; width:100%; height:100%;" title="Retour à la page d'accueil" href="/"></a>
+                </div>
+                <div class="baseline inline-block mt-3 mb-4 text-center p-0 col-md-5">
+                    <span class="guillemet">“ </span>
+                    Registre National des Centres et Contrôleurs
+                    <span class="guillemet"> ”</span>
+                </div>
+                <div class="actions inline-block p-0 col-md-4">
+                    <div class="liens row no-gutters trans pb-2">
+                        <div class="col-10 offset-2">
+                            <a href="/">
+                                <img alt="Accueil" src="/Content/images/btn-home1.png" title="retour à la page d'accueil"/>
+                            </a>
+                            |
+                            <a href="@Url.Action("Contact","Account")">Contact</a> |
+                            @if (User.Identity.IsAuthenticated)
+                            {
+                                <a href="@Url.Action("Support", "Information")" title="Manuels utilisateurs et documentations">Support</a> @:|
+                                <a href="@Url.Action("Index", "Information")"><span class="login">@User.Identity.Name</span></a>
+                                <a href="@Url.Action("LogOff","Account")">Se déconnecter</a>
+                            }
+                            else
+                            {
+                                <a href="@Url.Action("LogOn", "Account")">Connexion</a> @:|
+                                <a href="@Url.Action("TempLogOn", "Account")" title="inscription pour un centre non-rattaché">Inscription</a>
+                            }
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="clear col-md-12">&nbsp;</div>
+            <!-- MENU -->
+            @if (User.Identity.IsAuthenticated)
+            {
+                <div class="row" style="margin-left:-5px">
+                    <div class="col-md-12 px-md-0">
+                        @Html.MvcSiteMap().Menu()
+                    </div>
+                </div>
+            }
+            <!-- FIN MENU -->
+            <div class="clear">&nbsp;</div>
+        </div>
+        <div id="header-mobile" class="d-sm-block d-md-none w-100 row m-0 p-0">
+            @if (!User.Identity.IsAuthenticated)
+            {
+                <div class="col-4 p-0">
+                    <a title="Accueil" class="row align-items-start" href="/">
+                        <img alt="Accueil" class="col-12" src="~/Content/images/logo_otc_complet.png" />
+                    </a>
+                </div>
+                <div class="col-6 my-2 text-white  text-center font-italic">
+                    <span class="title">RNC2</span>
+                </div>
+                <div class="col-2 mt-2  p-0 text-center">
+                    <a class="navbar-circle icon-power" href="@Url.Action("LogOn","Account")">
+                        <i class="fa fa-power-off text-white"></i>
+                    </a>
+                </div>
+            }
+            else
+            {
+                <nav class="navbar navbar-light p-0 col-12 row no-gutters w-100">
+                    <div class=" col-12">
+                        <a title="Accueil" class="row align-items-start" href="/">
+                            <img alt="Accueil" class="col-5" src="~/Content/images/logo_otc_complet.png" />
+                        </a>
+                    </div>
+                    <div class=" col-12 row p-0 m-0 align-items-center">
+                        <button class="navbar-toggler col-2 p-0 btn-sm border-0" type="button" data-toggle="collapse" data-target="#navbar" aria-controls="navbar" aria-expanded="false"
+                                aria-label="Toggle navigation">
+                            <span class="navbar-icon">
+                                <i class="fa fa-list-ul text-white"></i>
+                            </span>
+                        </button>
+                        <div class="col-8 title text-white font-italic navbar-text text-center">
+                            RNC2
+                        </div>
+                        <div class="col-2 p-0 text-center">
+                            <a class="navbar-circle icon-power" href="@Url.Action("LogOff","Account")">
+                                <i class="fa fa-power-off text-white"></i>
+                            </a>
+                        </div>
+                    </div>
+                    <div class="row p-0 m-0 w-100">
+                        <div id="navbar" class="collapse navbar-collapse bg-light border-dark col-12 position-absolute shadow-lg p-0 nav-index">
+                            <ul id="menu" class="navbar-nav mr-auto">
+                                <li class="nav-item text-danger border-bottom d-flex justify-content-between">
+                                    <a class="nav-link  text-dark font-weight-bold user" href="/Information">
+                                        <span class="navbar-circle icon mx-2">
+                                            <i class="fa fa-user navbar-icon text-dark"></i>
+                                        </span>
+                                        @User.Identity.Name
+                                    </a>
+                                    <a class="nav-link  text-dark" href="#navbar" data-toggle="collapse">
+                                        <span class="navbar-circle icon mr-2 mt-1">
+                                            <i class="fa fa-close navbar-icon text-primary"></i>
+                                        </span>
+                                    </a>
+                                </li>
+                                <li class="nav-item  border-bottom text-dark">
+                                    <a class="nav-link  text-dark" href="/">
+                                        <span class="navbar-circle icon mx-2">
+                                            <i class="fa fa-home navbar-icon text-dark"></i>
+                                        </span>
+                                        Home
+                                    </a>
+                                </li>
+                                <li class="nav-item border-bottom text-dark">
+                                    <a class="nav-link  text-dark" href="/Centre/Recherche">
+                                        <span class="navbar-circle icon mx-2">
+                                            <i class="fa fa-car navbar-icon text-dark"></i>
+                                        </span>
+                                        Installation
+                                    </a>
+                                </li>
+                                <li class="nav-item border-bottom text-dark">
+                                    <a class="nav-link text-dark text-dark" href="/ControleurTechnique/Recherche">
+                                        <span class="navbar-circle icon mx-2">
+                                            <i class="navbar-icon fa fa-truck text-dark"></i>
+                                        </span>
+                                        Controlleur
+                                    </a>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </nav>
+            }
+        </div>
+        <!-- MIDDLE -->
+        <div class="trans px-lg-4 px-xl-4 px-md-4" id="middle">
+            <div class="row p-0 m-0">
+                <ul class="sous-nav m-0 p-0 d-none d-sm-none d-md-block col-md-12">
+                    @if (User.Identity.IsAuthenticated)
+                    {
+                        @RenderSection("SousMenu", required: false)
+                    }
+                </ul>
+            </div>
+            <!-- CONTENT -->
+            <div class="row bg-white m-md-0 border content-height">
+                <div class="content w-100 col-12 flex-column px-0">
+                    <div class="content-box inline-block w-100 row no-gutters">
+
+                        <div class="d-none d-md-block col-md-3 order-1">
+                            @RenderSection("SideBarDroite", required: false)
+                        </div>
+                        <div class=" col-12  order-0 @(IsSectionDefined("SideBarDroite") ? "col-md-9": "col-md-12")">
+                            @if (TempData.ContainsKey("Message"))
+                            {
+                                <div id="flash-message">
+                                    <p class="@(TempData["MessageType"] == "Success" ? "page_success" : "page_error")">
+                                        @TempData["Message"]
+                                    </p>
+                                </div>}
+                            @if (ViewContext.RouteData.Values["controller"].ToString() == "Home")
+                            {
+                                <div class="row mb-2 mt-0 my-md-0 p-0 mx-2 justify-content-center justify-content-md-start">
+                                    <h1 class="col-11 col-md-12 text-center text-md-left">@RenderSection("SousTitrePage", required: false)</h1>
+                                </div>
+                            }
+                            else
+                            {
+                                <!-- FIL ARIANE -->
+                                <div class="row my-0 p-0 mx-2 d-none d-md-block">
+                                    <div class="col-12 path"> @Html.MvcSiteMap().SiteMapPath()</div>
+                                </div>
+                                <!-- FIL ARIANE -->
+                                <div class="row mb-2 mt-0 my-md-0 p-0 mx-2 justify-content-center justify-content-md-start">
+                                    <h1 class="col-12 text-center text-md-left ">@RenderSection("SousTitrePage", required: false)</h1>
+                                </div>
+                            }
+                            <div class="row my-0 p-0 mx-2">
+                                <div class="col-12 overflow-auto">
+                                    @RenderBody()
+                                </div>
+                            </div>
+                            <div class="clear">&nbsp;</div>
+                            <div class="clear">&nbsp;</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- FIN CONTENT -->
+    </div>
+    <!-- FIN MIDDLE -->
+    <div class="clear">&nbsp;</div>
+    <!-- BOTTOM -->
+    <div id="bottom">
+        <div id="footer">
+            <div class="mentions">
+                <p>&copy; 2011 UTAC-OTC</p>
+            </div>
+        </div>
+    </div>
+    <!-- FIN BOTTOM -->
+    <!-- Scripts -->
+    @Scripts.Render("~/scripts/jquery")
+    @Scripts.Render("~/scripts/dropdown-menu")
+    @Scripts.Render("~/scripts/bootsrap")
+    @Scripts.Render("~/scripts/menu")
+    <script>
+        window.CKEDITOR_BASEPATH = '/Scripts/ckeditor/';
+    </script>
+    @RenderSection("JavaScriptContent", required: false)
+</body>
+</html>

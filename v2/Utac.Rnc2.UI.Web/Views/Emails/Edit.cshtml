@@ -1,0 +1,41 @@
+﻿@model Utac.Rnc2.BusinessObjects.rTemplateMail
+
+@section TitleContent {
+    Modification template de mail
+}
+@section SousTitrePage {
+    Modification template de mail
+}
+@using (Html.BeginForm())
+{
+    @Html.ValidationSummary(true)
+    <fieldset>
+        <div class="editor-label">
+            @Html.Label("Nom")
+            <div class="editor-field">
+                @Html.TextBoxFor(model => model.NomTemplate, new { @class = "input-large" })
+                @Html.ValidationMessageFor(model => model.NomTemplate)
+            </div>
+            <div class="editor-label">@Html.Label("Sujet")</div>
+            <div class="editor-field">
+                @Html.TextBoxFor(model => model.SujetTemplate, new { @class = "input-xxlarge" })
+                @Html.ValidationMessageFor(model => model.SujetTemplate)
+            </div>
+            <div class="editor-label">@Html.Label("Contenu")</div>
+            <div class="editor-field">
+                @Html.TextAreaFor(model => model.BodyTemplate)
+                @Html.ValidationMessageFor(model => model.BodyTemplate)
+            </div>
+            <br />
+            <div class="rowAligne">
+                <input type="submit" value="Enregistrer" class="btn primary" />
+                @Html.ActionLink("Revenir à la liste", "Index", null, new { @class = "btn cancel" })
+            </div>
+    </fieldset>
+}
+@section JavaScriptContent {
+    @Scripts.Render("~/scripts/ckeditor/editor")
+    <script>
+        CKEDITOR.replace('BodyTemplate', { removePlugins: 'exportpdf' });
+    </script>
+}

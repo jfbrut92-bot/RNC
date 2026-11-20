@@ -1,0 +1,41 @@
+﻿@model Utac.Rnc2.UI.Web.Models.AjouterAmendeControleurModel
+
+@section TitleContent {
+    Ajout d'une contravention pour le  @Model.Controleur.Titre @Model.Controleur.Nom @Model.Controleur.Prenom
+}
+@section SousTitrePage {
+    Ajout d'une contravention pour le  @Model.Controleur.Titre @Model.Controleur.Nom @Model.Controleur.Prenom
+}
+@section StyleContent {
+    @Styles.Render("~/styles/jquery-ui")
+}
+@using (Html.BeginForm())
+{
+    @Html.ValidationSummary(true)
+    <fieldset>
+        <div class="editor-label">
+            <label>Date</label>
+        </div>
+        <div class="editor-field">
+            @Html.TextBoxFor(model => model.Amende.DateEmisAmende, new { @class = "datepicker" })
+            @Html.ValidationMessageFor(model => model.Amende.DateEmisAmende)
+        </div>
+        <div class="editor-label">
+            <label>Libelle de la contravention</label>
+        </div>
+        <div class="editor-field">
+            @Html.TextAreaFor(model => model.Amende.LibContravention, new { rows = 5, cols = 50, maxlength = "800" })
+            @Html.ValidationMessageFor(model => model.Amende.LibContravention)
+        </div>
+        @Html.HiddenFor(model => model.Controleur.Id)
+        <br />
+        <div class="rowAligne">
+            <input type="submit" value="Enregistrer" class="btn primary" />
+            <a class="btn cancel" href="@Url.Action("Fiche","ControleurTechnique", new { id = Model.Controleur.Id})">Retour à la fiche</a>
+        </div>
+    </fieldset>
+}
+@section JavaScriptContent {
+    <!-- DatePicker -->
+    @Scripts.Render("~/scripts/date-picker")
+}

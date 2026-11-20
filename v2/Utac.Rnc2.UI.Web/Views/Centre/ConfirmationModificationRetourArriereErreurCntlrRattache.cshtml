@@ -1,0 +1,15 @@
+﻿@model Utac.Rnc2.UI.Web.Models.RetourArriereModel
+
+@section TitleContent {
+    Retour Arrière
+}
+@section SousTitrePage {
+    Confirmation du retour arrière
+}
+<h2>Installation: @Model.Centre.RaisonSociale - @Model.Centre.CodAgremVl @Model.Centre.CodAgremPl @Model.Centre.CodAgremCl</h2>
+<br />
+Le retour arrière est impossible car un ou plusieurs contrôleurs sont rattachés avec un agrément valide.
+Pour revenir sur l'agrément du centre, vous devez effectuer d'abord effectuer "un retour arrière" sur les agréments des contrôleurs rattachés à l'installation.
+<br />
+<br />
+Pour retourner à la fiche cliquez @Html.ActionLink("ici", "Fiche", new { id = Model.Centre.Id })

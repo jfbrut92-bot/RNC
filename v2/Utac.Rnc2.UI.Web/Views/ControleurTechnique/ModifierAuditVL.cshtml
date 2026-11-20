@@ -1,0 +1,32 @@
+﻿@model Utac.Rnc2.UI.Web.Models.AjoutAuditControleurVLModel
+
+@section TitleContent {
+    Modification des informations d'un audit VL pour le  @Model.Controleur.Titre @Model.Controleur.Nom @Model.Controleur.Prenom
+}
+@section SousTitrePage {
+    Modification des informations d'un audit VL pour le  @Model.Controleur.Titre @Model.Controleur.Nom @Model.Controleur.Prenom - @Model.Controleur.CodAgremVl @Model.Controleur.CodAgremPl @Model.Controleur.CodAgremCl
+}
+@using (Html.BeginForm())
+{
+    @Html.ValidationSummary(true)
+    <fieldset>
+        <div class="editor-label">Date audit</div>
+        <div class="editor-field">
+            @Html.TextBoxFor(model => model.Audit.DateAudit, new { Value = string.Format("{0:d}", Model.Audit.DateAudit) })
+            @Html.ValidationMessageFor(model => model.Audit.DateAudit, null, new { @class = "alert-message error" })
+        </div>
+        <div class="editor-label">Résultat audit</div>
+        <div class="editor-field">
+            Favorable @Html.RadioButtonFor(model => model.Audit.ResultatAudit, true, Model.Audit.ResultatAudit ? new { @checked = "checked" } : null)
+            Défavorable @Html.RadioButtonFor(model => model.Audit.ResultatAudit, false, !Model.Audit.ResultatAudit ? new { @checked = "checked" } : null)
+            @Html.ValidationMessageFor(model => model.Audit.ResultatAudit)
+        </div>
+        <br />
+        <div class="rowAligne">
+            <div class="editor-field">
+                <input type="submit" value="Confirmer" class="btn primary" />
+                <a class="btn success" href="@Url.Action("ListeAuditsVL","ControleurTechnique", new { id = Model.Controleur.Id})">Retour à la liste</a>
+            </div>
+        </div>
+    </fieldset>
+}

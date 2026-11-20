@@ -1,0 +1,36 @@
+﻿@model MvcSiteMapProvider.Web.Html.Models.MenuHelperModel
+@using System.Web.Mvc.Html
+
+<ul class="nav">
+    @foreach (var node in Model.Nodes)
+    {
+        if ("menu".Equals(node.Description))
+        {
+            <li class="societe inline-block">@Html.DisplayFor(m => node)</li>
+        }
+        else
+        if ("sous-menu".Equals(node.Description))
+        {
+            if (!node.Children.Any())
+            {
+                <li class="societe inline-block">@Html.DisplayFor(m => node)</li>
+            }
+            else
+            {
+                var nodeId = $"{node.Controller}{node.Action}";
+                <li class="societe inline-block dropdown">
+                    <a class="dropbtn" onclick="rnc2MenuDropDown('@nodeId')">@node.Title</a>
+                    <div class="dropdown-content" id="@nodeId">
+                        @foreach (var childNode in node.Children)
+                        {
+                            if ("menu".Equals(childNode.Description))
+                            {
+                                @Html.DisplayFor(m => childNode)
+                            }
+                        }
+                    </div>
+                </li>
+            }
+        }
+    }
+</ul>

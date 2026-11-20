@@ -1,0 +1,24 @@
+﻿@model Utac.Rnc2.BusinessObjects.rUtilisateur
+
+@section TitleContent {
+    Inscription
+}
+@section SousTitrePage {
+    Inscription sur RNC2 - Etape 2/4
+}
+Saisissez l'adresse de la boîte aux lettres électronique du centre ou de la personne habilitée à se connecter sur Rnc2. (exemple : pierre.durant@xxx.fr)
+@using (Html.BeginForm())
+{
+    @Html.ValidationSummary(true)
+    <fieldset>
+        <legend></legend>
+        <div class="editor-label">@Html.LabelFor(model => model.Email)</div>
+        <div class="editor-field">
+            @Html.TextBoxFor(model => model.Email, new { Size = 80, Maxlength = 80 })
+            @Html.ValidationMessageFor(model => model.Email)
+        </div>
+        <p class="rnc2-form">
+            <button type="submit" value="Continuer" class="button">Continuer</button>
+        </p>
+    </fieldset>
+}

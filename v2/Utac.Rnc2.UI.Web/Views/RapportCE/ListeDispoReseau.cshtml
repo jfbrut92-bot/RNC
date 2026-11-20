@@ -1,0 +1,29 @@
+﻿@model Utac.Rnc2.BusinessObjects.rReseau
+@using Utac.Rnc2.BusinessObjects
+
+@section TitleContent {
+    Listes des rapports d'exception disponibles pour le réseau @Model.Id
+}
+@section SousTitrePage {
+    Listes des rapports d'exception disponibles pour le réseau @Model.Id
+}
+@if (Model.TypeReseauPl)
+{
+    <table>
+        <tr>
+            <th>Liste des rapports disponibles en téléchargement</th>
+            <th>Date téléchargement</th>
+            <th>Action</th>
+        </tr>
+        @{ var i = 0; }
+        @foreach (var item in Model.PRapportExceptions.OrderByDescending(h => h.DateDebutTransmissionPv))
+        {
+            <tr class="@(i % 2 == 0 ? "row1" : "row2")">
+                <td>Rapport sur les contrôles transmis entre le @String.Format("{0:d}", item.DateDebutTransmissionPv) et le @String.Format("{0:d}", item.DateFinTransmissionPv).</td>
+                <td>@item.DateTelechargementRapport</td>
+                <td>@Html.ActionLink("Télécharger le fichier", "Telecharge", "RapportCE", new { id = item.Id, CategVehicule = rCategorieVehicule.CategorieEnum.PL }, new { })</td>
+            </tr>
+            i++;
+        }
+    </table>
+}

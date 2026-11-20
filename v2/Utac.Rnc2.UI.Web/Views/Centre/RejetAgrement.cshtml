@@ -1,0 +1,70 @@
+﻿@model Utac.Rnc2.UI.Web.Models.RejetAgrementModel
+@using Utac.Rnc2.BusinessObjects
+
+@section TitleContent {
+    Rejet demande
+}
+@section SousTitrePage {
+    @switch (Model.CategVehicule)
+    {
+        case rCategorieVehicule.CategorieEnum.VL:
+            @:Rejet de la demande d'agrément VL
+            break;
+        case rCategorieVehicule.CategorieEnum.PL:
+            if (Model.Centre.EtatAgrementPl.Equals(Convert.ToString((int)pCentreEncour.CodeEtatAgrementPl.AGREMENT_RENOUVELEMENT_EN_COURS)))
+            {
+                @:Rejet de la demande de renouvellement de l'agrément PL
+            }
+            else
+            {
+                @:Rejet de la demande d'agrément PL
+            }
+            break;
+        case rCategorieVehicule.CategorieEnum.CL:
+            @:Rejet de la demande d'agrément CL
+            break;
+    }
+}
+<h2>Installation: @Model.Centre.RaisonSociale</h2>
+Attention, Vous êtes sur le point de rejeter la demande d'agrément sur cette fiche.
+<br />
+Cliquer sur le lien ci-dessous pour confirmer. Pour retourner à la fiche cliquez
+@Html.ActionLink("ici", "Fiche", new { id = Model.Centre.Id })
+<br />
+@using (Html.BeginForm())
+{
+    @Html.ValidationSummary(true)
+    <fieldset>
+        <div class="editor-label">@Html.Label("Commentaires " + Model.CategVehicule.ToString() + " (optionnel)")</div>
+        @switch (Model.CategVehicule)
+        {
+            case rCategorieVehicule.CategorieEnum.VL:
+                <div class="editor-field">
+                    @Html.TextAreaFor(model => model.Centre.CommentaireAvisOtcVl, new { rows = 5, cols = 50, maxlength = "250" })
+                    @Html.ValidationMessageFor(model => model.Centre.CommentaireAvisOtcVl)
+                </div>
+                break;
+            case rCategorieVehicule.CategorieEnum.PL:
+                <div class="editor-field">
+                    @Html.TextAreaFor(model => model.Centre.CommentaireAvisOtcPl, new { rows = 5, cols = 50, maxlength = "250" })
+                    @Html.ValidationMessageFor(model => model.Centre.CommentaireAvisOtcPl)
+                </div>
+                break;
+            case rCategorieVehicule.CategorieEnum.CL:
+                <div class="editor-field">
+                    @Html.TextAreaFor(model => model.Centre.CommentaireAvisOtcCl, new { rows = 5, cols = 50, maxlength = "250" })
+                    @Html.ValidationMessageFor(model => model.Centre.CommentaireAvisOtcCl)
+                </div>
+                break;
+        }
+        @* Propager le paramètre du formulaire précédent*@
+        @Html.HiddenFor(model => model.Centre.RaisonSociale)
+        @Html.HiddenFor(model => model.Centre.Id)
+        @Html.HiddenFor(model => model.Centre.CodAgremVl)
+        @Html.HiddenFor(model => model.Centre.CodAgremPl)
+        @Html.HiddenFor(model => model.Centre.CodAgremCl)
+        <p>
+            <input type="submit" value="Confirmer" class="btn primary" />
+        </p>
+    </fieldset>
+}

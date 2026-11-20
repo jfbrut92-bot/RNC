@@ -1,0 +1,151 @@
+﻿@model Utac.Rnc2.BusinessObjects.pTraceRechPvVl
+@using Utac.Rnc2.BusinessObjects
+@using Utac.Rnc2.Web.Pv.Utils;
+
+@section TitleContent {
+    Vérifier un PV CL
+}
+
+@section SousTitrePage {
+    @if (DeviceHelper.IsMobileDevice(Request.UserAgent))
+    {
+        @:Contrôle technique d'un véhicule de catégorie L
+    }
+    else
+    {
+        @:Vérification du PV de contrôle technique d'un véhicule de catégorie L
+    }
+}
+
+@section StyleContent {
+    @Styles.Render("~/styles/jquery-ui")
+}
+
+<div class="row p-0 m-0">
+    <h2 class="font-weight-bold col-md-12 d-none d-md-block p-0">Critères de recherche</h2>
+</div>
+@using (Html.BeginForm("TelechargerPvCl", "TraceRechPvVl",
+    new { ReturnUrl = ViewBag.ReturnUrl },
+    FormMethod.Post, new { @id = "form" }))
+{
+    @Html.ValidationSummary(true)
+    <fieldset class="row flex-column p-0 mx-2 my-md-2 mx-md-0">
+        @Html.Label("N° du procès verbal", new { @class = DeviceHelper.IsMobileDevice(Request.UserAgent) ? "col-12 p-0 mb-2 mb-md-1 col-form-label-sm" : "col-12 p-0 mb-md-1" })
+        <div class="input  input-group col-12 p-0 row m-0">
+            <div class="col-12 col-md-4 p-0 mb-2 mb-md-0">
+                @Html.TextBoxFor(model => model.NumPvCtrl, new { @class = DeviceHelper.IsMobileDevice(Request.UserAgent) ? " w-100 form-control-sm " : "input-medium", @maxlength = "8", onkeydown = "return OnlyNumeric(event);" })
+            </div>
+            <div class="p-0 d-none d-md-block col-md-7">
+                @Html.ValidationMessageFor(model => model.NumPvCtrl, null, new { @class = "alert-message error" })
+            </div>
+            <div class="p-0 col-sm-12 d-sm-block d-md-none">
+                @Html.ValidationMessageFor(model => model.NumPvCtrl)
+            </div>
+        </div>
+        <br />
+        @Html.Label("N° d'agrément de l'installation de contrôle", new { @class = DeviceHelper.IsMobileDevice(Request.UserAgent) ? "col-12 p-0 mb-2 mb-md-1 col-form-label-sm" : "col-12 p-0 mb-2  mb-md-1" })
+        <div class="input input-group col-12 p-0 row m-0">
+            <div class="col-12 col-md-4 p-0 mb-2 mb-md-0">
+                @Html.TextBoxFor(model => model.CodAgremCentre, new { @class = DeviceHelper.IsMobileDevice(Request.UserAgent) ? "w-100 form-control-sm " : "input-medium", style = "text-transform:uppercase;", @maxlength = "8" })
+            </div>
+            <div class="p-0 col-md-7 d-none d-md-block">
+                @Html.ValidationMessageFor(model => model.CodAgremCentre, null, new { @class = "alert-message error" })
+            </div>
+            <div class="p-0 col-sm-12 d-md-none">
+                @Html.ValidationMessageFor(model => model.CodAgremCentre)
+            </div>
+        </div>
+        <br />
+        @Html.Label("Date du contrôle recherché", new { @class = DeviceHelper.IsMobileDevice(Request.UserAgent) ? "col-12 p-0 mb-2 mb-md-1 col-form-label-sm" : "col-12 p-0 mb-md-1" })
+        <div class="input col-12 p-0 row m-0">
+            <div class="col-12 col-md-4  p-0 mb-2 mb-md-0">
+                @Html.TextBoxFor(model => model.DateCtrl, new { type = DeviceHelper.IsMobileDevice(Request.UserAgent) ? "date" : "text", @class = DeviceHelper.IsMobileDevice(Request.UserAgent) ? "form-control-sm w-100" : "datepicker input-medium" })
+            </div>
+            <div class="p-0 col-md-7 d-none d-md-block">
+                @Html.ValidationMessageFor(model => model.DateCtrl, null, new { @class = "alert-message error" })
+            </div>
+            <div class="p-0 col-sm-12 d-md-none">
+                @Html.ValidationMessageFor(model => model.DateCtrl)
+            </div>
+        </div>
+        <br />
+        @Html.Label("Type de demande", new { @class = DeviceHelper.IsMobileDevice(Request.UserAgent) ? "col-12 p-0 col-form-label-sm" : "col-12 p-0" })
+        <div class="col-12 p-0">
+            @Html.RadioButtonFor(model => model.TypeRecherche, (int)pTraceRechPvVl.CodeTypeRechercheCT.REDUIT, new { @checked = "checked" })
+            <span class="mr-2">Simplifiée</span>
+            @Html.RadioButtonFor(model => model.TypeRecherche, (int)pTraceRechPvVl.CodeTypeRechercheCT.TOUT)
+            <span class="mr-2">Avec les défauts et mesures</span>
+        </div>
+        <br />
+        <p class="col-md-12  d-none d-sm-none d-md-block  p-0">
+            <input type="submit" id="btInput" value="Télécharger la vérification du PV de contrôle" class="btn  primary" />
+        </p>
+        <button type="submit" class="btn-primary py-2 rounded d-md-none col-sm-8">
+            <i class="fa fa-file-pdf-o text-white"></i>
+            <span>Télécharger la vérification du PV de contrôle</span>
+        </button>
+        <div id="spinner" class="my-2 col-sm-8 justify-content-center d-md-none" hidden>
+            <div class="spinner-border text-primary d-md-none" role="status">
+                <span class="sr-only">Loading...</span>
+            </div>
+        </div>
+    </fieldset>
+    if (ViewData["message"] != null)
+    {
+        <div id="MessageErreur" class="avertissement msg-font-size">
+            @ViewData["message"]
+        </div>
+        <br />
+        <script type="text/javascript">
+            document.getElementById("btInput").onclick = function () {
+                document.getElementById("MessageErreur").style.display = "none";
+                document.body.style.cursor = "wait";
+                document.getElementById("btInput").style.cursor = "wait";
+            }
+            window.location.href = '#MessageErreur';
+        </script>
+    }
+    else
+    {
+        <script type="text/javascript">
+            document.getElementById("btInput").onclick = function () {
+                document.body.style.cursor = "wait";
+                document.getElementById("btInput").style.cursor = "wait";
+            }
+        </script>
+    }
+    <script type="text/javascript">
+        document.getElementById("NumPvCtrl").onclick = function () {
+            document.getElementById("btInput").style.cursor = "auto";
+            document.body.style.cursor = "auto";
+        }
+    </script>
+    <script type="text/javascript">
+        document.getElementById("CodAgremCentre").onclick = function () {
+            document.getElementById("btInput").style.cursor = "auto";
+            document.body.style.cursor = "auto";
+        }
+    </script>
+    <script type="text/javascript">
+        document.getElementById("DateCtrl").onclick = function () {
+            document.getElementById("btInput").style.cursor = "auto";
+            document.body.style.cursor = "auto";
+        }
+    </script>
+    <script>
+        document.getElementById("form").onsubmit = function () {
+            document.getElementById("spinner").removeAttribute("hidden");
+            document.getElementById("spinner").style.display = "flex";
+        }
+    </script>
+}
+
+@section JavaScriptContent {
+    <!-- DatePicker -->
+    @Scripts.Render("~/scripts/date-picker")
+    <!-- Focus sur 1er champ du formulaire -->
+    @Scripts.Render("~/scripts/set-focus")
+    <!-- Saisie numérique uniquement -->
+    @Scripts.Render("~/scripts/saisie-numeric")
+}
+

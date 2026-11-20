@@ -1,0 +1,32 @@
+﻿@model dynamic
+
+@section TitleContent {
+    PvCtvlPdfInterface
+}
+<h2>Interface de test : Saisie des paramètres d'affichage du PDF "Vérification CONTROLE TECHNIQUE VL"</h2>
+<br />
+<form action="/Test/PvCtvlPdf" method="get">
+    <label>Numéro de PV:</label>
+    <input name="p_numpv" type="text" maxlength="8" size="8" />
+    <br />
+    <label>Code agrément installation:</label>
+    <input name="p_cod_agrem_centre" type="text" maxlength="8" size="8" />
+    <br />
+    <label>date contrôle Année:</label>
+    <input name="p_annee" type="text" maxlength="4" size="4" />
+    <br />
+    <label>date contrôle Mois:</label>
+    <input name="p_mois" type="text" maxlength="2" size="2" />
+    <br />
+    <label>date contrôle Jour:</label>
+    <input name="p_jour" type="text" maxlength="2" size="2" />
+    <br />
+    <label>Niveau Détail:</label>
+    <select name="p_niveaudetail">
+        <option value="1" selected>TOUT</option>
+        <option value="2">REDUIT</option>
+    </select>
+    <br />
+    <br />
+    <button type="submit">Télécharger Vérification PV</button>
+</form>

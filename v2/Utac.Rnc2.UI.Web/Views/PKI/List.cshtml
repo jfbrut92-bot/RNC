@@ -1,0 +1,50 @@
+﻿@model IEnumerable<Utac.Rnc2.BusinessObjects.pCertificat>
+
+@section TitleContent {
+    List
+}
+<h2>List</h2>
+<table>
+    <tr>
+        <th></th>
+        <th>Id</th>
+        <th>IdReq</th>
+        <th>NumSerie</th>
+        <th>DateEffet</th>
+        <th>DateExpiration</th>
+        <th>NomCert</th>
+        <th>NomCommunCert</th>
+        <th>PasswordCert</th>
+        <th>BddTechLogin</th>
+        <th>BddTechPassword</th>
+        <th>CodRaisonRevocation</th>
+        <th>LibRaisonRevocation</th>
+        <th>DateRevocation</th>
+        <th>CodCategorieVeh</th>
+    </tr>
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>@Html.ActionLink("Telecharge", "Telecharge", new { reqId = item.IdReq, numeroSerie = item.NumSerie }) |</td>
+            <td>@Html.ActionLink("Telecharge", "Telecharge", new { reqId = item.IdReq, numeroSerie = item.NumSerie }) |</td>
+            <td>@item.Id</td>
+            <td>@item.IdReq</td>
+            <td>@item.NumSerie</td>
+            <td>@String.Format("{0:g}", item.DateEffet)</td>
+            <td>@String.Format("{0:g}", item.DateExpiration)</td>
+            <td>@item.NomCert</td>
+            <td>@item.NomCommunCert</td>
+            <td>@item.PasswordCert</td>
+            <td>@item.BddTechLogin</td>
+            <td>@item.BddTechPassword</td>
+            <td>@item.CodRaisonRevocation</td>
+            <td>@item.LibRaisonRevocation</td>
+            <td>@String.Format("{0:g}", item.DateRevocation)</td>
+            <td>@item.CodCategorieVeh</td>
+            <td>@item.NomFichier</td>
+        </tr>
+    }
+</table>
+<p>
+    @Html.ActionLink("Create New", "Create")
+</p>

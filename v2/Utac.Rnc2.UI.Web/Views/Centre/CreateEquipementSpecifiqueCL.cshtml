@@ -1,0 +1,33 @@
+﻿@model Utac.Rnc2.BusinessObjects.pCentreEncour
+
+@section TitleContent {
+    Renseignement des équipements spécifiques CL pour le centre @Model.RaisonSociale
+}
+@section SousTitrePage {
+    Renseignement des équipements spécifiques CL pour le centre @Model.RaisonSociale
+}
+@Html.ActionLink("Retour à la fiche", "Fiche", new { id = Model.Id })
+@using (Html.BeginForm())
+{
+    @Html.ValidationSummary(true)
+    <fieldset>
+        <div class="editor-label">
+            Contrôle des tricycles
+        </div>
+        <div class="editor-field">
+            @Html.CheckBoxFor(model => model.EquipementCentreCLs[0].ControleTricyles)
+            @Html.ValidationMessageFor(model => model.EquipementCentreCLs[0].ControleTricyles)
+        </div>
+        @if ("A".Equals(Model.TypeCentre))
+        {
+            <div class="editor-label">Lieu de stockage</div>
+            <div class="editor-field">
+                @Html.TextAreaFor(model => model.EquipementCentreCLs[0].LieuStockagePV)
+                @Html.ValidationMessageFor(model => model.EquipementCentreCLs[0].LieuStockagePV)
+            </div>
+        }
+        <p>
+            <input type="submit" value="Enregistrer" class="btn primary" />
+        </p>
+    </fieldset>
+}

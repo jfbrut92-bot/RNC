@@ -1,0 +1,16 @@
+﻿@model Utac.Rnc2.BusinessObjects.pTraceRechPvVl.CodeResultatRechercheCT
+
+<div class="row no-gutters">
+    @switch ((int?) Model)
+    {
+        case 0:
+            <span class="col-12 p-0">Résultat de la recherche: pas de PV trouvé dans la base CTVL.</span>
+            break;
+        case 1:
+            <span class="col-12 p-0">Résultat de la recherche: au moins un PV trouvé dans la base CTVL.</span>
+            break;
+        case 2:
+            <span class="col-12 p-0">Résultat de la recherche: erreur du traitement de recherche ou service indisponible.</span>
+            break;
+    }
+</div>

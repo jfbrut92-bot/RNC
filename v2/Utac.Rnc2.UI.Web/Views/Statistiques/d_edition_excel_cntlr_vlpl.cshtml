@@ -1,0 +1,7 @@
+﻿@model IEnumerable<Utac.Rnc2.BusinessObjects.statistiques.ItemListeDesControleursVéhiculesLegersEtLourds>
+@{ Layout = null; }
+Catégorie;Département;Région;Nom;Prénom;Date Naissance;Agrément Controleur;Date Notification Agrement;Qualification PL;Date Effet Qualification PL;Habilitation Gaz Vl;Date Habilitation Gaz Vl;Agrément Centre;Réseau;Raison Sociale;Adresse 1;Adresse 2;Code Postal;Ville
+@foreach (var item in Model)
+{
+@:@item.CategorieVehicule;="@item.CodeDepartement";@item.Region;@item.Nom;@item.Prenom;@item.DateNaissance;@item.AgrementControleur;@item.DateEffetNotification;@item.QualificationPL;@item.DateQualificationPl;@item.Controleur.HabilitationGazVLAsString;@item.DateDeclarationHabilGazVl;@item.AgrementCentreRattachement;@item.CodeReseau;@item.RaisonSociale;@item.Adresse1;@item.Adresse2;@item.CodePostal;@item.Ville
+}

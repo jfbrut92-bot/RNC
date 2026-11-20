@@ -1,0 +1,18 @@
+﻿@model Utac.Rnc2.BusinessObjects.pCentreEncour
+
+@section TitleContent {
+    Demande renouvellement
+}
+@section SousTitrePage {
+    Confirmation de la demande de renouvellement de l'agrément PL
+}
+<h2>Installation: @Model.RaisonSociale - @Model.CodAgremPl </h2>
+Attention, veuillez confirmer la demande de renouvellement de l'agrément pour cette installation auxiliaire PL en cliquant sur le lien ci-dessous.
+<br />
+Pour revenir à la fiche de l'installation cliquez @Html.ActionLink("ici", "Fiche", new { id = Model.Id })
+<form method="post" action="@Url.Action("renouvellementAgrementPl")">
+    <input type="hidden" name="id" value="@Model.Id" />
+    <p>
+        <input type="submit" value="Confirmer" class="btn primary" />
+    </p>
+</form>

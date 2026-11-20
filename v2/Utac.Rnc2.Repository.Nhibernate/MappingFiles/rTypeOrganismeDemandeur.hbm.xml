@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<hibernate-mapping xmlns="urn:nhibernate-mapping-2.2" namespace="Utac.Rnc2.BusinessObjects" assembly="Utac.Rnc2.BusinessObjects">
+	<class name="Utac.Rnc2.BusinessObjects.rTypeOrganismeDemandeur, Utac.Rnc2.BusinessObjects" table="r_type_organisme_demandeur" lazy="true">
+		<id name="Id" column="cod_type_organisme_demandeur">
+		 	<generator class="assigned" />
+		</id>
+		<property name="Libelle" column="libelle" />
+		<bag name="PSanctionCentres" lazy="true" cascade="all-delete-orphan" inverse="true" >
+			<key column="cod_type_organisme_demandeur"></key>
+			<one-to-many class="pSanctionCentre"></one-to-many>
+		</bag>
+		<bag name="PSanctionControleurs" lazy="true" cascade="all-delete-orphan" inverse="true" >
+			<key column="cod_type_organisme_demandeur"></key>
+			<one-to-many class="pSanctionControleur"></one-to-many>
+		</bag>
+	</class>
+</hibernate-mapping>
+

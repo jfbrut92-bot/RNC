@@ -1,0 +1,199 @@
+﻿@model Utac.Rnc2.UI.Web.Models.ControleurHabilitationPLModel
+
+@section TitleContent {
+    Modifier la fiche d'un contrôleur
+}
+<h2>Modification des données de la fiche d'un contrôleur</h2>
+<h3>Controleur: @Model.Controleur.Nom @Model.Controleur.Prenom - @Model.Controleur.CodAgremVl @Model.Controleur.CodAgremPl @Model.Controleur.CodAgremCl</h3>
+<div>
+    @Html.ActionLink("Revenir à la fiche", "Fiche", new { id = Model.Controleur.Id })
+</div>
+@using (Html.BeginForm())
+{
+    @Html.ValidationSummary(true)
+<fieldset>
+    <div class="clearfix">
+        <label for="Nom">Nom</label>
+        <div class="input">
+            @Html.TextBoxFor(model => Model.Controleur.Nom, new { @class = "input-large" })
+            @Html.ValidationMessageFor(model => Model.Controleur.Nom, null, new { @class = "alert-message error" })
+        </div>
+    </div>
+    <div class="clearfix">
+        <label for="Prenom">Prenom</label>
+        <div class="input">
+            @Html.TextBoxFor(model => Model.Controleur.Prenom, new { @class = "input-large" })
+            @Html.ValidationMessageFor(model => Model.Controleur.Prenom, null, new { @class = "alert-message error" })
+        </div>
+    </div>
+    <div class="clearfix">
+        <label for="DateNaissance">Date de naissance</label>
+        <div class="input">
+            @Html.TextBoxFor(model => Model.Controleur.DateNaissance, new { Value = String.Format("{0:d}", Model.Controleur.DateNaissance), @class = "input-small" })
+            @Html.ValidationMessageFor(model => Model.Controleur.DateNaissance)
+        </div>
+    </div>
+    <div class="editor-label">@Html.Label("Prestataire de l'Union Européenne")</div>
+    <div class="editor-field">
+        @Html.CheckBoxFor(model => Model.Controleur.EstPrestataire)
+        @Html.ValidationMessageFor(model => Model.Controleur.EstPrestataire)
+    </div>
+    <div class="clearfix">
+        <label for="CodAgremRattachementVl">Agrem. centre de rattachement VL</label>
+        <div class="input">
+            @Html.TextBoxFor(model => Model.Controleur.CodAgremRattachementVl, new { @class = "input-small" })
+            @Html.ValidationMessageFor(model => Model.Controleur.CodAgremRattachementVl, null, new { @class = "alert-message error" })
+        </div>
+    </div>
+    <div class="clearfix">
+        <label for="DateEffetNotificationVl">Date effet notification VL</label>
+        <div class="input">
+            @Html.TextBoxFor(model => Model.Controleur.DateEffetNotificationVl, new { Value = String.Format("{0:d}", Model.Controleur.DateEffetNotificationVl), @class = "input-small" })
+            @Html.ValidationMessageFor(model => Model.Controleur.DateEffetNotificationVl)
+        </div>
+    </div>
+    <div class="clearfix">
+        <label for="CodAgremVl">Numéro agrément VL</label>
+        <div class="input">
+            @Html.TextBoxFor(model => Model.Controleur.CodAgremVl, new { @class = "input-small" })
+            @Html.ValidationMessageFor(model => Model.Controleur.CodAgremVl)
+        </div>
+    </div>
+    <div class="clearfix">
+        <label for="DateFinAgrementVl">Date fin agrément VL</label>
+        <div class="input">
+            @Html.TextBoxFor(model => Model.Controleur.DateFinAgrementVl, new { Value = String.Format("{0:d}", Model.Controleur.DateFinAgrementVl), @class = "input-small" })
+            @Html.ValidationMessageFor(model => Model.Controleur.DateFinAgrementVl, null, new { @class = "alert-message error" })
+        </div>
+    </div>
+    <div class="clearfix">
+        <label for="CommentaireAvisOtcVl">Commentaire VL</label>
+        <div class="input">
+            @Html.TextAreaFor(model => Model.Controleur.CommentaireAvisOtcVl)
+            @Html.ValidationMessageFor(model => Model.Controleur.CommentaireAvisOtcVl)
+        </div>
+    </div>
+    <!-- PL -->
+    <div class="clearfix">
+        <label for="CodAgremRattachementPl">Agrem. centre de rattachement PL</label>
+        <div class="input">
+            @Html.TextBoxFor(model => Model.Controleur.CodAgremRattachementPl, new { @class = "input-small" })
+            @Html.ValidationMessageFor(model => Model.Controleur.CodAgremRattachementPl, null, new { @class = "alert-message error" })
+        </div>
+    </div>
+    <div class="clearfix">
+        <label for="DateEffetNotificationPl">Date effet notification PL</label>
+        <div class="input">
+            @Html.TextBoxFor(model => Model.Controleur.DateEffetNotificationPl, new { Value = String.Format("{0:d}", Model.Controleur.DateEffetNotificationPl), @class = "input-small" })
+            @Html.ValidationMessageFor(model => Model.Controleur.DateEffetNotificationPl)
+        </div>
+    </div>
+    <div class="clearfix">
+        <label for="CodAgremPl">Numéro agrément PL</label>
+        <div class="input">
+            @Html.TextBoxFor(model => Model.Controleur.CodAgremPl, new { @class = "input-small" })
+            @Html.ValidationMessageFor(model => Model.Controleur.CodAgremPl)
+        </div>
+    </div>
+    <div class="clearfix">
+        <label for="DateFinAgrementPl">Date fin agrément PL</label>
+        <div class="input">
+            @Html.TextBoxFor(model => Model.Controleur.DateFinAgrementPl, new { Value = String.Format("{0:d}", Model.Controleur.DateFinAgrementPl), @class = "input-small" })
+            @Html.ValidationMessageFor(model => Model.Controleur.DateFinAgrementPl, null, new { @class = "alert-message error" })
+        </div>
+    </div>
+    <div class="clearfix">
+        <label for="CommentaireAvisOtcPl">Commentaire PL</label>
+        <div class="input">
+            @Html.TextAreaFor(model => Model.Controleur.CommentaireAvisOtcPl)
+            @Html.ValidationMessageFor(model => Model.Controleur.CommentaireAvisOtcPl)
+        </div>
+    </div>
+    <div class="clearfix">
+        <label for="RHabilitation">habilitation PL</label>
+        <div class="input">
+            @Html.DropDownListFor(model => Model.Controleur.RHabilitation.Id, new SelectList(Model.ListeHabilitation, "Id", "LibelleHabilitation"), new { @class = "input-xxlarge" })
+            @Html.ValidationMessageFor(model => Model.Controleur.RHabilitation.Id)
+        </div>
+    </div>
+    <div class="clearfix">
+        <label for="DateDebutHabilitationPl">Date de début habilitation PL</label>
+        <div class="input">
+            @Html.TextBoxFor(model => Model.Controleur.DateDebutHabilitationPl, new { Value = String.Format("{0:d}", Model.Controleur.DateDebutHabilitationPl), @class = "input-small" })
+            @Html.ValidationMessageFor(model => Model.Controleur.DateDebutHabilitationPl)
+        </div>
+    </div>
+    <!-- CL -->
+    <div class="clearfix">
+        <label for="CodAgremRattachementCl">Agrem. centre de rattachement CL</label>
+        <div class="input">
+            @Html.TextBoxFor(model => Model.Controleur.CodAgremRattachementCl, new { @class = "input-small" })
+            @Html.ValidationMessageFor(model => Model.Controleur.CodAgremRattachementCl, null, new { @class = "alert-message error" })
+        </div>
+    </div>
+    <div class="clearfix">
+        <label for="DateEffetNotificationCl">Date effet notification CL</label>
+        <div class="input">
+            @Html.TextBoxFor(model => Model.Controleur.DateEffetNotificationCl, new { Value = String.Format("{0:d}", Model.Controleur.DateEffetNotificationCl), @class = "input-small" })
+            @Html.ValidationMessageFor(model => Model.Controleur.DateEffetNotificationCl)
+        </div>
+    </div>
+    <div class="clearfix">
+        <label for="CodAgremCl">Numéro agrément CL</label>
+        <div class="input">
+            @Html.TextBoxFor(model => Model.Controleur.CodAgremCl, new { @class = "input-small" })
+            @Html.ValidationMessageFor(model => Model.Controleur.CodAgremCl)
+        </div>
+    </div>
+    <div class="clearfix">
+        <label for="DateFinAgrementCl">Date fin agrément CL</label>
+        <div class="input">
+            @Html.TextBoxFor(model => Model.Controleur.DateFinAgrementCl, new { Value = String.Format("{0:d}", Model.Controleur.DateFinAgrementCl), @class = "input-small" })
+            @Html.ValidationMessageFor(model => Model.Controleur.DateFinAgrementCl, null, new { @class = "alert-message error" })
+        </div>
+    </div>
+    <div class="clearfix">
+        <label for="CommentaireAvisOtcCl">Commentaire CL</label>
+        <div class="input">
+            @Html.TextAreaFor(model => Model.Controleur.CommentaireAvisOtcCl)
+            @Html.ValidationMessageFor(model => Model.Controleur.CommentaireAvisOtcCl)
+        </div>
+    </div>
+    <div class="clearfix">
+        <label for="ExtAgremClStatut">Extension agrément CL / Statut 1=Oui 0=Non</label>
+        <div class="input">
+            @Html.TextBoxFor(model => Model.Controleur.ExtAgremClStatut)
+            @Html.ValidationMessageFor(model => Model.Controleur.ExtAgremClStatut)
+        </div>
+    </div>
+    <div class="clearfix">
+        <label for="ExtAgremClDateValid">Extension agrément CL / Date validité</label>
+        <div class="input">
+            @Html.TextBoxFor(model => Model.Controleur.ExtAgremClDateValid)
+            @Html.ValidationMessageFor(model => Model.Controleur.ExtAgremClDateValid)
+        </div>
+    </div>
+    <div class="clearfix">
+        <label for="ExtAgremClDateDecla">Extension agrément CL / Date déclaration</label>
+        <div class="input">
+            @Html.TextBoxFor(model => Model.Controleur.ExtAgremClDateDecla)
+            @Html.ValidationMessageFor(model => Model.Controleur.ExtAgremClDateDecla)
+        </div>
+    </div>
+    <div class="clearfix">
+        <label for="ExtAgremClCatVeh">Extension agrément CL / catégorie véhicule 1=VL 2=PL</label>
+        <div class="input">
+            @Html.TextBoxFor(model => Model.Controleur.ExtAgremClCatVeh)
+            @Html.ValidationMessageFor(model => Model.Controleur.ExtAgremClCatVeh)
+        </div>
+    </div>
+
+    @Html.HiddenFor(model => model.Controleur.Id)
+    <p>
+        <input type="submit" value="Enregistrer" class="btn primary" />
+    </p>
+</fieldset>
+}
+<div>
+    @Html.ActionLink("Revenir à la fiche", "Fiche", new { id = Model.Controleur.Id })
+</div>

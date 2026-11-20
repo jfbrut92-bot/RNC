@@ -1,0 +1,94 @@
+﻿@model Utac.Rnc2.UI.Web.Models.FactureModel
+@using Utac.Rnc2.BusinessObjects
+
+@section TitleContent {
+    RNC2 Listes des factures disponibles
+}
+@section SousTitrePage {
+    @switch (Model.Categorie)
+    {
+        case rCategorieVehicule.CategorieEnum.VL:
+            @:Liste des factures @Model.Categorie disponibles pour le centre @Model.MonCentre.CodAgremVl
+            break;
+        case rCategorieVehicule.CategorieEnum.PL:
+            @:Liste des factures @Model.Categorie disponibles pour le centre @Model.MonCentre.CodAgremPl
+            break;
+        case rCategorieVehicule.CategorieEnum.CL:
+            @:Liste des factures @Model.Categorie disponibles pour le centre @Model.MonCentre.CodAgremCl
+            break;
+    }
+}
+<table>
+    <tr>
+        <th></th>
+        <th></th>
+    </tr>
+    <tr>
+        <td>
+            @if (Model.UtilisateurCentre.FacturePapier)
+            {
+                @:Vous avez choisi de recevoir vos factures au format papier.
+            }
+            else
+            {
+                @:Vous avez choisi de ne plus recevoir vos factures au format papier.
+                <br />
+                @:L'adresse de messagerie utilisée pour vous informer de la présence
+                <br />
+                @:d'une nouvelle facture dans votre espace client est: @Model.UtilisateurCentre.Email
+            }
+        </td>
+        <td align="center">
+            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp
+            <a class="btn success" href="@Url.Action("ModifierParametreUtilisateur","Facture", new { id = Model.MonCentre.Id, categorie = Model.Categorie})">Modifier</a>
+        </td>
+    </tr>
+</table>
+<br />
+<table>
+    <tr>
+        <th>Date</th>
+        <th>Facture N°</th>
+        <th>Catégorie</th>
+        <th>Action</th>
+        @if (User.IsInRole(rUtilisateur.Profil.OTC_Administration.ToString()))
+        {
+            <th>Date du téléchargement</th>
+            <th>Téléchargée par</th>
+        }
+    </tr>
+    @{ var i = 0; var afficheFactureExtentionVL = false; var afficheFactureExtentionPL = false; }
+    @foreach (var item in Model.MonCentre.PFactures.OrderByDescending(h => h.DateGenerationFacture))
+    {
+        //PLE le 28/03/2024 Affichage des factures CL pour les centres avec extension agrément CL
+        //if (item.CodCategorieVeh == Model.Categorie.ToString())
+
+        afficheFactureExtentionVL = (rCategorieVehicule.CategorieEnum.VL.Equals(Model.Categorie) && Model.MonCentre.CodAgremVl == item.CodAgremInd);
+        afficheFactureExtentionPL = (rCategorieVehicule.CategorieEnum.PL.Equals(Model.Categorie) && Model.MonCentre.CodAgremPl == item.CodAgremInd);
+        if (item.CodCategorieVeh == Model.Categorie.ToString() || afficheFactureExtentionVL || afficheFactureExtentionPL)
+        {
+            <tr class="@(i % 2 == 0 ? " row1" : "row2")">
+                <td>@String.Format("{0:d}", item.DateFacture)</td>
+                <td>@item.NumFacture</td>
+                <td align="center">@item.CodCategorieVeh</td>
+                <td>@Html.ActionLink("Télécharger le fichier", "Telecharge", "Facture", new { id = item.Id, categorie = Model.Categorie }, new { })</td>
+                @if (User.IsInRole(rUtilisateur.Profil.OTC_Administration.ToString()))
+                {
+                    <td>@item.DateTelechargementFacture</td>
+                    <td>@item.CodUtilisateurTelechargement</td>
+                }
+            </tr>
+        }
+        i++;
+    }
+</table>
+<br />
+<br />
+@if (User.IsInRole(rUtilisateur.Profil.OTC_Administration.ToString()) || User.IsInRole(rUtilisateur.Profil.OTC_Consultation.ToString()))
+{
+    <a class="btn cancel" href="@Url.Action("Fiche","Centre", new { id = Model.MonCentre.Id})">Retour à la fiche</a>
+}
+else
+{
+    <a class="btn cancel" href="@Url.Action("Index","Home")">Retour à l'accueil</a>
+}

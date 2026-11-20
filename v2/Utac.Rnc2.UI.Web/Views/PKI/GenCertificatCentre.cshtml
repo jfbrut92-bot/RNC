@@ -1,0 +1,10 @@
+﻿@model Utac.Rnc2.UI.Web.Models.GenCertificatModel
+
+@section TitleContent {
+    GenCertificatCentre
+}
+<h2>GenCertificatCentre</h2>
+<form method="post">
+    <fieldset>@Html.DropDownList("IdCentre", new SelectList(Model.Centres, "Id", "CodAgremVl"))</fieldset>
+    <input type="submit" value="Générer certificat" />
+</form>

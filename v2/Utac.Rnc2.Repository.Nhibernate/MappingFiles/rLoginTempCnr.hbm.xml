@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<hibernate-mapping xmlns="urn:nhibernate-mapping-2.2" namespace="Utac.Rnc2.BusinessObjects" assembly="Utac.Rnc2.BusinessObjects">
+	<class name="Utac.Rnc2.BusinessObjects.rLoginTempCnr, Utac.Rnc2.BusinessObjects" table="r_login_temp_cnr" lazy="true">
+		<id name="Id" column="cod_utilisateur">
+		 	<generator class="assigned" />
+		</id>
+		<property name="MotDePasse" column="mot_de_passe" />
+		<property name="CodCategorieVeh" column="cod_categorie_veh" />
+    <many-to-one name="PCentreEncour" column="id_centre_encours" class="pCentreEncour" />
+ </class>
+</hibernate-mapping>
+

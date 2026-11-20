@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<hibernate-mapping xmlns="urn:nhibernate-mapping-2.2" namespace="Utac.Rnc2.BusinessObjects" assembly="Utac.Rnc2.BusinessObjects">
+	<class name="Utac.Rnc2.BusinessObjects.pInfoRdv, Utac.Rnc2.BusinessObjects" table="p_info_rdv" lazy="true">
+		<id name="Id" column="id_info_rdv">
+		 	<generator class="native" />
+		</id>
+		<property name="NumTelCentrale" column="num_tel_centrale" />
+		<property name="NumTelTarif" column="num_tel_tarif" />
+		<property name="ServeurMinitel" column="serveur_minitel" />
+		<property name="SiteWeb" column="site_web" />
+		<many-to-one name="PCentreEncour" column="id_centre_encours" class="pCentreEncour" />
+		<many-to-one name="RReseau" column="cod_reseau" class="rReseau" />
+	</class>
+</hibernate-mapping>
+

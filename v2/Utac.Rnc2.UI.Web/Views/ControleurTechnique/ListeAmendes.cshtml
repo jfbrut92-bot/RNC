@@ -1,0 +1,35 @@
+﻿@model Utac.Rnc2.BusinessObjects.pContoleurEncour
+@using Utac.Rnc2.UI.Web.Helpers
+
+@section TitleContent {
+    Liste des contraventions pour le  @Model.Titre @Model.Nom @Model.Prenom
+}
+@section SousTitrePage {
+    Liste des contraventions pour le  @Model.Titre @Model.Nom @Model.Prenom
+}
+<table>
+    <tr>
+        <th></th>
+        <th>Libellé</th>
+        <th>Date contravention</th>
+    </tr>
+    @foreach (var item in Model.PAmendeControleurs)
+    {
+        <tr>
+            <td>
+                @if (GestionDroitsExecution.isRightActionForControleur(this.User, Model, GestionDroitsExecution.ActionsFicheControleur.AMEND))
+                {
+                    @Html.ActionLink("Modifier", "ModifierAmende", new { id = item.Id })
+                    @:|
+                    @Html.ActionLink("Supprimer", "ConfirmationDeleteAmende", new { id = item.Id })
+                }
+            </td>
+            <td>@item.LibContravention</td>
+            <td>@String.Format("{0:d}", item.DateEmisAmende)</td>
+        </tr>
+    }
+</table>
+<div>
+    <br />
+    @Html.ActionLink("Retour à la fiche", "Fiche", new { id = Model.Id }, new { @class = "btn success" })
+</div>

@@ -1,0 +1,404 @@
+<?xml version="1.0" encoding="utf-8"?>
+<wsdl:definitions xmlns:intf="otc" xmlns:apachesoap="http://xml.apache.org/xml-soap" xmlns:wsdlsoap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:impl="otc" targetNamespace="otc" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">
+  <wsdl:types>
+    <xsd:schema xmlns="http://www.w3.org/2001/XMLSchema" elementFormDefault="qualified" targetNamespace="otc">
+      <xsd:complexType name="BeanPvIn">
+        <xsd:sequence>
+          <xsd:element name="codAgremCentre" nillable="true" type="xsd:string" />
+          <xsd:element name="dateAppelWS" nillable="true" type="xsd:dateTime" />
+          <xsd:element name="dateCtrl" nillable="true" type="xsd:dateTime" />
+          <xsd:element name="id_trace" nillable="true" type="xsd:decimal" />
+          <xsd:element name="numPvCtrl" nillable="true" type="xsd:string" />
+          <xsd:element name="typeDemande" nillable="true" type="xsd:short" />
+        </xsd:sequence>
+      </xsd:complexType>
+      <xsd:element name="in0" type="impl:BeanPvIn" />
+      <xsd:complexType name="RMaterielStatut">
+        <xsd:sequence>
+          <xsd:element name="codStatutMateriel" type="xsd:byte" />
+          <xsd:element name="libStatutMateriel" nillable="true" type="xsd:string" />
+        </xsd:sequence>
+      </xsd:complexType>
+      <xsd:complexType name="PMesures">
+        <xsd:sequence>
+          <xsd:element name="mesContMasse" nillable="true" type="xsd:double" />
+          <xsd:element name="mesDecelerationFreinSecours" nillable="true" type="xsd:double" />
+          <xsd:element name="mesDecelerationFreinService" nillable="true" type="xsd:double" />
+          <xsd:element name="mesEffRoueArd" nillable="true" type="xsd:int" />
+          <xsd:element name="mesEffRoueArg" nillable="true" type="xsd:int" />
+          <xsd:element name="mesEffRoueAvd" nillable="true" type="xsd:int" />
+          <xsd:element name="mesEffRoueAvg" nillable="true" type="xsd:int" />
+          <xsd:element name="mesForceVerticalEssieuAr" nillable="true" type="xsd:int" />
+          <xsd:element name="mesForceVerticalEssieuAv" nillable="true" type="xsd:int" />
+          <xsd:element name="mesFsDesAr" nillable="true" type="xsd:int" />
+          <xsd:element name="mesFsDesAv" nillable="true" type="xsd:int" />
+          <xsd:element name="mesFsForceMaxArd" nillable="true" type="xsd:int" />
+          <xsd:element name="mesFsForceMaxArg" nillable="true" type="xsd:int" />
+          <xsd:element name="mesFsForceMaxAvd" nillable="true" type="xsd:int" />
+          <xsd:element name="mesFsForceMaxAvg" nillable="true" type="xsd:int" />
+          <xsd:element name="mesFsRrForceMaxArd" nillable="true" type="xsd:int" />
+          <xsd:element name="mesFsRrForceMaxArg" nillable="true" type="xsd:int" />
+          <xsd:element name="mesFsRrForceMaxAvd" nillable="true" type="xsd:int" />
+          <xsd:element name="mesFsRrForceMaxAvg" nillable="true" type="xsd:int" />
+          <xsd:element name="mesFstForceMaxRoueD" nillable="true" type="xsd:int" />
+          <xsd:element name="mesFstForceMaxRoueG" nillable="true" type="xsd:int" />
+          <xsd:element name="mesFstRrForceMaxRoueD" nillable="true" type="xsd:int" />
+          <xsd:element name="mesFstRrForceMaxRoueG" nillable="true" type="xsd:int" />
+          <xsd:element name="mesPolluC1" nillable="true" type="xsd:string" />
+          <xsd:element name="mesPolluC2" nillable="true" type="xsd:string" />
+          <xsd:element name="mesPolluC3" nillable="true" type="xsd:string" />
+          <xsd:element name="mesPolluC4" nillable="true" type="xsd:string" />
+          <xsd:element name="mesPolluC5" nillable="true" type="xsd:string" />
+          <xsd:element name="mesPolluCo2Ral" nillable="true" type="xsd:double" />
+          <xsd:element name="mesPolluCoCorrRal" nillable="true" type="xsd:double" />
+          <xsd:element name="mesPolluCoRal" nillable="true" type="xsd:double" />
+          <xsd:element name="mesPolluCoRalAcc" nillable="true" type="xsd:double" />
+          <xsd:element name="mesPolluHc" nillable="true" type="xsd:int" />
+          <xsd:element name="mesPolluLambda" nillable="true" type="xsd:double" />
+          <xsd:element name="mesPolluRegRal" nillable="true" type="xsd:int" />
+          <xsd:element name="mesPolluRegRalAcc" nillable="true" type="xsd:int" />
+          <xsd:element name="mesPolluVcalc" nillable="true" type="xsd:string" />
+          <xsd:element name="mesRabattementFBrouilPla" nillable="true" type="xsd:string" />
+          <xsd:element name="mesRabattementFeuBrouilD" nillable="true" type="xsd:string" />
+          <xsd:element name="mesRabattementFeuBrouilG" nillable="true" type="xsd:string" />
+          <xsd:element name="mesRabattementFeuCroismtD" nillable="true" type="xsd:string" />
+          <xsd:element name="mesRabattementFeuCroismtG" nillable="true" type="xsd:string" />
+          <xsd:element name="mesRabattementPlage" nillable="true" type="xsd:string" />
+          <xsd:element name="mesRippageEssieu1" nillable="true" type="xsd:string" />
+          <xsd:element name="mesSuspDesRoueAr" nillable="true" type="xsd:int" />
+          <xsd:element name="mesSuspDesRoueAv" nillable="true" type="xsd:int" />
+          <xsd:element name="txEffGlobFreinService" nillable="true" type="xsd:int" />
+          <xsd:element name="txEffiGlobFreinSecours" nillable="true" type="xsd:int" />
+          <xsd:element name="txEffiGlobFreinStationmt" nillable="true" type="xsd:int" />
+        </xsd:sequence>
+      </xsd:complexType>
+      <xsd:complexType name="RUtilisateur">
+        <xsd:sequence>
+          <xsd:element name="codReseau" nillable="true" type="xsd:string" />
+          <xsd:element name="dateCreat" nillable="true" type="xsd:dateTime" />
+          <xsd:element name="dateMaj" nillable="true" type="xsd:dateTime" />
+          <xsd:element name="idLogin" nillable="true" type="xsd:decimal" />
+          <xsd:element name="motPasse" nillable="true" type="xsd:string" />
+          <xsd:element name="nomLogin" nillable="true" type="xsd:string" />
+        </xsd:sequence>
+      </xsd:complexType>
+      <xsd:complexType name="PTransfert">
+        <xsd:sequence>
+          <xsd:element name="RUtilisateur" nillable="true" type="impl:RUtilisateur" />
+          <xsd:element name="codeAgrementCentre" nillable="true" type="xsd:string" />
+          <xsd:element name="dateReception" nillable="true" type="xsd:dateTime" />
+          <xsd:element name="dateTransfert" nillable="true" type="xsd:dateTime" />
+          <xsd:element name="estDoublon" type="xsd:boolean" />
+          <xsd:element name="estTest" type="xsd:boolean" />
+          <xsd:element name="ficXmlAssocie" nillable="true" type="xsd:string" />
+          <xsd:element name="ficXmlRapport" nillable="true" type="xsd:string" />
+          <xsd:element name="fluxValide" type="xsd:boolean" />
+          <xsd:element name="hashCode" nillable="true" type="xsd:string" />
+          <xsd:element name="heureTransfert" nillable="true" type="xsd:dateTime" />
+          <xsd:element name="host" nillable="true" type="xsd:string" />
+          <xsd:element name="numOrdre" nillable="true" type="xsd:double" />
+          <xsd:element name="numTransfert" nillable="true" type="xsd:decimal" />
+          <xsd:element name="origine" type="xsd:short" />
+          <xsd:element name="transfertTraite" type="xsd:boolean" />
+        </xsd:sequence>
+      </xsd:complexType>
+      <xsd:complexType name="PVehiculePresente">
+        <xsd:sequence>
+          <xsd:element name="codCarosVeh" nillable="true" type="xsd:string" />
+          <xsd:element name="codCategVeh" nillable="true" type="xsd:string" />
+          <xsd:element name="codEnergVeh" nillable="true" type="xsd:string" />
+          <xsd:element name="codGenreInco" nillable="true" type="xsd:string" />
+          <xsd:element name="codModVeh" nillable="true" type="xsd:string" />
+          <xsd:element name="codMrqVeh" nillable="true" type="xsd:string" />
+          <xsd:element name="codTypCtrlPollu" nillable="true" type="xsd:string" />
+          <xsd:element name="codeGenreVeh" nillable="true" type="xsd:string" />
+          <xsd:element name="dateCircu" nillable="true" type="xsd:dateTime" />
+          <xsd:element name="dateCircuEval" nillable="true" type="xsd:dateTime" />
+          <xsd:element name="dateCircuTrnsm" nillable="true" type="xsd:string" />
+          <xsd:element name="dateGnc" nillable="true" type="xsd:dateTime" />
+          <xsd:element name="dateImmat" nillable="true" type="xsd:dateTime" />
+          <xsd:element name="dateImmatTrnsm" nillable="true" type="xsd:string" />
+          <xsd:element name="depCertifImmat" nillable="true" type="xsd:string" />
+          <xsd:element name="immatVeh" nillable="true" type="xsd:string" />
+          <xsd:element name="libModVeh" nillable="true" type="xsd:string" />
+          <xsd:element name="libMrqVeh" nillable="true" type="xsd:string" />
+          <xsd:element name="nbPlaceAssis" nillable="true" type="xsd:short" />
+          <xsd:element name="numFormule" nillable="true" type="xsd:string" />
+          <xsd:element name="numSerie" nillable="true" type="xsd:string" />
+          <xsd:element name="presenceObd" nillable="true" type="xsd:string" />
+          <xsd:element name="ptac" nillable="true" type="xsd:int" />
+          <xsd:element name="puissAdmin" nillable="true" type="xsd:short" />
+          <xsd:element name="symbPays" nillable="true" type="xsd:string" />
+          <xsd:element name="typMinCnit" nillable="true" type="xsd:string" />
+        </xsd:sequence>
+      </xsd:complexType>
+      <xsd:complexType name="RDocumentIdentification">
+        <xsd:sequence>
+          <xsd:element name="codDocument" nillable="true" type="xsd:string" />
+          <xsd:element name="libDocument" nillable="true" type="xsd:string" />
+        </xsd:sequence>
+      </xsd:complexType>
+      <xsd:complexType name="RModifMesureDefaut">
+        <xsd:sequence>
+          <xsd:element name="codModifMesureDefaut" nillable="true" type="xsd:string" />
+          <xsd:element name="libModifMesureDefaut" nillable="true" type="xsd:string" />
+        </xsd:sequence>
+      </xsd:complexType>
+      <xsd:complexType name="RNatureControle">
+        <xsd:sequence>
+          <xsd:element name="codNatureCtrl" nillable="true" type="xsd:string" />
+          <xsd:element name="libNatureCtrl" nillable="true" type="xsd:string" />
+        </xsd:sequence>
+      </xsd:complexType>
+      <xsd:complexType name="RResultCtrl">
+        <xsd:sequence>
+          <xsd:element name="codResultCtrl" nillable="true" type="xsd:string" />
+          <xsd:element name="contreVisite" type="xsd:boolean" />
+          <xsd:element name="libResultCtrl" nillable="true" type="xsd:string" />
+        </xsd:sequence>
+      </xsd:complexType>
+      <xsd:complexType name="RFonctionDoc">
+        <xsd:sequence>
+          <xsd:element name="codFonction" nillable="true" type="xsd:string" />
+          <xsd:element name="libFonction" nillable="true" type="xsd:string" />
+        </xsd:sequence>
+      </xsd:complexType>
+      <xsd:complexType name="RTypeDoc">
+        <xsd:sequence>
+          <xsd:element name="codTypeDoc" nillable="true" type="xsd:string" />
+          <xsd:element name="libTypeDoc" nillable="true" type="xsd:string" />
+        </xsd:sequence>
+      </xsd:complexType>
+      <xsd:complexType name="RDoc">
+        <xsd:sequence>
+          <xsd:element name="RFonctionDoc" nillable="true" type="impl:RFonctionDoc" />
+          <xsd:element name="RTypeDoc" nillable="true" type="impl:RTypeDoc" />
+          <xsd:element name="codDoc" nillable="true" type="xsd:string" />
+          <xsd:element name="codDocCourt" nillable="true" type="xsd:string" />
+          <xsd:element name="dateDebutEffet" nillable="true" type="xsd:dateTime" />
+          <xsd:element name="dateFinEffet" nillable="true" type="xsd:dateTime" />
+          <xsd:element name="libDocCourt" nillable="true" type="xsd:string" />
+          <xsd:element name="libDocLong" nillable="true" type="xsd:string" />
+          <xsd:element name="numDoc" type="xsd:int" />
+          <xsd:element name="numDoc2" nillable="true" type="xsd:int" />
+        </xsd:sequence>
+      </xsd:complexType>
+      <xsd:complexType name="RLocalisation">
+        <xsd:sequence>
+          <xsd:element name="codLoc" nillable="true" type="xsd:string" />
+          <xsd:element name="libLoc" nillable="true" type="xsd:string" />
+        </xsd:sequence>
+      </xsd:complexType>
+      <xsd:complexType name="ArrayOfRLocalisation">
+        <xsd:sequence>
+          <xsd:element minOccurs="0" maxOccurs="unbounded" name="item" type="impl:RLocalisation" />
+        </xsd:sequence>
+      </xsd:complexType>
+      <xsd:complexType name="PDocConstate">
+        <xsd:sequence>
+          <xsd:element name="RDoc" nillable="true" type="impl:RDoc" />
+          <xsd:element name="RLocalisation" nillable="true" type="impl:ArrayOfRLocalisation" />
+          <xsd:element name="numeroDoc" type="xsd:short" />
+        </xsd:sequence>
+      </xsd:complexType>
+      <xsd:complexType name="ArrayOfPDocConstate">
+        <xsd:sequence>
+          <xsd:element minOccurs="0" maxOccurs="unbounded" name="item" type="impl:PDocConstate" />
+        </xsd:sequence>
+      </xsd:complexType>
+      <xsd:complexType name="RAno">
+        <xsd:sequence>
+          <xsd:element name="comptExcep" nillable="true" type="xsd:string" />
+          <xsd:element name="dateDebutEffet" nillable="true" type="xsd:dateTime" />
+          <xsd:element name="dateFinEffet" nillable="true" type="xsd:dateTime" />
+          <xsd:element name="estActif" type="xsd:boolean" />
+          <xsd:element name="libComptExcep" nillable="true" type="xsd:string" />
+          <xsd:element name="libCourtCe" nillable="true" type="xsd:string" />
+          <xsd:element name="nivAno" type="xsd:short" />
+        </xsd:sequence>
+      </xsd:complexType>
+      <xsd:complexType name="ArrayOfRAno">
+        <xsd:sequence>
+          <xsd:element minOccurs="0" maxOccurs="unbounded" name="item" type="impl:RAno" />
+        </xsd:sequence>
+      </xsd:complexType>
+      <xsd:complexType name="PControle">
+        <xsd:sequence>
+          <xsd:element name="PControleAdgRMat" nillable="true" type="impl:RMaterielStatut" />
+          <xsd:element name="PControleBsuRMat" nillable="true" type="impl:RMaterielStatut" />
+          <xsd:element name="PControleDecRMat" nillable="true" type="impl:RMaterielStatut" />
+          <xsd:element name="PControleFrlRMat" nillable="true" type="impl:RMaterielStatut" />
+          <xsd:element name="PControleObdRMat" nillable="true" type="impl:RMaterielStatut" />
+          <xsd:element name="PControleOpaRMat" nillable="true" type="impl:RMaterielStatut" />
+          <xsd:element name="PControleRegRMat" nillable="true" type="impl:RMaterielStatut" />
+          <xsd:element name="PControleRipRMat" nillable="true" type="impl:RMaterielStatut" />
+          <xsd:element name="PMesures" nillable="true" type="impl:PMesures" />
+          <xsd:element name="PTransfert" nillable="true" type="impl:PTransfert" />
+          <xsd:element name="PVehiculePresente" nillable="true" type="impl:PVehiculePresente" />
+          <xsd:element name="RDocumentIdentification" nillable="true" type="impl:RDocumentIdentification" />
+          <xsd:element name="RModifMesureDefaut" nillable="true" type="impl:RModifMesureDefaut" />
+          <xsd:element name="RNatureControle" nillable="true" type="impl:RNatureControle" />
+          <xsd:element name="RResultCtrl" nillable="true" type="impl:RResultCtrl" />
+          <xsd:element name="codAgremCentre" nillable="true" type="xsd:string" />
+          <xsd:element name="codAgremCentreVtDef" nillable="true" type="xsd:string" />
+          <xsd:element name="codAgremCntlr" nillable="true" type="xsd:string" />
+          <xsd:element name="codAgremCntlrVtDef" nillable="true" type="xsd:string" />
+          <xsd:element name="codErreurSiv" nillable="true" type="xsd:string" />
+          <xsd:element name="codNatureCtrlSuivant" nillable="true" type="xsd:string" />
+          <xsd:element name="codResultDemande" nillable="true" type="xsd:short" />
+          <xsd:element name="ctrlConsolide" type="xsd:boolean" />
+          <xsd:element name="dateCtrl" nillable="true" type="xsd:dateTime" />
+          <xsd:element name="dateFactu" nillable="true" type="xsd:dateTime" />
+          <xsd:element name="dateImpPv" nillable="true" type="xsd:dateTime" />
+          <xsd:element name="dateValidVisaCtcomp" nillable="true" type="xsd:dateTime" />
+          <xsd:element name="dateValidVisaCtp" nillable="true" type="xsd:dateTime" />
+          <xsd:element name="dateValidationPv" nillable="true" type="xsd:dateTime" />
+          <xsd:element name="dateVtDef" nillable="true" type="xsd:dateTime" />
+          <xsd:element name="heureDebCtrl" nillable="true" type="xsd:dateTime" />
+          <xsd:element name="heureFinCtrl" nillable="true" type="xsd:dateTime" />
+          <xsd:element name="heureImpPv" nillable="true" type="xsd:dateTime" />
+          <xsd:element name="heureValidationPv" nillable="true" type="xsd:dateTime" />
+          <xsd:element name="kmVeh" nillable="true" type="xsd:int" />
+          <xsd:element name="moisVisit" nillable="true" type="xsd:int" />
+          <xsd:element name="nbCommentaire" nillable="true" type="xsd:int" />
+          <xsd:element name="nbDef" nillable="true" type="xsd:int" />
+          <xsd:element name="numFrappe" nillable="true" type="xsd:string" />
+          <xsd:element name="numLiasseCtrl" nillable="true" type="xsd:string" />
+          <xsd:element name="numOrdreDemande" nillable="true" type="xsd:string" />
+          <xsd:element name="numPlaque" nillable="true" type="xsd:string" />
+          <xsd:element name="numPvCtrl" nillable="true" type="xsd:string" />
+          <xsd:element name="numPvVtDef" nillable="true" type="xsd:string" />
+          <xsd:element name="numVignette" nillable="true" type="xsd:string" />
+          <xsd:element name="numVisit" nillable="true" type="xsd:decimal" />
+          <xsd:element name="origine" type="xsd:short" />
+          <xsd:element name="versionLogiciel" nillable="true" type="xsd:string" />
+          <xsd:element name="pDocConstate" nillable="true" type="impl:ArrayOfPDocConstate" />
+          <xsd:element name="rAno" nillable="true" type="impl:ArrayOfRAno" />
+        </xsd:sequence>
+      </xsd:complexType>
+      <xsd:complexType name="ArrayOfPControle">
+        <xsd:sequence>
+          <xsd:element minOccurs="0" maxOccurs="unbounded" name="item" type="impl:PControle" />
+        </xsd:sequence>
+      </xsd:complexType>
+      <xsd:complexType name="BeanPvOut">
+        <xsd:sequence>
+          <xsd:element name="listPcontrole" nillable="true" type="impl:ArrayOfPControle" />
+          <xsd:element name="resultatRecherche" nillable="true" type="xsd:short" />
+        </xsd:sequence>
+      </xsd:complexType>
+      <xsd:element name="recherchePvReturn" type="impl:BeanPvOut" />
+      <xsd:complexType name="BeanLieuIn">
+        <xsd:sequence>
+          <xsd:element name="dateAppelWS" nillable="true" type="xsd:dateTime" />
+          <xsd:element name="dateCircu" nillable="true" type="xsd:dateTime" />
+          <xsd:element name="id_trace" nillable="true" type="xsd:decimal" />
+          <xsd:element name="immatVeh" nillable="true" type="xsd:string" />
+          <xsd:element name="nomPrenom" nillable="true" type="xsd:string" />
+          <xsd:element name="numSerie" nillable="true" type="xsd:string" />
+        </xsd:sequence>
+      </xsd:complexType>
+      <xsd:element name="in1" type="impl:BeanLieuIn" />
+      <xsd:complexType name="BeanLieuOut">
+        <xsd:sequence>
+          <xsd:element name="codAgremCentre" nillable="true" type="xsd:string" />
+          <xsd:element name="dateCircu" nillable="true" type="xsd:dateTime" />
+          <xsd:element name="immatVeh" nillable="true" type="xsd:string" />
+          <xsd:element name="numSerie" nillable="true" type="xsd:string" />
+          <xsd:element name="resultatRecherche" nillable="true" type="xsd:short" />
+        </xsd:sequence>
+      </xsd:complexType>
+      <xsd:element name="rechercheLieuReturn" type="impl:BeanLieuOut" />
+      <xsd:element name="in2" type="impl:BeanPvIn" />
+      <xsd:element name="recherchePvTestReturn" type="impl:BeanPvOut" />
+      <xsd:element name="in3" type="impl:BeanLieuIn" />
+      <xsd:element name="rechercheLieuTestReturn" type="impl:BeanLieuOut" />
+    </xsd:schema>
+  </wsdl:types>
+  <wsdl:message name="recherchePvTestRequest">
+    <wsdl:part name="in2" element="impl:in2" />
+  </wsdl:message>
+  <wsdl:message name="rechercheLieuTestResponse">
+    <wsdl:part name="rechercheLieuTestReturn" element="impl:rechercheLieuTestReturn" />
+  </wsdl:message>
+  <wsdl:message name="rechercheLieuRequest">
+    <wsdl:part name="in1" element="impl:in1" />
+  </wsdl:message>
+  <wsdl:message name="recherchePvRequest">
+    <wsdl:part name="in0" element="impl:in0" />
+  </wsdl:message>
+  <wsdl:message name="rechercheLieuResponse">
+    <wsdl:part name="rechercheLieuReturn" element="impl:rechercheLieuReturn" />
+  </wsdl:message>
+  <wsdl:message name="recherchePvResponse">
+    <wsdl:part name="recherchePvReturn" element="impl:recherchePvReturn" />
+  </wsdl:message>
+  <wsdl:message name="rechercheLieuTestRequest">
+    <wsdl:part name="in3" element="impl:in3" />
+  </wsdl:message>
+  <wsdl:message name="recherchePvTestResponse">
+    <wsdl:part name="recherchePvTestReturn" element="impl:recherchePvTestReturn" />
+  </wsdl:message>
+  <wsdl:portType name="WS_ctvlpvPortType">
+    <wsdl:operation name="recherchePv" parameterOrder="in0">
+      <wsdl:input name="recherchePvRequest" message="impl:recherchePvRequest" />
+      <wsdl:output name="recherchePvResponse" message="impl:recherchePvResponse" />
+    </wsdl:operation>
+    <wsdl:operation name="rechercheLieu" parameterOrder="in1">
+      <wsdl:input name="rechercheLieuRequest" message="impl:rechercheLieuRequest" />
+      <wsdl:output name="rechercheLieuResponse" message="impl:rechercheLieuResponse" />
+    </wsdl:operation>
+    <wsdl:operation name="recherchePvTest" parameterOrder="in2">
+      <wsdl:input name="recherchePvTestRequest" message="impl:recherchePvTestRequest" />
+      <wsdl:output name="recherchePvTestResponse" message="impl:recherchePvTestResponse" />
+    </wsdl:operation>
+    <wsdl:operation name="rechercheLieuTest" parameterOrder="in3">
+      <wsdl:input name="rechercheLieuTestRequest" message="impl:rechercheLieuTestRequest" />
+      <wsdl:output name="rechercheLieuTestResponse" message="impl:rechercheLieuTestResponse" />
+    </wsdl:operation>
+  </wsdl:portType>
+  <wsdl:binding name="WS_ctvlpvPortSoapBinding" type="impl:WS_ctvlpvPortType">
+    <wsdlsoap:binding transport="http://schemas.xmlsoap.org/soap/http" />
+    <wsdl:operation name="recherchePv">
+      <wsdlsoap:operation soapAction="" />
+      <wsdl:input name="recherchePvRequest">
+        <wsdlsoap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output name="recherchePvResponse">
+        <wsdlsoap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="rechercheLieu">
+      <wsdlsoap:operation soapAction="" />
+      <wsdl:input name="rechercheLieuRequest">
+        <wsdlsoap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output name="rechercheLieuResponse">
+        <wsdlsoap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="recherchePvTest">
+      <wsdlsoap:operation soapAction="" />
+      <wsdl:input name="recherchePvTestRequest">
+        <wsdlsoap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output name="recherchePvTestResponse">
+        <wsdlsoap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="rechercheLieuTest">
+      <wsdlsoap:operation soapAction="" />
+      <wsdl:input name="rechercheLieuTestRequest">
+        <wsdlsoap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output name="rechercheLieuTestResponse">
+        <wsdlsoap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+  </wsdl:binding>
+  <wsdl:service name="WS_ctvlpvService">
+    <wsdl:port name="WS_ctvlpvPort" binding="impl:WS_ctvlpvPortSoapBinding">
+      <wsdlsoap:address location="http://edi15v:8080/ctvlpv/services/WS_ctvlpvPort" />
+    </wsdl:port>
+  </wsdl:service>
+</wsdl:definitions>

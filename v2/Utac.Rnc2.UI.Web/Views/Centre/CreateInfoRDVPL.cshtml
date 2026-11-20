@@ -1,0 +1,101 @@
+﻿@model Utac.Rnc2.BusinessObjects.pCentreEncour
+@using Utac.Rnc2.BusinessObjects
+
+@section TitleContent {
+    Renseignement des informations de prise de rendez-vous PL pour le centre @Model.RaisonSociale
+}
+@section SousTitrePage {
+    Renseignement des informations de prise de rendez-vous PL pour le centre @Model.RaisonSociale
+}
+@using (Html.BeginForm())
+{
+    @Html.ValidationSummary(true)
+    <fieldset>
+        <div class="editor-label">
+            <label>
+                N°de téléphone de l'installation
+            </label>
+        </div>
+        <div class="editor-fieldu">
+            @Html.TextBoxFor(model => model.NumTel)
+            @Html.ValidationMessageFor(model => model.NumTel)
+        </div>
+        <div class="editor-label">
+            @Html.Label("N°de fax de l'installation")
+        </div>
+        <div class="editor-field">
+            @Html.TextBoxFor(model => model.NumFax)
+            @Html.ValidationMessageFor(model => model.NumFax)
+        </div>
+        @if (Model.ReseauRattachementPL.Id == Convert.ToString(rReseau.IdCodeReseau.Z))
+        {
+            <div class="editor-label">
+                <label>
+                    N°de téléphone de la centrale de réservation
+                </label>
+            </div>
+            <div class="editor-fieldu">
+                @Html.TextBoxFor(model => model.PInfoRdvs[0].NumTelCentrale)
+                @Html.ValidationMessageFor(model => model.PInfoRdvs[0].NumTelCentrale)
+            </div>
+            <div class="editor-label">
+                <label>Tarification</label>
+            </div>
+            <div class="editor-fieldu">
+                @Html.TextBoxFor(model => model.PInfoRdvs[0].NumTelTarif)
+                @Html.ValidationMessageFor(model => model.PInfoRdvs[0].NumTelTarif)
+            </div>
+            <div class="editor-label">
+                <label>Site web</label>
+            </div>
+            <div class="editor-fieldu">
+                @Html.TextBoxFor(model => model.PInfoRdvs[0].SiteWeb)
+                @Html.ValidationMessageFor(model => model.PInfoRdvs[0].SiteWeb)
+            </div>
+            <div class="editor-label">
+                <label>Serveur minitel</label>
+            </div>
+            <div class="editor-fieldu">
+                @Html.TextBoxFor(model => model.PInfoRdvs[0].ServeurMinitel)
+                @Html.ValidationMessageFor(model => model.PInfoRdvs[0].ServeurMinitel)
+            </div>
+        }
+        @if (Model.ReseauRattachementPL.Id != Convert.ToString(rReseau.IdCodeReseau.Z))
+        {
+            <div class="editor-label">
+                <label>N°de téléphone de la centrale de réservation</label>
+            </div>
+            <div class="editor-fieldu">
+                @Html.TextBoxFor(model => model.ReseauRattachementPL.PInfoRdvs[0].NumTelCentrale)
+                @Html.ValidationMessageFor(model => model.ReseauRattachementPL.PInfoRdvs[0].NumTelCentrale)
+            </div>
+            <div class="editor-label">
+                <label>Tarification</label>
+            </div>
+            <div class="editor-fieldu">
+                @Html.TextBoxFor(model => model.ReseauRattachementPL.PInfoRdvs[0].NumTelTarif)
+                @Html.ValidationMessageFor(model => model.ReseauRattachementPL.PInfoRdvs[0].NumTelTarif)
+            </div>
+            <div class="editor-label">
+                <label>Site web</label>
+            </div>
+            <div class="editor-fieldu">
+                @Html.TextBoxFor(model => model.ReseauRattachementPL.PInfoRdvs[0].SiteWeb)
+                @Html.ValidationMessageFor(model => model.ReseauRattachementPL.PInfoRdvs[0].SiteWeb)
+            </div>
+            <div class="editor-label">
+                <label>Serveur minitel</label>
+            </div>
+            <div class="editor-fieldu">
+                @Html.TextBoxFor(model => model.ReseauRattachementPL.PInfoRdvs[0].ServeurMinitel)
+                @Html.ValidationMessageFor(model => model.ReseauRattachementPL.PInfoRdvs[0].ServeurMinitel)
+            </div>
+        }
+        @Html.HiddenFor(model => model.Id)
+        <br />
+        <div class="rowAligne">
+            <input type="submit" value="Enregistrer" class="btn primary" />
+            <a class="btn success" href="@Url.Action("Fiche","Centre", new { id = Model.Id})">Retour à la fiche</a>
+        </div>
+    </fieldset>
+}

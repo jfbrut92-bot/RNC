@@ -1,0 +1,113 @@
+﻿@model Utac.Rnc2.UI.Web.Models.SiteOtcListCentreModel
+@using Utac.Rnc2.BusinessObjects
+@using Utac.Rnc2.UI.Web.Utils
+@using MvcContrib.UI.Grid
+@using MvcContrib.UI.Pager
+@using MvcContrib
+
+@{ Layout = "~/Views/Shared/_SiteExterneLayout.cshtml"; }
+@section TitleContent {
+    liste des centres agréés
+}
+
+@{ var otcIsMobileDevice = DeviceHelper.IsMobileDevice(Request.UserAgent); }
+@if (DeviceHelper.IsMobileDevice(Request.UserAgent))
+{
+    @Styles.Render("~/styles/main-mobile")
+}
+else
+{
+    @Styles.Render("~/styles/main-desktop")
+
+}
+
+<fieldset style="margin: 0px; padding: 10px">
+    @{ Html.EnableClientValidation(); }
+    @using (Html.BeginForm())
+
+    {
+        <label>Sélectionner un département :</label>
+        @Html.DropDownListFor(m => m.PrefectureSelected.Id, new SelectList(Model.ListePrefecture, "Id", "CodDepartement"))
+        <span class="rnc2-form">
+            <button type="submit" id="btInput" disabled class="button">Rechercher</button>
+        </span>
+
+    }
+
+
+    @if (Model.centresAgrees != null)
+    {
+        <div class="col-12 table-responsive">
+            <table class="p-0 m-0 table @(otcIsMobileDevice ? "table-bordered table-striped text-dark table-active table-hover" : "table-sm")">
+                <tr scope="col">
+                    <th colspan="5">Liste des installations agréées triées par commune</th>
+                </tr>
+                <tr>
+                    <th scope="col">Raison sociale</th>
+                    <th scope="col">Enseigne</th>
+                    <th scope="col" class="d-none d-md-table-cell">N°Agrément</th>
+                    <th scope="col" colspan="2">Adresse</th>
+                </tr>
+                @{ var i = 0; }
+                @foreach (var item in Model.centresAgrees.OrderBy(s => s.Ville).ThenBy(s => s.CpCentre))
+                {
+                    <tr class="@(i % 2 == 0 && !otcIsMobileDevice ? "row1" : "row2")">
+                        <td>@item.RaisonSociale</td>
+                        <td>@item.EnseigneCommerciale</td>
+                        @if (item.AccesPublicCl && item.EstAgrementValideCL)
+                        {
+                            <td class="d-none d-md-table-cell">@item.CodAgremCl</td>
+                        }
+                        else
+                        {
+                            <td class="d-none d-md-table-cell">@item.CodAgremVl</td>
+                        }
+                        <td style="text-align:left">@item.L1Adresse @item.L2Adresse</td>
+                        <td style="text-align:left">@item.CpCentre <b>@item.Ville</b></td>
+                    </tr>
+                    i++;
+                }
+            </table>
+            @if (Model.centresAgrees.Count == 0)
+            {
+                <span>Aucun centre de contrôle technique dans ce département</span>
+            }
+        </div>
+
+
+    }
+</fieldset>
+<script type="text/javascript">
+    document.getElementById('PrefectureSelected_Id').onchange = function () {
+        document.getElementById("btInput").removeAttribute('disabled');
+    };
+    //12/02/2024 PLE réactiver le  bouton post si modification formaulaire
+    function ActivateInputButton() {
+        document.getElementById("btInput").removeAttribute('disabled');
+    }
+    
+        // sendSize function
+        // get the width and height of the document
+        // and post the values to the parent frame
+      function sendSize() {
+            window.parent.postMessage(
+                {
+                    type: "resize",
+                    width: document.documentElement.scrollWidth,
+                    height: document.documentElement.scrollHeight
+                },
+                "http://solo"
+            )
+        }
+
+      // when this window loads or resizes …
+      // call our sendSize function
+      window.addEventListener("load", sendSize)
+      window.addEventListener("resize", sendSize)
+ 
+
+</script>
+@section JavaScriptContent {
+    @Scripts.Render("~/scripts/jquery-validate")
+}
+

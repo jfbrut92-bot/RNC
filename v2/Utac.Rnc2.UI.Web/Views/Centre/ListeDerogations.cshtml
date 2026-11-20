@@ -1,0 +1,57 @@
+﻿@model Utac.Rnc2.BusinessObjects.pCentreEncour
+@using Utac.Rnc2.BusinessObjects
+@using Utac.Rnc2.UI.Web.Helpers
+
+@section TitleContent {
+    Liste des dérogations Installation: @Model.RaisonSociale - @Model.CodAgremVl @Model.CodAgremPl @Model.CodAgremCl
+}
+@section SousTitrePage {
+    Liste des dérogations
+}
+<h2>Installation: @Model.RaisonSociale - @Model.CodAgremVl @Model.CodAgremPl @Model.CodAgremCl</h2>
+<table>
+    <tr>
+        <th></th>
+        <th>Date Début</th>
+        <th>Date Fin</th>
+        <th>Catégorie</th>
+        <th>Commentaire</th>
+    </tr>
+    @{ var i = 0; }
+    @foreach (var item in Model.PDerogationCentres.OrderBy(d => d.DateDebut))
+    {
+        <tr class="@(i % 2 == 0 ? "row1" : "row2")">
+            <td>
+                @if (item.CategorieVehicule.Equals(rCategorieVehicule.CategorieEnum.VL) && GestionDroitsExecution.isRightActionForCentre(User, Model, GestionDroitsExecution.ActionsFicheCentre.MOD_DEROG_VL) ||
+                        item.CategorieVehicule.Equals(rCategorieVehicule.CategorieEnum.PL) && GestionDroitsExecution.isRightActionForCentre(User, Model, GestionDroitsExecution.ActionsFicheCentre.MOD_DEROG_PL) ||
+                        item.CategorieVehicule.Equals(rCategorieVehicule.CategorieEnum.CL) && GestionDroitsExecution.isRightActionForCentre(User, Model, GestionDroitsExecution.ActionsFicheCentre.MOD_DEROG_CL))
+                {
+                    @Html.ActionLink("Modifier", "ModifierDerogation", new { id = item.Id }) @:| @Html.ActionLink("Supprimer", "ConfirmationDeleteDerogation", new { id = item.Id })
+                }
+            </td>
+            <td>@String.Format("{0:d}", item.DateDebut)</td>
+            <td>@String.Format("{0:d}", item.DateFin)</td>
+            <td>@item.CategorieVehicule</td>
+            <td>@item.Commentaire</td>
+        </tr>
+        i++;
+    }
+</table>
+@* Propager le paramètre du formulaire précédent*@
+@Html.HiddenFor(model => model.RaisonSociale)
+@Html.HiddenFor(model => model.Id)
+@Html.HiddenFor(model => model.CodAgremVl)
+@Html.HiddenFor(model => model.CodAgremPl)
+@Html.HiddenFor(model => model.CodAgremCl)
+<br />
+<div class="rowAligne">
+    @if (GestionDroitsExecution.isRightActionForCentre(User, Model, GestionDroitsExecution.ActionsFicheCentre.DEROG_VL))
+    {
+        @Html.ActionLink("Ajouter une dérogation VL", "AjouterDerogation", new { id = Model.Id, categorie = rCategorieVehicule.CategorieEnum.VL }, new { @class = "btn primary" })
+    }
+    @if (GestionDroitsExecution.isRightActionForCentre(User, Model, GestionDroitsExecution.ActionsFicheCentre.DEROG_PL))
+    {
+        @Html.ActionLink("Ajouter une dérogation PL", "AjouterDerogation", new { id = Model.Id, categorie = rCategorieVehicule.CategorieEnum.PL }, new { @class = "btn primary" })
+    }
+    @Html.ActionLink("Retour à la fiche", "Fiche", new { id = Model.Id }, new { @class = "btn cancel" })
+</div>

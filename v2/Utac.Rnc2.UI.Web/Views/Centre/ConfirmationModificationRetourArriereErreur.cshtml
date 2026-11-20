@@ -1,0 +1,14 @@
+﻿@model Utac.Rnc2.UI.Web.Models.RetourArriereModel
+
+@section TitleContent {
+    Retour Arrière
+}
+@section SousTitrePage {
+    Confirmation du retour arrière
+}
+<h2>Installation: @Model.Centre.RaisonSociale - @Model.Centre.CodAgremVl @Model.Centre.CodAgremPl @Model.Centre.CodAgremCl</h2>
+<br />
+Le retour arrière est impossible car la notification a déjà été tramsmise au centre de contrôle.
+<br />
+<br />
+Pour retourner à la fiche cliquez @Html.ActionLink("ici", "Fiche", new { id = Model.Centre.Id })

@@ -1,0 +1,26 @@
+﻿@model Utac.Rnc2.UI.Web.Models.NouveauControleurTechniqueModel
+
+@section TitleContent {
+    Confirmation création d'un nouvel agrément contrôleur ou prestataire
+}
+@section SousTitrePage {
+    Création d'un nouveau contrôleur ou prestataire - Confirmation
+}
+<h2>Confirmation de la création d'un nouveau contrôleur ou prestataire @Model.categorie.ToString()</h2>
+<fieldset>
+    <div class="avertissement">
+        Vous avez choisi de créer un nouveau contrôleur technique dans le registre. Cette opération n'est valide que s'il s'agit
+        d'une nouvelle personne non encore référencée dans le registre. Dans le cas où la personne existe déjà, il faut effectuer les
+        opérations d'agrément, de changement de centre de rattachement et d'annulation à partir de la fiche du contrôleur.
+        <ul>
+            <li>Appuyer sur le bouton <b>"Confirmer"</b> pour démarrer la création d'un nouveau contrôleur.</li>
+            <li>Appuyer sur le bouton <b>"Retour"</b> pour revenir à la page précédente et s'assurer que le contrôleur n'existe pas déjà dans le registre.</li>
+        </ul>
+    </div>
+    @using (Html.BeginForm("New", "ControleurTechnique", FormMethod.Post))
+    {
+        @Html.HiddenFor(m => m.categorie)
+        <input type="submit" value="Confirmer" class="btn primary" />
+        @Html.ActionLink("Retour", "Recherche", null, new { @class = "btn cancel" })
+    }
+</fieldset>

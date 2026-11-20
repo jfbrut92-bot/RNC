@@ -1,0 +1,54 @@
+﻿@model Utac.Rnc2.UI.Web.Models.ExtensionAgrementControleurCatLModel
+@using Utac.Rnc2.BusinessObjects
+
+@section TitleContent {
+    Retrait d'extension à la catégorie L
+}
+@section SousTitrePage {
+    Retrait d'extension à la catégorie L de l'agrément  @Model.Categorie
+    @switch (@Model.Categorie)
+    {
+        case rCategorieVehicule.CategorieEnum.VL:
+            @:@Model.Controleur.CodAgremVl
+            break;
+        case rCategorieVehicule.CategorieEnum.PL:
+            @:@Model.Controleur.CodAgremPl
+            break;
+    }
+    <br />Contrôleur : @Model.Controleur.Nom @Model.Controleur.Prenom
+}
+@section StyleContent {
+    @Styles.Render("~/styles/jquery-ui")
+}
+<p class="avertissement">
+    Attention, à partir de la date de fin de validité de l'extension d'agrément à la catégorie L, le contrôleur ne doit plus réaliser de contrôles techniques sur les véhicules de catégorie L.
+</p>
+@using (Html.BeginForm())
+{
+    @Html.ValidationSummary(true)
+    <fieldset>
+        <div class="editor-label">@Html.Label("Extension d'agrément Catégorie L :")</div>
+        <div class="editor-field">
+            <select name="Controleur.ExtAgremClStatut">
+                <option value="" @(Model.Controleur.ExtAgremClStatut == null ? "selected" : "")>---</option>
+                <option value="0" @(((short?)0).Equals(Model.Controleur.ExtAgremClStatut) ? "selected" : "")>non</option>
+            </select>
+            @Html.ValidationMessageFor(model => model.Controleur.ExtAgremClStatut)
+        </div>
+        <div class="editor-label">@Html.Label("Retrait à compté du :")</div>
+        <div class="editor-field">
+            @Html.TextBoxFor(model => model.Controleur.ExtAgremClDateValid, new { Value = String.Format("{0:d}", Model.Controleur.ExtAgremClDateValid), @class = "datepicker" })
+            @Html.ValidationMessageFor(model => model.Controleur.ExtAgremClDateValid)
+        </div>
+    </fieldset>
+    <br />
+    <div class="rowAligne">
+        <input type="submit" value="Retirer" class="btn primary" />
+        @Html.ActionLink("Retour", "Fiche", new { id = Model.Controleur.Id }, new { @class = "btn cancel" })
+    </div>
+    @Html.HiddenFor(m => m.Controleur.Id)
+}
+@section JavaScriptContent {
+    <!-- DatePicker -->
+    @Scripts.Render("~/scripts/date-picker")
+}

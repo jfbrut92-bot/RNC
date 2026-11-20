@@ -1,0 +1,141 @@
+﻿@model Utac.Rnc2.UI.Web.Models.AjouterSanctionControleurModel
+
+@section TitleContent {
+    Ajout d'une sanction pour le  @Model.Controleur.Titre @Model.Controleur.Nom @Model.Controleur.Prenom
+}
+@section SousTitrePage {
+    Ajout d'une sanction pour le  @Model.Controleur.Titre @Model.Controleur.Nom @Model.Controleur.Prenom
+}
+@section StyleContent {
+    @Styles.Render("~/styles/jquery-ui")
+}
+@using (Html.BeginForm("AjouterSanction", "ControleurTechnique", new { id = Model.Controleur.Id }, FormMethod.Post, new { @class = "verif_date" }))
+{
+    @Html.ValidationSummary(true)
+    <fieldset>
+        <div class="row">
+            <div class="floatLeft first">
+                @Html.Label("Type sanction")
+                <div class="input">
+                    @Html.DropDownListFor(model => model.Sanction.RTypeSanctionControleur.Id, new SelectList(Model.ListeSanction, "Id", "Libelle"))
+                    @Html.ValidationMessageFor(model => model.Sanction.RTypeSanctionControleur.Id)
+                </div>
+            </div>
+            <div class="floatLeft">
+                @Html.Label("Date début sanction")
+                <div class="input">
+                    @Html.TextBoxFor(model => model.Sanction.DateDebut, new { @class = "datepicker verif_date" })
+                    @Html.ValidationMessageFor(model => model.Sanction.DateDebut)
+                </div>
+            </div>
+            <div class="floatLeft">
+                @Html.Label("Date fin sanction")
+                <div class="input">
+                    @Html.TextBoxFor(model => model.Sanction.DateFin, new { @class = "datepicker" })
+                    @Html.ValidationMessageFor(model => model.Sanction.DateFin)
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="floatLeft first">
+                @Html.Label("Organisme demandeur")
+                <div class="input">
+                    @Html.DropDownListFor(model => model.Sanction.RTypeOrganismeDemandeur.Id, new SelectList(Model.ListeOrganismeDemandeur, "Id", "Libelle"))
+                    @Html.ValidationMessageFor(model => model.Sanction.RTypeOrganismeDemandeur.Id)
+                </div>
+            </div>
+            <div class="floatleft">
+                @Html.Label("Date de l'évènement à l'origine de la sanction")
+                <div class="input">
+                    @Html.TextBoxFor(model => model.Sanction.DateEvenementOrigine, new { @class = "datepicker" })
+                    @Html.ValidationMessageFor(model => model.Sanction.DateEvenementOrigine)
+                </div>
+            </div>
+        </div>
+        <div id="bloc_autre_sanction">
+            <!-- EG le 02/01/2012 JUSTE POUR AFFICHER/MASQUER EN JQUERY -->
+            <div class="editor-label">
+                Type de sanction
+            </div>
+            <div class="editor-field">
+                @Html.TextAreaFor(model => model.Sanction.TypeSanctionAutre)
+                @Html.ValidationMessageFor(model => model.Sanction.TypeSanctionAutre)
+            </div>
+        </div>
+        <div class="row">
+            <div class="floatLeft first">
+                @Html.Label("Cocher le ou ou les agrément(s) affecté(s) par la sanction :")
+            </div>
+            <div class="floatLeft">
+                @if (Model.Controleur.EstAgrementValideVL)
+                {
+                    <div class="editor-label">
+                        @Html.Label("Agrément VL")
+                    </div>
+                    <div class="editor-field">
+                        @Html.CheckBoxFor(model => model.Sanction.IsAgrementAffecteVL)
+                        @Html.ValidationMessageFor(model => model.Sanction.IsAgrementAffecteVL)
+                    </div>
+                }
+            </div>
+            <div class="floatLeft">
+                @if (Model.Controleur.EstAgrementValideCL)
+                {
+                    <div class="editor-label">
+                        @Html.Label("Agrément CL")
+                    </div>
+                    <div class="editor-field">
+                        @Html.CheckBoxFor(model => model.Sanction.IsAgrementAffecteCL)
+                        @Html.ValidationMessageFor(model => model.Sanction.IsAgrementAffecteCL)
+                    </div>
+                }
+            </div>
+            <div class="floatLeft">
+                @if (Model.Controleur.EstAgrementValidePL)
+                {
+                    <div class="editor-label">
+                        @Html.Label("Agrément PL")
+                    </div>
+                    <div class="editor-field">
+                        @Html.CheckBoxFor(model => model.Sanction.IsAgrementAffectePL)
+                        @Html.ValidationMessageFor(model => model.Sanction.IsAgrementAffectePL)
+                    </div>
+                }
+            </div>
+        </div>
+        <div class="editor-label">
+            @Html.Label("Motif de la sanction")
+        </div>
+        <div class="editor-field">
+            @Html.TextAreaFor(model => model.Sanction.MotifSanction, new { rows = 10, cols = 80, maxlength = "800" })
+            @Html.ValidationMessageFor(model => model.Sanction.MotifSanction)
+        </div>
+        @Html.HiddenFor(model => model.Controleur.EstAgrementValideVL)
+        @Html.HiddenFor(model => model.Controleur.EstAgrementValidePL)
+        @Html.HiddenFor(model => model.Controleur.EstAgrementValideCL)
+        @Html.HiddenFor(model => model.Controleur.Id)
+        <br />
+        <div class="rowAligne">
+            <input type="submit" value="Enregistrer" class="btn primary" />
+            <a class="btn success" href="@Url.Action("Fiche","ControleurTechnique", new { id = Model.Controleur.Id})">Retour à la fiche</a>
+        </div>
+    </fieldset>
+}
+<div class="avertissement">
+    <b>ATTENTION A LA DATE D'EFFET DE LA SANCTION.</b>
+    <br />
+    @*Il n'est pas possible de saisir une date inférieure à la date du jour.*@
+    Si vous saisissez <b>une date d'effet, égale à la date du jour</b>, assurez-vous que le contrôleur/centre en soit informé à temps.
+    <br />
+    <br />
+    <i>Ces précautions sont utiles pour éviter que des contrôles soient réalisés et transmis par un contrôleur/centre dont l'agrément se trouve sous l'effet d'une sanction (la prise en compte des délais d'information des contrôleurs, centres de rattachement et réseaux éventuels est importante).</i>
+    <br />
+    <br />
+    Vous pouvez aussi saisir une date d'effet postérieure à la date du jour.
+</div>
+@section JavaScriptContent {
+    <!-- DatePicker -->
+    @Scripts.Render("~/scripts/date-picker")
+    <!-- Affichage/masquage du champ autre sanction -->
+    @Scripts.Render("~/scripts/ajout-sanction-controleur")
+}

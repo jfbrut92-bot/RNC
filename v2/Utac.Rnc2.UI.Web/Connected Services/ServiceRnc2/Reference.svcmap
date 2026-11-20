@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ReferenceGroup xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" ID="3e2212e5-2a49-48cf-a370-39b0a9407faf" xmlns="urn:schemas-microsoft-com:xml-wcfservicemap">
+  <ClientOptions>
+    <GenerateAsynchronousMethods>false</GenerateAsynchronousMethods>
+    <GenerateTaskBasedAsynchronousMethod>true</GenerateTaskBasedAsynchronousMethod>
+    <EnableDataBinding>true</EnableDataBinding>
+    <ExcludedTypes />
+    <ImportXmlTypes>false</ImportXmlTypes>
+    <GenerateInternalTypes>false</GenerateInternalTypes>
+    <GenerateMessageContracts>false</GenerateMessageContracts>
+    <NamespaceMappings />
+    <CollectionMappings />
+    <GenerateSerializableTypes>true</GenerateSerializableTypes>
+    <Serializer>Auto</Serializer>
+    <UseSerializerForFaults>true</UseSerializerForFaults>
+    <ReferenceAllAssemblies>true</ReferenceAllAssemblies>
+    <ReferencedAssemblies />
+    <ReferencedDataContractTypes />
+    <ServiceContractMappings />
+  </ClientOptions>
+  <MetadataSources>
+    <MetadataSource Address="http://195.101.61.161:8080/ctinfo/Rnc2?wsdl" Protocol="http" SourceId="1" />
+  </MetadataSources>
+  <Metadata>
+    <MetadataFile FileName="Rnc2.xsd" MetadataType="Schema" ID="44cd883c-4118-4c76-9ed0-334cc4f0e203" SourceId="1" SourceUrl="http://195.101.61.161:8080/ctinfo/Rnc2?xsd=3" />
+    <MetadataFile FileName="Rnc21.xsd" MetadataType="Schema" ID="1193c580-257b-4eff-9ef4-b663a821f170" SourceId="1" SourceUrl="http://195.101.61.161:8080/ctinfo/Rnc2?xsd=1" />
+    <MetadataFile FileName="Rnc2.wsdl" MetadataType="Wsdl" ID="b43e0386-39da-42ca-b7c9-d576593dba26" SourceId="1" SourceUrl="http://195.101.61.161:8080/ctinfo/Rnc2?wsdl" />
+    <MetadataFile FileName="Rnc21.wsdl" MetadataType="Wsdl" ID="b936f502-6ecc-48e6-a0fe-4064c6be35cc" SourceId="1" SourceUrl="http://195.101.61.161:8080/ctinfo/Rnc2?wsdl=1" />
+    <MetadataFile FileName="Rnc22.xsd" MetadataType="Schema" ID="71485dff-9973-430d-83d8-5b817e5ecd5e" SourceId="1" SourceUrl="http://195.101.61.161:8080/ctinfo/Rnc2?xsd=2" />
+  </Metadata>
+  <Extensions>
+    <ExtensionFile FileName="configuration91.svcinfo" Name="configuration91.svcinfo" />
+    <ExtensionFile FileName="configuration.svcinfo" Name="configuration.svcinfo" />
+  </Extensions>
+</ReferenceGroup>

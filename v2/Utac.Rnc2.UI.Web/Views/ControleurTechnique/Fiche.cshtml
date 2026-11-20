@@ -1,0 +1,683 @@
+﻿@model Utac.Rnc2.BusinessObjects.pContoleurEncour
+@using Utac.Rnc2.MVC.Extensions
+@using Utac.Rnc2.BusinessObjects
+@using Utac.Rnc2.UI.Web.Helpers
+
+@section TitleContent {
+    Fiche @(Model.EstPrestataire ? "prestataire" : "contrôleur") @Model.Nom @Model.Prenom
+}
+@section SousTitrePage {
+    Fiche @(Model.EstPrestataire ? "prestataire" : "contrôleur") @Model.Nom @Model.Prenom
+}
+<div class="bloc_main row no-gutters mx-2 mx-md-0">
+    <!-- BLOC PRINCIPAL -->
+    <div class="bloc_principal col-12 row no-gutters">
+        <fieldset class="col-12 row no-gutters text-primary">
+            <h1 class="panel my-2 col-12">Identité</h1>
+            <div class="col-12 col-md-6">
+                <span>Nom:</span>
+                <span class="font-weight-bold">@Model.Nom</span>
+            </div>
+            <div class="col-12 col-md-6">
+                <span>Prénom:</span>
+                <span class="font-weight-bold">@Model.Prenom</span>
+            </div>
+            <div class="col-12 col-md-6">
+                <span>Date de naissance:</span>
+                <span class="font-weight-bold">@String.Format("{0:d}", Model.DateNaissance)</span>
+            </div>
+            <div class="col-12 col-md-6">
+                <span>Type d'agrément:</span>
+                <span class="font-weight-bold">@(Model.EstPrestataire ? "Prestataire" : "Contrôleur")</span>
+            </div>
+            <div class="col-12">
+                <span>Dernière modification fiche :</span>
+                <span class="font-weight-bold">@String.Format("{0:g}", Model.DateMiseaJour)-@Model.RTypeDemandeControleur.Libelle</span>
+            </div>
+            <!-- AGREMENT VL -->
+            <h1 class="panel my-2 col-12">Agrément VL : @Model.CodAgremVl @Model.EtatAgrementVlAsLibelle</h1>
+            <div class="col-12 col-md-6">
+                <span>Date d'effet notification d'agrément:</span>
+                <span class="font-weight-bold">@String.Format("{0:d}", Model.DateEffetNotificationVl)</span>
+            </div>
+            <div class="col-12 col-md-6">
+                <span>Date fin agrément:</span>
+                <span class="font-weight-bold">@String.Format("{0:d}", Model.DateFinAgrementVl)</span>
+            </div>
+            <div class="col-12 col-md-6 offset-md-6">
+                <span>Motif de fin d'agrément:</span>
+                <span class="font-weight-bold">@Model.MotifFinAgrementVlAsLibelle</span>
+            </div>
+            <div class="col-12 col-md-6">
+                <span>N° agrément centre VL de rattachement:</span> <span class="font-weight-bold">
+                    @if (Model.CodAgremRattachementVl != null && Model.PCentreEncourVL != null)
+                    {
+                        if (!Model.PCentreEncourVL.AccesPublicVl && Model.PCentreEncourVL.EstAgrementValideVL && (User.IsInRole(rUtilisateur.Profil.CENTRE_INDEPENDANT.ToString()) || User.IsInRole(rUtilisateur.Profil.RESEAU.ToString())))
+                        {
+                            @("En attente d'accusé réception")
+                        }
+                        else
+                        {
+                            @Model.CodAgremRattachementVl
+                        }
+                    }
+                </span>
+            </div>
+            <div class="col-12 col-md-6">
+                <span class="font-weight-bold">
+                    @if (Model.CodAgremRattachementVl != null && Model.PCentreEncourVL != null)
+                    {
+                        if (!(!Model.PCentreEncourVL.AccesPublicVl && Model.PCentreEncourVL.EstAgrementValideVL && (User.IsInRole(rUtilisateur.Profil.CENTRE_INDEPENDANT.ToString()) || User.IsInRole(rUtilisateur.Profil.RESEAU.ToString()))))
+                        {
+                            @Html.ActionLink("Centre de rattachement(" + Model.CodAgremRattachementVl + ")", "Fiche", "Centre", new { id = Model.PCentreEncourVL.Id }, null)
+                        }
+                    }
+                </span>
+            </div>
+            <div class="col-12 col-md-6">
+                <span>Date début rattachement:</span>
+                <span class="font-weight-bold">@String.Format("{0:d}", Model.DateDebutRattachementVl)</span>
+            </div>
+            <div class="col-12 col-md-6">
+                <span>Date fin rattachement:</span>
+                <span class="font-weight-bold">@String.Format("{0:d}", Model.DateFinRattachementVl)</span>
+            </div>
+            <div class="col-12 col-md-6">
+                <span>Habilitation GAZ VL:</span>
+                @if (!Model.EstAgrementVLNonOK)
+                {
+                    <span class="font-weight-bold">@Model.HabilitationGazVLAsString</span>
+                }
+            </div>
+            <div class="col-12 col-md-6">
+                <span>Depuis le : </span>
+                <span class="font-weight-bold">@String.Format("{0:d}", Model.DateDebutFinHabilitationGazVL)</span>
+            </div>
+            <div class="col-12 col-md-6">
+                <span>Extension agrément CL:</span>
+                <span class="font-weight-bold">@Model.ExtAgremClStatutVLAsString</span>
+                <span>(<i>Déclarée le:</i></span>
+                <span><i>@Model.ExtAgremClDateDeclaVLAsDate</i>)</span>
+            </div>
+            <div class="col-12 col-md-6">
+                <span>Validée à compter du:</span>
+                <span class="font-weight-bold">@String.Format("{0:d}", @Model.ExtAgremClDateValidVLAsDate)</span>
+            </div>
+            @if (!String.IsNullOrEmpty(@Model.CommentaireAvisOtcVl) && (!User.IsInRole(rUtilisateur.Profil.RESEAU.ToString()) && !User.IsInRole(rUtilisateur.Profil.CENTRE_INDEPENDANT.ToString())))
+            {
+                <div class="col-12">
+                    <span>Commentaires:</span>
+                    <span class="font-weight-bold">@Model.CommentaireAvisOtcVl</span>
+                </div>
+            }
+            <!-- AGREMENT CL -->
+            <h1 class="panel my-2 col-12">Agrément CL : @Model.CodAgremCl @Model.EtatAgrementClAsLibelle</h1>
+            <div class="col-12 col-md-6">
+                <span>Date d'effet notification d'agrément:</span>
+                <span class="font-weight-bold">@String.Format("{0:d}", Model.DateEffetNotificationCl)</span>
+            </div>
+            <div class="col-12 col-md-6">
+                <span>Date fin agrément:</span>
+                <span class="font-weight-bold">@String.Format("{0:d}", Model.DateFinAgrementCl)</span>
+            </div>
+            <div class="col-12 col-md-6 offset-md-6">
+                <span>Motif de fin d'agrément:</span>
+                <span class="font-weight-bold">@Model.MotifFinAgrementClAsLibelle</span>
+            </div>
+            <div class="col-12 col-md-6">
+                <span>N° agrément centre CL de rattachement:</span> <span class="font-weight-bold">
+                    @if (Model.CodAgremRattachementCl != null && Model.PCentreEncourCL != null)
+                    {
+                        if (!Model.PCentreEncourCL.AccesPublicCl && Model.PCentreEncourCL.EstAgrementValideCL && (User.IsInRole(rUtilisateur.Profil.CENTRE_INDEPENDANT.ToString()) || User.IsInRole(rUtilisateur.Profil.RESEAU.ToString())))
+                        {
+                            @("En attente d'accusé réception")
+                        }
+                        else
+                        {
+                            @Model.CodAgremRattachementCl
+                        }
+                    }
+                </span>
+            </div>
+            <div class="col-12 col-md-6">
+                <span class="font-weight-bold">
+                    @if (Model.CodAgremRattachementCl != null && Model.PCentreEncourCL != null)
+                    {
+                        if (!(!Model.PCentreEncourCL.AccesPublicCl && Model.PCentreEncourCL.EstAgrementValideCL && (User.IsInRole(rUtilisateur.Profil.CENTRE_INDEPENDANT.ToString()) || User.IsInRole(rUtilisateur.Profil.RESEAU.ToString()))))
+                        {
+                            @Html.ActionLink("Centre de rattachement(" + Model.CodAgremRattachementCl + ")", "Fiche", "Centre", new { id = Model.PCentreEncourCL.Id }, null)
+                        }
+                    }
+                </span>
+            </div>
+            <div class="col-12 col-md-6">
+                <span>Date début rattachement:</span>
+                <span class="font-weight-bold">@String.Format("{0:d}", Model.DateDebutRattachementCl)</span>
+            </div>
+            <div class="col-12 col-md-6">
+                <span>Date fin rattachement:</span>
+                <span class="font-weight-bold">@String.Format("{0:d}", Model.DateFinRattachementCl)</span>
+            </div>
+            @if (!String.IsNullOrEmpty(@Model.CommentaireAvisOtcCl) && (!User.IsInRole(rUtilisateur.Profil.RESEAU.ToString()) && !User.IsInRole(rUtilisateur.Profil.CENTRE_INDEPENDANT.ToString())))
+            {
+                <div class="col-12">
+                    <span>Commentaires:</span>
+                    <span class="font-weight-bold">@Model.CommentaireAvisOtcCl</span>
+                </div>
+            }
+            <!-- AGREMENT PL -->
+            <h1 class="panel my-2 col-12">Agrément PL : @Model.CodAgremPl @Model.EtatAgrementPlAsLibelle</h1>
+            <div class="col-12 col-md-6">
+                <span>Date d'effet notification d'agrément:</span>
+                <span class="font-weight-bold">@String.Format("{0:d}", Model.DateEffetNotificationPl)</span>
+            </div>
+            <div class="col-12 col-md-6">
+                <span>Date fin agrément:</span>
+                <span class="font-weight-bold">@String.Format("{0:d}", Model.DateFinAgrementPl)</span>
+            </div>
+            <div class="col-12 col-md-6 offset-md-6">
+                <span>Motif de fin d'agrément:</span>
+                <span class="font-weight-bold">@Model.MotifFinAgrementPlAsLibelle</span>
+            </div>
+            <div class="col-12 col-md-6">
+                <span>N° agrément centre PL de rattachement:</span>
+                <span class="font-weight-bold">
+                    @if (Model.CodAgremRattachementPl != null && Model.PCentreEncourPL != null)
+                    {
+                        if (!Model.PCentreEncourPL.AccesPublicPl && Model.PCentreEncourPL.EstAgrementValidePL && (User.IsInRole(rUtilisateur.Profil.CENTRE_INDEPENDANT.ToString()) || User.IsInRole(rUtilisateur.Profil.RESEAU.ToString())))
+                        {
+                            @("En attente d'accusé réception")
+                        }
+                        else
+                        {
+                            @Model.CodAgremRattachementPl
+                        }
+                    }
+                </span>
+            </div>
+            <div class="col-12 col-md-6">
+                <span class="font-weight-bold">
+                    @if (Model.CodAgremRattachementPl != null && Model.PCentreEncourPL != null)
+                    {
+                        if (!(!Model.PCentreEncourPL.AccesPublicPl && Model.PCentreEncourPL.EstAgrementValidePL && (User.IsInRole(rUtilisateur.Profil.CENTRE_INDEPENDANT.ToString()) || User.IsInRole(rUtilisateur.Profil.RESEAU.ToString()))))
+                        {
+                            @Html.ActionLink("Centre de rattachement(" + Model.CodAgremRattachementPl + ")", "Fiche", "Centre", new { id = Model.PCentreEncourPL.Id }, null)
+                        }
+                    }
+                </span>
+            </div>
+            <div class="col-12 col-md-6">
+                <span>Date début rattachement:</span>
+                <span class="font-weight-bold">@String.Format("{0:d}", Model.DateDebutRattachementPl)</span>
+            </div>
+            <div class="col-12 col-md-6">
+                <span>Date fin rattachement:</span>
+                <span class="font-weight-bold">@String.Format("{0:d}", Model.DateFinRattachementPl)</span>
+            </div>
+            <div class="col-12 @(Model.RHabilitation != null ? "col-md-6":"")">
+                <span>Habilitation PL:</span>
+                @if (Model.RHabilitation != null)
+                {
+                    <span class="font-weight-bold">@Model.RHabilitation.LibelleAvecCode</span>
+                }
+                else
+                {
+                    if (!Model.EstAgrementPLNonOK)
+                    {
+                        <span class="font-weight-bold">Non renseigné</span>
+                    }
+                }
+            </div>
+            <div class="col-12 col-md-6 @(Model.RHabilitation != null ? "":"d-none")">
+                <span>Date début habilitation:</span>
+                <span class="font-weight-bold">@String.Format("{0:d}", Model.DateDebutHabilitationPl)</span>
+            </div>
+            <div class="col-12 col-md-6">
+                <span>Extension agrément CL:</span>
+                <span class="font-weight-bold">@Model.ExtAgremClStatutPLAsString</span>
+                <span>(<i>Déclarée le:</i></span>
+                <span><i>@Model.ExtAgremClDateDeclaPLAsDate</i>)</span>
+            </div>
+            <div class="col-12 col-md-6">
+                <span>Validée à compter du:</span>
+                <span class="font-weight-bold">@String.Format("{0:d}", @Model.ExtAgremClDateValidPLAsDate)</span>
+            </div>
+            @if (!String.IsNullOrEmpty(@Model.CommentaireAvisOtcVl) && (!User.IsInRole(rUtilisateur.Profil.RESEAU.ToString()) && !User.IsInRole(rUtilisateur.Profil.CENTRE_INDEPENDANT.ToString())))
+            {
+                <div class="col-12">
+                    <span>Commentaires:</span>
+                    <span class="font-weight-bold">@Model.CommentaireAvisOtcPl</span>
+                </div>
+            }
+        </fieldset>
+    </div>
+    <!-- FIN BLOC PRINCIPAL -->
+</div>
+@section SideBarDroite {
+    <div class="sidebar-box inline-block row no-gutters">
+        <ul class="sections col-11">
+            @if (GestionDroitsExecution.isRightActionForControleur(User, Model, GestionDroitsExecution.ActionsFicheControleur.TELECHARGE_FICHE_CONTROLEUR) || GestionDroitsExecution.isRightActionForControleur(User, Model, GestionDroitsExecution.ActionsFicheControleur.TELECHARGE_FICHE_QUALIFICATION_CONTROLEUR) || GestionDroitsExecution.isRightActionForControleur(User, Model, GestionDroitsExecution.ActionsFicheControleur.TELECHARGE_FICHE_QUALIFICATION_CONTROLEUR_VL))
+            {
+                <li class="section w-100 row no-gutters">
+                    <h3 class="col-12 py-1">Editions</h3>
+                    <div class="content-sidebar border-top-0 py-3 px-2 col-12">
+                        <ul>
+                            @if (GestionDroitsExecution.isRightActionForControleur(User, Model, GestionDroitsExecution.ActionsFicheControleur.TELECHARGE_FICHE_CONTROLEUR))
+                            {
+                                <li>@Html.SecuredActionLink("Fiche", "TelechargeFichePDF", new { id = Model.Id })</li>
+                            }
+                            @if (GestionDroitsExecution.isRightActionForControleur(User, Model, GestionDroitsExecution.ActionsFicheControleur.TELECHARGE_FICHE_QUALIFICATION_CONTROLEUR))
+                            {
+                                <li>@Html.SecuredActionLink("Fiche suivi qualification PL", "TelechargeFicheQualificationPLPDF", new { id = Model.Id })</li>
+                            }
+                            @if (GestionDroitsExecution.isRightActionForControleur(User, Model, GestionDroitsExecution.ActionsFicheControleur.TELECHARGE_FICHE_QUALIFICATION_CONTROLEUR_VL))
+                            {
+                                <li>@Html.SecuredActionLink("Fiche suivi qualification VL", "TelechargeFicheQualificationVLPDF", new { id = Model.Id })</li>
+                            }
+                        </ul>
+                    </div>
+                    <span class="clear col-12">&nbsp;</span>
+                </li>
+                <li class="section w-100 row no-gutters">
+                    <h3 class="col-12 py-1">Modification</h3>
+                    <div class="content-sidebar border-top-0 py-3 px-2 col-12">
+                        <ul>
+                            @if (GestionDroitsExecution.isRightActionForControleur(User, Model, GestionDroitsExecution.ActionsFicheControleur.MODCO))
+                            {
+                                <li>@Html.SecuredActionLink("Etat civil", "ModificationEtatCivil", new { id = Model.Id })</li>
+                            }
+                            @if (GestionDroitsExecution.isRightActionForControleur(User, Model, GestionDroitsExecution.ActionsFicheControleur.RETOUR))
+                            {
+                                <li>@Html.SecuredActionLink("Retour arrière", "ConfirmationModificationRetourArriere", new { id = Model.Id })</li>
+                            }
+                        </ul>
+                    </div>
+                    <span class="clear col-12">&nbsp;</span>
+                </li>
+            }
+            <!-- AGREMENT VL -->
+            <li class="section w-100 row no-gutters">
+                <h3 class="col-12 py-1">Agrément VL</h3>
+                <div class="content-sidebar border-top-0 py-3 px-2 col-12">
+                    <ul class="w-100">
+                        @{ switch (Convert.ToInt16(Model.EtatAgrementVl))
+                            {
+                                case (int)pContoleurEncour.CodeEtatAgrementVl.AGREMENT_KO:
+                                    if (GestionDroitsExecution.isRightActionForControleur(User, Model, GestionDroitsExecution.ActionsFicheControleur.DEAVL))
+                                    {
+                                        <li>@Html.SecuredActionLink("Demande d'agrément", "DemandeAgrement", new { id = Model.Id, categorieVehicule = rCategorieVehicule.CategorieEnum.VL })</li>
+                                    }
+                                    if (Model.DateFinAgrementVl != null)
+                                    {
+                                        if (GestionDroitsExecution.isRightActionForControleur(User, Model, GestionDroitsExecution.ActionsFicheControleur.TELECHARGE_NOTIFVL_PDF))
+                                        {
+                                            <li>@Html.SecuredActionLink("Télécharger la notification PDF", "TelechargerNotificationPDF", new { id = Model.Id, categorieVehicule = rCategorieVehicule.CategorieEnum.VL })</li>
+                                        }
+                                    }
+                                    break;
+                                case (int)pContoleurEncour.CodeEtatAgrementVl.AGREMENT_OK:
+                                    //PLE le 23/01 Prise en compte agrément catégorie L
+                                    if (GestionDroitsExecution.isRightActionForControleur(User, Model, GestionDroitsExecution.ActionsFicheControleur.EXTDECLA_VL))
+                                    {
+                                        <li>@Html.SecuredActionLink("Déclarer extension agrément Cat.L", "DeclarerExtensionAgrementCatL", new { id = Model.Id, categorie = rCategorieVehicule.CategorieEnum.VL })</li>
+                                    }
+                                    //PLE le 23/01 Prise en compte agrément catégorie L
+                                    if (GestionDroitsExecution.isRightActionForControleur(this.User, Model, GestionDroitsExecution.ActionsFicheControleur.EXTRETRA_VL))
+                                    {
+                                        <li>@Html.SecuredActionLink("Retirer extension agrément Cat.L", "RetirerExtensionAgrementCatL", new { id = Model.Id, categorie = rCategorieVehicule.CategorieEnum.VL })</li>
+                                    }
+                                    if (GestionDroitsExecution.isRightActionForControleur(User, Model, GestionDroitsExecution.ActionsFicheControleur.CHCEVL))
+                                    {
+                                        <li>@Html.SecuredActionLink("Nouveau centre de rattachement", "NouveauCentreRattachement", new { id = Model.Id, categorieVehicule = rCategorieVehicule.CategorieEnum.VL })</li>
+                                    }
+                                    if (GestionDroitsExecution.isRightActionForControleur(User, Model, GestionDroitsExecution.ActionsFicheControleur.ANUVL))
+                                    {
+                                        <li>@Html.SecuredActionLink("Annuler l'agrément", "AnnulerAgrement", new { id = Model.Id, categorieVehicule = rCategorieVehicule.CategorieEnum.VL })</li>
+                                    }
+                                    if (GestionDroitsExecution.isRightActionForControleur(User, Model, GestionDroitsExecution.ActionsFicheControleur.TELECHARGE_NOTIFVL_PDF))
+                                    {
+                                        <li>@Html.SecuredActionLink("Télécharger la notification PDF", "TelechargerNotificationPDF", new { id = Model.Id, categorieVehicule = rCategorieVehicule.CategorieEnum.VL })</li>
+                                    }
+                                    if (GestionDroitsExecution.isRightActionForControleur(User, Model, GestionDroitsExecution.ActionsFicheControleur.HABILGAZ))
+                                    {
+                                        <li>@Html.SecuredActionLink("Déclarer/Retirer habilitation GAZ", "DeclarerHabilitationGaz", new { id = Model.Id, categorie = rCategorieVehicule.CategorieEnum.VL })</li>
+                                    }
+                                    if (GestionDroitsExecution.isRightActionForControleur(User, Model, GestionDroitsExecution.ActionsFicheControleur.AUDITVL))
+                                    {
+                                        <li>@Html.SecuredActionLink("Ajout audit", "AjouterAuditVL", new { id = Model.Id })</li>
+                                    }
+                                    if (GestionDroitsExecution.isRightActionForControleur(User, Model, GestionDroitsExecution.ActionsFicheControleur.FORMAVL))
+                                    {
+                                        <li>@Html.SecuredActionLink("Ajout formation", "AjouterFormationVL", new { id = Model.Id })</li>
+                                    }
+                                    break;
+                                case (int)pContoleurEncour.CodeEtatAgrementVl.AGREMENT_DEMANDE_EN_COURS:
+                                    if (GestionDroitsExecution.isRightActionForControleur(User, Model, GestionDroitsExecution.ActionsFicheControleur.REJVL))
+                                    {
+                                        <li>@Html.SecuredActionLink("Rejet de la demande", "RejetAgrement", new { id = Model.Id, categorieVehicule = rCategorieVehicule.CategorieEnum.VL })</li>
+                                    }
+                                    if (GestionDroitsExecution.isRightActionForControleur(User, Model, GestionDroitsExecution.ActionsFicheControleur.NOTVL))
+                                    {
+                                        <li>@Html.SecuredActionLink("Notification d'agrément", "NotifierAgrement", new { id = Model.Id, categorieVehicule = rCategorieVehicule.CategorieEnum.VL })</li>
+                                    }
+                                    break;
+                                case (int)pContoleurEncour.CodeEtatAgrementVl.AGREMENT_REJETE:
+                                    if (GestionDroitsExecution.isRightActionForControleur(User, Model, GestionDroitsExecution.ActionsFicheControleur.DEAVL))
+                                    {
+                                        <li>@Html.SecuredActionLink("Demande d'agrément", "DemandeAgrement", new { id = Model.Id, categorieVehicule = rCategorieVehicule.CategorieEnum.VL })</li>
+                                    }
+                                    break;
+                            } }
+                    </ul>
+                </div>
+                <span class="clear col-12">&nbsp;</span>
+            </li>
+            <!-- FIN AGREMENT VL -->
+            <!-- AGREMENT CL -->
+            <li class="section w-100 row no-gutters">
+                <h3 class="col-12 py-1">Agrément CL</h3>
+                <div class="content-sidebar border-top-0 py-3 px-2 col-12">
+                    <ul class="w-100">
+                        @{ switch (Convert.ToInt16(Model.EtatAgrementCl))
+                            {
+                                case (int)pContoleurEncour.CodeEtatAgrementCl.AGREMENT_KO:
+                                    if (GestionDroitsExecution.isRightActionForControleur(User, Model, GestionDroitsExecution.ActionsFicheControleur.DEACL))
+                                    {
+                                        <li>@Html.SecuredActionLink("Demande d'agrément", "DemandeAgrement", new { id = Model.Id, categorieVehicule = rCategorieVehicule.CategorieEnum.CL })</li>
+                                    }
+                                    if (Model.DateFinAgrementCl != null)
+                                    {
+                                        if (GestionDroitsExecution.isRightActionForControleur(User, Model, GestionDroitsExecution.ActionsFicheControleur.TELECHARGE_NOTIFCL_PDF))
+                                        {
+                                            <li>@Html.SecuredActionLink("Télécharger la notification PDF", "TelechargerNotificationPDF", new { id = Model.Id, categorieVehicule = rCategorieVehicule.CategorieEnum.CL })</li>
+                                        }
+                                    }
+                                    break;
+                                case (int)pContoleurEncour.CodeEtatAgrementCl.AGREMENT_OK:
+
+                                    if (GestionDroitsExecution.isRightActionForControleur(User, Model, GestionDroitsExecution.ActionsFicheControleur.CHCECL))
+                                    {
+                                        <li>@Html.SecuredActionLink("Nouveau centre de rattachement", "NouveauCentreRattachement", new { id = Model.Id, categorieVehicule = rCategorieVehicule.CategorieEnum.CL })</li>
+                                    }
+                                    if (GestionDroitsExecution.isRightActionForControleur(User, Model, GestionDroitsExecution.ActionsFicheControleur.ANUCL))
+                                    {
+                                        <li>@Html.SecuredActionLink("Annuler l'agrément", "AnnulerAgrement", new { id = Model.Id, categorieVehicule = rCategorieVehicule.CategorieEnum.CL })</li>
+                                    }
+                                    if (GestionDroitsExecution.isRightActionForControleur(User, Model, GestionDroitsExecution.ActionsFicheControleur.TELECHARGE_NOTIFCL_PDF))
+                                    {
+                                        <li>@Html.SecuredActionLink("Télécharger la notification PDF", "TelechargerNotificationPDF", new { id = Model.Id, categorieVehicule = rCategorieVehicule.CategorieEnum.CL })</li>
+                                    }
+                                    if (GestionDroitsExecution.isRightActionForControleur(User, Model, GestionDroitsExecution.ActionsFicheControleur.AUDITCL))
+                                    {
+                                        <li>@Html.SecuredActionLink("Ajout audit", "AjouterAuditCL", new { id = Model.Id })</li>
+                                    }
+                                    if (GestionDroitsExecution.isRightActionForControleur(User, Model, GestionDroitsExecution.ActionsFicheControleur.FORMACL))
+                                    {
+                                        <li>@Html.SecuredActionLink("Ajout formation", "AjouterFormationCL", new { id = Model.Id })</li>
+                                    }
+                                    break;
+                                case (int)pContoleurEncour.CodeEtatAgrementCl.AGREMENT_DEMANDE_EN_COURS:
+                                    if (GestionDroitsExecution.isRightActionForControleur(User, Model, GestionDroitsExecution.ActionsFicheControleur.REJCL))
+                                    {
+                                        <li>@Html.SecuredActionLink("Rejet de la demande", "RejetAgrement", new { id = Model.Id, categorieVehicule = rCategorieVehicule.CategorieEnum.CL })</li>
+                                    }
+                                    if (GestionDroitsExecution.isRightActionForControleur(User, Model, GestionDroitsExecution.ActionsFicheControleur.NOTCL))
+                                    {
+                                        <li>@Html.SecuredActionLink("Notification d'agrément", "NotifierAgrement", new { id = Model.Id, categorieVehicule = rCategorieVehicule.CategorieEnum.CL })</li>
+                                    }
+                                    break;
+                                case (int)pContoleurEncour.CodeEtatAgrementCl.AGREMENT_REJETE:
+                                    if (GestionDroitsExecution.isRightActionForControleur(User, Model, GestionDroitsExecution.ActionsFicheControleur.DEACL))
+                                    {
+                                        <li>@Html.SecuredActionLink("Demande d'agrément", "DemandeAgrement", new { id = Model.Id, categorieVehicule = rCategorieVehicule.CategorieEnum.CL })</li>
+                                    }
+                                    break;
+                            } }
+                    </ul>
+                </div>
+                <span class="clear col-12">&nbsp;</span>
+            </li>
+            <!-- FIN AGREMENT CL -->
+            <li class="section w-100 row no-gutters">
+                <h3 class="col-12 py-1">Agrément PL</h3>
+                <div class="content-sidebar border-top-0 py-3 px-2 col-12">
+                    <ul class="w-100">
+                        @switch (Convert.ToInt16(Model.EtatAgrementPl))
+                        {
+                            case (int)pContoleurEncour.CodeEtatAgrementPl.AGREMENT_KO:
+                                if (GestionDroitsExecution.isRightActionForControleur(User, Model, GestionDroitsExecution.ActionsFicheControleur.DEAPL))
+                                {
+                                    <li>@Html.SecuredActionLink("Demande d'agrément", "DemandeAgrement", new { id = Model.Id, categorieVehicule = rCategorieVehicule.CategorieEnum.PL })</li>
+                                }
+                                if (Model.DateFinAgrementPl != null)
+                                {
+                                    if (GestionDroitsExecution.isRightActionForControleur(User, Model, GestionDroitsExecution.ActionsFicheControleur.DEAPL))
+                                    {
+                                        <li>@Html.SecuredActionLink("Télécharger la notification PDF", "TelechargerNotificationPDF", new { id = Model.Id, categorieVehicule = rCategorieVehicule.CategorieEnum.PL })</li>
+                                    }
+                                }
+                                break;
+                            case (int)pContoleurEncour.CodeEtatAgrementPl.AGREMENT_OK:
+                                //PLE le 23/01 Prise en compte agrément catégorie L
+                                if (GestionDroitsExecution.isRightActionForControleur(User, Model, GestionDroitsExecution.ActionsFicheControleur.EXTDECLA_PL))
+                                {
+                                    <li>@Html.SecuredActionLink("Déclarer extension agrément Cat.L", "DeclarerExtensionAgrementCatL", new { id = Model.Id, categorie = rCategorieVehicule.CategorieEnum.PL })</li>
+                                }
+                                //PLE le 23/01 Prise en compte agrément catégorie L
+                                if (GestionDroitsExecution.isRightActionForControleur(this.User, Model, GestionDroitsExecution.ActionsFicheControleur.EXTRETRA_PL))
+                                {
+                                    <li>@Html.SecuredActionLink("Retirer extension agrément Cat.L", "RetirerExtensionAgrementCatL", new { id = Model.Id, categorie = rCategorieVehicule.CategorieEnum.PL })</li>
+                                }
+                                if (GestionDroitsExecution.isRightActionForControleur(User, Model, GestionDroitsExecution.ActionsFicheControleur.CHCEPL))
+                                {
+                                    <li>@Html.SecuredActionLink("Nouveau centre de rattachement", "NouveauCentreRattachement", new { id = Model.Id, categorieVehicule = rCategorieVehicule.CategorieEnum.PL })</li>
+                                }
+                                if (GestionDroitsExecution.isRightActionForControleur(User, Model, GestionDroitsExecution.ActionsFicheControleur.ANUPL))
+                                {
+                                    <li>@Html.SecuredActionLink("Annuler l'agrément", "AnnulerAgrement", new { id = Model.Id, categorieVehicule = rCategorieVehicule.CategorieEnum.PL })</li>
+                                }
+                                if (GestionDroitsExecution.isRightActionForControleur(User, Model, GestionDroitsExecution.ActionsFicheControleur.TELECHARGE_NOTIFPL_PDF))
+                                {
+                                    <li>@Html.SecuredActionLink("Télécharger la notification PDF", "TelechargerNotificationPDF", new { id = Model.Id, categorieVehicule = rCategorieVehicule.CategorieEnum.PL })</li>
+                                }
+                                if (GestionDroitsExecution.isRightActionForControleur(User, Model, GestionDroitsExecution.ActionsFicheControleur.HABIL))
+                                {
+                                    <li>@Html.SecuredActionLink("Renseigner habilitation", "DeclarerHabilitationPL", new { id = Model.Id })</li>
+                                }
+                                if (GestionDroitsExecution.isRightActionForControleur(User, Model, GestionDroitsExecution.ActionsFicheControleur.AUDITPL))
+                                {
+                                    <li>@Html.SecuredActionLink("Ajout audit", "AjouterAuditPL", new { id = Model.Id })</li>
+                                }
+                                if (GestionDroitsExecution.isRightActionForControleur(User, Model, GestionDroitsExecution.ActionsFicheControleur.FORMAPL))
+                                {
+                                    <li>@Html.SecuredActionLink("Ajout formation", "AjouterFormationPL", new { id = Model.Id })</li>
+                                }
+                                break;
+                            case (int)pContoleurEncour.CodeEtatAgrementPl.AGREMENT_DEMANDE_EN_COURS:
+                                if (GestionDroitsExecution.isRightActionForControleur(User, Model, GestionDroitsExecution.ActionsFicheControleur.REJPL))
+                                {
+                                    <li>@Html.SecuredActionLink("Rejet de la demande", "RejetAgrement", new { id = Model.Id, categorieVehicule = rCategorieVehicule.CategorieEnum.PL })</li>
+                                }
+                                if (GestionDroitsExecution.isRightActionForControleur(User, Model, GestionDroitsExecution.ActionsFicheControleur.NOTPL))
+                                {
+                                    <li>@Html.SecuredActionLink("Notification d'agrément", "NotifierAgrement", new { id = Model.Id, categorieVehicule = rCategorieVehicule.CategorieEnum.PL })</li>
+                                }
+                                break;
+                            case (int)pContoleurEncour.CodeEtatAgrementPl.AGREMENT_REJETE:
+                                if (GestionDroitsExecution.isRightActionForControleur(User, Model, GestionDroitsExecution.ActionsFicheControleur.DEAPL))
+                                {
+                                    <li>@Html.SecuredActionLink("Demande d'agrément", "DemandeAgrement", new { id = Model.Id, categorieVehicule = rCategorieVehicule.CategorieEnum.PL })</li>
+                                }
+                                break;
+                        }
+                    </ul>
+                </div>
+                <span class="clear col-12">&nbsp;</span>
+            </li>
+            @if (User.IsInRole(rUtilisateur.Profil.OTC_Administration.ToString()) || User.IsInRole(rUtilisateur.Profil.PREFECTURE.ToString()) || User.IsInRole(rUtilisateur.Profil.DRIRE.ToString()))
+            {
+                if (Model.AunAgrementValide)
+                {
+                    <li class="section w-100 row no-gutters">
+                        <h3 class="col-12 py-1">Sanctions et Contraventions</h3>
+                        <div class="content-sidebar border-top-0 py-3 px-2 col-12">
+                            <ul class="w-100">
+                                @if (GestionDroitsExecution.isRightActionForControleur(User, Model, GestionDroitsExecution.ActionsFicheControleur.SANCT))
+                                {
+                                    <li>@Html.SecuredActionLink("Ajouter une sanction", "AjouterSanction", new { id = Model.Id })</li>
+                                }
+                                @if (GestionDroitsExecution.isRightActionForControleur(User, Model, GestionDroitsExecution.ActionsFicheControleur.AMEND))
+                                {
+                                    <li>@Html.SecuredActionLink("Ajouter une contravention", "AjouterAmende", new { id = Model.Id })</li>
+                                }
+                            </ul>
+                        </div>
+                        <span class="clear col-12">&nbsp;</span>
+                    </li>
+                }
+            }
+            <!-- ADMINISTRATION OTC -->
+            @if (User.IsInRole(rUtilisateur.Profil.OTC_Administration.ToString()))
+            {
+                <li class="section w-100 row no-gutters">
+                    <h3 class="col-12 py-1">Administration OTC</h3>
+                    <div class="content-sidebar border-top-0 py-3 px-2 col-12">
+                        <ul class="w-100">
+                            <li>@Html.SecuredActionLink("Modifier fiche", "ModifierFiche", new { id = Model.Id })</li>
+                            <li>@Html.SecuredActionLink("Supprimer fiche", "ConfirmationDeleteFiche", new { id = Model.Id })</li>
+                            <li>@Html.SecuredActionLink("Annuler modification", "ConfirmationAnnulerModification", new { id = Model.Id })</li>
+                            <li>@Html.SecuredActionLink("Auteur modification", "AuteurModification", new { id = Model.Id })</li>
+                        </ul>
+                    </div>
+                    <span class="clear col-12">&nbsp;</span>
+                </li>
+            }
+            <!-- FIN ADMINISTRATION OTC -->
+            <!-- ACCEDER A -->
+            <li class="section w-100 row no-gutters">
+                <h3 class="col-12 py-1">Accéder à</h3>
+                <div class="content-sidebar border-top-0 py-3 px-2 col-12">
+                    <ul class="w-100">
+                        @if (GestionDroitsExecution.isRightActionForControleur(User, Model, GestionDroitsExecution.ActionsFicheControleur.VOIR_SANCT))
+                        {
+                            <li>
+                                <!-- Sanctions -->
+                                @if (Model.PSanctionControleurs.Count > 0)
+                                {<a href="@Url.Action("ListeSanctions",new {id=Model.Id})">Sanctions (<span class="orange">@Model.PSanctionControleurs.Count</span>)</a>
+                            }
+                            else
+                            {
+                                @("Sanctions(0)")
+                            }
+                            </li>
+                        }
+                        @if (GestionDroitsExecution.isRightActionForControleur(User, Model, GestionDroitsExecution.ActionsFicheControleur.VOIR_AMEND))
+                        {
+                            <li>
+                                <!-- Amendes -->
+                                @if (Model.PAmendeControleurs.Count > 0)
+                                {<a href="@Url.Action("ListeAmendes",new {id=Model.Id})">Contraventions (<span class="orange">@Model.PAmendeControleurs.Count</span>)</a>
+                            }
+                            else
+                            {
+                                @("Contravention(0)")
+                            }
+                            </li>
+                        }
+
+                        @if (GestionDroitsExecution.isRightActionForControleur(User, Model, GestionDroitsExecution.ActionsFicheControleur.VOIR_AUDITVL))
+                        {
+                            <li>
+                                @if (Model.PAuditControleurVLs.Count > 0)
+                                {<a href="@Url.Action("ListeAuditsVL",new {id=Model.Id})">Audits VL (<span class="orange">@Model.PAuditControleurVLs.Count</span>)</a>
+                            }
+                            else
+                            {
+                                @("Audits VL(0)")
+                            }
+                            </li>
+                        }
+                        @if (GestionDroitsExecution.isRightActionForControleur(User, Model, GestionDroitsExecution.ActionsFicheControleur.VOIR_AUDITCL))
+                        {
+                            <li>
+                                @if (Model.PAuditControleurCLs.Count > 0)
+                                {<a href="@Url.Action("ListeAuditsCL",new {id=Model.Id})">Audits CL (<span class="orange">@Model.PAuditControleurCLs.Count</span>)</a>
+                            }
+                            else
+                            {
+                                @("Audits CL(0)")
+                            }
+                            </li>
+                        }
+                        @if (GestionDroitsExecution.isRightActionForControleur(User, Model, GestionDroitsExecution.ActionsFicheControleur.VOIR_AUDITPL))
+                        {
+                            <li>
+                                <!-- Audits -->
+                                @if (Model.PAuditControleurs.Count > 0)
+                                {<a href="@Url.Action("ListeAuditsPL",new {id=Model.Id})">Audits PL (<span class="orange">@Model.PAuditControleurs.Count</span>)</a>
+                            }
+                            else
+                            {
+                                @("Audits PL(0)")
+                            }
+                            </li>
+                        }
+                        @if (GestionDroitsExecution.isRightActionForControleur(User, Model, GestionDroitsExecution.ActionsFicheControleur.VOIR_FORMAVL))
+                        {
+                            <li>
+                                @if (Model.PFormationControleurVLs.Count > 0)
+                                {
+                                    <a href="@Url.Action("ListeFormationsVL", new { id = Model.Id })">Formations VL (<span class="orange">@Model.PFormationControleurVLs.Count</span>)</a>
+                                }
+                                else
+                                {
+                                    @("Formations VL(0)")
+                                }
+                            </li>
+                        }
+                        @if (GestionDroitsExecution.isRightActionForControleur(User, Model, GestionDroitsExecution.ActionsFicheControleur.VOIR_FORMACL))
+                        {
+                            <li>
+                                @if (Model.PFormationControleurCLs.Count > 0)
+                                {
+                                    <a href="@Url.Action("ListeFormationsCL", new { id = Model.Id })">Formations CL (<span class="orange">@Model.PFormationControleurCLs.Count</span>)</a>
+                                }
+                                else
+                                {
+                                    @("Formations CL(0)")
+                                }
+                            </li>
+                        }
+                        @if (GestionDroitsExecution.isRightActionForControleur(User, Model, GestionDroitsExecution.ActionsFicheControleur.VOIR_FORMAPL))
+                        {
+                            <li>
+                                @if (Model.PFormationControleurPLs.Count > 0)
+                                {<a href="@Url.Action("ListeFormationsPL",new {id=Model.Id})">Formations PL (<span class="orange">@Model.PFormationControleurPLs.Count</span>)</a>
+                            }
+                            else
+                            {
+                                @("Formations PL(0)")
+                            }
+                            </li>
+                        }
+                        @if (GestionDroitsExecution.isRightActionForControleur(User, Model, GestionDroitsExecution.ActionsFicheControleur.VOIR_HISTO))
+                        {
+                            <li>
+                                @if (Model.PControleurHistoriques.Count > 0)
+                                {
+                                    <a href="@Url.Action("ListeHistoriques", new { id = Model.Id })">Historiques (<span class="orange">@Model.PControleurHistoriques.Count</span>)</a>
+                                }
+                                else
+                                {
+                                    @("Historiques(0)")
+                                }
+                            </li>
+
+                        }
+                    </ul>
+                </div>
+            </li>
+            <!-- FIN ACCEDER A -->
+        </ul>
+    </div>
+}

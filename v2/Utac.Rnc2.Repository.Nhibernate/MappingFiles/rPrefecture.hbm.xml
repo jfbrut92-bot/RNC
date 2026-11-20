@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<hibernate-mapping xmlns="urn:nhibernate-mapping-2.2" namespace="Utac.Rnc2.BusinessObjects" assembly="Utac.Rnc2.BusinessObjects">
+	<class name="Utac.Rnc2.BusinessObjects.rPrefecture, Utac.Rnc2.BusinessObjects" table="r_prefecture" lazy="true">
+		<id name="Id" column="id_prefecture">
+		 	<generator class="assigned" />
+		</id>
+		<property name="CodDepartement" column="cod_departement" />
+		<property name="LibellePrefecture" column="libelle_prefecture" />
+		<property name="Prefixe" column="prefixe" />
+    <property name="LibTribuAdmin" column="lib_tribu_admin" />
+		<many-to-one name="RRegion" column="id_region" class="rRegion" />
+		<bag name="PCentreEncours" lazy="true" cascade="all-delete-orphan" inverse="true" >
+			<key column="id_prefecture"></key>
+			<one-to-many class="pCentreEncour"></one-to-many>
+		</bag>
+		<bag name="PCentreHistos" lazy="true" cascade="all-delete-orphan" inverse="true" >
+			<key column="id_prefecture"></key>
+			<one-to-many class="pCentreHisto"></one-to-many>
+		</bag>
+		<bag name="PContoleurEncours" lazy="true" cascade="all" inverse="true" >
+			<key column="id_prefecture"></key>
+			<one-to-many class="pContoleurEncour"></one-to-many>
+		</bag>
+		<bag name="PControleurHistos" lazy="true" cascade="all" inverse="true" >
+			<key column="id_prefecture"></key>
+			<one-to-many class="pControleurHisto"></one-to-many>
+		</bag>
+		<bag name="RUtilisateurs" lazy="true" cascade="all" inverse="true" >
+			<key column="id_prefecture"></key>
+			<one-to-many class="rUtilisateur"></one-to-many>
+		</bag>
+    <!-- EG le 19/10/2011 -->
+    <many-to-one name="RNumordreAgrement" column="id_prefecture" class="rNumordreAgrement" update="false" insert="false" />
+	</class>
+</hibernate-mapping>
+

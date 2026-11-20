@@ -1,0 +1,19 @@
+﻿@model Utac.Rnc2.BusinessObjects.pCentreEncour
+
+@section TitleContent {
+    FicheNotifAgrementCentrePdf
+}
+@section SousTitrePage {
+    Notification de décision
+}
+<h3>Installation: @Model.RaisonSociale - @Model.CodAgremVl @Model.CodAgremPl @Model.CodAgremCl</h3>
+<br />
+<br />
+<h2>Fiche centre pdf</h2>
+@using (Html.BeginForm("FicheNotifAgrementCentrePdf", "Centre"))
+{
+    @Html.HiddenFor(m => m.Id)
+    <p>
+        <input type="submit" value="Télécharger le PDF" class="btn primary" />
+    </p>
+}

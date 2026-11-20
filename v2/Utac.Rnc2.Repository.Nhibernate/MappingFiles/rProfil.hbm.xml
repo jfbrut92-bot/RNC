@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<hibernate-mapping xmlns="urn:nhibernate-mapping-2.2" namespace="Utac.Rnc2.BusinessObjects" assembly="Utac.Rnc2.BusinessObjects">
+	<class name="Utac.Rnc2.BusinessObjects.rProfil, Utac.Rnc2.BusinessObjects" table="r_profil" lazy="true">
+		<id name="Id" column="id_profil">
+		 	<generator class="identity" />
+		</id>
+		<property name="LibelleProfil" column="libelle_profil" />
+		<bag name="RProfil2s" lazy="true" cascade="all-delete-orphan" inverse="true" >
+			<key column="id_profil"></key>
+			<one-to-many class="rProfil2"></one-to-many>
+		</bag>
+		<bag name="RUtilisateurs" lazy="true" cascade="all-delete-orphan" inverse="true" >
+			<key column="id_profil"></key>
+			<one-to-many class="rUtilisateur"></one-to-many>
+		</bag>
+		<bag name="REditions" table="r_autorise_edition" lazy="true" cascade="all" inverse="false" >
+			<key column="id_profil"></key>
+			<many-to-many column="id_edition" class="rEdition" />
+    	</bag>
+	</class>
+</hibernate-mapping>
+

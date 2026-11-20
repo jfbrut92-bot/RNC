@@ -1,0 +1,76 @@
+﻿@model Utac.Rnc2.UI.Web.Models.NouveauCentreModel
+@using Utac.Rnc2.BusinessObjects
+@using Utac.Rnc2.UI.Web.Helpers
+
+@section TitleContent {
+    Création d'un nouveau centre
+}
+@section SousTitrePage {
+    @if (Model.TypeCentre == "S")
+    {
+        @:Création d'un nouveau Centre Spécialisé
+    }
+    else
+    {
+        @:Création d'une nouvelle installation Auxiliaire
+    }
+}
+<form method="post" action="@Url.Action( "NouveauCentreEtape0","Centre", new {centreAdministration = Model.EstCentreAdministration})">
+    @Html.HiddenFor(m => m.EstCentreAdministration)
+    @Html.HiddenFor(m => m.TypeCentre)
+    <input type="submit" value="<  Précédent" class="btn success" />
+</form>
+
+<h2>Etape 2 : Sélectionnez la catégorie de véhicule sur lequel porte l'agrément ?</h2>
+@using (Html.BeginForm("NouveauCentreConfirmation", "Centre"))
+{
+    @* Propager le paramètre du formulaire précédent*@
+    @Html.HiddenFor(m => m.TypeCentre)
+    <table>
+        <tr>
+            @if (GestionDroitsExecution.isRightActionForCentre(User, Model.Centre, GestionDroitsExecution.ActionsFicheCentre.CRECEVL))
+            {
+            <td align="right">
+                Véhicule Léger
+            </td>
+            <td>
+                &nbsp;&nbsp;@Html.RadioButtonFor(m => m.CategorieVehicule, rCategorieVehicule.CategorieEnum.VL, new { @checked = "checked" })
+                <br />
+                <br />
+            </td>
+            }
+        </tr>
+        <tr>
+            <!--PLE le 13/02/2024 Agrement CL-->
+            @if (GestionDroitsExecution.isRightActionForCentre(User, Model.Centre, GestionDroitsExecution.ActionsFicheCentre.CRECECL))
+            {
+            <td align="right">
+                Véhcule de catégorie L
+            </td>
+            <td>
+                &nbsp;&nbsp;@Html.RadioButtonFor(m => m.CategorieVehicule, rCategorieVehicule.CategorieEnum.CL)
+                <br />
+                <br />
+            </td>
+
+            }
+        </tr>
+        <tr>
+            @if (GestionDroitsExecution.isRightActionForCentre(User, Model.Centre, GestionDroitsExecution.ActionsFicheCentre.CRECEPL))
+            {
+            <td align="right">
+                Poids Lourd
+            </td>
+            <td>
+                &nbsp;&nbsp;@Html.RadioButtonFor(m => m.CategorieVehicule, rCategorieVehicule.CategorieEnum.PL)
+                <br />
+                <br />
+            </td>
+            }
+
+        </tr>
+    </table>
+    @Html.HiddenFor(m => m.EstCentreAdministration)
+    @Html.HiddenFor(m => m.TypeCentre)
+    <button type="submit" value="Suivant" class="btn success">Suivant&nbsp;&nbsp;&nbsp;&gt;</button>
+}

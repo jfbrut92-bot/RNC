@@ -1,0 +1,102 @@
+﻿@model Utac.Rnc2.UI.Web.Models.AjouterSanctionControleurModel
+
+@section TitleContent {
+    Modifier une sanction pour le @Model.Controleur.Titre @Model.Controleur.Nom @Model.Controleur.Prenom
+}
+@section SousTitrePage {
+    Modifier une sanction pour le @Model.Controleur.Titre @Model.Controleur.Nom @Model.Controleur.Prenom
+}
+@section StyleContent {
+    @Styles.Render("~/styles/jquery-ui")
+}
+@using (Html.BeginForm())
+{
+    @Html.ValidationSummary(true)
+    <fieldset>
+        <div class="row">
+            <div class="floatLeft first">
+                @Html.Label("Type sanction")
+                <div class="input">
+                    @Html.DropDownListFor(model => model.Sanction.RTypeSanctionControleur.Id, new SelectList(Model.ListeSanction, "Id", "Libelle"))
+                    @Html.ValidationMessageFor(model => model.Sanction.RTypeSanctionControleur.Id)
+                </div>
+            </div>
+            <div class="floatLeft">
+                @Html.Label("Date début sanction")
+                <div class="input">
+                    @Html.TextBoxFor(model => model.Sanction.DateDebut, new { Value = string.Format("{0:d}", Model.Sanction.DateDebut), @class = "datepicker" })
+                    @Html.ValidationMessageFor(model => model.Sanction.DateDebut)
+                </div>
+            </div>
+            <div class="floatLeft">
+                @Html.Label("Date fin sanction")
+                <div class="input">
+                    @Html.TextBoxFor(model => model.Sanction.DateFin, new { Value = string.Format("{0:d}", Model.Sanction.DateFin), @class = "datepicker" })
+                    @Html.ValidationMessageFor(model => model.Sanction.DateFin)
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="floatLeft first">
+                @Html.Label("Organisme demandeur")
+                <div class="input">
+                    @Html.DropDownListFor(model => model.Sanction.RTypeOrganismeDemandeur.Id, new SelectList(Model.ListeOrganismeDemandeur, "Id", "Libelle"))
+                    @Html.ValidationMessageFor(model => model.Sanction.RTypeOrganismeDemandeur.Id)
+                </div>
+            </div>
+            <div class="floatleft">
+                @Html.Label("Date de l'évènement à l'origine de la sanction")
+                <div class="input">
+                    @Html.TextBoxFor(model => model.Sanction.DateEvenementOrigine, new { Value = string.Format("{0:d}", Model.Sanction.DateEvenementOrigine), @class = "datepicker" })
+                    @Html.ValidationMessageFor(model => model.Sanction.DateEvenementOrigine)
+                </div>
+            </div>
+        </div>
+        <div id="bloc_autre_sanction">
+            <!-- EG le 02/01/2012 JUSTE POUR AFFICHER/MASQUER EN JQUERY -->
+            <div class="editor-label">Type de sanction</div>
+            <div class="editor-field">
+                @Html.TextAreaFor(model => model.Sanction.TypeSanctionAutre)
+                @Html.ValidationMessageFor(model => model.Sanction.TypeSanctionAutre)
+            </div>
+        </div>
+        @if (Model.Controleur.EstAgrementValideVL)
+        {
+            <div class="editor-label">@Html.Label("Agrément VL")</div>
+            <div class="editor-field">
+                @Html.CheckBoxFor(model => model.Sanction.IsAgrementAffecteVL)
+                @Html.ValidationMessageFor(model => model.Sanction.IsAgrementAffecteVL)
+            </div>
+        }
+        @if (Model.Controleur.EstAgrementValidePL)
+        {
+            <div class="editor-label">@Html.Label("Agrément PL")</div>
+            <div class="editor-field">
+                @Html.CheckBoxFor(model => model.Sanction.IsAgrementAffectePL)
+                @Html.ValidationMessageFor(model => model.Sanction.IsAgrementAffectePL)
+            </div>
+        }
+        <div class="editor-label">@Html.Label("Motif de la sanction")</div>
+        <div class="editor-field">
+            @Html.TextAreaFor(model => model.Sanction.MotifSanction, new { rows = 10, cols = 80, maxlength = "800" })
+            @Html.ValidationMessageFor(model => model.Sanction.MotifSanction)
+        </div>
+        @Html.HiddenFor(model => model.Controleur.EstAgrementValideVL)
+        @Html.HiddenFor(model => model.Controleur.EstAgrementValidePL)
+        @Html.HiddenFor(model => model.Controleur.EstAgrementValideCL)
+        @Html.HiddenFor(model => model.Controleur.Id)
+        @Html.HiddenFor(model => model.Sanction.PContoleurEncour.Id)
+        @Html.HiddenFor(model => model.Sanction.Id)
+        <br />
+        <div class="rowAligne">
+            <input type="submit" value="Enregistrer" class="btn primary" />
+            <a class="btn success" href="@Url.Action("Fiche","ControleurTechnique", new { id = Model.Controleur.Id})">Retour à la fiche</a>
+        </div>
+    </fieldset>
+}
+@section JavaScriptContent {
+    <!-- DatePicker -->
+    @Scripts.Render("~/scripts/date-picker")
+    <!-- Affichage/masquage du champ autre sanction -->
+    @Scripts.Render("~/scripts/ajout-sanction-controleur")
+}

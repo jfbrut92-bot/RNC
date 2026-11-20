@@ -1,0 +1,39 @@
+﻿@model Utac.Rnc2.UI.Web.Models.AjoutAuditControleurVLModel
+
+@section TitleContent {
+    Ajout d'un audit VL pour le  @Model.Controleur.Titre @Model.Controleur.Nom @Model.Controleur.Prenom
+}
+@section SousTitrePage {
+    Ajout d'un audit VL pour le  @Model.Controleur.Titre @Model.Controleur.Nom @Model.Controleur.Prenom
+}
+@section StyleContent {
+    @Styles.Render("~/styles/jquery-ui")
+}
+@using (Html.BeginForm())
+{
+    @Html.ValidationSummary(true)
+    <fieldset>
+        <div class="editor-label">Date audit</div>
+        <div class="editor-field">
+            @Html.TextBoxFor(model => model.Audit.DateAudit, new { Value = Model.Audit.DateAudit.Equals(System.DateTime.MinValue) ? "" : String.Format("{0:g}", Model.Audit.DateAudit), @class = "datepicker" })
+            @Html.ValidationMessageFor(model => model.Audit.DateAudit, null, new { @class = "alert-message error" })
+        </div>
+        <div class="editor-label">Résultat audit</div>
+        <div class="editor-field">
+            Favorable @Html.RadioButtonFor(model => model.Audit.ResultatAudit, true, Model.Audit.ResultatAudit ? new { @checked = "checked" } : null)
+            Défavorable @Html.RadioButtonFor(model => model.Audit.ResultatAudit, false, !Model.Audit.ResultatAudit ? new { @checked = "checked" } : null)
+            @Html.ValidationMessageFor(model => model.Audit.ResultatAudit)
+        </div>
+        <br />
+        <div class="rowAligne">
+            <input type="submit" value="Enregistrer" class="btn primary" />
+            <a class="btn success" href="@Url.Action("Fiche","ControleurTechnique", new { id = Model.Controleur.Id})">Retour à la fiche</a>
+        </div>
+    </fieldset>
+}
+@section JavaScriptContent {
+    <!-- DatePicker -->
+    @Scripts.Render("~/scripts/date-picker")
+    <!-- Affichage/masquage du champ autre sanction -->
+    @Scripts.Render("~/scripts/ajout-sanction-centre")
+}

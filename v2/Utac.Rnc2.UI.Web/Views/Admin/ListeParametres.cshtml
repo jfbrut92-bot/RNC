@@ -1,0 +1,29 @@
+﻿@model IEnumerable<Utac.Rnc2.BusinessObjects.Parametre>
+
+@section TitleContent {
+    ListeParametres
+}
+<h2>Liste des paramètres modifiables</h2>
+<table>
+    <tr>
+        <th></th>
+        <th>Nom</th>
+        <th>Valeur</th>
+        <th> Id</th>
+    </tr>
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>
+                @Html.ActionLink("Modifier", "EditParametre", new { id = item.Id }) |
+                @Html.ActionLink("Supprimer", "ConfirmerDeleteParametre", new { id = item.Id })
+            </td>
+            <td>@item.Nom</td>
+            <td>@item.Valeur</td>
+            <td>@item.Id</td>
+        </tr>
+    }
+</table>
+<p>
+    @Html.ActionLink("Ajouter un nouveau paramètre", "CreateParametre")
+</p>

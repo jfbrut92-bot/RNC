@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<hibernate-mapping xmlns="urn:nhibernate-mapping-2.2" namespace="Utac.Rnc2.BusinessObjects" assembly="Utac.Rnc2.BusinessObjects">
+	<class name="Utac.Rnc2.BusinessObjects.rNumordreAgrement, Utac.Rnc2.BusinessObjects" table="r_numordre_agrement" lazy="true">
+		<id name="Id" column="id_prefecture">
+		 	<generator class="assigned" />
+		</id>
+		<property name="NumOrdreCentre" column="num_ordre_centre" />
+		<property name="NumOrdreCntlrVl" column="num_ordre_cntlr_vl" />
+		<property name="NumOrdreCntlrPl" column="num_ordre_cntlr_pl" />
+    <!-- eddy -->
+    <property name="NumOrdreCntlrCl" column="num_ordre_cntlr_cl" />
+    <many-to-one name="RPrefecture" column="id_prefecture" class="rPrefecture" update="false" insert="false" />
+	</class>
+</hibernate-mapping>
+

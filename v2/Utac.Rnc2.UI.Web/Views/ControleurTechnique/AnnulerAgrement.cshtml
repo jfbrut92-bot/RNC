@@ -1,0 +1,91 @@
+﻿@model Utac.Rnc2.UI.Web.Models.ActionAgrementControleurModel
+@using Utac.Rnc2.BusinessObjects
+
+@section SousTitrePage {
+    Annulation de l'agrément @Model.categorieVehicule.ToString() pour le @Model.controleur.Titre @Model.controleur.Nom @Model.controleur.Prenom
+}
+@section TitleContent {
+    Annulation de l'agrément @Model.categorieVehicule.ToString() pour le @Model.controleur.Titre @Model.controleur.Nom @Model.controleur.Prenom
+}
+@section StyleContent {
+    @Styles.Render("~/styles/jquery-ui")
+}
+<p class="avertissement">
+    Attention, Vous êtes sur le point d'effectuer une annulation d'agrément @Model.categorieVehicule.ToString() pour @Model.controleur.Nom  @Model.controleur.Prenom
+    (@switch (Model.categorieVehicule)
+    {
+        case rCategorieVehicule.CategorieEnum.VL:
+            @Model.controleur.CodAgremVl
+            break;
+        case rCategorieVehicule.CategorieEnum.PL:
+            @Model.controleur.CodAgremPl
+            break;
+        case rCategorieVehicule.CategorieEnum.CL:
+            @Model.controleur.CodAgremCl
+            break;
+    }
+    )
+    . Cliquer sur le bouton ci-dessous pour confirmer
+</p>
+@using (Html.BeginForm("AnnulerAgrement", "ControleurTechnique", new { id = Model.controleur.Id, categVehicule = Model.categorieVehicule }, FormMethod.Post, new { @class = "verif_date" }))
+{
+    @Html.ValidationSummary(true)
+    <fieldset>
+        <div class="editor-label">
+            <label>Date de fin d'agrément  @Model.categorieVehicule.ToString() (obligatoire)</label>
+        </div>
+        @switch (Model.categorieVehicule)
+        {
+            case rCategorieVehicule.CategorieEnum.VL:
+                <div class="editor-field">
+                    @Html.TextBoxFor(model => model.controleur.DateFinAgrementVl, new { @class = "datepicker verif_date" })
+                    @Html.ValidationMessageFor(model => model.controleur.DateFinAgrementVl)
+                </div>
+                break;
+            case rCategorieVehicule.CategorieEnum.PL:
+                <div class="editor-field">
+                    @Html.TextBoxFor(model => model.controleur.DateFinAgrementPl, new { @class = "datepicker verif_date" })
+                    @Html.ValidationMessageFor(model => model.controleur.DateFinAgrementPl)
+                </div>
+                break;
+            case rCategorieVehicule.CategorieEnum.CL:
+                <div class="editor-field">
+                    @Html.TextBoxFor(model => model.controleur.DateFinAgrementCl, new { @class = "datepicker verif_date" })
+                    @Html.ValidationMessageFor(model => model.controleur.DateFinAgrementCl)
+                </div>
+                break;
+        }
+        <br />
+        @* Propager le paramètre du formulaire précédent*@
+        @Html.HiddenFor(model => model.controleur.Id)
+        @Html.HiddenFor(model => model.controleur.Titre)
+        @Html.HiddenFor(model => model.controleur.Nom)
+        @Html.HiddenFor(model => model.controleur.Prenom)
+        @Html.HiddenFor(model => model.controleur.CodAgremVl)
+        @Html.HiddenFor(model => model.controleur.CodAgremPl)
+        @Html.HiddenFor(model => model.controleur.CodAgremCl)
+        @Html.HiddenFor(model => model.categorieVehicule)
+        <div class="rowAligne">
+            <input type="submit" value="Confirmer" class="btn danger" />
+            <a class="btn success" href="@Url.Action("Fiche","ControleurTechnique", new { id = Model.controleur.Id})">Retour à la fiche</a>
+        </div>
+    </fieldset>
+}
+<div class="avertissement">
+    <b>ATTENTION A LA DATE D'EFFET DE L'ANNULATION DU N° D'AGREMENT.</b>
+    <br />
+    Si vous saisissez une <b>date d'effet antérieure à la date du jour</b>, vérifiez que des contrôles n'ont pas été transmis à l'OTC après cette date.
+    <br />
+    <br />
+    Si vous saisissez une <b>date d'effet égale à la date du jour</b>, assurez-vous que le contrôleur en soit informé à temps.
+    <br />
+    <br />
+    <i>Ces précautions sont utiles pour éviter que des contrôles soient transmis par un contrôleur dont le n° d'agrément est annulé (la prise en compte des délais d'information des contrôleurs, des centres et réseaux éventuels est importante).</i>
+    <br />
+    <br />
+    <b>Date d'effet: Vous pouvez saisir une date postérieure à la date du jour.</b><br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Exemple: Date du jour 05/01/2012<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Date d'effet pour la prise d'effet de l'annulation 15/01/2012.
+</div>
+@section JavaScriptContent {
+    <!-- DatePicker -->
+    @Scripts.Render("~/scripts/date-picker")
+}

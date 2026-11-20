@@ -1,0 +1,85 @@
+﻿@model Utac.Rnc2.Pv.UI.Web.Models.RecherchePvModel
+@using Utac.Rnc2.Pv.UI.Web.Models
+@using Utac.Rnc2.Web.Pv.Utils;
+
+@if (Model.ControlesPL != null)
+{
+    var otcIsMobileDevice = DeviceHelper.IsMobileDevice(Request.UserAgent); 
+    <p class="col-12">
+        @Model.ControlesPL.Count<PlPControle> contrôle(s) trouvé(s)
+    </p>
+    if (Model.ControlesPL.Count > 0)
+    {
+        <div class="col-12 table-responsive">
+            <table class="p-0 m-0 table @(otcIsMobileDevice ? "table-bordered table-striped text-dark table-active table-hover" : "table-sm")">
+                <thead>
+                    <tr>
+                        <th class="text-center d-md-none" scope="col"></th>
+                        <th class="text-center" scope="col"> @(otcIsMobileDevice ? "Date PV" : "Date visite")</th>
+                        <th class="text-center" scope="col"> @(otcIsMobileDevice ? "Immat" : "Immatriculation")</th>
+                        <th class="text-center d-none d-md-table-cell" scope="col">N° Série</th>
+                        <th class="text-center d-none d-md-table-cell" scope="col">Agrément<br />installation</th>
+                        <th class="text-center d-none d-md-table-cell" scope="col">Agrément<br />Contrôleur</th>
+                        <th class="text-center d-none d-md-table-cell" scope="col">N°PV</th>
+                        <th scope="col"> @(otcIsMobileDevice ? "Nature" : "Nature visite")</th>
+                        <th scope="col">@(otcIsMobileDevice ? "Résulat" : "Résultat CT")</th>
+                        <th class="text-center d-none d-md-table-cell" scope="col"> @(otcIsMobileDevice ? "" : "Vérification PV")</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @{ var i = 0; }
+                    @foreach (var item in Model.ControlesPL)
+                    {
+                        <tr class="@(i % 2 == 0 ? "row1" : "row2")">
+                            <td class="text-center d-md-none">
+                                @(Html.ActionLink(" ", "DownloadPV", "TraceRechPvVl",
+                                new {ep = RechercheImmatSerieModel.EncodeParams(String.Format("cat=PL&num_visit={0:d}&origine={1:d}", item.numVisit, item.origine))},
+                                new {@class = " border-0 fa  fa-download title text-primary", name = "download_pv"}))
+                            </td>
+                            <td class="text-center" scope="row">@item.dateCtrl.ToShortDateString()</td>
+                            <td class="text-center">@item.PVehiculePresente.immatVeh</td>
+                            <td class="text-center d-none d-md-table-cell">@item.PVehiculePresente.numSerie</td>
+                            <td class="text-center d-none d-md-table-cell">@item.codAgremCentre</td>
+                            <td class="text-center d-none d-md-table-cell">@item.codAgremCntlr</td>
+                            <td class="text-center d-none d-md-table-cell">@item.numPvCtrl</td>
+                            <td class="text-center">
+                                <span class="d-block d-md-none text-center">@RechercheImmatSerieModel.GetNatureControlLabelAbreviation(item)</span>
+                                <span class="d-none d-md-block">@RechercheImmatSerieModel.GetNatureControlLabel(item)</span>
+                            </td>
+                            <td class="text-center">
+                                <span class="d-block d-md-none text-center">@item.codResultCtrl</span>
+                                <span class="d-none d-md-block">@RechercheImmatSerieModel.GetResultControlLabel(item)</span>
+                            </td>
+                            <td class="text-center d-none d-md-table-cell">
+                                @(Html.ActionLink("Télécharger", "DownloadPV", "TraceRechPvVl",
+                                new {ep = RechercheImmatSerieModel.EncodeParams(String.Format("cat=PL&num_visit={0:d}&origine={1:d}", item.numVisit, item.origine))},
+                                new {@class = "btn success", name = "download_pv"}))
+                            </td>
+                        </tr>
+                        i++;
+                    }
+            </table>
+        </div>
+        <script type="text/javascript">
+            var btns = document.getElementsByName('download_pv');
+            console.log(btns.length.toString());
+            for (var i = 0; i < btns.length; i++) {
+                btns[i].addEventListener('click', update_link, false);
+            }
+            function update_link(ev) {
+                var e = document.getElementById("SelectDetails");
+                var n = ev.target.href.indexOf("&l=");
+                if (n >= 0) {
+                    ev.target.href = ev.target.href.slice(0, n);
+                }
+                ev.target.href = ev.target.href + "&l=" + e.value;
+                console.log(ev.target.href);
+                if ($(window).width() < 0) {
+                    ev.target.className = "border-0 fa fa-download title text-primary disabled";
+                } else {
+                    ev.target.className = "btn disabled";
+                }
+            }
+        </script>
+    }
+}

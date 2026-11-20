@@ -1,0 +1,259 @@
+﻿@model Utac.Rnc2.BusinessObjects.pControleurHisto
+
+@section TitleContent {
+    Historique fiche
+}
+@section SousTitrePage {
+    Historique fiche contrôleur
+}
+<div class="bloc_main">
+    <!-- BLOC PRINCIPAL -->
+    <div class="bloc_principal">
+        <div class="row">
+            <div class="span9">
+                <div class="static-msg"> @Model.DateHisto  @Model.RTypeDemandeControleur.Libelle</div>
+            </div>
+            <div class="span6">
+                <a class="btn success" href="@Url.Action("ListeHistoriques","ControleurTechnique", new { id = Model.IdControleurHisto})">Retour à l'historique</a>
+                <a class="btn success" href="@Url.Action("Fiche","ControleurTechnique", new { id = Model.IdControleurHisto})">Retour à la fiche</a>
+            </div>
+        </div>
+        <fieldset>
+            <h1 class="panel">Identité</h1>
+            <div class="row">
+                <div class="span5">
+                    <span class="display-label">Nom:</span>
+                    <span class="display-field">@Model.Nom</span>
+                </div>
+                <div class="span5">
+                    <span class="display-label">Prénom:</span>
+                    <span class="display-field">@Model.Prenom</span>
+                </div>
+            </div>
+            <div class="row">
+                <div class="span5">
+                    <span class="display-label">Date de naissance:</span>
+                    <span class="display-field">@String.Format("{0:d}", Model.DateNaissance)</span>
+                </div>
+                <div class="span5">
+                    <span class="display-label">Type d'agrément:</span>
+                    <span class="display-field">@(Model.EstPrestataire ? "Prestataire" : "Contrôleur")</span>
+                </div>
+            </div>
+            <!-- AGREMENT VL -->
+            <h1 class="panel">Agrément VL : @Model.CodAgremVl @Model.EtatAgrementVlAsLibelle</h1>
+            <div class="row">
+                <div class="span5">
+                    <span class="display-label">Date d'effet notification d'agrément:</span>
+                    <span class="display-field">@String.Format("{0:d}", Model.DateEffetNotificationVl)</span>
+                </div>
+                <div class="span5">
+                    <span class="display-label">Date fin agrément:</span>
+                    <span class="display-field">@String.Format("{0:d}", Model.DateFinAgrementVl)</span>
+                </div>
+            </div>
+            <div class="row">
+                <div class="span5">&nbsp</div>
+                <div class="span5">
+                    <span class="display-label">Motif de fin d'agrément:</span>
+                    <span class="display-field">@Model.MotifFinAgrementVl</span>
+                </div>
+            </div>
+            <div class="row">
+                <div class="span6">
+                    <span class="display-label">N° agrément centre VL de rattachement:</span>
+                    <span class="display-field">
+                        @if (Model.CodAgremRattachementVl != null)
+                        {
+                            @Model.CodAgremRattachementVl
+                        }
+                    </span>
+                </div>
+
+            </div>
+            <div class="row">
+                <div class="span5">
+                    <span class="display-label">Date début rattachement:</span>
+                    <span class="display-field">@String.Format("{0:d}", Model.DateDebutRattachementVl)</span>
+                </div>
+                <div class="span5">
+                    <span class="display-label">Date fin rattachement:</span>
+                    <span class="display-field">@String.Format("{0:d}", Model.DateFinRattachementVl)</span>
+                </div>
+            </div>
+            <div class="row">
+                <div class="span5">
+                    <span class="display-label">Habilitation GAZ VL:</span>
+                    @if (!Model.EstAgrementVLNonOK)
+                    {
+                        <span class="display-field">@Model.HabilitationGazVLAsString</span>
+                    }
+                </div>
+                <div class="span5">
+                    <span class="display-label">Depuis le : </span>
+                    <span class="display-field">@String.Format("{0:d}", Model.DateDebutFinHabilitationGazVL)</span>
+                </div>
+            </div>
+            <div class="row">
+                <span class="span7">
+                    <span>Extension agrément CL:</span>
+                    <span class="font-weight-bold">@Model.ExtAgremClStatutVLAsString</span>
+                    <span>(<i>Déclarée le:</i></span>
+                    <span><i>@Model.ExtAgremClDateDeclaVLAsDate</i>)</span>
+                </span>
+                <span class="span4">
+                    <span>Validée à compter du:</span>
+                    <span class="font-weight-bold">@String.Format("{0:d}", @Model.ExtAgremClDateValidVLAsDate)</span>
+                </span>
+            </div>
+            @if (Model.CommentaireAvisOtcVl != null)
+            {
+                <div class="row">
+                    <span class="span11">
+                        <span class="display-label">Commentaires:</span>
+                        <span class="display-field">@Model.CommentaireAvisOtcVl</span>
+                    </span>
+                </div>
+            }
+
+            <!-- AGREMENT CL -->
+            <h1 class="panel">Agrément CL : @Model.CodAgremCl @Model.EtatAgrementClAsLibelle</h1>
+            <div class="row">
+                <div class="span5">
+                    <span class="display-label">Date d'effet notification d'agrément:</span>
+                    <span class="display-field">@String.Format("{0:d}", Model.DateEffetNotificationCl)</span>
+                </div>
+                <div class="span5">
+                    <span class="display-label">Date fin agrément:</span>
+                    <span class="display-field">@String.Format("{0:d}", Model.DateFinAgrementCl)</span>
+                </div>
+            </div>
+            <div class="row">
+                <div class="span5">&nbsp</div>
+                <div class="span5">
+                    <span class="display-label">Motif de fin d'agrément:</span>
+                    <span class="display-field">@Model.MotifFinAgrementCl</span>
+                </div>
+            </div>
+            <div class="row">
+                <div class="span6">
+                    <span class="display-label">N° agrément centre CL de rattachement:</span>
+                    <span class="display-field">
+                        @if (Model.CodAgremRattachementCl != null)
+                        {
+                            @Model.CodAgremRattachementCl
+                        }
+                    </span>
+                </div>
+
+            </div>
+            <div class="row">
+                <div class="span5">
+                    <span class="display-label">Date début rattachement:</span>
+                    <span class="display-field">@String.Format("{0:d}", Model.DateDebutRattachementCl)</span>
+                </div>
+                <div class="span5">
+                    <span class="display-label">Date fin rattachement:</span>
+                    <span class="display-field">@String.Format("{0:d}", Model.DateFinRattachementCl)</span>
+                </div>
+            </div>
+            @if (Model.CommentaireAvisOtcCl != null)
+            {
+                <div class="row">
+                    <span class="span11">
+                        <span class="display-label">Commentaires:</span>
+                        <span class="display-field">@Model.CommentaireAvisOtcCl</span>
+                    </span>
+                </div>
+            }
+            <!-- AGREMENT PL -->
+            <h1 class="panel">Agrément PL : @Model.CodAgremPl @Model.EtatAgrementPlAsLibelle</h1>
+            <div class="row">
+                <div class="span5">
+                    <span class="display-label">Date d'effet notification d'agrément:</span>
+                    <span class="display-field">@String.Format("{0:d}", Model.DateEffetNotificationPl)</span>
+                </div>
+                <div class="span5">
+                    <span class="display-label">Date fin agrément:</span>
+                    <span class="display-field">@String.Format("{0:d}", Model.DateFinAgrementPl)</span>
+                </div>
+            </div>
+            <div class="row">
+                <div class="span5">&nbsp</div>
+                <div class="span5">
+                    <span class="display-label">Motif de fin d'agrément:</span>
+                    <span class="display-field">@Model.MotifFinAgrementPl</span>
+                </div>
+            </div>
+            <div class="row">
+                <div class="span6">
+                    <span class="display-label">N° agrément centre PL de rattachement:</span>
+                    <span class="display-field">
+                        @if (Model.CodAgremRattachementPl != null)
+                        {
+                            @Model.CodAgremRattachementPl
+                        }
+                    </span>
+                </div>
+
+            </div>
+            <div class="row">
+                <div class="span5">
+                    <span class="display-label">Date début rattachement:</span>
+                    <span class="display-field">
+                        @String.Format("{0:d}", Model.DateDebutRattachementPl)
+                    </span>
+                </div>
+                <div class="span5">
+                    <span class="display-label">Date fin rattachement:</span>
+                    <span class="display-field">@String.Format("{0:d}", Model.DateFinRattachementPl)</span>
+                </div>
+            </div>
+            <div class="row">
+                @if (Model.RHabilitation != null)
+                {
+                    <div class="span5">
+                        <span class="display-label">Habilitation PL:</span>
+                        <span class="display-field">@Model.RHabilitation.LibelleAvecCode</span>
+                    </div>
+                    <div class="span5">
+                        <span class="display-label">Date début habilitation:</span>
+                        <span class="display-field">@String.Format("{0:d}", Model.DateDebutHabilitationPl)</span>
+                    </div>
+                }
+                else
+                {
+                    if (!Model.EstAgrementPLNonOK)
+                    {
+                        <div class="span5">
+                            <span class="display-label">Habilitation PL:</span>
+                            <span class="display-field">Non renseigné</span>
+                        </div>
+                    }
+                }
+            </div>
+            <div class="row">
+                <span class="span7">
+                    <span>Extension agrément CL:</span>
+                    <span class="font-weight-bold">@Model.ExtAgremClStatutPLAsString</span>
+                    <span>(<i>Déclarée le:</i></span>
+                    <span><i>@Model.ExtAgremClDateDeclaPLAsDate</i>)</span>
+                </span>
+                <span class="span4">
+                    <span>Validée à compter du:</span>
+                    <span class="font-weight-bold">@String.Format("{0:d}", @Model.ExtAgremClDateValidPLAsDate)</span>
+                </span>
+            </div>
+            @if (Model.CommentaireAvisOtcPl != null)
+            {
+                <div class="row">
+                    <span class="span11">
+                        <span class="display-label">Commentaires:</span>
+                        <span class="display-field">@Model.CommentaireAvisOtcPl</span>
+                    </span>
+                </div>
+            }
+        </fieldset>
+    </div>
+    <!-- FIN BLOC PRINCIPAL -->
+</div>

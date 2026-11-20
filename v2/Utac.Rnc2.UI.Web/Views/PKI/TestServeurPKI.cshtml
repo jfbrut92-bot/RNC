@@ -1,0 +1,45 @@
+﻿@model Utac.Rnc2.UI.Web.Models.TestServeurPKIResult
+
+@section TitleContent {
+    TestServeurPKI
+}
+@section SousTitrePage {
+    Test de l'accès au serveur de Certificat SSL
+}
+<fieldset>
+    <legend>Résultat du test</legend>
+    @if (Model.ResultCall == 0)
+    {
+        <img alt="Test Ok" src="../../Content/accept.png" />
+        @:Test OK
+    }
+    else
+    {
+        <img alt="Test Ok" src="../../Content/exclamation.png" />
+        @:Test ECHEC
+    }
+    <div class="display-label">SURL</div>
+    <div class="display-field">@Model.SURL</div>
+    <div class="display-label">SEnsureSecurity</div>
+    <div class="display-field">@Model.SEnsureSecurity</div>
+    <div class="display-label">SUsername</div>
+    <div class="display-field">@Model.SUsername</div>
+    <div class="display-label">SPassword</div>
+    <div class="display-field">@Model.SPassword</div>
+    <div class="display-label">SDomain</div>
+    <div class="display-field">@Model.SDomain</div>
+    <div class="display-label">ResultCall</div>
+    <div class="display-field">@Model.ResultCall</div>
+    <div class="display-label">SServeurPKI</div>
+    <div class="display-field">@Model.SServeurPKI</div>
+    <div class="display-label">SRolesServeurCA</div>
+    <div class="display-field">@Model.SRolesServeurCA</div>
+    <div class="display-label">IErreurCode</div>
+    <div class="display-field">@Model.IErreurCode</div>
+    <div class="display-label">SErreurLibelle</div>
+    <div class="display-field">@Model.SErreurLibelle</div>
+    <div class="display-label">SMessageException</div>
+    <div class="display-field">@Model.SMessageException</div>
+    <div class="display-label">SFichierCA</div>
+    <div class="display-field">@Model.SFichierFichierCA</div>
+</fieldset>

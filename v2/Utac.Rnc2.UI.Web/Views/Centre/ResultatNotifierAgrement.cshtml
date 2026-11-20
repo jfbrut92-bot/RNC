@@ -1,0 +1,61 @@
+﻿@model Utac.Rnc2.UI.Web.Models.NotificationAgrementModel
+@using Utac.Rnc2.BusinessObjects
+
+@section TitleContent {
+    Notification agrément
+}
+@section SousTitrePage {
+    @if (Model.Centre.RMotifModification.Id == rMotifModification.TypeModification.REJRPL.ToString())
+    {
+        @:Rejet renouvellement d'agrément PL
+    }
+    else
+    {
+        @:Notification d'agrément
+    }
+}
+<div class="static-msg">
+    @if (Model.Centre.RMotifModification.Id == rMotifModification.TypeModification.REJRPL.ToString())
+    {
+        @:Le rejet du renouvellement d'agrément @Model.CategVehicule.ToString() pour le centre @Model.Centre.RaisonSociale a été effectué.
+    }
+    else
+    {
+        @:La notification d'agrément @Model.CategVehicule.ToString() pour le centre @Model.Centre.RaisonSociale a été effectuée sous le numéro
+    }
+    <b>
+        @switch (Model.CategVehicule)
+        {
+            case rCategorieVehicule.CategorieEnum.VL:
+                @Model.Centre.CodAgremVl
+                break;
+            case rCategorieVehicule.CategorieEnum.PL:
+                @Model.Centre.CodAgremPl
+                break;
+            case rCategorieVehicule.CategorieEnum.CL:
+                @Model.Centre.CodAgremCl
+                break;
+        }
+    </b>
+</div>
+<p>
+    <img src="/Content/images/PDF.png" alt="Notification PDF" title="Notification PDF" />
+    @switch (Model.Centre.TypeCentre)
+    {
+        case "A":
+            if (Model.Centre.RMotifModification.Id == rMotifModification.TypeModification.REJRPL.ToString())
+            {
+                @Html.ActionLink("Cliquer sur ce  lien pour télécharger la notification de rejet au format PDF", "TelechargerModifNotificationAuxiliairePDF", new { id = Model.Centre.Id, etatVl = false, etatPl = true, etatCl = false })
+            }
+            else
+            {
+                @Html.ActionLink("Cliquer sur ce  lien pour télécharger la notification au format PDF", "TelechargerNotificationAuxiliairePDF", new { id = Model.Centre.Id, categVehicule = Model.CategVehicule })
+            }
+            break;
+        case "S":
+            @Html.ActionLink("Cliquer sur ce  lien pour télécharger la notification au format PDF", "TelechargerNotificationSpecialisePDF", new { id = Model.Centre.Id, categVehicule = Model.CategVehicule })
+            break;
+    }
+
+</p>
+<p>@Html.ActionLink("Retourner à la fiche du centre", "Fiche", new { id = Model.Centre.Id })</p>

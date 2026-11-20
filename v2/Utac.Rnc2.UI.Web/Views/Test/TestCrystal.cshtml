@@ -1,0 +1,10 @@
+﻿@model CrystalDecisions.CrystalReports.Engine.Tables
+
+@section TitleContent {
+    TestCrystal
+}
+<h2>TestCrystal</h2>
+@foreach (CrystalDecisions.CrystalReports.Engine.Table table in Model)
+{
+    <p>Nom de table : @table.Name</p>
+}

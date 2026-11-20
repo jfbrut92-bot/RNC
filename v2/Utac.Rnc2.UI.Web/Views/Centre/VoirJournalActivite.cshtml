@@ -1,0 +1,35 @@
+﻿@model IEnumerable<Utac.Rnc2.BusinessObjects.pJournalActivite>
+
+@section TitleContent {
+    Liste des entrées de journal pour le centre @Model.ElementAt(0).CentreEncour.RaisonSociale
+}
+@section SousTitrePage {
+    Liste des entrées de journal pour le centre @Model.ElementAt(0).CentreEncour.RaisonSociale
+}
+@{ var centre = Model.ElementAt(0).CentreEncour; }
+<h2>Installation: @centre.RaisonSociale - @centre.CodAgremVl @centre.CodAgremPl @centre.CodAgremCl </h2>
+<p>
+    @Html.ActionLink("Retour à la fiche", "Fiche", new { id = centre.Id })
+</p>
+<table>
+    <tr>
+        <th></th>
+        <th>Detail</th>
+        <th>DateCreation</th>
+        <th>DateModification</th>
+        <th>Id</th>
+    </tr>
+    @foreach (var item in Model.OrderByDescending(j => j.DateCreation))
+    {
+        <tr>
+            <td>
+                @Html.ActionLink("Edit", "ModifierJournalActivite", new { id = item.Id }) |
+                @Html.ActionLink("Delete", "ModifierJournalActivite", new { /* id=item.PrimaryKey */ })
+            </td>
+            <td>@item.Detail</td>
+            <td>@String.Format("{0:g}", item.DateCreation)</td>
+            <td>@String.Format("{0:g}", item.DateModification)</td>
+            <td>@item.Id</td>
+        </tr>
+    }
+</table>

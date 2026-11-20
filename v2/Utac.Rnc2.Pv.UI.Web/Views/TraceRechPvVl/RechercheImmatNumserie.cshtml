@@ -1,0 +1,166 @@
+﻿@model Utac.Rnc2.Pv.UI.Web.Models.RechercheImmatSerieModel
+@using Utac.Rnc2.Web.Pv.Utils;
+
+@{ var otcIsMobileDevice = DeviceHelper.IsMobileDevice(Request.UserAgent); }
+
+@section TitleContent {
+    Recherche des PV d'un véhicule
+}
+@section SousTitrePage {
+
+    @if (otcIsMobileDevice)
+    {
+        @:Recherche des PV d'un véhicule depuis le @Model.DateLimit.ToShortDateString()
+    }
+    else
+    {
+        @:Liste des PV d'un véhicule depuis le @Model.DateLimit.ToShortDateString()
+    }
+}
+<div class="row w-100 no-gutters">
+
+    @using (Html.BeginForm("RechercheImmatNumserie", "TraceRechPvVl",
+        new { ReturnUrl = ViewBag.ReturnUrl },
+        FormMethod.Post, new { @class = "col-12" }))
+    {
+        @Html.ValidationSummary(true)
+        @Html.HiddenFor(model => model.DateLimit)
+        <fieldset class="row no-gutters mx-2 mx-md-0">
+            <div class="col-12 col-md-2 p-0">
+                <label class="@(otcIsMobileDevice ? "col-form-label-sm":" ")"
+                       for="SelectCategorie">
+                    Catégorie du véhicule
+                </label>
+                <div class="mb-1">
+                    <select id="SelectCategorie" name="CategorieValue" class="@(otcIsMobileDevice ?"form-control-sm w-100":"w-75")">
+                        @foreach (var item in Utac.Rnc2.UI.Web.Enums.CategorieVehicule.Values)
+                        {
+                            <option value="@item.Value" @(item.Ordinal == Model.Categorie.Ordinal ? "selected" : "")>
+                                @item.ToString()
+                            </option>
+                        }
+                    </select>
+                </div>
+                <br class="col-12 d-md-none" />
+            </div>
+            <div class="col-12 col-md-2 p-0">
+                <label class="@(otcIsMobileDevice ? "col-form-label-sm":" ")"
+                       for="Immatriculation">
+                    N° Immatriculation
+                </label>
+                <div class="mb-1">
+                    @Html.TextBoxFor(model => model.Immatriculation, new { @class = otcIsMobileDevice ? "form-control-sm w-100" : "w-100", style = "text-transform:uppercase;", @onclick = "ActivateInputButton();" })
+                    @Html.ValidationMessageFor(model => model.Immatriculation)
+                </div>
+            </div>
+            <div class="@(otcIsMobileDevice ? "col-form-label-sm":" ") col-12 col-md-1 p-0 text-center">
+                et/ou
+            </div>
+            <div class="col-12 col-md-2 p-0">
+                <label class="@(otcIsMobileDevice ? "col-form-label-sm":" ")"
+                       for="NumeroSerie">N° Série</label>
+                <div class="mb-1">
+                    @Html.TextBoxFor(model => model.NumeroSerie, new { @class = otcIsMobileDevice ? "form-control-sm w-100" : "w-100", @onclick = "ActivateInputButton();" })
+                    @Html.ValidationMessageFor(model => model.NumeroSerie)
+                </div>
+                <br class="col-12 d-md-none" />
+            </div>
+            <br class="col-12 d-md-none" />
+            <div class="col-12  col-md-2 p-0  pl-md-3">
+                <label class="@(otcIsMobileDevice ? "col-form-label-sm w-100":" ")"
+                       for="SelectDetails">Niveau de détails</label>
+                <div class="mb-1">
+                    <select id="SelectDetails"
+                            name="DetailValue"
+                            class="@(otcIsMobileDevice ?"form-control-sm w-100":"")">
+                        @foreach (var item in Utac.Rnc2.UI.Web.Enums.NiveauDetails.Values)
+                        {
+                            <option value="@item.Value" @(item.Ordinal == Model.Details.Ordinal ? "selected" : "")>
+                                @item.ToString()
+                            </option>
+                        }
+                    </select>
+                </div>
+                <br class="col-12 d-md-none" />
+            </div>
+            <div class="col-12 mt-2 mt-md-0 col-md-3 no-gutters row align-items-end align-items-md-start ">
+                <button type="submit"
+                        id="btInput"
+                        disabled
+                        class="@(otcIsMobileDevice ? "btn-primary rounded-lg col-form-label-sm":"btn primary")  col-12 col-md-7 p-1">
+                    <i class="fa fa-search text-white mr-2 d-md-none"></i>
+                    Recherche
+                </button>
+                <a class="d-none d-sm-none d-md-block  btn success col-xl-4 col-lg-4 col-md-4 offset-1 p-1"
+                   id="btCancel"
+                   href="@Url.Action("RechercheImmatNumserie", "TraceRechPvVl")">
+                    Effacer
+                </a>
+            </div>
+        </fieldset>
+    }
+</div>
+@if (@ViewData["message"] != null)
+{
+    <div id="MessageErreur" class="avertissement row no-gutters msg-font-size">@ViewData["message"]</div>
+    <br />
+    <script type="text/javascript">
+        document.getElementById("btInput").onclick = function () {
+            document.getElementById("MessageErreur").style.display = "none";
+            document.body.style.cursor = "wait";
+            document.getElementById("btInput").style.cursor = "wait";
+        }
+        window.location.href = '#MessageErreur';
+    </script>
+}
+else
+{
+    <script type="text/javascript">
+        document.getElementById("btInput").onclick = function () {
+            document.body.style.cursor = "wait";
+            document.getElementById("btInput").style.cursor = "wait";
+            document.getElementById("btCancel").style.cursor = "wait";
+        }
+        document.getElementById("btCancel").onclick = function () {
+            document.body.style.cursor = "wait";
+            document.getElementById("btCancel").style.cursor = "wait";
+            document.getElementById("btInput").style.cursor = "wait";
+        }
+    </script>
+    if (ViewBag.ScrollTo != null)
+    {
+        <script>
+                window.location.href = '@ViewBag.ScrollTo';
+        </script>
+    }
+}
+<div id="list" class="row no-gutters px-2">
+    <div class="col-12 row no-gutters px-2">
+        <div class="col-12 row no-gutters">@Html.Partial("RechercheResultatVl", Model)</div>
+    </div>
+    <div class="col-12 row no-gutters px-2">
+        <div class="col-12 row no-gutters">@Html.Partial("RechercheResultatPl", Model)</div>
+    </div>
+    <div class="col-12 row no-gutters px-2">
+        <div class="col-12 row no-gutters">@Html.Partial("RechercheResultatCl", Model)</div>
+    </div>
+</div>
+<!--18/05/2022 PLE Permettre de nouveau le téléchargement si changement de niveau séléectionné de détail du PV -->
+<script type="text/javascript">
+    document.getElementById('SelectDetails').onchange = function () {
+        var btns = document.getElementsByName('download_pv');
+        console.log(btns.length.toString()+ 'boutons');
+        for (var i = 0; i < btns.length; i++) {
+            if ($(window).width() < 768) {
+                btns[i].className = "border-0 fa fa-download title text-primary";
+            } else {
+                btns[i].className = "btn success";
+            }
+        }
+    };
+    //12/02/2024 PLE réactiver le  bouton post si modification formaulaire
+    function ActivateInputButton() {
+        document.getElementById("btInput").removeAttribute('disabled');
+        document.getElementById("btInput").className ="@(otcIsMobileDevice ? "btn-primary rounded-lg col-form-label-sm":"btn primary")" + " col-12 col-md-7 p-1";
+    }
+</script>

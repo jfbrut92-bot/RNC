@@ -1,0 +1,29 @@
+﻿@model Utac.Rnc2.BusinessObjects.rUtilisateur
+
+@section TitleContent {
+    Inscription
+}
+@section SousTitrePage {
+    Inscription sur RNC2 - Etape 1/4
+}
+Saisissez le nom puis le prénom de la personne habilitée par le représentant légal du centre, à se connecter sur Rnc2 pour le compte du centre de contrôle.
+@using (Html.BeginForm())
+{
+    @Html.ValidationSummary(true)
+    <fieldset>
+        <legend></legend>
+        <div class="editor-label">@Html.Label("Nom")</div>
+        <div class="editor-field">
+            @Html.TextBoxFor(model => model.Nom, new { Size = 32, Maxlength = 32 })
+            @Html.ValidationMessageFor(model => model.Nom)
+        </div>
+        <div class="editor-label">@Html.Label("Prénom")</div>
+        <div class="editor-field">
+            @Html.TextBoxFor(model => model.Prenom, new { Size = 32, Maxlength = 32 })
+            @Html.ValidationMessageFor(model => model.Prenom)
+        </div>
+        <p class="rnc2-form">
+            <button type="submit" value="Continuer" class="button">Continuer</button>
+        </p>
+    </fieldset>
+}

@@ -1,0 +1,25 @@
+﻿@model Utac.Rnc2.UI.Web.Models.NouveauCentreModel
+
+@section TitleContent {
+    Création d'un nouveau centre
+}
+@section SousTitrePage {
+    Création d'un nouveau Centre Spécialisé
+}
+<form method="post" action="@Url.Action( "Recherche","Centre")">
+    @Html.HiddenFor(m => m.EstCentreAdministration)
+    <input type="submit" value="< Précédent" class="btn success" />
+</form>
+<h2>Etape 0 : L'installation est-elle un centre de l'administration ?</h2>
+@using (Html.BeginForm("NouveauCentreEtape2", "Centre"))
+{
+    @:Non
+    @Html.RadioButtonFor(m => m.EstCentreAdministration, false, new { @checked = "checked" })
+    <br />
+    <br />
+    @:Oui
+    @Html.RadioButtonFor(m => m.EstCentreAdministration, true)
+    <br />
+    <br />
+    <button type="submit" value="Suivant" class="btn success">Suivant&nbsp;&nbsp;&nbsp;&gt;</button>
+}

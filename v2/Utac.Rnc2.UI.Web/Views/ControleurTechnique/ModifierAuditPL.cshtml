@@ -1,0 +1,55 @@
+﻿@model Utac.Rnc2.UI.Web.Models.AjoutAuditControleurPLModel
+
+@section TitleContent {
+    ModifierAuditPL
+}
+@section SousTitrePage {
+    Modification des informations d'un audit PL pour le  @Model.Controleur.Titre @Model.Controleur.Nom @Model.Controleur.Prenom - @Model.Controleur.CodAgremVl @Model.Controleur.CodAgremPl @Model.Controleur.CodAgremCl
+}
+@using (Html.BeginForm())
+{
+    @Html.ValidationSummary(true)
+    <fieldset>
+        <legend>Fields</legend>
+        <div class="clearfix">
+            Habilitation / Catégorie de véhicule contrôlée
+            <div class="input">
+                @Html.DropDownListFor(model => model.Audit.RCategorieVehicule.Id, new SelectList(Model.ListeCategorieVehicule, "Id", "LibelleCategorie"), new { @class = "input-xxlarge" })
+                @Html.ValidationMessageFor(model => model.Audit.RCategorieVehicule.Id)
+            </div>
+        </div>
+        <div class="editor-label">Date audit</div>
+        <div class="editor-field">
+            @Html.TextBoxFor(model => model.Audit.DateAudit)
+            @Html.ValidationMessageFor(model => model.Audit.DateAudit, null, new { @class = "alert-message error" })
+        </div>
+        <div class="editor-label">Numéro agrément installation</div>
+        <div class="editor-field">
+            @Html.TextBoxFor(model => model.Audit.CodAgremCntr)
+            @Html.ValidationMessageFor(model => model.Audit.CodAgremCntr, null, new { @class = "alert-message error" })
+        </div>
+        <div class="editor-label">Immatriculation véhicule</div>
+        <div class="editor-field">
+            @Html.TextBoxFor(model => model.Audit.ImmatVehicule)
+            @Html.ValidationMessageFor(model => model.Audit.ImmatVehicule, null, new { @class = "alert-message error" })
+        </div>
+        <div class="editor-label">Procès verbal</div>
+        <div class="editor-field">
+            @Html.TextBoxFor(model => model.Audit.NumPv)
+            @Html.ValidationMessageFor(model => model.Audit.NumPv, null, new { @class = "alert-message error" })
+        </div>
+        <div class="editor-label">Résultat audit</div>
+        <div class="editor-field">
+            Favorable @Html.RadioButtonFor(model => model.Audit.ResultatAudit, true, Model.Audit.ResultatAudit ? new { @checked = "checked" } : null)
+            Défavorable @Html.RadioButtonFor(model => model.Audit.ResultatAudit, false, !Model.Audit.ResultatAudit ? new { @checked = "checked" } : null)
+            @Html.ValidationMessageFor(model => model.Audit.ResultatAudit)
+        </div>
+        <br />
+        <div class="rowAligne">
+            <div class="editor-field">
+                <input type="submit" value="Confirmer" class="btn primary" />
+                <a class="btn success" href="@Url.Action("ListeAuditsPL","ControleurTechnique", new { id = Model.Controleur.Id})">Retour à la liste</a>
+            </div>
+        </div>
+    </fieldset>
+}

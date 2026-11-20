@@ -1,0 +1,267 @@
+﻿@model Utac.Rnc2.UI.Web.Models.NouveauCentreModel
+
+@section TitleContent {
+    ModifierFiche
+}
+@section SousTitrePage {
+    Modification de la fiche
+}
+@section StyleContent {
+    @Styles.Render("~/styles/jquery-ui")
+}
+<h3>Installation: @Model.Centre.RaisonSociale - @Model.Centre.CodAgremVl @Model.Centre.CodAgremPl @Model.Centre.CodAgremCl </h3>
+<br />
+@using (Html.BeginForm())
+{
+    @Html.ValidationSummary(true)
+<fieldset>
+    <div class="row">
+        <span class="editor-label">Raison sociale:</span>
+        <span class="editor-field">
+            @Html.TextBoxFor(model => model.Centre.RaisonSociale, new { size = "100", maxlength = "100" })
+            @Html.ValidationMessageFor(model => model.Centre.RaisonSociale)
+        </span>
+    </div>
+    <div class="editor-label">@Html.Label("Numéro de Siren")</div>
+    <div class="editor-field">
+        @Html.TextBoxFor(model => model.Centre.NumSiren, new { maxlength = "9" })
+        @Html.ValidationMessageFor(model => model.Centre.NumSiren)
+    </div>
+    <div class="editor-label">@Html.Label("Enseigne commerciale")</div>
+    <div class="editor-field">
+        @Html.TextBoxFor(model => model.Centre.EnseigneCommerciale, new { size = "100", maxlength = "100" })
+        @Html.ValidationMessageFor(model => model.Centre.EnseigneCommerciale)
+    </div>
+    <div class="editor-label">@Html.Label("Adresse Ligne 1")</div>
+    <div class="editor-field">
+        @Html.TextBoxFor(model => model.Centre.L1Adresse, new { size = "80", maxlength = "80" })
+        @Html.ValidationMessageFor(model => model.Centre.L1Adresse)
+    </div>
+    <div class="editor-label">@Html.Label("Adresse Ligne 2")</div>
+    <div class="editor-field">
+        @Html.TextBoxFor(model => model.Centre.L2Adresse, new { size = "80", maxlength = "80" })
+        @Html.ValidationMessageFor(model => model.Centre.L2Adresse)
+    </div>
+    <div class="editor-label">@Html.Label("Code postal")</div>
+    <div class="editor-field">
+        @Html.TextBoxFor(model => model.Centre.CpCentre, new { maxlength = "5" })
+        @Html.ValidationMessageFor(model => model.Centre.CpCentre)
+    </div>
+    <div class="editor-label">@Html.Label("Ville")</div>
+    <div class="editor-field">
+        @Html.TextBoxFor(model => model.Centre.Ville, new { size = "50", maxlength = "50" })
+        @Html.ValidationMessageFor(model => model.Centre.Ville)
+    </div>
+    <div class="editor-label">@Html.Label("N°Téléphone")</div>
+    <div class="editor-field">
+        @Html.TextBoxFor(model => model.Centre.NumTel, new { size = "12", maxlength = "10" })
+        @Html.ValidationMessageFor(model => model.Centre.NumTel)
+    </div>
+    <div class="editor-label">@Html.Label("Nom du représentant légal")</div>
+    <div class="editor-field">
+        @Html.TextBoxFor(model => model.Centre.NomRepresentantLegal, new { size = "100", maxlength = "100" })
+        @Html.ValidationMessageFor(model => model.Centre.NomRepresentantLegal)
+    </div>
+    <div class="editor-label">@Html.Label("Type de centre")</div>
+    <div class="editor-field">
+        @Html.TextBoxFor(model => model.Centre.TypeCentre)
+        @Html.ValidationMessageFor(model => model.Centre.TypeCentre)
+    </div>
+    <div class="editor-label">@Html.Label("Code département")</div>
+    <div class="editor-field">
+        @Html.TextBoxFor(model => model.Centre.CodDepartement, new { size = "5", maxlength = "3" })
+        @Html.ValidationMessageFor(model => model.Centre.CodDepartement)
+    </div>
+    <div class="editor-label">@Html.Label("Est public VL ?")</div>
+    <div class="editor-field">
+        @Html.CheckBoxFor(model => model.Centre.AccesPublicVl)
+        @Html.ValidationMessageFor(model => model.Centre.AccesPublicVl)
+    </div>
+    <div class="editor-label">@Html.Label("Agrément VL")</div>
+    <div class="editor-field">
+        @Html.TextBoxFor(model => model.Centre.CodAgremVl, new { size = "10", maxlength = "8" })
+        @Html.ValidationMessageFor(model => model.Centre.CodAgremVl)
+    </div>
+    <div class="editor-label">@Html.Label("Date effet notification Vl")</div>
+    <div class="editor-field">
+        @Html.EditorFor(model => model.Centre.DateEffetNotificationVl, String.Format("{0:d}", Model.Centre.DateEffetNotificationVl))
+        @Html.ValidationMessageFor(model => model.Centre.DateEffetNotificationVl)
+    </div>
+    <div class="editor-label">@Html.Label("Ancien agrément VL")</div>
+    <div class="editor-field">
+        @Html.TextBoxFor(model => model.Centre.AncienNumeroAgrementVl, new { size = "10", maxlength = "8" })
+        @Html.ValidationMessageFor(model => model.Centre.AncienNumeroAgrementVl)
+    </div>
+    <div class="editor-label">@Html.Label("Est public CL ?")</div>
+    <div class="editor-field">
+        @Html.CheckBoxFor(model => model.Centre.AccesPublicCl)
+        @Html.ValidationMessageFor(model => model.Centre.AccesPublicCl)
+    </div>
+    <div class="editor-label">@Html.Label("Agrément CL")</div>
+    <div class="editor-field">
+        @Html.TextBoxFor(model => model.Centre.CodAgremCl, new { size = "10", maxlength = "8" })
+        @Html.ValidationMessageFor(model => model.Centre.CodAgremCl)
+    </div>
+    <div class="editor-label">@Html.Label("Date effet notification Cl")</div>
+    <div class="editor-field">
+        @Html.EditorFor(model => model.Centre.DateEffetNotificationCl, String.Format("{0:d}", Model.Centre.DateEffetNotificationCl))
+        @Html.ValidationMessageFor(model => model.Centre.DateEffetNotificationCl)
+    </div>
+    <div class="editor-label">@Html.Label("Ancien agrément CL")</div>
+    <div class="editor-field">
+        @Html.TextBoxFor(model => model.Centre.AncienNumeroAgrementCl, new { size = "10", maxlength = "8" })
+        @Html.ValidationMessageFor(model => model.Centre.AncienNumeroAgrementCl)
+    </div>
+    <div class="editor-label">@Html.Label("Est public PL ?")</div>
+    <div class="editor-field">
+        @Html.CheckBoxFor(model => model.Centre.AccesPublicPl)
+        @Html.ValidationMessageFor(model => model.Centre.AccesPublicPl)
+    </div>
+    <div class="editor-label">@Html.Label("Agrément PL")</div>
+    <div class="editor-field">
+        @Html.TextBoxFor(model => model.Centre.CodAgremPl, new { size = "10", maxlength = "8" })
+        @Html.ValidationMessageFor(model => model.Centre.CodAgremPl)
+    </div>
+    <div class="editor-label">@Html.Label("Ancien agrément PL")</div>
+    <div class="editor-field">
+        @Html.TextBoxFor(model => model.Centre.AncienNumeroAgrementPl, new { size = "10", maxlength = "8" })
+        @Html.ValidationMessageFor(model => model.Centre.AncienNumeroAgrementPl)
+    </div>
+    <div class="editor-label">@Html.Label("Date effet notification Pl")</div>
+    <div class="editor-field">
+        @Html.EditorFor(model => model.Centre.DateEffetNotificationPl, String.Format("{0:d}", Model.Centre.DateEffetNotificationPl))
+        @Html.ValidationMessageFor(model => model.Centre.DateEffetNotificationPl)
+    </div>
+    <div class="editor-label">@Html.Label("Date fin agrement Pl")</div>
+    <div class="editor-field">
+        @Html.EditorFor(model => model.Centre.DateFinAgrementPl, String.Format("{0:d}", Model.Centre.DateFinAgrementPl))
+        @Html.ValidationMessageFor(model => model.Centre.DateFinAgrementPl)
+    </div>
+    <div class="editor-label">@Html.Label("Date écheance agrement Pl")</div>
+    <div class="editor-field">
+        @Html.EditorFor(model => model.Centre.DateEcheanceAgrementPl, String.Format("{0:d}", Model.Centre.DateEcheanceAgrementPl))
+        @Html.ValidationMessageFor(model => model.Centre.DateEcheanceAgrementPl)
+    </div>
+    <div class="editor-label">@Html.Label("Date fin agrement Vl")</div>
+    <div class="editor-field">
+        @Html.EditorFor(model => model.Centre.DateFinAgrementVl, String.Format("{0:d}", Model.Centre.DateFinAgrementVl))
+        @Html.ValidationMessageFor(model => model.Centre.DateFinAgrementVl)
+    </div>
+    <div class="editor-label">@Html.Label("Date fin agrement Cl")</div>
+    <div class="editor-field">
+        @Html.EditorFor(model => model.Centre.DateFinAgrementCl, String.Format("{0:d}", Model.Centre.DateFinAgrementCl))
+        @Html.ValidationMessageFor(model => model.Centre.DateFinAgrementCl)
+    </div>
+    <div class="editor-label">@Html.Label("Motif fin agrement Vl")</div>
+    <div class="editor-field">
+        @Html.TextBoxFor(model => model.Centre.MotifFinAgrementVl)
+        @Html.ValidationMessageFor(model => model.Centre.MotifFinAgrementVl)
+    </div>
+    <div class="editor-label">@Html.Label("Motif fin agrement Cl")</div>
+    <div class="editor-field">
+        @Html.TextBoxFor(model => model.Centre.MotifFinAgrementCl)
+        @Html.ValidationMessageFor(model => model.Centre.MotifFinAgrementCl)
+    </div>
+    <div class="editor-label">@Html.Label("Motif fin agrement Pl")</div>
+    <div class="editor-field">
+        @Html.TextBoxFor(model => model.Centre.MotifFinAgrementPl)
+        @Html.ValidationMessageFor(model => model.Centre.MotifFinAgrementPl)
+    </div>
+    <div class="editor-label">@Html.Label("Commentaire Vl")</div>
+    <div class="editor-field">
+        @Html.TextBoxFor(model => model.Centre.CommentaireAvisOtcVl)
+        @Html.ValidationMessageFor(model => model.Centre.CommentaireAvisOtcVl)
+    </div>
+    <div class="editor-label">@Html.Label("Etat agrement Vl")</div>
+    <div class="editor-field">
+        @Html.TextBoxFor(model => model.Centre.EtatAgrementVl)
+        @Html.ValidationMessageFor(model => model.Centre.EtatAgrementVl)
+    </div>
+    <div class="editor-label">@Html.Label("Etat agrement Cl")</div>
+    <div class="editor-field">
+        @Html.TextBoxFor(model => model.Centre.EtatAgrementCl)
+        @Html.ValidationMessageFor(model => model.Centre.EtatAgrementCl)
+    </div>
+    <div class="editor-label">@Html.Label("Etat agrement Pl")</div>
+    <div class="editor-field">
+        @Html.TextBoxFor(model => model.Centre.EtatAgrementPl)
+        @Html.ValidationMessageFor(model => model.Centre.EtatAgrementPl)
+    </div>
+    <div class="editor-label">@Html.Label("Commentaire Pl")</div>
+    <div class="editor-field">
+        @Html.TextBoxFor(model => model.Centre.CommentaireAvisOtcPl)
+        @Html.ValidationMessageFor(model => model.Centre.CommentaireAvisOtcPl)
+    </div>
+    <div class="editor-label">@Html.Label("Date effet modification")</div>
+    <div class="editor-field">
+        @Html.EditorFor(model => model.Centre.DateEffetModification, String.Format("{0:d}", Model.Centre.DateEffetModification))
+        @Html.ValidationMessageFor(model => model.Centre.DateEffetModification)
+    </div>
+    <div class="editor-label">@Html.Label("NumFax")</div>
+    <div class="editor-field">
+        @Html.TextBoxFor(model => model.Centre.NumFax)
+        @Html.ValidationMessageFor(model => model.Centre.NumFax)
+    </div>
+    <div class="editor-label">
+        @Html.Label("Numéro accuse reception VL")
+    </div>
+    <div class="editor-field">
+        @Html.TextBoxFor(model => model.Centre.NumAccuseReceptionVL)
+        @Html.ValidationMessageFor(model => model.Centre.NumAccuseReceptionVL)
+    </div>
+    <div class="editor-label">
+        @Html.Label("Numéro accuse reception CL")
+    </div>
+    <div class="editor-field">
+        @Html.TextBoxFor(model => model.Centre.NumAccuseReceptionCL)
+        @Html.ValidationMessageFor(model => model.Centre.NumAccuseReceptionCL)
+    </div>
+    <div class="editor-label">
+        @Html.Label("Numéro accuse reception PL")
+    </div>
+    <div class="editor-field">
+        @Html.TextBoxFor(model => model.Centre.NumAccuseReceptionPL)
+        @Html.ValidationMessageFor(model => model.Centre.NumAccuseReceptionPL)
+    </div>
+    <div class="editor-label">
+        @Html.Label("Extension agrément CL / Statut 1=Oui 0=Non")
+    </div>
+    <div class="editor-field">
+        @Html.TextBoxFor(model => model.Centre.ExtAgremClStatut)
+        @Html.ValidationMessageFor(model => model.Centre.ExtAgremClStatut)
+    </div>
+    <div class="editor-label">
+        @Html.Label("Extension agrément CL / Date validité")
+    </div>
+    <div class="editor-field">
+        @Html.TextBoxFor(model => model.Centre.ExtAgremClDateValid)
+        @Html.ValidationMessageFor(model => model.Centre.ExtAgremClDateValid)
+    </div>
+    <div class="editor-label">
+        @Html.Label("Extension agrément CL / Date déclaration")
+    </div>
+    <div class="editor-field">
+        @Html.TextBoxFor(model => model.Centre.ExtAgremClDateDecla)
+        @Html.ValidationMessageFor(model => model.Centre.ExtAgremClDateDecla)
+    </div>
+    <div class="editor-label">
+        @Html.Label("Extension agrément CL / catégorie véhicule 1=VL 2=PL")
+    </div>
+    <div class="editor-field">
+        @Html.TextBoxFor(model => model.Centre.ExtAgremClCatVeh)
+        @Html.ValidationMessageFor(model => model.Centre.ExtAgremClCatVeh)
+    </div>
+    @Html.HiddenFor(model => model.Centre.Id)
+    <br />
+    <div class="row">
+        <input type="submit" value="Enregistrer" class="btn primary" />
+        <a class="btn success" href="@Url.Action("Fiche","Centre", new { id = Model.Centre.Id})">Retour à la fiche</a>
+    </div>
+</fieldset>
+}
+@section JavaScriptContent {
+    <!-- DatePicker -->
+    @Scripts.Render("~/scripts/date-picker")
+    <!-- autocomplete pour codepostal/ville -->
+    @Scripts.Render("~/scripts/creation-centre")
+}

@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<hibernate-mapping xmlns="urn:nhibernate-mapping-2.2" namespace="Utac.Rnc2.BusinessObjects" assembly="Utac.Rnc2.BusinessObjects">
+	<class name="Utac.Rnc2.BusinessObjects.rReseau, Utac.Rnc2.BusinessObjects" table="r_reseau" lazy="true">
+		<id name="Id" column="cod_reseau">
+		 	<generator class="assigned" />
+		</id>
+		<property name="Nom" column="nom" />
+		<!-- EG le 12/04/2011 <property name="Logo" column="logo" /> -->
+    <property name="TypeReseauPl" column="type_reseau_pl" />
+		<property name="TypeReseauVl" column="type_reseau_vl" />
+    <!-- EG le 12/04/2011 -->
+    <property name="TypeReseauCl" column="type_reseau_cl" />
+    <!-- PLE le 14/02/2024-->
+    <property name="LettreReseau" column="lettre_reseau" />
+    <property name="BddTechLogin" column="bdd_tech_login" />
+    <property name="FacturePapier" column="facture_papier" />
+    <property name="EmailFacturation" column="email_facturation" />
+		<bag name="PConformiteLogiciels" lazy="true" cascade="all" inverse="true" >
+			<key column="cod_reseau"></key>
+			<one-to-many class="pConformiteLogiciel"></one-to-many>
+		</bag>
+		<bag name="PCentreEncours" lazy="true" cascade="all-delete-orphan" inverse="true" >
+			<key column="cod_reseau"></key>
+			<one-to-many class="pCentreEncour"></one-to-many>
+		</bag>
+		<bag name="PCentreHistos" lazy="true" cascade="all-delete-orphan" inverse="true" >
+			<key column="cod_reseau"></key>
+			<one-to-many class="pCentreHisto"></one-to-many>
+		</bag>
+		<bag name="PGestionCertificats" lazy="true" cascade="all" inverse="true" >
+			<key column="cod_reseau"></key>
+			<one-to-many class="pGestionCertificat"></one-to-many>
+		</bag>
+		<bag name="PInfoRdvs" lazy="true" cascade="all" inverse="true" >
+			<key column="cod_reseau"></key>
+			<one-to-many class="pInfoRdv"></one-to-many>
+		</bag>
+    <bag name="RUtilisateurs" table="r_reseau_appartenance" lazy="true" cascade="none" >
+      <key column="cod_reseau"></key>
+      <many-to-many class="rUtilisateur" column="cod_utilisateur"></many-to-many>
+    </bag>
+    <!--
+		<bag name="RUtilisateurs1" lazy="true" cascade="all" inverse="true" >
+			<key column="cod_reseau"></key>
+			<one-to-many class="rUtilisateur"></one-to-many>
+		</bag>
+		<bag name="RUtilisateurs2" lazy="true" cascade="all" inverse="true" >
+			<key column="cod_reseau2"></key>
+			<one-to-many class="rUtilisateur"></one-to-many>
+		</bag>
+    -->
+    <!-- eddy -->
+    <bag name="PRapportExceptions" lazy="true" cascade="all" inverse="true">
+      <key column="cod_reseau"></key>
+      <one-to-many class="pRapportException"/>
+    </bag>
+    <bag name="PFactures" lazy="true" cascade="all" inverse="true">
+      <key column="cod_reseau"></key>
+      <one-to-many class="pFacture"/>
+    </bag>
+	</class>
+</hibernate-mapping>
+

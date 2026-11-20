@@ -1,0 +1,117 @@
+﻿@model Utac.Rnc2.UI.Web.Models.InformationPersonelle
+@using Utac.Rnc2.BusinessObjects
+
+@section TitleContent {
+    Information
+}
+@section SousTitrePage {
+    Information Utilisateur connecté
+}
+<div id="boiteDialogue">
+    <h2>Information Personnel / Information pratique</h2>
+    <fieldset id="utilisateur">
+        <div>
+            <span class="display-label">Nom:</span>
+            <span class="display-field">@Model.Nom</span>
+            <span class="display-label">Prénom:</span>
+            <span class="display-field">@Model.Prenom</span>
+            <span class="display-label">Profil d'utilisation:</span>
+            <span class="display-field">@Model.Profil</span>
+            @if (Model.Profil.Equals(rUtilisateur.Profil.PREFECTURE.ToString()))
+            {
+                <span class="display-field">
+                    @Model.Utilisateur.RPrefecture.LibellePrefecture (@Model.Utilisateur.RPrefecture.CodDepartement)
+                </span>
+            }
+            @if (Model.Profil.StartsWith(rUtilisateur.Profil.RESEAU.ToString()) && Model.Utilisateur.RReseaux != null)
+            {
+                <span class="display-label">sur le(s) réseau(x) suivant(s) :</span>
+                foreach (rReseau r in Model.Utilisateur.RReseaux)
+                {
+                    <span class="display-field">@r.ReseauAvecLettreEtCategorieSeuls,</span>
+                }
+            }
+        </div>
+        <div>
+            <span class="display-label">Email:</span>
+            <span class="display-field">@Model.Email</span>
+            <span class="display-label">Téléphone:</span>
+            <span class="display-field">@Model.Telephone</span>
+            <span class="display-label">Dernière connection ou tentative:</span>
+            <span class="display-field">@Model.DateDerniereConnexion</span>
+        </div>
+        <ul>
+            <li>
+                @*
+            Pour renouveler votre mot de passe, cliquer
+       
+            @Html.ActionLink("ici", "RenewPassword0").
+                *@
+            </li>
+        </ul>
+    </fieldset>
+    <table border="0">
+        <tr>
+            <td width="60%">
+                <h2>Application RNC2</h2>
+                <fieldset id="application">
+                    <legend></legend>
+                    RNC2 - Registre National des installations de Contrôle et des Contrôleurs.
+                    <br />
+                    OTC - Organisme Technique Central.
+                </fieldset>
+            </td>
+            <td width="40%" style="vertical-align:middle">
+                <img style="max-width: 100%;max-height: 100%;display: block;" src="/Content/images/Logo_OTC_Blue_RGB.png" />
+            </td>
+        </tr>
+    </table>
+    @if (User.IsInRole(rUtilisateur.Profil.PREFECTURE.ToString()) || User.IsInRole(rUtilisateur.Profil.DRIRE.ToString()) || User.IsInRole(rUtilisateur.Profil.DSCR.ToString()) || User.IsInRole(rUtilisateur.Profil.OTC.ToString()))
+    {
+        <h2>Manuel d'aide RNC2 - Préfectures et organismes chargés de la surveillance - Version du 19/01/2017</h2>
+        <fieldset id="manuel">
+            <ul>
+                <li>
+                    Télécharger le manuel d'aide au format PDF :
+                    <a target="_blank"
+                       href="../../Content/ressources/RNC2_manuel_prefecture.pdf"
+                       title="Cliquez sur le fichier avec le bouton droit de la souris et choisissez l'option Enregistrer Sous ...">
+                        RNC2_manuel_prefecture.pdf
+                    </a>
+                </li>
+            </ul>
+        </fieldset>
+    }
+    @if (User.IsInRole(rUtilisateur.Profil.CENTRE_INDEPENDANT.ToString()) || User.IsInRole(rUtilisateur.Profil.OTC.ToString()))
+    {
+        <h2>Manuel d'aide RNC2 - Centre non-rattaché - Version du 23/01/2017</h2>
+        <fieldset id="manuelcnr">
+            <ul>
+                <li>
+                    Télécharger le manuel d'aide au format PDF :
+                    <a target="_blank"
+                       href="../../Content/ressources/RNC2_manuel_cnr.pdf"
+                       title="Cliquez sur le fichier avec le bouton droit de la souris et choisissez l'option Enregistrer Sous ...">
+                        RNC2_manuel_cnr.pdf
+                    </a>
+                </li>
+            </ul>
+        </fieldset>
+    }
+    @if (User.IsInRole(rUtilisateur.Profil.RESEAU.ToString()) || User.IsInRole(rUtilisateur.Profil.OTC.ToString()))
+    {
+        <h2>Manuel d'aide RNC2 - Réseau - Version du 12/03/2012</h2>
+        <fieldset id="manuelreseau">
+            <ul>
+                <li>
+                    Télécharger le manuel d'aide au format PDF :
+                    <a target="_blank"
+                       href="../../Content/ressources/RNC2_manuel_reseau.pdf"
+                       title="Cliquez sur le fichier avec le bouton droit de la souris et choisissez l'option Enregistrer Sous ...">
+                        RNC2_manuel_reseau.pdf
+                    </a>
+                </li>
+            </ul>
+        </fieldset>
+    }
+</div>

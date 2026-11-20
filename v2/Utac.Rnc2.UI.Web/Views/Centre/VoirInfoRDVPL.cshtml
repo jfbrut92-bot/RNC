@@ -1,0 +1,69 @@
+﻿@model Utac.Rnc2.BusinessObjects.pCentreEncour
+@using Utac.Rnc2.BusinessObjects
+@using Utac.Rnc2.UI.Web.Helpers
+
+@section TitleContent {
+    Informations de prise de rendez-vous PL pour le centre @Model.RaisonSociale
+}
+@section SousTitrePage {
+    Informations de prise de rendez-vous PL pour le centre @Model.RaisonSociale
+}
+<div class="editor-label">
+    <label>N°de téléphone de l'installation :</label> : @Model.NumTel
+</div>
+<div class="editor-label">
+    @Html.Label("N°de fax de l'installation") : @Model.NumFax
+</div>
+@if (Model.ReseauRattachementPL.Id == Convert.ToString(rReseau.IdCodeReseau.Z))
+{
+    <div class="editor-label">
+        <label>N°de téléphone de la centrale de réservation : </label>
+        @Model.PInfoRdvs[0].NumTelCentrale
+    </div>
+    <div class="editor-label">
+        <label>Tarification : </label>
+        @Model.PInfoRdvs[0].NumTelTarif
+    </div>
+    <div class="editor-label">
+        <label>Site web : </label>
+        @Model.PInfoRdvs[0].SiteWeb
+    </div>
+    <div class="editor-label">
+        <label>Serveur minitel : </label>
+        @Model.PInfoRdvs[0].ServeurMinitel
+    </div>
+}
+@if (Model.ReseauRattachementPL.Id != Convert.ToString(rReseau.IdCodeReseau.Z))
+{
+    <div class="editor-label">
+        <label>N°de téléphone de la centrale de réservation : </label>
+        @Model.ReseauRattachementPL.PInfoRdvs[0].NumTelCentrale
+    </div>
+    <div class="editor-label">
+        <label>Tarification : </label>
+        @Model.ReseauRattachementPL.PInfoRdvs[0].NumTelTarif
+    </div>
+    <div class="editor-label">
+        <label>Site web : </label>
+        @Model.ReseauRattachementPL.PInfoRdvs[0].SiteWeb
+    </div>
+    <div class="editor-label">
+        <label>Serveur minitel : </label>
+        @Model.ReseauRattachementPL.PInfoRdvs[0].ServeurMinitel
+    </div>
+}
+@if (GestionDroitsExecution.isRightActionForCentre(User, Model, GestionDroitsExecution.ActionsFicheCentre.RDV))
+{
+    <br />
+    <div class="rowAligne">
+        <a class="btn primary" href="@Url.Action("ModifierInfoRDVPL","Centre", new { id = Model.Id})">Modifier informations de prise de RDV</a>
+        <a class="btn success" href="@Url.Action("Fiche","Centre", new { id = Model.Id})">Retour à la fiche</a>
+    </div>
+}
+else
+{
+    <br />
+    <div class="rowAligne">
+        <a class="btn success" href="@Url.Action("Fiche","Centre", new { id = Model.Id})">Retour à la fiche</a>
+    </div>
+}

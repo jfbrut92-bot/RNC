@@ -1,0 +1,23 @@
+﻿@model IEnumerable<Utac.Rnc2.BusinessObjects.statistiques.NombreControleursParRegionEtDepartement>
+
+<table>
+    <tr>
+        <th>LibelleRegion</th>
+        <th>CodeDepartement</th>
+        <th>NombreControleurPL</th>
+        <th>NombreControleurVL</th>
+        <th>NombreControleurPlEtVl</th>
+    </tr>
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>@item.LibelleRegion</td>
+            <td>@item.CodeDepartement</td>
+            <td>
+                @item.NombreControleurPL
+            </td>
+            <td>@item.NombreControleurVL</td>
+            <td>@item.NombreControleurPlEtVl</td>
+        </tr>
+    }
+</table>

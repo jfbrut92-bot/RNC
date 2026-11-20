@@ -1,0 +1,124 @@
+﻿@model Utac.Rnc2.BusinessObjects.rUtilisateur
+
+@using Utac.Rnc2.BusinessObjects
+<fieldset>
+    <h4>Votre centre</h4>
+    <div class="">
+        Agrément : @Model.AgrementCentre
+        Raison sociale : @Model.MonCentre.RaisonSociale
+    </div>
+
+    <div>
+        Représentant légal : @Model.MonCentre.NomRepresentantLegal
+        <br />
+        Courriel :
+        @if (Model.Email != null)
+        {
+            @Model.Email
+        }
+        else
+        {
+            <b>Aucune adresse n'est enregistrée!</b>
+        }
+        @*
+        <a href="@Url.Action("ModifierAdresseMail","Home",new { id=Model.Id })">Modifier adresse mail</a>&nbsp;|&nbsp;
+        @Html.ActionLink("Obtenir un nouveau mot de passe", "RenewPassword0", "Information")
+        *@
+    </div>
+    <br />
+    <div>Enseigne commerciale : @Model.MonCentre.EnseigneCommerciale</div>
+    <div>Adresse : @Model.MonCentre.AdresseComplete</div>
+</fieldset>
+<br />
+<div>
+    <ul>
+
+        @if (Model.MonCentreEstVL)
+        {
+            <!-- 06/06/2013 PLE Interdiction de télécharger un certificat pour une centre non valide -->
+            if (Model.MonCentre.EstAgrementValideVL)
+            {
+                <li>
+                    Accès direct au @Html.ActionLink("télechargement du certificat électronique", "ListeOperationCentreNonRattache", "PKI", new { id = Model.MonCentre.Id, categorie = rCategorieVehicule.CategorieEnum.VL }, null) de communication avec l'OTC.
+                </li>
+            }
+            <li>
+                Accès direct à la @Html.ActionLink("liste des rapports d'exception", "ListeRapportException", "Centre", new { id = Model.MonCentre.Id, categorie = rCategorieVehicule.CategorieEnum.VL }, null) disponibles en téléchargement.
+            </li>
+            <li>
+                Accès direct à la @Html.ActionLink("liste des factures VL", "ListeFactureCentre", "Facture", new { id = Model.MonCentre.Id, categorie = rCategorieVehicule.CategorieEnum.VL }, null) disponibles en téléchargement.
+            </li>
+            if (Model.PCentreEncourVL.EquipementCentreVLs.Count == 0)
+            {
+                <li>
+                    Renseigner @Html.ActionLink("les équipements spécifiques VL", "CreateEquipementSpecifiqueVL", "Centre", new { id = Model.MonCentre.Id }, null)
+                </li>
+            }
+            if (Model.PCentreEncourVL.EquipementCentreVLs.Count > 0)
+            {
+                <li>Voir @Html.ActionLink("les équipements spécifiques VL et véhicules gaz", "VoirEquipementSpecifiqueVL", "Centre", new { id = Model.MonCentre.Id }, null) renseignés</li>
+            }
+
+            <li>Pour déclarer une <strong>Extension d'agrément catégorie L</strong> ou consulter les autres informations sur le centre, <nobr>@Html.ActionLink("ouvrir la fiche du centre.", "Fiche", "Centre", new { id = Model.MonCentre.Id }, null)</nobr></li>
+        }
+        @if (Model.MonCentreEstPL)
+        {
+            <!-- 06/06/2013 PLE Interdiction de télécharger un certificat pour une centre non valide -->
+            if (Model.MonCentre.EstAgrementValidePL)
+            {
+                <li>
+                    Accès direct au @Html.ActionLink("télechargement du certificat électronique", "ListeOperationCentreNonRattache", "PKI", new { id = Model.MonCentre.Id, categorie = rCategorieVehicule.CategorieEnum.PL }, null) de communication avec l'OTC.
+                </li>
+            }
+            <li>
+                Accès direct à la @Html.ActionLink("liste des rapports d'exception", "ListeRapportException", "Centre", new { id = Model.MonCentre.Id, categorie = rCategorieVehicule.CategorieEnum.PL }, null) disponibles en téléchargement.
+            </li>
+            <li>
+                Accès direct à la @Html.ActionLink("liste des factures PL", "ListeFactureCentre", "Facture", new { id = Model.MonCentre.Id, categorie = rCategorieVehicule.CategorieEnum.PL }, null) disponibles en téléchargement.
+            </li>
+
+            if (Model.PCentreEncourPL.EquipementCentrePLs.Count == 0)
+            {
+                <li>
+                    Renseigner @Html.ActionLink("les équipements spécifiques PL", "CreateEquipementSpecifiquePL", "Centre", new { id = Model.MonCentre.Id }, null)
+                </li>
+            }
+            if (Model.PCentreEncourPL.EquipementCentrePLs.Count > 0)
+            {
+                <li>
+                    Voir @Html.ActionLink("les équipements spécifiques PL", "VoirEquipementSpecifiquePL", "Centre", new { id = Model.MonCentre.Id }, null) renseignés
+                </li>
+            }
+            <li>Pour déclarer une <strong>Extension d'agrément catégorie L</strong> ou consulter les autres informations sur le centre, <nobr>@Html.ActionLink("ouvrir la fiche du centre.", "Fiche", "Centre", new { id = Model.MonCentre.Id }, null)</nobr></li>
+        }
+        @if (Model.MonCentreEstCL)
+        {
+            <li>
+                Accès direct au @Html.ActionLink("télechargement du certificat électronique", "ListeOperationCentreNonRattache", "PKI", new { id = Model.MonCentre.Id, categorie = rCategorieVehicule.CategorieEnum.CL }, null) de communication avec l'OTC.
+            </li>
+            <li>
+                Accès direct à la @Html.ActionLink("liste des rapports d'exception", "ListeRapportException", "Centre", new { id = Model.MonCentre.Id, categorie = rCategorieVehicule.CategorieEnum.CL }, null) disponibles en téléchargement.
+            </li>
+            <li>
+                Accès direct à la @Html.ActionLink("liste des factures CL", "ListeFactureCentre", "Facture", new { id = Model.MonCentre.Id, categorie = rCategorieVehicule.CategorieEnum.CL }, null) disponibles en téléchargement.
+            </li>
+
+            <!-- 22/02/2024 PLE Catégorie L : pas d'équipement spécifique
+        if (Model.PCentreEncourCL.EquipementCentreCLs.Count == 0)
+        {
+            <li>
+                Renseigner @Html.ActionLink("les équipements spécifiques CL", "CreateEquipementSpecifiqueCL", "Centre", new { id = Model.MonCentre.Id }, null)
+            </li>
+        }
+        if (Model.PCentreEncourCL.EquipementCentreCLs.Count > 0)
+        {
+            <li>
+                Voir @Html.ActionLink("les équipements spécifiques CL", "VoirEquipementSpecifiqueCL", "Centre", new { id = Model.MonCentre.Id }, null) renseignés
+            </li>
+        }
+        -->
+        }
+
+        <li>Pour consulter les autres informations sur le centre, <nobr>@Html.ActionLink("ouvrir la fiche du centre.", "Fiche", "Centre", new { id = Model.MonCentre.Id }, null)</nobr></li>
+    </ul>
+</div>

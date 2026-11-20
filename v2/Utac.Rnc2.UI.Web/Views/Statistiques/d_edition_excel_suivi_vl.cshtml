@@ -1,0 +1,7 @@
+﻿@model IEnumerable<Utac.Rnc2.BusinessObjects.statistiques.ItemListeSuiviQualificationVL>
+@{ Layout = null; }
+Nom;Prenom;Date Naissance;Code Agrement;Code Agrement Centre;Code Postal;Ville;Departement;Region;Date Rattachement Centre;Habilitation gaz;Date Habilitation gaz;Reseau;Date Agrément
+@foreach (var item in Model)
+{
+@:@item.Nom;@item.Prenom;@String.Format("{0:d}", item.DateNaissance);@item.CodAgrement;@item.CodeAgrementCentre;@item.CodePostal;@item.Ville;="@item.CodeDepartement";@item.LibelleRegion;@String.Format("{0:d}", item.DateDebutRattachementCentre);@(item.CodeHabilitation == "1" ? "Oui" : "Non");@(item.DateDebutHabilitation.Year != 0001 ? string.Format("{0:d}", item.DateDebutHabilitation) : "");@item.CodReseau;@String.Format("{0:d}", item.DateAgrement)
+}
